@@ -26,8 +26,13 @@ WsGame="*res://addons/windshear/core/ws_game.gd"
 
 window/size/viewport_width=480
 window/size/viewport_height=270
-window/size/window_width_override=1280
-window/size/window_height_override=720
+; 960x540 is exactly 2x the internal 480x270 buffer, so every internal
+; pixel lands on a clean 2x2 block and the nearest-neighbour upscale
+; stays perfectly even. 1440x810 (3x) and 1920x1080 (4x) work the same
+; way. 1280x720 is not one of them -- 480x270 -> 1280x720 is 2.67x, so
+; the last row and column of pixels get squeezed.
+window/size/window_width_override=960
+window/size/window_height_override=540
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep"
 
@@ -99,6 +104,12 @@ toggle_splits={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194306,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
+toggle_help={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194332,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":72,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
 
 [physics]
 
@@ -106,6 +117,14 @@ common/physics_ticks_per_second=60
 common/max_physics_steps_per_frame=4
 common/physics_jitter_fix=0.0
 3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+lights_and_shadows/directional_shadow/soft_shadow_filter_quality=0
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)
 
 [shader_globals]
 
@@ -121,11 +140,3 @@ psx_affine={
 "type": "float",
 "value": 0.0
 }
-
-[rendering]
-
-textures/canvas_textures/default_texture_filter=0
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"
-lights_and_shadows/directional_shadow/soft_shadow_filter_quality=0
-environment/defaults/default_clear_color=Color(0, 0, 0, 1)

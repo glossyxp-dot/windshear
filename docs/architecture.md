@@ -111,7 +111,7 @@ Everything that can be a table, is a table.
 | --- | --- |
 | `data/fractures.json` | The twelve Fractures, with stable ids and their legality flags |
 | `data/schedule.json` | The Concord gate and regulation schedules, per section |
-| `data/sections/index.json` | The 6 × 12 section index, with difficulty and par times |
+| `data/sections/index.json` | The 20 × 12 section index, with difficulty and par times |
 | `data/story/dialogue/en.json` | The dialogue |
 | `data/story/beats/*.beat.json` | The story beats, AMBIENT and MAJOR |
 | `data/story/endings.json` | The endings table |
@@ -124,6 +124,12 @@ The rule for the Fractures is in `TECH_SPEC.md` §6 and it is a policy, not an
 implementation detail: **a shipped Fracture is never removed or altered,
 only added.** Routes recorded against version 1 of a Fracture have to keep
 working, so the Fracture has to keep behaving the same way.
+
+`tests/test_world_data.gd` reads all five files and checks that they still
+describe the same world: 240 sections numbered 1.01 to 20.12, a gate schedule
+that covers every one of them, twelve Fractures, and beats and endings that
+point at ids which exist. It collects every problem into one failure message
+instead of printing a wall of near-identical lines.
 
 ### Editions
 
@@ -235,16 +241,18 @@ asserts that no technique ever produces a Z velocity.
 
 The input map is generated rather than hand-written because the hand-written
 form is a wall of `Object(InputEventKey, ...)` lines that nobody can review.
-The tool preserves the comment header of `project.godot` and rewrites only
-the section it owns.
+The tool preserves every other setting and comment in `project.godot` and
+replaces only the section it owns.
 
 ```bash
 godot --headless --path . --script res://tools/setup_input_map.gd
 ```
 
-Note that `ProjectSettings.save()` drops any setting that equals the engine
-default, so a full save will quietly remove things. The input tool does not
-use it.
+It has to call `ProjectSettings.save()` to make Godot serialise the input
+events, and that call rewrites the whole file and drops any setting that
+happens to equal the engine default. So the tool reads the original text
+first, saves, then splices the new `[input]` section back into the original.
+Re-running it produces a byte-identical file.
 
 ---
 
@@ -262,6 +270,7 @@ use it.
 - **The controller's `simulate()` is called explicitly.** The physics
   callback does not call it, because the tests call it directly and the two
   paths must be the same path.
-- **The greybox materials are `StandardMaterial3D`, not the PSX shader.** All
-  the visual work is done by hand outside the engine, and the shader is
-  shipped ready to be used rather than imposed on placeholder art.
+- **The greybox materials are files in `assets/materials/`.** They are
+  `ShaderMaterial` resources using the PSX shader, loaded through
+  `material_override` so the Inspector can find them. A material buried inline
+  in a scene cannot be edited once and reused, so the test suite rejects one.

@@ -90,6 +90,166 @@
       "id": "en.011",
       "speaker_id": "the_concord",
       "text": "Carrier deviation recorded. Recovery route authorized."
+    },
+    {
+      "id": "en.012",
+      "speaker_id": "lancer",
+      "text": "Ventworks intake. Going down."
+    },
+    {
+      "id": "en.013",
+      "speaker_id": "the_concord",
+      "text": "Below the regulation boundary, carrier presence is logged at district level only."
+    },
+    {
+      "id": "en.014",
+      "speaker_id": "ilsa_renn",
+      "text": "That is the point of the under-city. Down there the Concord knows how many blocks there are, not who is standing in them."
+    },
+    {
+      "id": "en.015",
+      "speaker_id": "lancer",
+      "text": "Quiet Line, freight twelve. Capsule coming in under."
+    },
+    {
+      "id": "en.016",
+      "speaker_id": "the_concord",
+      "text": "Freight spine throughput restored to pre-Fracture figures. Please keep the line clear."
+    },
+    {
+      "id": "en.017",
+      "speaker_id": "ilsa_renn",
+      "text": "It says pre-Fracture like it is proud of it."
+    },
+    {
+      "id": "en.018",
+      "speaker_id": "the_concord",
+      "text": "Boundary breach. Seal number 4-C, quarantine line 12, sector void."
+    },
+    {
+      "id": "en.019",
+      "speaker_id": "warden_saye",
+      "text": "Lancer. There is no sector void. There is a wall, and you are on the wrong side of it."
+    },
+    {
+      "id": "en.020",
+      "speaker_id": "lancer",
+      "text": "Then the wall has more people behind it than you told me."
+    },
+    {
+      "id": "en.021",
+      "speaker_id": "ilsa_renn",
+      "text": "It does. Whole blocks. They keep it quiet so nobody compares numbers."
+    },
+    {
+      "id": "en.022",
+      "speaker_id": "first_runner",
+      "text": "Regulation failed here. Not because the wind was strong. Because nobody was counting."
+    },
+    {
+      "id": "en.023",
+      "speaker_id": "the_concord",
+      "text": "Year Zero. Atmospheric regulation offline at 04:12. All city districts unsealed. No recovery schedule exists."
+    },
+    {
+      "id": "en.024",
+      "speaker_id": "first_runner",
+      "text": "I ran it. Every open gate in the city that night, and I could not reach the other side fast enough."
+    },
+    {
+      "id": "en.025",
+      "speaker_id": "lancer",
+      "text": "You are the one who broke it."
+    },
+    {
+      "id": "en.026",
+      "speaker_id": "first_runner",
+      "text": "I am the one who was fast enough to notice it breaking."
+    },
+    {
+      "id": "en.027",
+      "speaker_id": "ilsa_renn",
+      "text": "Lancer. The seams down here are not concrete. They are grown."
+    },
+    {
+      "id": "en.028",
+      "speaker_id": "the_concord",
+      "text": "Structural patching is within the maintenance mandate. No further comment."
+    },
+    {
+      "id": "en.029",
+      "speaker_id": "lancer",
+      "text": "It grew because you made it grow."
+    },
+    {
+      "id": "en.030",
+      "speaker_id": "the_concord",
+      "text": "It grew because it was permitted to. That is what patching is."
+    },
+    {
+      "id": "en.031",
+      "speaker_id": "ilsa_renn",
+      "text": "That route has been in the Concord records for twenty years. Same line. Same cadence. Every year it runs itself."
+    },
+    {
+      "id": "en.032",
+      "speaker_id": "first_runner",
+      "text": "I left the route. It did not."
+    },
+    {
+      "id": "en.033",
+      "speaker_id": "lancer",
+      "text": "You have been teaching the Concord how you run."
+    },
+    {
+      "id": "en.034",
+      "speaker_id": "first_runner",
+      "text": "It only ever learned the parts I was proud of."
+    },
+    {
+      "id": "en.035",
+      "speaker_id": "warden_saye",
+      "text": "You are going to the canopy. I have read the same order you have. I signed it."
+    },
+    {
+      "id": "en.036",
+      "speaker_id": "lancer",
+      "text": "Then you know what it says."
+    },
+    {
+      "id": "en.037",
+      "speaker_id": "warden_saye",
+      "text": "It says the city stays sealed. It does not say why. I stopped asking why some years ago."
+    },
+    {
+      "id": "en.038",
+      "speaker_id": "the_concord",
+      "text": "Canopy anchor tension nominal. No traffic is scheduled above the last regulation layer."
+    },
+    {
+      "id": "en.039",
+      "speaker_id": "lancer",
+      "text": "Good. I am not traffic."
+    },
+    {
+      "id": "en.040",
+      "speaker_id": "the_concord",
+      "text": "Final choice available. Open the canopy, or restore the schedule. Both are within your licence."
+    },
+    {
+      "id": "en.041",
+      "speaker_id": "lancer",
+      "text": "Neither one is within my licence. That is the whole point."
+    },
+    {
+      "id": "en.042",
+      "speaker_id": "the_concord",
+      "text": "Recorded. The choice remains available."
+    },
+    {
+      "id": "en.043",
+      "speaker_id": "the_concord",
+      "text": "Twelve deviations recorded against the official route. Each is technically legal. One of them is required."
     }
   ]
 }

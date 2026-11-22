@@ -7,15 +7,15 @@
     "mode": "MAJOR"
   },
   "version": 1,
-  "section_id": "4.03",
+  "section_id": "18.02",
   "beats": [
     {
-      "id": "4.03.FRACTURE",
+      "id": "18.02.SAYES_ORDER",
       "mode": "MAJOR",
       "trigger": {
         "type": "actor_marker",
-        "actor_id": "first_runner",
-        "marker_id": "fracture_site"
+        "actor_id": "warden_saye",
+        "marker_id": "order_marker"
       },
       "actors": [
         {
@@ -23,20 +23,16 @@
           "role": "player"
         },
         {
-          "actor_id": "first_runner",
-          "role": "speaker"
-        },
-        {
-          "actor_id": "concord_signal",
+          "actor_id": "warden_saye",
           "role": "speaker"
         }
       ],
       "dialogue": [
-        "en.007",
-        "en.010",
-        "en.011"
+        "en.035",
+        "en.036",
+        "en.037"
       ],
-      "duration_frames": 240,
+      "duration_frames": 360,
       "control": {
         "locked": true,
         "player_input": "ignored"
@@ -49,7 +45,7 @@
       "camera": {
         "mode": "lancer_rig_locked",
         "detachable": false,
-        "push_in": 0.08
+        "push_in": 0.05
       },
       "exit": {
         "type": "script_end",

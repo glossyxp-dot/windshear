@@ -1,86 +1,99 @@
 # WINDSHEAR
 
-A cinematic 2.5D **speed-and-precision** platformer set in a city whose wind is
-regulated by a civic operating system called **The Concord**. You play
-**Lancer**, a courier who breaks the law to set the sky free.
+A 2.5D speed-and-precision platformer about a courier who carries parcels
+between city blocks that aren't supposed to know about each other.
 
-**Free and open source.** The whole game — code, world, official story — is
-open. The community can build alternate storylines as *Editions*, not mods of
-an SDK.
+The wind is regulated. A civic operating system called **The Concord** decides
+where it goes and when the gates open, because twenty years ago the sky came
+apart and killed a lot of people. You are **Lancer**, and the Concord would
+very much like you to stop.
 
-- 📘 [Game Design Document](GAME_DESIGN.md)
-- 🛠 [Technical Specification](TECH_SPEC.md)
-- 🏃 [Movement Research](docs/MOVEMENT_RESEARCH.md) — cited sources, evidence, and the movement design synthesis
-- 📓 [Dev Stage 1](docs/dev_stage_1.md) — the movement base, and the bug it found
-- 🧱 [Architecture](docs/architecture.md) · [Testing](docs/testing.md)
-- 🤝 [Contributing](CONTRIBUTING.md)
-- 🚀 [Start Here](START_HERE.md) — how to begin implementation
+Free and open source, all of it — code, levels, art, the official story. If you
+want to tell a different story in the same city, ship it as an Edition. Nobody
+has to ask me first.
+
+- [Game design](GAME_DESIGN.md)
+- [Technical spec](TECH_SPEC.md)
+- [The Concord](docs/CONCORD.md) — the antagonist, in full
+- [Movement research](docs/MOVEMENT_RESEARCH.md) — cited sources and the design synthesis
+- [Dev Stage 1](docs/dev_stage_1.md) — the movement base, and the bug it found
+- [Architecture](docs/architecture.md) · [Testing](docs/testing.md)
+- [Authoring by hand](docs/AUTHORING.md) — how to open the project and decorate it in the editor
+- [Contributing](CONTRIBUTING.md)
+- [Start here](START_HERE.md)
 
 ---
 
-## Status
+## Where it is right now
 
-**Dev Stage 1 — the movement base.** The project boots, the menu works, and
-Lancer moves. 271 headless checks pass, the movement is frame-exact, and the
-PSX amount is the player's to pick. No levels, no art, no story in the engine
-yet — see [Dev Stage 1](docs/dev_stage_1.md) §7 for what is missing and why.
+Dev Stage 1. The project boots, the menu works, and Lancer moves.
 
-## Pillars at a glance
+322 headless checks, all passing. Movement is frame-exact at 60 Hz. The PSX
+amount is a slider that goes all the way to zero. The world grid — twenty
+chapters of twelve sections — exists as validated data, gate schedules and all.
 
-| Pillar | Commitment |
+What isn't there is anything you'd call a level. The greybox is a test rig, not
+a game. There's no art. The story layer has beats and dialogue, but nothing in
+the engine consumes them yet. `docs/dev_stage_1.md` §7 is blunt about the rest.
+
+## The design in a table
+
+| | |
 | --- | --- |
-| Speed × precision | Momentum routes, frame-tight execution, two leaderboard ladders (Time / Precision) |
-| The antagonist | Human-made, systemic, and *right* about the danger — that's the point |
+| Speed × precision | Momentum routes, frame-tight execution, two leaderboards (Time and Precision) |
+| The antagonist | Human-made, systemic, and right about the danger. That's the point |
 | Camera | Never leaves Lancer. Cutscenes happen in the world, not in a film |
-| Depth | PSX low-poly 3D rendered at 480×270, staged as layered parallax |
-| Fractures | 12 deliberate, stable, nameable bugs for mastery players |
-| Structure | 6 chapters × 12 sections, connected like HL2 but linear |
+| Look | PSX low-poly 3D at 480×270, layered parallax, nearest-neighbour upscale |
+| Fractures | 12 deliberate, stable, nameable bugs. Mastery content, not accidents |
+| Structure | 20 chapters × 12 sections, six acts, connected like HL2 but linear |
 | Lancer | No specified gender, anywhere |
-| Memory | Peak RAM ≤ 2.5 GB, hard ceiling 4 GB |
-| License | Code GPL-2.0-or-later · Content CC-BY-SA 4.0 · Editions must be open source |
+| Memory | 2.5 GB typical, 4 GB hard ceiling |
+| Licence | Code GPL-2.0-or-later · content CC-BY-SA 4.0 · Editions must be open source |
 
 ## Running it
 
 ```bash
-# Editor
+# open the editor
 godot --path . --editor
 
-# Import the project once (builds .godot/ and the global class cache)
+# import once, so .godot/ and the class cache exist
 godot --headless --editor --quit-after 20 --path .
 
-# Headless test suite
+# the headless suite
 godot --headless --path . res://tests/run_all.tscn
 ```
 
-The test runner is a **scene**, not a `--script` main loop: a script main
-loop does not register the autoload singletons as global identifiers, so
-`WsGame` fail to compile there.
+The runner is a scene, not a `--script` main loop. A script main loop doesn't
+register the autoload singletons as global identifiers, so anything that
+touches `WsGame` won't even compile. Running the game the way the game runs is
+the only way a test proves anything about it.
+
+If you've never opened this repo before, read [Authoring by hand](docs/AUTHORING.md)
+first. The editor looks empty on a fresh clone and there's a reason for that.
 
 ## Contributing
 
-Read `GAME_DESIGN.md` first — the design is the spec. Notable contribution
-surfaces:
+Read `GAME_DESIGN.md` before you write code. The design is the spec, and the
+tests enforce the numbers in `TECH_SPEC.md` §3.
 
-- **Fracture discoveries** — name it, document it, submit it. Shipped Fractures
-  are never removed, only added.
-- **Editions** — alternate storylines as data-only packages; must be open
-  source to be listed on the official index.
-- **Performance** — the RAM ceiling is a hard requirement; per-cell budgets are
-  enforced in CI.
-- **Accessibility** — assist presets, subtitle scaling, input remapping.
-- **Translation** — all strings live in `data/story/dialogue/`.
+Things that are genuinely wanted:
 
-## License
+- **Fracture discoveries.** Name it, clip it, document it. A shipped Fracture is
+  never removed, only added.
+- **Editions.** Alternate storylines as data packages. Open source to get listed.
+- **Performance.** The RAM ceiling is hard. Per-cell budgets run in CI.
+- **Accessibility.** Assist presets, subtitle scaling, remapping.
+- **Translation.** Every string lives in `data/story/dialogue/`.
 
-- **Game code:** **GPL-2.0-or-later** (full text in [`LICENSE`](LICENSE)).
-  Any version, fork, or Edition built on this code must also be open source
-  under the same terms. Godot itself is MIT, so the combination is fine.
-- **Game content** (levels, models, audio, art, official story): **CC-BY-SA 4.0**.
-  Free to reuse in other games, including commercial ones — derivatives of those
-  assets just have to be shared alike.
-- **Community Editions** must be open source and GPL/CC-compatible to be
-  published through the official index. The engine ships a license field that
-  the index checks.
+## Licence
 
-"WINDSHEAR" and "The Concord" are not licensed; nominative use by forks is
-fine, but a fork must not imply official status.
+- **Code:** GPL-2.0-or-later. See [`LICENSE`](LICENSE). Forks and Editions built
+  on this code stay open under the same terms. Godot is MIT, so the combination
+  is fine.
+- **Content** (levels, models, audio, art, official story): CC-BY-SA 4.0. Reuse
+  it in anything, including commercial work. Derivatives get shared alike.
+- **Editions** have to be open source and GPL/CC-compatible to appear on the
+  official index. The manifest carries a licence field and the index checks it.
+
+"WINDSHEAR" and "The Concord" aren't licensed. Nominate them all you like, just
+don't imply your fork is official.

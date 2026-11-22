@@ -5,9 +5,14 @@ SPDX-License-Identifier: CC-BY-SA-4.0
 
 # Community Editions
 
-An Edition changes the story while reusing WindShear's shared world, movement system, and section format. Editions are data packages, not private plugins. The game has no accounts, activation, DRM, or required network connection.
+An Edition changes the story and keeps the world. Same city, same movement, same
+section grid, different things happening in it.
 
-## Package layout
+Editions are data packages. They are not plugins, not private code, and not
+something the player has to activate. There are no accounts, no DRM and no
+network requirement anywhere in this game, and there won't be.
+
+## What a package looks like
 
 ```text
 my-edition/
@@ -17,27 +22,28 @@ my-edition/
     dialogue/
       en.json
     beats/
-      4.03.beat.json
+      13.03.beat.json
   assets/
 ```
 
-`story/` is optional. When present, its files override the corresponding official story files as described in `data/story/README.md`. `assets/` is optional and may contain replacement art, the directory is optional. Replacing world geometry or mechanics requires source changes rather than an Edition data override.
+`story/` is optional. Where a file exists it overrides the official file of the
+same relative path, as described in `data/story/README.md`. `assets/` is
+optional too, for replacement art. Changing world geometry or mechanics means
+changing source, not writing an Edition.
 
 ## `edition.json`
 
-The manifest has these fields:
-
 | Field | Type | Meaning |
 | --- | --- | --- |
-| `id` | string | Stable Edition identifier. |
-| `name` | string | Name shown in the Edition browser. |
-| `author` | string | Author or responsible collective. |
-| `story_path` | string | Relative path to the Edition's story root. Use `story` for the standard layout. |
-| `description` | string | Short plain-text summary of the Edition. |
-| `license` | string | SPDX license for the Edition's source and data. |
-| `source_url` | string | URL for the corresponding public source. |
+| `id` | string | Stable identifier. Pick one and keep it |
+| `name` | string | What the Edition browser shows |
+| `author` | string | A person or a collective |
+| `story_path` | string | Relative path to the story root. `story` is the normal answer |
+| `description` | string | One or two sentences, plain text |
+| `license` | string | SPDX identifier for the Edition's own work |
+| `source_url` | string | Where the corresponding source lives |
 
-A complete data-only example is:
+A complete data-only example:
 
 ```json
 {
@@ -55,15 +61,24 @@ A complete data-only example is:
 }
 ```
 
-JSON cannot carry an SPDX comment header. Repository JSON files therefore place the SPDX identifier in a top-level `_meta` key beside the payload, with `spdx` and `spdx_file_copyright_text` fields. The optional `_meta` object in `edition.json` follows the same convention and is not part of the manifest's required fields.
+JSON has no comment syntax, so the SPDX line goes in a top-level `_meta` object
+next to the payload. Every JSON file in this repository does that. The `_meta`
+block in `edition.json` is optional and isn't part of the manifest's required
+fields.
 
-## Open-source and index rules
+## Open source, and what the index will refuse
 
-Every Edition must be open source. Code in an Edition inherits `GPL-2.0-or-later` from the game code. A data-only Edition that reuses official story or assets inherits `CC-BY-SA-4.0` and must remain share-alike.
+Every Edition has to be open source. Code inherits `GPL-2.0-or-later` from the
+game. A data-only Edition that reuses official story or art inherits
+`CC-BY-SA-4.0` and stays share-alike.
 
-The official index refuses to list an Edition when:
+The official index won't list an Edition when:
 
-- `license` is absent, closed, proprietary, or incompatible with the content it reuses.
-- `source_url` is absent or does not identify the corresponding public source.
+- the licence is missing, closed, proprietary, or incompatible with whatever
+  content it reuses;
+- `source_url` is missing or doesn't point at the corresponding source.
 
-The index checks the declared license and source URL, but it does not remove or restrict a local installation. Locally installed Editions always load, and an index rejection never blocks what the player runs. Index validation is a distribution rule, not a DRM or activation system.
+That's it. And it's worth being clear about what the index is: a distribution
+list, not a lock. An Edition a player has installed locally always loads.
+Rejection from the index never stops anyone from running it. There is no
+activation step to bypass because there is no activation step.

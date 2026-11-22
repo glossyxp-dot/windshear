@@ -1,0 +1,60 @@
+{
+  "_meta": {
+    "spdx": "CC-BY-SA-4.0",
+    "spdx_file_copyright_text": "2026 the WINDSHEAR contributors",
+    "license": "CC-BY-SA-4.0",
+    "schema": "windshear.story.beat.v1",
+    "mode": "MAJOR"
+  },
+  "version": 1,
+  "section_id": "13.03",
+  "beats": [
+    {
+      "id": "13.03.FRACTURE",
+      "mode": "MAJOR",
+      "trigger": {
+        "type": "actor_marker",
+        "actor_id": "first_runner",
+        "marker_id": "fracture_site"
+      },
+      "actors": [
+        {
+          "actor_id": "lancer",
+          "role": "player"
+        },
+        {
+          "actor_id": "first_runner",
+          "role": "speaker"
+        },
+        {
+          "actor_id": "concord_signal",
+          "role": "speaker"
+        }
+      ],
+      "dialogue": [
+        "en.010",
+        "en.022",
+        "en.011"
+      ],
+      "duration_frames": 240,
+      "control": {
+        "locked": true,
+        "player_input": "ignored"
+      },
+      "world_time": {
+        "mode": "frozen",
+        "time_scale": 0.0,
+        "scripted_actor_time": "unscaled"
+      },
+      "camera": {
+        "mode": "lancer_rig_locked",
+        "detachable": false,
+        "push_in": 0.08
+      },
+      "exit": {
+        "type": "script_end",
+        "resume_count_frames": 2
+      }
+    }
+  ]
+}

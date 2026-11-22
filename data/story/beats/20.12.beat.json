@@ -1,0 +1,61 @@
+{
+  "_meta": {
+    "spdx": "CC-BY-SA-4.0",
+    "spdx_file_copyright_text": "2026 the WINDSHEAR contributors",
+    "license": "CC-BY-SA-4.0",
+    "schema": "windshear.story.beat.v1",
+    "mode": "MAJOR"
+  },
+  "version": 1,
+  "section_id": "20.12",
+  "beats": [
+    {
+      "id": "20.12.FINAL_CHOICE",
+      "mode": "MAJOR",
+      "trigger": {
+        "type": "actor_marker",
+        "actor_id": "lancer",
+        "marker_id": "canopy_control"
+      },
+      "actors": [
+        {
+          "actor_id": "lancer",
+          "role": "player"
+        },
+        {
+          "actor_id": "the_concord",
+          "role": "speaker"
+        },
+        {
+          "actor_id": "concord_signal",
+          "role": "speaker"
+        }
+      ],
+      "dialogue": [
+        "en.040",
+        "en.041",
+        "en.042",
+        "en.043"
+      ],
+      "duration_frames": 600,
+      "control": {
+        "locked": true,
+        "player_input": "ignored"
+      },
+      "world_time": {
+        "mode": "frozen",
+        "time_scale": 0.0,
+        "scripted_actor_time": "unscaled"
+      },
+      "camera": {
+        "mode": "lancer_rig_locked",
+        "detachable": false,
+        "push_in": 0.14
+      },
+      "exit": {
+        "type": "script_end",
+        "resume_count_frames": 2
+      }
+    }
+  ]
+}

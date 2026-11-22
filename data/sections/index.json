@@ -4,97 +4,2040 @@
     "spdx_file_copyright_text": "2026 the WINDSHEAR contributors",
     "license": "CC-BY-SA-4.0",
     "schema": "windshear.section-index.v1",
-    "description": "Planned index of the six-chapter, twelve-section official world grid.",
+    "description": "Planned index of the twenty-chapter, twelve-section official world grid.",
     "status": "planned",
     "tick_rate": 60,
-    "chapter_count": 6,
+    "chapter_count": 20,
     "sections_per_chapter": 12,
     "section_id_format": "chapter.section",
     "scene_path_format": "res://data/sections/c{chapter}/s{chapter}_{section}.tscn",
     "difficulty_scale": "1-10 relative section difficulty",
-    "par_time_unit": "frame"
+    "par_time_unit": "frame",
+    "act_count": 6
   },
   "version": 1,
   "chapters": [
-    {"number": 1, "title": "THE LATTICE"},
-    {"number": 2, "title": "VENTWORKS"},
-    {"number": 3, "title": "THE QUIET LINE"},
-    {"number": 4, "title": "THE FRACTURE YARD"},
-    {"number": 5, "title": "HOLLOW SPIRE"},
-    {"number": 6, "title": "OPEN WEATHER"}
+    {
+      "number": 1,
+      "title": "THE LATTICE",
+      "act": 1
+    },
+    {
+      "number": 2,
+      "title": "CUSTOMS ROW",
+      "act": 1
+    },
+    {
+      "number": 3,
+      "title": "NIGHT SEAL",
+      "act": 1
+    },
+    {
+      "number": 4,
+      "title": "THE LOOP",
+      "act": 1
+    },
+    {
+      "number": 5,
+      "title": "VENTWORKS",
+      "act": 2
+    },
+    {
+      "number": 6,
+      "title": "HOT PLENUM",
+      "act": 2
+    },
+    {
+      "number": 7,
+      "title": "THE REGULATOR BELT",
+      "act": 2
+    },
+    {
+      "number": 8,
+      "title": "SPINE BASEMENT",
+      "act": 2
+    },
+    {
+      "number": 9,
+      "title": "THE QUIET LINE",
+      "act": 3
+    },
+    {
+      "number": 10,
+      "title": "CARGO SPINE",
+      "act": 3
+    },
+    {
+      "number": 11,
+      "title": "THE LONG FREIGHT",
+      "act": 3
+    },
+    {
+      "number": 12,
+      "title": "BLOCK SEAM",
+      "act": 3
+    },
+    {
+      "number": 13,
+      "title": "THE FRACTURE YARD",
+      "act": 4
+    },
+    {
+      "number": 14,
+      "title": "THE FRACTURE YEAR",
+      "act": 4
+    },
+    {
+      "number": 15,
+      "title": "THE PATCHED THING",
+      "act": 4
+    },
+    {
+      "number": 16,
+      "title": "THE FIRST RUNNER",
+      "act": 4
+    },
+    {
+      "number": 17,
+      "title": "HOLLOW SPIRE",
+      "act": 5
+    },
+    {
+      "number": 18,
+      "title": "THE INNER RING",
+      "act": 5
+    },
+    {
+      "number": 19,
+      "title": "CANOPY LADDER",
+      "act": 5
+    },
+    {
+      "number": 20,
+      "title": "OPEN WEATHER",
+      "act": 6
+    }
   ],
   "sections": [
-    {"id": "1.01", "display_name": "Licensed Route", "scene_path": "res://data/sections/c1/s1_01.tscn", "chapter": 1, "difficulty": 1, "par_time_frames": 2700},
-    {"id": "1.02", "display_name": "Pressure Stairs", "scene_path": "res://data/sections/c1/s1_02.tscn", "chapter": 1, "difficulty": 1, "par_time_frames": 2820},
-    {"id": "1.03", "display_name": "Gate Three", "scene_path": "res://data/sections/c1/s1_03.tscn", "chapter": 1, "difficulty": 2, "par_time_frames": 2940},
-    {"id": "1.04", "display_name": "Courier Ladder", "scene_path": "res://data/sections/c1/s1_04.tscn", "chapter": 1, "difficulty": 2, "par_time_frames": 3000},
-    {"id": "1.05", "display_name": "Crosswind Corner", "scene_path": "res://data/sections/c1/s1_05.tscn", "chapter": 1, "difficulty": 2, "par_time_frames": 3120},
-    {"id": "1.06", "display_name": "Service Seam", "scene_path": "res://data/sections/c1/s1_06.tscn", "chapter": 1, "difficulty": 3, "par_time_frames": 3180},
-    {"id": "1.07", "display_name": "Lattice Fork", "scene_path": "res://data/sections/c1/s1_07.tscn", "chapter": 1, "difficulty": 3, "par_time_frames": 3300},
-    {"id": "1.08", "display_name": "Windbreak", "scene_path": "res://data/sections/c1/s1_08.tscn", "chapter": 1, "difficulty": 3, "par_time_frames": 3420},
-    {"id": "1.09", "display_name": "Marker Stacks", "scene_path": "res://data/sections/c1/s1_09.tscn", "chapter": 1, "difficulty": 3, "par_time_frames": 3480},
-    {"id": "1.10", "display_name": "Illegal Crossing", "scene_path": "res://data/sections/c1/s1_10.tscn", "chapter": 1, "difficulty": 4, "par_time_frames": 3600},
-    {"id": "1.11", "display_name": "Morning Circuit", "scene_path": "res://data/sections/c1/s1_11.tscn", "chapter": 1, "difficulty": 4, "par_time_frames": 3720},
-    {"id": "1.12", "display_name": "Spire View", "scene_path": "res://data/sections/c1/s1_12.tscn", "chapter": 1, "difficulty": 4, "par_time_frames": 3840},
-    {"id": "2.01", "display_name": "Intake", "scene_path": "res://data/sections/c2/s2_01.tscn", "chapter": 2, "difficulty": 2, "par_time_frames": 3060},
-    {"id": "2.02", "display_name": "Hot Plenum", "scene_path": "res://data/sections/c2/s2_02.tscn", "chapter": 2, "difficulty": 3, "par_time_frames": 3180},
-    {"id": "2.03", "display_name": "Exhaust Wash", "scene_path": "res://data/sections/c2/s2_03.tscn", "chapter": 2, "difficulty": 3, "par_time_frames": 3300},
-    {"id": "2.04", "display_name": "Regulator Line", "scene_path": "res://data/sections/c2/s2_04.tscn", "chapter": 2, "difficulty": 3, "par_time_frames": 3420},
-    {"id": "2.05", "display_name": "Climb Stack", "scene_path": "res://data/sections/c2/s2_05.tscn", "chapter": 2, "difficulty": 4, "par_time_frames": 3540},
-    {"id": "2.06", "display_name": "Zip Spine", "scene_path": "res://data/sections/c2/s2_06.tscn", "chapter": 2, "difficulty": 4, "par_time_frames": 3660},
-    {"id": "2.07", "display_name": "Reducer", "scene_path": "res://data/sections/c2/s2_07.tscn", "chapter": 2, "difficulty": 4, "par_time_frames": 3780},
-    {"id": "2.08", "display_name": "Fan Array", "scene_path": "res://data/sections/c2/s2_08.tscn", "chapter": 2, "difficulty": 5, "par_time_frames": 3900},
-    {"id": "2.09", "display_name": "Maintenance Return", "scene_path": "res://data/sections/c2/s2_09.tscn", "chapter": 2, "difficulty": 5, "par_time_frames": 4020},
-    {"id": "2.10", "display_name": "Vent Chase", "scene_path": "res://data/sections/c2/s2_10.tscn", "chapter": 2, "difficulty": 5, "par_time_frames": 4140},
-    {"id": "2.11", "display_name": "Pressure Vault", "scene_path": "res://data/sections/c2/s2_11.tscn", "chapter": 2, "difficulty": 5, "par_time_frames": 4260},
-    {"id": "2.12", "display_name": "Ventworks Core", "scene_path": "res://data/sections/c2/s2_12.tscn", "chapter": 2, "difficulty": 6, "par_time_frames": 4380},
-    {"id": "3.01", "display_name": "Freight Yard", "scene_path": "res://data/sections/c3/s3_01.tscn", "chapter": 3, "difficulty": 3, "par_time_frames": 3240},
-    {"id": "3.02", "display_name": "Capsule Handoff", "scene_path": "res://data/sections/c3/s3_02.tscn", "chapter": 3, "difficulty": 3, "par_time_frames": 3360},
-    {"id": "3.03", "display_name": "Narrow Span", "scene_path": "res://data/sections/c3/s3_03.tscn", "chapter": 3, "difficulty": 4, "par_time_frames": 3480},
-    {"id": "3.04", "display_name": "Suspended Load", "scene_path": "res://data/sections/c3/s3_04.tscn", "chapter": 3, "difficulty": 4, "par_time_frames": 3600},
-    {"id": "3.05", "display_name": "Signal Gap", "scene_path": "res://data/sections/c3/s3_05.tscn", "chapter": 3, "difficulty": 4, "par_time_frames": 3720},
-    {"id": "3.06", "display_name": "Capsule Return", "scene_path": "res://data/sections/c3/s3_06.tscn", "chapter": 3, "difficulty": 5, "par_time_frames": 3840},
-    {"id": "3.07", "display_name": "Thread Line", "scene_path": "res://data/sections/c3/s3_07.tscn", "chapter": 3, "difficulty": 5, "par_time_frames": 3960},
-    {"id": "3.08", "display_name": "Relay Spine", "scene_path": "res://data/sections/c3/s3_08.tscn", "chapter": 3, "difficulty": 6, "par_time_frames": 4080},
-    {"id": "3.09", "display_name": "Dead Signal", "scene_path": "res://data/sections/c3/s3_09.tscn", "chapter": 3, "difficulty": 6, "par_time_frames": 4200},
-    {"id": "3.10", "display_name": "Freight Weave", "scene_path": "res://data/sections/c3/s3_10.tscn", "chapter": 3, "difficulty": 6, "par_time_frames": 4320},
-    {"id": "3.11", "display_name": "Quiet Crossing", "scene_path": "res://data/sections/c3/s3_11.tscn", "chapter": 3, "difficulty": 7, "par_time_frames": 4440},
-    {"id": "3.12", "display_name": "Line Terminus", "scene_path": "res://data/sections/c3/s3_12.tscn", "chapter": 3, "difficulty": 7, "par_time_frames": 4560},
-    {"id": "4.01", "display_name": "Yard Approach", "scene_path": "res://data/sections/c4/s4_01.tscn", "chapter": 4, "difficulty": 4, "par_time_frames": 3420},
-    {"id": "4.02", "display_name": "Broken Regulator", "scene_path": "res://data/sections/c4/s4_02.tscn", "chapter": 4, "difficulty": 4, "par_time_frames": 3540},
-    {"id": "4.03", "display_name": "Fracture Site", "scene_path": "res://data/sections/c4/s4_03.tscn", "chapter": 4, "difficulty": 5, "par_time_frames": 3660},
-    {"id": "4.04", "display_name": "Collapse Span", "scene_path": "res://data/sections/c4/s4_04.tscn", "chapter": 4, "difficulty": 5, "par_time_frames": 3780},
-    {"id": "4.05", "display_name": "Fault Stack", "scene_path": "res://data/sections/c4/s4_05.tscn", "chapter": 4, "difficulty": 5, "par_time_frames": 3900},
-    {"id": "4.06", "display_name": "Vent Debris", "scene_path": "res://data/sections/c4/s4_06.tscn", "chapter": 4, "difficulty": 6, "par_time_frames": 4020},
-    {"id": "4.07", "display_name": "Salvage Line", "scene_path": "res://data/sections/c4/s4_07.tscn", "chapter": 4, "difficulty": 6, "par_time_frames": 4140},
-    {"id": "4.08", "display_name": "Regulator Nest", "scene_path": "res://data/sections/c4/s4_08.tscn", "chapter": 4, "difficulty": 6, "par_time_frames": 4260},
-    {"id": "4.09", "display_name": "Old Service Road", "scene_path": "res://data/sections/c4/s4_09.tscn", "chapter": 4, "difficulty": 7, "par_time_frames": 4380},
-    {"id": "4.10", "display_name": "Ruined District", "scene_path": "res://data/sections/c4/s4_10.tscn", "chapter": 4, "difficulty": 7, "par_time_frames": 4500},
-    {"id": "4.11", "display_name": "The First Route", "scene_path": "res://data/sections/c4/s4_11.tscn", "chapter": 4, "difficulty": 8, "par_time_frames": 4620},
-    {"id": "4.12", "display_name": "Year Zero", "scene_path": "res://data/sections/c4/s4_12.tscn", "chapter": 4, "difficulty": 8, "par_time_frames": 4740},
-    {"id": "5.01", "display_name": "Spire Foot", "scene_path": "res://data/sections/c5/s5_01.tscn", "chapter": 5, "difficulty": 5, "par_time_frames": 3600},
-    {"id": "5.02", "display_name": "Lift Shaft", "scene_path": "res://data/sections/c5/s5_02.tscn", "chapter": 5, "difficulty": 5, "par_time_frames": 3720},
-    {"id": "5.03", "display_name": "Machine Floor", "scene_path": "res://data/sections/c5/s5_03.tscn", "chapter": 5, "difficulty": 6, "par_time_frames": 3840},
-    {"id": "5.04", "display_name": "Pressure Column", "scene_path": "res://data/sections/c5/s5_04.tscn", "chapter": 5, "difficulty": 6, "par_time_frames": 3960},
-    {"id": "5.05", "display_name": "Warden Line", "scene_path": "res://data/sections/c5/s5_05.tscn", "chapter": 5, "difficulty": 6, "par_time_frames": 4080},
-    {"id": "5.06", "display_name": "Open Gallery", "scene_path": "res://data/sections/c5/s5_06.tscn", "chapter": 5, "difficulty": 7, "par_time_frames": 4200},
-    {"id": "5.07", "display_name": "Wind Lab", "scene_path": "res://data/sections/c5/s5_07.tscn", "chapter": 5, "difficulty": 7, "par_time_frames": 4320},
-    {"id": "5.08", "display_name": "Core Ring", "scene_path": "res://data/sections/c5/s5_08.tscn", "chapter": 5, "difficulty": 8, "par_time_frames": 4440},
-    {"id": "5.09", "display_name": "Regulator Crown", "scene_path": "res://data/sections/c5/s5_09.tscn", "chapter": 5, "difficulty": 8, "par_time_frames": 4560},
-    {"id": "5.10", "display_name": "Vertical Intake", "scene_path": "res://data/sections/c5/s5_10.tscn", "chapter": 5, "difficulty": 8, "par_time_frames": 4680},
-    {"id": "5.11", "display_name": "Signal Ascent", "scene_path": "res://data/sections/c5/s5_11.tscn", "chapter": 5, "difficulty": 9, "par_time_frames": 4800},
-    {"id": "5.12", "display_name": "Hollow Peak", "scene_path": "res://data/sections/c5/s5_12.tscn", "chapter": 5, "difficulty": 9, "par_time_frames": 4920},
-    {"id": "6.01", "display_name": "Sky Access", "scene_path": "res://data/sections/c6/s6_01.tscn", "chapter": 6, "difficulty": 6, "par_time_frames": 3780},
-    {"id": "6.02", "display_name": "Storm Ladder", "scene_path": "res://data/sections/c6/s6_02.tscn", "chapter": 6, "difficulty": 6, "par_time_frames": 3900},
-    {"id": "6.03", "display_name": "Broken Pressure", "scene_path": "res://data/sections/c6/s6_03.tscn", "chapter": 6, "difficulty": 7, "par_time_frames": 4020},
-    {"id": "6.04", "display_name": "Free Current", "scene_path": "res://data/sections/c6/s6_04.tscn", "chapter": 6, "difficulty": 7, "par_time_frames": 4140},
-    {"id": "6.05", "display_name": "Cloudline", "scene_path": "res://data/sections/c6/s6_05.tscn", "chapter": 6, "difficulty": 7, "par_time_frames": 4260},
-    {"id": "6.06", "display_name": "Wind Test", "scene_path": "res://data/sections/c6/s6_06.tscn", "chapter": 6, "difficulty": 8, "par_time_frames": 4380},
-    {"id": "6.07", "display_name": "Uncaged Route", "scene_path": "res://data/sections/c6/s6_07.tscn", "chapter": 6, "difficulty": 8, "par_time_frames": 4500},
-    {"id": "6.08", "display_name": "Rain Section", "scene_path": "res://data/sections/c6/s6_08.tscn", "chapter": 6, "difficulty": 9, "par_time_frames": 4620},
-    {"id": "6.09", "display_name": "Last Cycle", "scene_path": "res://data/sections/c6/s6_09.tscn", "chapter": 6, "difficulty": 9, "par_time_frames": 4740},
-    {"id": "6.10", "display_name": "City Vent", "scene_path": "res://data/sections/c6/s6_10.tscn", "chapter": 6, "difficulty": 9, "par_time_frames": 4860},
-    {"id": "6.11", "display_name": "Open Air", "scene_path": "res://data/sections/c6/s6_11.tscn", "chapter": 6, "difficulty": 10, "par_time_frames": 4980},
-    {"id": "6.12", "display_name": "Weather Choice", "scene_path": "res://data/sections/c6/s6_12.tscn", "chapter": 6, "difficulty": 10, "par_time_frames": 5400}
+    {
+      "id": "1.01",
+      "display_name": "Licensed Route",
+      "scene_path": "res://data/sections/c1/s1_01.tscn",
+      "chapter": 1,
+      "difficulty": 1,
+      "par_time_frames": 2700
+    },
+    {
+      "id": "1.02",
+      "display_name": "Pressure Stairs",
+      "scene_path": "res://data/sections/c1/s1_02.tscn",
+      "chapter": 1,
+      "difficulty": 1,
+      "par_time_frames": 2820
+    },
+    {
+      "id": "1.03",
+      "display_name": "Gate Three",
+      "scene_path": "res://data/sections/c1/s1_03.tscn",
+      "chapter": 1,
+      "difficulty": 2,
+      "par_time_frames": 2940
+    },
+    {
+      "id": "1.04",
+      "display_name": "Courier Ladder",
+      "scene_path": "res://data/sections/c1/s1_04.tscn",
+      "chapter": 1,
+      "difficulty": 2,
+      "par_time_frames": 3000
+    },
+    {
+      "id": "1.05",
+      "display_name": "Crosswind Corner",
+      "scene_path": "res://data/sections/c1/s1_05.tscn",
+      "chapter": 1,
+      "difficulty": 2,
+      "par_time_frames": 3120
+    },
+    {
+      "id": "1.06",
+      "display_name": "Service Seam",
+      "scene_path": "res://data/sections/c1/s1_06.tscn",
+      "chapter": 1,
+      "difficulty": 3,
+      "par_time_frames": 3180
+    },
+    {
+      "id": "1.07",
+      "display_name": "Lattice Fork",
+      "scene_path": "res://data/sections/c1/s1_07.tscn",
+      "chapter": 1,
+      "difficulty": 3,
+      "par_time_frames": 3300
+    },
+    {
+      "id": "1.08",
+      "display_name": "Windbreak",
+      "scene_path": "res://data/sections/c1/s1_08.tscn",
+      "chapter": 1,
+      "difficulty": 3,
+      "par_time_frames": 3420
+    },
+    {
+      "id": "1.09",
+      "display_name": "Marker Stacks",
+      "scene_path": "res://data/sections/c1/s1_09.tscn",
+      "chapter": 1,
+      "difficulty": 3,
+      "par_time_frames": 3480
+    },
+    {
+      "id": "1.10",
+      "display_name": "Illegal Crossing",
+      "scene_path": "res://data/sections/c1/s1_10.tscn",
+      "chapter": 1,
+      "difficulty": 4,
+      "par_time_frames": 3600
+    },
+    {
+      "id": "1.11",
+      "display_name": "Morning Circuit",
+      "scene_path": "res://data/sections/c1/s1_11.tscn",
+      "chapter": 1,
+      "difficulty": 4,
+      "par_time_frames": 3720
+    },
+    {
+      "id": "1.12",
+      "display_name": "Spire View",
+      "scene_path": "res://data/sections/c1/s1_12.tscn",
+      "chapter": 1,
+      "difficulty": 4,
+      "par_time_frames": 3840
+    },
+    {
+      "id": "2.01",
+      "display_name": "Manifest Office",
+      "scene_path": "res://data/sections/c2/s2_01.tscn",
+      "chapter": 2,
+      "difficulty": 3,
+      "par_time_frames": 2800
+    },
+    {
+      "id": "2.02",
+      "display_name": "Scanner Lane",
+      "scene_path": "res://data/sections/c2/s2_02.tscn",
+      "chapter": 2,
+      "difficulty": 3,
+      "par_time_frames": 2910
+    },
+    {
+      "id": "2.03",
+      "display_name": "Declared Weight",
+      "scene_path": "res://data/sections/c2/s2_03.tscn",
+      "chapter": 2,
+      "difficulty": 4,
+      "par_time_frames": 3020
+    },
+    {
+      "id": "2.04",
+      "display_name": "Stamp Queue",
+      "scene_path": "res://data/sections/c2/s2_04.tscn",
+      "chapter": 2,
+      "difficulty": 4,
+      "par_time_frames": 3130
+    },
+    {
+      "id": "2.05",
+      "display_name": "Under the Desk",
+      "scene_path": "res://data/sections/c2/s2_05.tscn",
+      "chapter": 2,
+      "difficulty": 4,
+      "par_time_frames": 3240
+    },
+    {
+      "id": "2.06",
+      "display_name": "Seal Number",
+      "scene_path": "res://data/sections/c2/s2_06.tscn",
+      "chapter": 2,
+      "difficulty": 5,
+      "par_time_frames": 3350
+    },
+    {
+      "id": "2.07",
+      "display_name": "Red Ink",
+      "scene_path": "res://data/sections/c2/s2_07.tscn",
+      "chapter": 2,
+      "difficulty": 5,
+      "par_time_frames": 3460
+    },
+    {
+      "id": "2.08",
+      "display_name": "Confiscation",
+      "scene_path": "res://data/sections/c2/s2_08.tscn",
+      "chapter": 2,
+      "difficulty": 5,
+      "par_time_frames": 3570
+    },
+    {
+      "id": "2.09",
+      "display_name": "The Second Queue",
+      "scene_path": "res://data/sections/c2/s2_09.tscn",
+      "chapter": 2,
+      "difficulty": 5,
+      "par_time_frames": 3680
+    },
+    {
+      "id": "2.10",
+      "display_name": "Hold and Wait",
+      "scene_path": "res://data/sections/c2/s2_10.tscn",
+      "chapter": 2,
+      "difficulty": 6,
+      "par_time_frames": 3790
+    },
+    {
+      "id": "2.11",
+      "display_name": "Undeclared",
+      "scene_path": "res://data/sections/c2/s2_11.tscn",
+      "chapter": 2,
+      "difficulty": 6,
+      "par_time_frames": 3900
+    },
+    {
+      "id": "2.12",
+      "display_name": "Clearance",
+      "scene_path": "res://data/sections/c2/s2_12.tscn",
+      "chapter": 2,
+      "difficulty": 6,
+      "par_time_frames": 4310
+    },
+    {
+      "id": "3.01",
+      "display_name": "Dusk Window",
+      "scene_path": "res://data/sections/c3/s3_01.tscn",
+      "chapter": 3,
+      "difficulty": 4,
+      "par_time_frames": 2900
+    },
+    {
+      "id": "3.02",
+      "display_name": "Lockdown Hymn",
+      "scene_path": "res://data/sections/c3/s3_02.tscn",
+      "chapter": 3,
+      "difficulty": 4,
+      "par_time_frames": 3010
+    },
+    {
+      "id": "3.03",
+      "display_name": "First Latch",
+      "scene_path": "res://data/sections/c3/s3_03.tscn",
+      "chapter": 3,
+      "difficulty": 5,
+      "par_time_frames": 3120
+    },
+    {
+      "id": "3.04",
+      "display_name": "Shutter Run",
+      "scene_path": "res://data/sections/c3/s3_04.tscn",
+      "chapter": 3,
+      "difficulty": 5,
+      "par_time_frames": 3230
+    },
+    {
+      "id": "3.05",
+      "display_name": "The Long Dark",
+      "scene_path": "res://data/sections/c3/s3_05.tscn",
+      "chapter": 3,
+      "difficulty": 5,
+      "par_time_frames": 3340
+    },
+    {
+      "id": "3.06",
+      "display_name": "Patrol Cycle",
+      "scene_path": "res://data/sections/c3/s3_06.tscn",
+      "chapter": 3,
+      "difficulty": 6,
+      "par_time_frames": 3450
+    },
+    {
+      "id": "3.07",
+      "display_name": "Blind Corner",
+      "scene_path": "res://data/sections/c3/s3_07.tscn",
+      "chapter": 3,
+      "difficulty": 6,
+      "par_time_frames": 3560
+    },
+    {
+      "id": "3.08",
+      "display_name": "Doorway Hold",
+      "scene_path": "res://data/sections/c3/s3_08.tscn",
+      "chapter": 3,
+      "difficulty": 6,
+      "par_time_frames": 3670
+    },
+    {
+      "id": "3.09",
+      "display_name": "Second Shift",
+      "scene_path": "res://data/sections/c3/s3_09.tscn",
+      "chapter": 3,
+      "difficulty": 6,
+      "par_time_frames": 3780
+    },
+    {
+      "id": "3.10",
+      "display_name": "Alarm Wire",
+      "scene_path": "res://data/sections/c3/s3_10.tscn",
+      "chapter": 3,
+      "difficulty": 7,
+      "par_time_frames": 3890
+    },
+    {
+      "id": "3.11",
+      "display_name": "Last Latch",
+      "scene_path": "res://data/sections/c3/s3_11.tscn",
+      "chapter": 3,
+      "difficulty": 7,
+      "par_time_frames": 4000
+    },
+    {
+      "id": "3.12",
+      "display_name": "Inside",
+      "scene_path": "res://data/sections/c3/s3_12.tscn",
+      "chapter": 3,
+      "difficulty": 7,
+      "par_time_frames": 4410
+    },
+    {
+      "id": "4.01",
+      "display_name": "Couriers' Round",
+      "scene_path": "res://data/sections/c4/s4_01.tscn",
+      "chapter": 4,
+      "difficulty": 5,
+      "par_time_frames": 3000
+    },
+    {
+      "id": "4.02",
+      "display_name": "The Short Way",
+      "scene_path": "res://data/sections/c4/s4_02.tscn",
+      "chapter": 4,
+      "difficulty": 5,
+      "par_time_frames": 3110
+    },
+    {
+      "id": "4.03",
+      "display_name": "The Long Way",
+      "scene_path": "res://data/sections/c4/s4_03.tscn",
+      "chapter": 4,
+      "difficulty": 6,
+      "par_time_frames": 3220
+    },
+    {
+      "id": "4.04",
+      "display_name": "Two Drops",
+      "scene_path": "res://data/sections/c4/s4_04.tscn",
+      "chapter": 4,
+      "difficulty": 6,
+      "par_time_frames": 3330
+    },
+    {
+      "id": "4.05",
+      "display_name": "Loop the Stack",
+      "scene_path": "res://data/sections/c4/s4_05.tscn",
+      "chapter": 4,
+      "difficulty": 6,
+      "par_time_frames": 3440
+    },
+    {
+      "id": "4.06",
+      "display_name": "Round and Round",
+      "scene_path": "res://data/sections/c4/s4_06.tscn",
+      "chapter": 4,
+      "difficulty": 7,
+      "par_time_frames": 3550
+    },
+    {
+      "id": "4.07",
+      "display_name": "Back Track",
+      "scene_path": "res://data/sections/c4/s4_07.tscn",
+      "chapter": 4,
+      "difficulty": 7,
+      "par_time_frames": 3660
+    },
+    {
+      "id": "4.08",
+      "display_name": "The Regular",
+      "scene_path": "res://data/sections/c4/s4_08.tscn",
+      "chapter": 4,
+      "difficulty": 7,
+      "par_time_frames": 3770
+    },
+    {
+      "id": "4.09",
+      "display_name": "Off Schedule",
+      "scene_path": "res://data/sections/c4/s4_09.tscn",
+      "chapter": 4,
+      "difficulty": 7,
+      "par_time_frames": 3880
+    },
+    {
+      "id": "4.10",
+      "display_name": "Double Round",
+      "scene_path": "res://data/sections/c4/s4_10.tscn",
+      "chapter": 4,
+      "difficulty": 8,
+      "par_time_frames": 3990
+    },
+    {
+      "id": "4.11",
+      "display_name": "The Circle",
+      "scene_path": "res://data/sections/c4/s4_11.tscn",
+      "chapter": 4,
+      "difficulty": 8,
+      "par_time_frames": 4100
+    },
+    {
+      "id": "4.12",
+      "display_name": "Clockwork",
+      "scene_path": "res://data/sections/c4/s4_12.tscn",
+      "chapter": 4,
+      "difficulty": 8,
+      "par_time_frames": 4510
+    },
+    {
+      "id": "5.01",
+      "display_name": "Intake",
+      "scene_path": "res://data/sections/c5/s5_01.tscn",
+      "chapter": 5,
+      "difficulty": 2,
+      "par_time_frames": 3060
+    },
+    {
+      "id": "5.02",
+      "display_name": "Hot Plenum",
+      "scene_path": "res://data/sections/c5/s5_02.tscn",
+      "chapter": 5,
+      "difficulty": 3,
+      "par_time_frames": 3180
+    },
+    {
+      "id": "5.03",
+      "display_name": "Exhaust Wash",
+      "scene_path": "res://data/sections/c5/s5_03.tscn",
+      "chapter": 5,
+      "difficulty": 3,
+      "par_time_frames": 3300
+    },
+    {
+      "id": "5.04",
+      "display_name": "Regulator Line",
+      "scene_path": "res://data/sections/c5/s5_04.tscn",
+      "chapter": 5,
+      "difficulty": 3,
+      "par_time_frames": 3420
+    },
+    {
+      "id": "5.05",
+      "display_name": "Climb Stack",
+      "scene_path": "res://data/sections/c5/s5_05.tscn",
+      "chapter": 5,
+      "difficulty": 4,
+      "par_time_frames": 3540
+    },
+    {
+      "id": "5.06",
+      "display_name": "Zip Spine",
+      "scene_path": "res://data/sections/c5/s5_06.tscn",
+      "chapter": 5,
+      "difficulty": 4,
+      "par_time_frames": 3660
+    },
+    {
+      "id": "5.07",
+      "display_name": "Reducer",
+      "scene_path": "res://data/sections/c5/s5_07.tscn",
+      "chapter": 5,
+      "difficulty": 4,
+      "par_time_frames": 3780
+    },
+    {
+      "id": "5.08",
+      "display_name": "Fan Array",
+      "scene_path": "res://data/sections/c5/s5_08.tscn",
+      "chapter": 5,
+      "difficulty": 5,
+      "par_time_frames": 3900
+    },
+    {
+      "id": "5.09",
+      "display_name": "Maintenance Return",
+      "scene_path": "res://data/sections/c5/s5_09.tscn",
+      "chapter": 5,
+      "difficulty": 5,
+      "par_time_frames": 4020
+    },
+    {
+      "id": "5.10",
+      "display_name": "Vent Chase",
+      "scene_path": "res://data/sections/c5/s5_10.tscn",
+      "chapter": 5,
+      "difficulty": 5,
+      "par_time_frames": 4140
+    },
+    {
+      "id": "5.11",
+      "display_name": "Pressure Vault",
+      "scene_path": "res://data/sections/c5/s5_11.tscn",
+      "chapter": 5,
+      "difficulty": 5,
+      "par_time_frames": 4260
+    },
+    {
+      "id": "5.12",
+      "display_name": "Ventworks Core",
+      "scene_path": "res://data/sections/c5/s5_12.tscn",
+      "chapter": 5,
+      "difficulty": 6,
+      "par_time_frames": 4380
+    },
+    {
+      "id": "6.01",
+      "display_name": "Plenum Mouth",
+      "scene_path": "res://data/sections/c6/s6_01.tscn",
+      "chapter": 6,
+      "difficulty": 5,
+      "par_time_frames": 3200
+    },
+    {
+      "id": "6.02",
+      "display_name": "Heat Shunt",
+      "scene_path": "res://data/sections/c6/s6_02.tscn",
+      "chapter": 6,
+      "difficulty": 6,
+      "par_time_frames": 3310
+    },
+    {
+      "id": "6.03",
+      "display_name": "Steam Riser",
+      "scene_path": "res://data/sections/c6/s6_03.tscn",
+      "chapter": 6,
+      "difficulty": 6,
+      "par_time_frames": 3420
+    },
+    {
+      "id": "6.04",
+      "display_name": "Back Draft",
+      "scene_path": "res://data/sections/c6/s6_04.tscn",
+      "chapter": 6,
+      "difficulty": 6,
+      "par_time_frames": 3530
+    },
+    {
+      "id": "6.05",
+      "display_name": "Condenser",
+      "scene_path": "res://data/sections/c6/s6_05.tscn",
+      "chapter": 6,
+      "difficulty": 7,
+      "par_time_frames": 3640
+    },
+    {
+      "id": "6.06",
+      "display_name": "Tallow Run",
+      "scene_path": "res://data/sections/c6/s6_06.tscn",
+      "chapter": 6,
+      "difficulty": 7,
+      "par_time_frames": 3750
+    },
+    {
+      "id": "6.07",
+      "display_name": "Scorch Line",
+      "scene_path": "res://data/sections/c6/s6_07.tscn",
+      "chapter": 6,
+      "difficulty": 7,
+      "par_time_frames": 3860
+    },
+    {
+      "id": "6.08",
+      "display_name": "Bleed Valve",
+      "scene_path": "res://data/sections/c6/s6_08.tscn",
+      "chapter": 6,
+      "difficulty": 8,
+      "par_time_frames": 3970
+    },
+    {
+      "id": "6.09",
+      "display_name": "Overpressure",
+      "scene_path": "res://data/sections/c6/s6_09.tscn",
+      "chapter": 6,
+      "difficulty": 8,
+      "par_time_frames": 4080
+    },
+    {
+      "id": "6.10",
+      "display_name": "Flash Steam",
+      "scene_path": "res://data/sections/c6/s6_10.tscn",
+      "chapter": 6,
+      "difficulty": 8,
+      "par_time_frames": 4190
+    },
+    {
+      "id": "6.11",
+      "display_name": "Coolant Drop",
+      "scene_path": "res://data/sections/c6/s6_11.tscn",
+      "chapter": 6,
+      "difficulty": 9,
+      "par_time_frames": 4300
+    },
+    {
+      "id": "6.12",
+      "display_name": "Plenum Floor",
+      "scene_path": "res://data/sections/c6/s6_12.tscn",
+      "chapter": 6,
+      "difficulty": 9,
+      "par_time_frames": 4710
+    },
+    {
+      "id": "7.01",
+      "display_name": "Belt One",
+      "scene_path": "res://data/sections/c7/s7_01.tscn",
+      "chapter": 7,
+      "difficulty": 6,
+      "par_time_frames": 3300
+    },
+    {
+      "id": "7.02",
+      "display_name": "Valve Bank",
+      "scene_path": "res://data/sections/c7/s7_02.tscn",
+      "chapter": 7,
+      "difficulty": 6,
+      "par_time_frames": 3410
+    },
+    {
+      "id": "7.03",
+      "display_name": "Governor",
+      "scene_path": "res://data/sections/c7/s7_03.tscn",
+      "chapter": 7,
+      "difficulty": 7,
+      "par_time_frames": 3520
+    },
+    {
+      "id": "7.04",
+      "display_name": "Trim Line",
+      "scene_path": "res://data/sections/c7/s7_04.tscn",
+      "chapter": 7,
+      "difficulty": 7,
+      "par_time_frames": 3630
+    },
+    {
+      "id": "7.05",
+      "display_name": "Settling Chamber",
+      "scene_path": "res://data/sections/c7/s7_05.tscn",
+      "chapter": 7,
+      "difficulty": 7,
+      "par_time_frames": 3740
+    },
+    {
+      "id": "7.06",
+      "display_name": "Needle Bank",
+      "scene_path": "res://data/sections/c7/s7_06.tscn",
+      "chapter": 7,
+      "difficulty": 8,
+      "par_time_frames": 3850
+    },
+    {
+      "id": "7.07",
+      "display_name": "Windbreaker",
+      "scene_path": "res://data/sections/c7/s7_07.tscn",
+      "chapter": 7,
+      "difficulty": 8,
+      "par_time_frames": 3960
+    },
+    {
+      "id": "7.08",
+      "display_name": "Overlap",
+      "scene_path": "res://data/sections/c7/s7_08.tscn",
+      "chapter": 7,
+      "difficulty": 8,
+      "par_time_frames": 4070
+    },
+    {
+      "id": "7.09",
+      "display_name": "The Narrow",
+      "scene_path": "res://data/sections/c7/s7_09.tscn",
+      "chapter": 7,
+      "difficulty": 9,
+      "par_time_frames": 4180
+    },
+    {
+      "id": "7.10",
+      "display_name": "Shutdown Row",
+      "scene_path": "res://data/sections/c7/s7_10.tscn",
+      "chapter": 7,
+      "difficulty": 9,
+      "par_time_frames": 4290
+    },
+    {
+      "id": "7.11",
+      "display_name": "Manual Override",
+      "scene_path": "res://data/sections/c7/s7_11.tscn",
+      "chapter": 7,
+      "difficulty": 9,
+      "par_time_frames": 4400
+    },
+    {
+      "id": "7.12",
+      "display_name": "Belt End",
+      "scene_path": "res://data/sections/c7/s7_12.tscn",
+      "chapter": 7,
+      "difficulty": 10,
+      "par_time_frames": 4810
+    },
+    {
+      "id": "8.01",
+      "display_name": "Sub Level",
+      "scene_path": "res://data/sections/c8/s8_01.tscn",
+      "chapter": 8,
+      "difficulty": 7,
+      "par_time_frames": 3400
+    },
+    {
+      "id": "8.02",
+      "display_name": "Old Intake",
+      "scene_path": "res://data/sections/c8/s8_02.tscn",
+      "chapter": 8,
+      "difficulty": 7,
+      "par_time_frames": 3510
+    },
+    {
+      "id": "8.03",
+      "display_name": "The Wet Stair",
+      "scene_path": "res://data/sections/c8/s8_03.tscn",
+      "chapter": 8,
+      "difficulty": 8,
+      "par_time_frames": 3620
+    },
+    {
+      "id": "8.04",
+      "display_name": "Sump",
+      "scene_path": "res://data/sections/c8/s8_04.tscn",
+      "chapter": 8,
+      "difficulty": 8,
+      "par_time_frames": 3730
+    },
+    {
+      "id": "8.05",
+      "display_name": "Root Growth",
+      "scene_path": "res://data/sections/c8/s8_05.tscn",
+      "chapter": 8,
+      "difficulty": 8,
+      "par_time_frames": 3840
+    },
+    {
+      "id": "8.06",
+      "display_name": "Membrane",
+      "scene_path": "res://data/sections/c8/s8_06.tscn",
+      "chapter": 8,
+      "difficulty": 9,
+      "par_time_frames": 3950
+    },
+    {
+      "id": "8.07",
+      "display_name": "Patchwork",
+      "scene_path": "res://data/sections/c8/s8_07.tscn",
+      "chapter": 8,
+      "difficulty": 9,
+      "par_time_frames": 4060
+    },
+    {
+      "id": "8.08",
+      "display_name": "First Tissue",
+      "scene_path": "res://data/sections/c8/s8_08.tscn",
+      "chapter": 8,
+      "difficulty": 9,
+      "par_time_frames": 4170
+    },
+    {
+      "id": "8.09",
+      "display_name": "Under the Slab",
+      "scene_path": "res://data/sections/c8/s8_09.tscn",
+      "chapter": 8,
+      "difficulty": 10,
+      "par_time_frames": 4280
+    },
+    {
+      "id": "8.10",
+      "display_name": "The Deep Seam",
+      "scene_path": "res://data/sections/c8/s8_10.tscn",
+      "chapter": 8,
+      "difficulty": 10,
+      "par_time_frames": 4390
+    },
+    {
+      "id": "8.11",
+      "display_name": "Basement Hold",
+      "scene_path": "res://data/sections/c8/s8_11.tscn",
+      "chapter": 8,
+      "difficulty": 10,
+      "par_time_frames": 4500
+    },
+    {
+      "id": "8.12",
+      "display_name": "Spire Foot",
+      "scene_path": "res://data/sections/c8/s8_12.tscn",
+      "chapter": 8,
+      "difficulty": 10,
+      "par_time_frames": 4910
+    },
+    {
+      "id": "9.01",
+      "display_name": "Freight Yard",
+      "scene_path": "res://data/sections/c9/s9_01.tscn",
+      "chapter": 9,
+      "difficulty": 3,
+      "par_time_frames": 3240
+    },
+    {
+      "id": "9.02",
+      "display_name": "Capsule Handoff",
+      "scene_path": "res://data/sections/c9/s9_02.tscn",
+      "chapter": 9,
+      "difficulty": 3,
+      "par_time_frames": 3360
+    },
+    {
+      "id": "9.03",
+      "display_name": "Narrow Span",
+      "scene_path": "res://data/sections/c9/s9_03.tscn",
+      "chapter": 9,
+      "difficulty": 4,
+      "par_time_frames": 3480
+    },
+    {
+      "id": "9.04",
+      "display_name": "Suspended Load",
+      "scene_path": "res://data/sections/c9/s9_04.tscn",
+      "chapter": 9,
+      "difficulty": 4,
+      "par_time_frames": 3600
+    },
+    {
+      "id": "9.05",
+      "display_name": "Signal Gap",
+      "scene_path": "res://data/sections/c9/s9_05.tscn",
+      "chapter": 9,
+      "difficulty": 4,
+      "par_time_frames": 3720
+    },
+    {
+      "id": "9.06",
+      "display_name": "Capsule Return",
+      "scene_path": "res://data/sections/c9/s9_06.tscn",
+      "chapter": 9,
+      "difficulty": 5,
+      "par_time_frames": 3840
+    },
+    {
+      "id": "9.07",
+      "display_name": "Thread Line",
+      "scene_path": "res://data/sections/c9/s9_07.tscn",
+      "chapter": 9,
+      "difficulty": 5,
+      "par_time_frames": 3960
+    },
+    {
+      "id": "9.08",
+      "display_name": "Relay Spine",
+      "scene_path": "res://data/sections/c9/s9_08.tscn",
+      "chapter": 9,
+      "difficulty": 6,
+      "par_time_frames": 4080
+    },
+    {
+      "id": "9.09",
+      "display_name": "Dead Signal",
+      "scene_path": "res://data/sections/c9/s9_09.tscn",
+      "chapter": 9,
+      "difficulty": 6,
+      "par_time_frames": 4200
+    },
+    {
+      "id": "9.10",
+      "display_name": "Freight Weave",
+      "scene_path": "res://data/sections/c9/s9_10.tscn",
+      "chapter": 9,
+      "difficulty": 6,
+      "par_time_frames": 4320
+    },
+    {
+      "id": "9.11",
+      "display_name": "Quiet Crossing",
+      "scene_path": "res://data/sections/c9/s9_11.tscn",
+      "chapter": 9,
+      "difficulty": 7,
+      "par_time_frames": 4440
+    },
+    {
+      "id": "9.12",
+      "display_name": "Line Terminus",
+      "scene_path": "res://data/sections/c9/s9_12.tscn",
+      "chapter": 9,
+      "difficulty": 7,
+      "par_time_frames": 4560
+    },
+    {
+      "id": "10.01",
+      "display_name": "Gantry",
+      "scene_path": "res://data/sections/c10/s10_01.tscn",
+      "chapter": 10,
+      "difficulty": 6,
+      "par_time_frames": 3600
+    },
+    {
+      "id": "10.02",
+      "display_name": "Net Run",
+      "scene_path": "res://data/sections/c10/s10_02.tscn",
+      "chapter": 10,
+      "difficulty": 6,
+      "par_time_frames": 3710
+    },
+    {
+      "id": "10.03",
+      "display_name": "Slack Line",
+      "scene_path": "res://data/sections/c10/s10_03.tscn",
+      "chapter": 10,
+      "difficulty": 7,
+      "par_time_frames": 3820
+    },
+    {
+      "id": "10.04",
+      "display_name": "Overweight",
+      "scene_path": "res://data/sections/c10/s10_04.tscn",
+      "chapter": 10,
+      "difficulty": 7,
+      "par_time_frames": 3930
+    },
+    {
+      "id": "10.05",
+      "display_name": "Sling Yard",
+      "scene_path": "res://data/sections/c10/s10_05.tscn",
+      "chapter": 10,
+      "difficulty": 7,
+      "par_time_frames": 4040
+    },
+    {
+      "id": "10.06",
+      "display_name": "Parcel Play",
+      "scene_path": "res://data/sections/c10/s10_06.tscn",
+      "chapter": 10,
+      "difficulty": 8,
+      "par_time_frames": 4150
+    },
+    {
+      "id": "10.07",
+      "display_name": "Counterweight",
+      "scene_path": "res://data/sections/c10/s10_07.tscn",
+      "chapter": 10,
+      "difficulty": 8,
+      "par_time_frames": 4260
+    },
+    {
+      "id": "10.08",
+      "display_name": "The Long Span",
+      "scene_path": "res://data/sections/c10/s10_08.tscn",
+      "chapter": 10,
+      "difficulty": 8,
+      "par_time_frames": 4370
+    },
+    {
+      "id": "10.09",
+      "display_name": "Balance Beam",
+      "scene_path": "res://data/sections/c10/s10_09.tscn",
+      "chapter": 10,
+      "difficulty": 9,
+      "par_time_frames": 4480
+    },
+    {
+      "id": "10.10",
+      "display_name": "Dead Drop",
+      "scene_path": "res://data/sections/c10/s10_10.tscn",
+      "chapter": 10,
+      "difficulty": 9,
+      "par_time_frames": 4590
+    },
+    {
+      "id": "10.11",
+      "display_name": "Manifest Short",
+      "scene_path": "res://data/sections/c10/s10_11.tscn",
+      "chapter": 10,
+      "difficulty": 9,
+      "par_time_frames": 4700
+    },
+    {
+      "id": "10.12",
+      "display_name": "Spine End",
+      "scene_path": "res://data/sections/c10/s10_12.tscn",
+      "chapter": 10,
+      "difficulty": 10,
+      "par_time_frames": 5110
+    },
+    {
+      "id": "11.01",
+      "display_name": "Coupler",
+      "scene_path": "res://data/sections/c11/s11_01.tscn",
+      "chapter": 11,
+      "difficulty": 6,
+      "par_time_frames": 3700
+    },
+    {
+      "id": "11.02",
+      "display_name": "Yard Shuffle",
+      "scene_path": "res://data/sections/c11/s11_02.tscn",
+      "chapter": 11,
+      "difficulty": 7,
+      "par_time_frames": 3810
+    },
+    {
+      "id": "11.03",
+      "display_name": "Moving Deck",
+      "scene_path": "res://data/sections/c11/s11_03.tscn",
+      "chapter": 11,
+      "difficulty": 7,
+      "par_time_frames": 3920
+    },
+    {
+      "id": "11.04",
+      "display_name": "Braking Distance",
+      "scene_path": "res://data/sections/c11/s11_04.tscn",
+      "chapter": 11,
+      "difficulty": 7,
+      "par_time_frames": 4030
+    },
+    {
+      "id": "11.05",
+      "display_name": "Through the Gap",
+      "scene_path": "res://data/sections/c11/s11_05.tscn",
+      "chapter": 11,
+      "difficulty": 8,
+      "par_time_frames": 4140
+    },
+    {
+      "id": "11.06",
+      "display_name": "Sleeper",
+      "scene_path": "res://data/sections/c11/s11_06.tscn",
+      "chapter": 11,
+      "difficulty": 8,
+      "par_time_frames": 4250
+    },
+    {
+      "id": "11.07",
+      "display_name": "Tail Freight",
+      "scene_path": "res://data/sections/c11/s11_07.tscn",
+      "chapter": 11,
+      "difficulty": 8,
+      "par_time_frames": 4360
+    },
+    {
+      "id": "11.08",
+      "display_name": "Cross Line",
+      "scene_path": "res://data/sections/c11/s11_08.tscn",
+      "chapter": 11,
+      "difficulty": 9,
+      "par_time_frames": 4470
+    },
+    {
+      "id": "11.09",
+      "display_name": "The Long Straight",
+      "scene_path": "res://data/sections/c11/s11_09.tscn",
+      "chapter": 11,
+      "difficulty": 9,
+      "par_time_frames": 4580
+    },
+    {
+      "id": "11.10",
+      "display_name": "Signal Hold",
+      "scene_path": "res://data/sections/c11/s11_10.tscn",
+      "chapter": 11,
+      "difficulty": 9,
+      "par_time_frames": 4690
+    },
+    {
+      "id": "11.11",
+      "display_name": "Speed Limit",
+      "scene_path": "res://data/sections/c11/s11_11.tscn",
+      "chapter": 11,
+      "difficulty": 10,
+      "par_time_frames": 4800
+    },
+    {
+      "id": "11.12",
+      "display_name": "Terminal Approach",
+      "scene_path": "res://data/sections/c11/s11_12.tscn",
+      "chapter": 11,
+      "difficulty": 10,
+      "par_time_frames": 5210
+    },
+    {
+      "id": "12.01",
+      "display_name": "Seam Gate",
+      "scene_path": "res://data/sections/c12/s12_01.tscn",
+      "chapter": 12,
+      "difficulty": 7,
+      "par_time_frames": 3800
+    },
+    {
+      "id": "12.02",
+      "display_name": "The Wall",
+      "scene_path": "res://data/sections/c12/s12_02.tscn",
+      "chapter": 12,
+      "difficulty": 7,
+      "par_time_frames": 3910
+    },
+    {
+      "id": "12.03",
+      "display_name": "Boundary Tape",
+      "scene_path": "res://data/sections/c12/s12_03.tscn",
+      "chapter": 12,
+      "difficulty": 8,
+      "par_time_frames": 4020
+    },
+    {
+      "id": "12.04",
+      "display_name": "Sensor Grid",
+      "scene_path": "res://data/sections/c12/s12_04.tscn",
+      "chapter": 12,
+      "difficulty": 8,
+      "par_time_frames": 4130
+    },
+    {
+      "id": "12.05",
+      "display_name": "Quarantine Line",
+      "scene_path": "res://data/sections/c12/s12_05.tscn",
+      "chapter": 12,
+      "difficulty": 8,
+      "par_time_frames": 4240
+    },
+    {
+      "id": "12.06",
+      "display_name": "Cross-over",
+      "scene_path": "res://data/sections/c12/s12_06.tscn",
+      "chapter": 12,
+      "difficulty": 9,
+      "par_time_frames": 4350
+    },
+    {
+      "id": "12.07",
+      "display_name": "The Second Wall",
+      "scene_path": "res://data/sections/c12/s12_07.tscn",
+      "chapter": 12,
+      "difficulty": 9,
+      "par_time_frames": 4460
+    },
+    {
+      "id": "12.08",
+      "display_name": "Patched Seam",
+      "scene_path": "res://data/sections/c12/s12_08.tscn",
+      "chapter": 12,
+      "difficulty": 9,
+      "par_time_frames": 4570
+    },
+    {
+      "id": "12.09",
+      "display_name": "Crosswind Seam",
+      "scene_path": "res://data/sections/c12/s12_09.tscn",
+      "chapter": 12,
+      "difficulty": 10,
+      "par_time_frames": 4680
+    },
+    {
+      "id": "12.10",
+      "display_name": "Load Frame",
+      "scene_path": "res://data/sections/c12/s12_10.tscn",
+      "chapter": 12,
+      "difficulty": 10,
+      "par_time_frames": 4790
+    },
+    {
+      "id": "12.11",
+      "display_name": "The Outside Edge",
+      "scene_path": "res://data/sections/c12/s12_11.tscn",
+      "chapter": 12,
+      "difficulty": 10,
+      "par_time_frames": 4900
+    },
+    {
+      "id": "12.12",
+      "display_name": "Seam Terminus",
+      "scene_path": "res://data/sections/c12/s12_12.tscn",
+      "chapter": 12,
+      "difficulty": 10,
+      "par_time_frames": 5310
+    },
+    {
+      "id": "13.01",
+      "display_name": "Yard Approach",
+      "scene_path": "res://data/sections/c13/s13_01.tscn",
+      "chapter": 13,
+      "difficulty": 4,
+      "par_time_frames": 3420
+    },
+    {
+      "id": "13.02",
+      "display_name": "Broken Regulator",
+      "scene_path": "res://data/sections/c13/s13_02.tscn",
+      "chapter": 13,
+      "difficulty": 4,
+      "par_time_frames": 3540
+    },
+    {
+      "id": "13.03",
+      "display_name": "Fracture Site",
+      "scene_path": "res://data/sections/c13/s13_03.tscn",
+      "chapter": 13,
+      "difficulty": 5,
+      "par_time_frames": 3660
+    },
+    {
+      "id": "13.04",
+      "display_name": "Collapse Span",
+      "scene_path": "res://data/sections/c13/s13_04.tscn",
+      "chapter": 13,
+      "difficulty": 5,
+      "par_time_frames": 3780
+    },
+    {
+      "id": "13.05",
+      "display_name": "Fault Stack",
+      "scene_path": "res://data/sections/c13/s13_05.tscn",
+      "chapter": 13,
+      "difficulty": 5,
+      "par_time_frames": 3900
+    },
+    {
+      "id": "13.06",
+      "display_name": "Vent Debris",
+      "scene_path": "res://data/sections/c13/s13_06.tscn",
+      "chapter": 13,
+      "difficulty": 6,
+      "par_time_frames": 4020
+    },
+    {
+      "id": "13.07",
+      "display_name": "Salvage Line",
+      "scene_path": "res://data/sections/c13/s13_07.tscn",
+      "chapter": 13,
+      "difficulty": 6,
+      "par_time_frames": 4140
+    },
+    {
+      "id": "13.08",
+      "display_name": "Regulator Nest",
+      "scene_path": "res://data/sections/c13/s13_08.tscn",
+      "chapter": 13,
+      "difficulty": 6,
+      "par_time_frames": 4260
+    },
+    {
+      "id": "13.09",
+      "display_name": "Old Service Road",
+      "scene_path": "res://data/sections/c13/s13_09.tscn",
+      "chapter": 13,
+      "difficulty": 7,
+      "par_time_frames": 4380
+    },
+    {
+      "id": "13.10",
+      "display_name": "Ruined District",
+      "scene_path": "res://data/sections/c13/s13_10.tscn",
+      "chapter": 13,
+      "difficulty": 7,
+      "par_time_frames": 4500
+    },
+    {
+      "id": "13.11",
+      "display_name": "The First Route",
+      "scene_path": "res://data/sections/c13/s13_11.tscn",
+      "chapter": 13,
+      "difficulty": 8,
+      "par_time_frames": 4620
+    },
+    {
+      "id": "13.12",
+      "display_name": "Year Zero",
+      "scene_path": "res://data/sections/c13/s13_12.tscn",
+      "chapter": 13,
+      "difficulty": 8,
+      "par_time_frames": 4740
+    },
+    {
+      "id": "14.01",
+      "display_name": "Before",
+      "scene_path": "res://data/sections/c14/s14_01.tscn",
+      "chapter": 14,
+      "difficulty": 6,
+      "par_time_frames": 4000
+    },
+    {
+      "id": "14.02",
+      "display_name": "The Alarm",
+      "scene_path": "res://data/sections/c14/s14_02.tscn",
+      "chapter": 14,
+      "difficulty": 7,
+      "par_time_frames": 4110
+    },
+    {
+      "id": "14.03",
+      "display_name": "First Gate",
+      "scene_path": "res://data/sections/c14/s14_03.tscn",
+      "chapter": 14,
+      "difficulty": 7,
+      "par_time_frames": 4220
+    },
+    {
+      "id": "14.04",
+      "display_name": "The Wind Turns",
+      "scene_path": "res://data/sections/c14/s14_04.tscn",
+      "chapter": 14,
+      "difficulty": 7,
+      "par_time_frames": 4330
+    },
+    {
+      "id": "14.05",
+      "display_name": "Open Sky",
+      "scene_path": "res://data/sections/c14/s14_05.tscn",
+      "chapter": 14,
+      "difficulty": 8,
+      "par_time_frames": 4440
+    },
+    {
+      "id": "14.06",
+      "display_name": "The Drop",
+      "scene_path": "res://data/sections/c14/s14_06.tscn",
+      "chapter": 14,
+      "difficulty": 8,
+      "par_time_frames": 4550
+    },
+    {
+      "id": "14.07",
+      "display_name": "Evacuation",
+      "scene_path": "res://data/sections/c14/s14_07.tscn",
+      "chapter": 14,
+      "difficulty": 8,
+      "par_time_frames": 4660
+    },
+    {
+      "id": "14.08",
+      "display_name": "Storm Front",
+      "scene_path": "res://data/sections/c14/s14_08.tscn",
+      "chapter": 14,
+      "difficulty": 9,
+      "par_time_frames": 4770
+    },
+    {
+      "id": "14.09",
+      "display_name": "Collapse",
+      "scene_path": "res://data/sections/c14/s14_09.tscn",
+      "chapter": 14,
+      "difficulty": 9,
+      "par_time_frames": 4880
+    },
+    {
+      "id": "14.10",
+      "display_name": "The Records",
+      "scene_path": "res://data/sections/c14/s14_10.tscn",
+      "chapter": 14,
+      "difficulty": 9,
+      "par_time_frames": 4990
+    },
+    {
+      "id": "14.11",
+      "display_name": "What Was Saved",
+      "scene_path": "res://data/sections/c14/s14_11.tscn",
+      "chapter": 14,
+      "difficulty": 10,
+      "par_time_frames": 5100
+    },
+    {
+      "id": "14.12",
+      "display_name": "The Order",
+      "scene_path": "res://data/sections/c14/s14_12.tscn",
+      "chapter": 14,
+      "difficulty": 10,
+      "par_time_frames": 5510
+    },
+    {
+      "id": "15.01",
+      "display_name": "Scrape Mark",
+      "scene_path": "res://data/sections/c15/s15_01.tscn",
+      "chapter": 15,
+      "difficulty": 7,
+      "par_time_frames": 4100
+    },
+    {
+      "id": "15.02",
+      "display_name": "Soft Edge",
+      "scene_path": "res://data/sections/c15/s15_02.tscn",
+      "chapter": 15,
+      "difficulty": 7,
+      "par_time_frames": 4210
+    },
+    {
+      "id": "15.03",
+      "display_name": "The Seam That Grows",
+      "scene_path": "res://data/sections/c15/s15_03.tscn",
+      "chapter": 15,
+      "difficulty": 8,
+      "par_time_frames": 4320
+    },
+    {
+      "id": "15.04",
+      "display_name": "Scar Tissue",
+      "scene_path": "res://data/sections/c15/s15_04.tscn",
+      "chapter": 15,
+      "difficulty": 8,
+      "par_time_frames": 4430
+    },
+    {
+      "id": "15.05",
+      "display_name": "It Patches",
+      "scene_path": "res://data/sections/c15/s15_05.tscn",
+      "chapter": 15,
+      "difficulty": 8,
+      "par_time_frames": 4540
+    },
+    {
+      "id": "15.06",
+      "display_name": "The Feed Line",
+      "scene_path": "res://data/sections/c15/s15_06.tscn",
+      "chapter": 15,
+      "difficulty": 9,
+      "par_time_frames": 4650
+    },
+    {
+      "id": "15.07",
+      "display_name": "Self Repair",
+      "scene_path": "res://data/sections/c15/s15_07.tscn",
+      "chapter": 15,
+      "difficulty": 9,
+      "par_time_frames": 4760
+    },
+    {
+      "id": "15.08",
+      "display_name": "Growth Ring",
+      "scene_path": "res://data/sections/c15/s15_08.tscn",
+      "chapter": 15,
+      "difficulty": 9,
+      "par_time_frames": 4870
+    },
+    {
+      "id": "15.09",
+      "display_name": "The Warm Joint",
+      "scene_path": "res://data/sections/c15/s15_09.tscn",
+      "chapter": 15,
+      "difficulty": 10,
+      "par_time_frames": 4980
+    },
+    {
+      "id": "15.10",
+      "display_name": "Learning",
+      "scene_path": "res://data/sections/c15/s15_10.tscn",
+      "chapter": 15,
+      "difficulty": 10,
+      "par_time_frames": 5090
+    },
+    {
+      "id": "15.11",
+      "display_name": "The Body",
+      "scene_path": "res://data/sections/c15/s15_11.tscn",
+      "chapter": 15,
+      "difficulty": 10,
+      "par_time_frames": 5200
+    },
+    {
+      "id": "15.12",
+      "display_name": "The Question",
+      "scene_path": "res://data/sections/c15/s15_12.tscn",
+      "chapter": 15,
+      "difficulty": 10,
+      "par_time_frames": 5610
+    },
+    {
+      "id": "16.01",
+      "display_name": "Mentor's Path",
+      "scene_path": "res://data/sections/c16/s16_01.tscn",
+      "chapter": 16,
+      "difficulty": 7,
+      "par_time_frames": 4200
+    },
+    {
+      "id": "16.02",
+      "display_name": "Ilsa's Line",
+      "scene_path": "res://data/sections/c16/s16_02.tscn",
+      "chapter": 16,
+      "difficulty": 8,
+      "par_time_frames": 4310
+    },
+    {
+      "id": "16.03",
+      "display_name": "Old Markings",
+      "scene_path": "res://data/sections/c16/s16_03.tscn",
+      "chapter": 16,
+      "difficulty": 8,
+      "par_time_frames": 4420
+    },
+    {
+      "id": "16.04",
+      "display_name": "The Teaching Route",
+      "scene_path": "res://data/sections/c16/s16_04.tscn",
+      "chapter": 16,
+      "difficulty": 8,
+      "par_time_frames": 4530
+    },
+    {
+      "id": "16.05",
+      "display_name": "Wrong Turn",
+      "scene_path": "res://data/sections/c16/s16_05.tscn",
+      "chapter": 16,
+      "difficulty": 9,
+      "par_time_frames": 4640
+    },
+    {
+      "id": "16.06",
+      "display_name": "The Long Way Round",
+      "scene_path": "res://data/sections/c16/s16_06.tscn",
+      "chapter": 16,
+      "difficulty": 9,
+      "par_time_frames": 4750
+    },
+    {
+      "id": "16.07",
+      "display_name": "Relic",
+      "scene_path": "res://data/sections/c16/s16_07.tscn",
+      "chapter": 16,
+      "difficulty": 9,
+      "par_time_frames": 4860
+    },
+    {
+      "id": "16.08",
+      "display_name": "Run Sheet",
+      "scene_path": "res://data/sections/c16/s16_08.tscn",
+      "chapter": 16,
+      "difficulty": 10,
+      "par_time_frames": 4970
+    },
+    {
+      "id": "16.09",
+      "display_name": "The Drop Point",
+      "scene_path": "res://data/sections/c16/s16_09.tscn",
+      "chapter": 16,
+      "difficulty": 10,
+      "par_time_frames": 5080
+    },
+    {
+      "id": "16.10",
+      "display_name": "First Runner",
+      "scene_path": "res://data/sections/c16/s16_10.tscn",
+      "chapter": 16,
+      "difficulty": 10,
+      "par_time_frames": 5190
+    },
+    {
+      "id": "16.11",
+      "display_name": "The Copy",
+      "scene_path": "res://data/sections/c16/s16_11.tscn",
+      "chapter": 16,
+      "difficulty": 10,
+      "par_time_frames": 5300
+    },
+    {
+      "id": "16.12",
+      "display_name": "Carry On",
+      "scene_path": "res://data/sections/c16/s16_12.tscn",
+      "chapter": 16,
+      "difficulty": 10,
+      "par_time_frames": 5710
+    },
+    {
+      "id": "17.01",
+      "display_name": "Spire Foot",
+      "scene_path": "res://data/sections/c17/s17_01.tscn",
+      "chapter": 17,
+      "difficulty": 5,
+      "par_time_frames": 3600
+    },
+    {
+      "id": "17.02",
+      "display_name": "Lift Shaft",
+      "scene_path": "res://data/sections/c17/s17_02.tscn",
+      "chapter": 17,
+      "difficulty": 5,
+      "par_time_frames": 3720
+    },
+    {
+      "id": "17.03",
+      "display_name": "Machine Floor",
+      "scene_path": "res://data/sections/c17/s17_03.tscn",
+      "chapter": 17,
+      "difficulty": 6,
+      "par_time_frames": 3840
+    },
+    {
+      "id": "17.04",
+      "display_name": "Pressure Column",
+      "scene_path": "res://data/sections/c17/s17_04.tscn",
+      "chapter": 17,
+      "difficulty": 6,
+      "par_time_frames": 3960
+    },
+    {
+      "id": "17.05",
+      "display_name": "Warden Line",
+      "scene_path": "res://data/sections/c17/s17_05.tscn",
+      "chapter": 17,
+      "difficulty": 6,
+      "par_time_frames": 4080
+    },
+    {
+      "id": "17.06",
+      "display_name": "Open Gallery",
+      "scene_path": "res://data/sections/c17/s17_06.tscn",
+      "chapter": 17,
+      "difficulty": 7,
+      "par_time_frames": 4200
+    },
+    {
+      "id": "17.07",
+      "display_name": "Wind Lab",
+      "scene_path": "res://data/sections/c17/s17_07.tscn",
+      "chapter": 17,
+      "difficulty": 7,
+      "par_time_frames": 4320
+    },
+    {
+      "id": "17.08",
+      "display_name": "Core Ring",
+      "scene_path": "res://data/sections/c17/s17_08.tscn",
+      "chapter": 17,
+      "difficulty": 8,
+      "par_time_frames": 4440
+    },
+    {
+      "id": "17.09",
+      "display_name": "Regulator Crown",
+      "scene_path": "res://data/sections/c17/s17_09.tscn",
+      "chapter": 17,
+      "difficulty": 8,
+      "par_time_frames": 4560
+    },
+    {
+      "id": "17.10",
+      "display_name": "Vertical Intake",
+      "scene_path": "res://data/sections/c17/s17_10.tscn",
+      "chapter": 17,
+      "difficulty": 8,
+      "par_time_frames": 4680
+    },
+    {
+      "id": "17.11",
+      "display_name": "Signal Ascent",
+      "scene_path": "res://data/sections/c17/s17_11.tscn",
+      "chapter": 17,
+      "difficulty": 9,
+      "par_time_frames": 4800
+    },
+    {
+      "id": "17.12",
+      "display_name": "Hollow Peak",
+      "scene_path": "res://data/sections/c17/s17_12.tscn",
+      "chapter": 17,
+      "difficulty": 9,
+      "par_time_frames": 4920
+    },
+    {
+      "id": "18.01",
+      "display_name": "Ring One",
+      "scene_path": "res://data/sections/c18/s18_01.tscn",
+      "chapter": 18,
+      "difficulty": 8,
+      "par_time_frames": 4400
+    },
+    {
+      "id": "18.02",
+      "display_name": "Saye's Order",
+      "scene_path": "res://data/sections/c18/s18_02.tscn",
+      "chapter": 18,
+      "difficulty": 8,
+      "par_time_frames": 4510
+    },
+    {
+      "id": "18.03",
+      "display_name": "Control Spiral",
+      "scene_path": "res://data/sections/c18/s18_03.tscn",
+      "chapter": 18,
+      "difficulty": 8,
+      "par_time_frames": 4620
+    },
+    {
+      "id": "18.04",
+      "display_name": "The Balance",
+      "scene_path": "res://data/sections/c18/s18_04.tscn",
+      "chapter": 18,
+      "difficulty": 9,
+      "par_time_frames": 4730
+    },
+    {
+      "id": "18.05",
+      "display_name": "Counterweight",
+      "scene_path": "res://data/sections/c18/s18_05.tscn",
+      "chapter": 18,
+      "difficulty": 9,
+      "par_time_frames": 4840
+    },
+    {
+      "id": "18.06",
+      "display_name": "The Chamber",
+      "scene_path": "res://data/sections/c18/s18_06.tscn",
+      "chapter": 18,
+      "difficulty": 9,
+      "par_time_frames": 4950
+    },
+    {
+      "id": "18.07",
+      "display_name": "The Governor",
+      "scene_path": "res://data/sections/c18/s18_07.tscn",
+      "chapter": 18,
+      "difficulty": 9,
+      "par_time_frames": 5060
+    },
+    {
+      "id": "18.08",
+      "display_name": "System Heart",
+      "scene_path": "res://data/sections/c18/s18_08.tscn",
+      "chapter": 18,
+      "difficulty": 10,
+      "par_time_frames": 5170
+    },
+    {
+      "id": "18.09",
+      "display_name": "Maintenance Walk",
+      "scene_path": "res://data/sections/c18/s18_09.tscn",
+      "chapter": 18,
+      "difficulty": 10,
+      "par_time_frames": 5280
+    },
+    {
+      "id": "18.10",
+      "display_name": "The Archive",
+      "scene_path": "res://data/sections/c18/s18_10.tscn",
+      "chapter": 18,
+      "difficulty": 10,
+      "par_time_frames": 5390
+    },
+    {
+      "id": "18.11",
+      "display_name": "Redact",
+      "scene_path": "res://data/sections/c18/s18_11.tscn",
+      "chapter": 18,
+      "difficulty": 10,
+      "par_time_frames": 5500
+    },
+    {
+      "id": "18.12",
+      "display_name": "Ring Exit",
+      "scene_path": "res://data/sections/c18/s18_12.tscn",
+      "chapter": 18,
+      "difficulty": 10,
+      "par_time_frames": 5910
+    },
+    {
+      "id": "19.01",
+      "display_name": "Anchor Row",
+      "scene_path": "res://data/sections/c19/s19_01.tscn",
+      "chapter": 19,
+      "difficulty": 8,
+      "par_time_frames": 4500
+    },
+    {
+      "id": "19.02",
+      "display_name": "The Ladder",
+      "scene_path": "res://data/sections/c19/s19_02.tscn",
+      "chapter": 19,
+      "difficulty": 8,
+      "par_time_frames": 4610
+    },
+    {
+      "id": "19.03",
+      "display_name": "Canopy Arm",
+      "scene_path": "res://data/sections/c19/s19_03.tscn",
+      "chapter": 19,
+      "difficulty": 9,
+      "par_time_frames": 4720
+    },
+    {
+      "id": "19.04",
+      "display_name": "Tension",
+      "scene_path": "res://data/sections/c19/s19_04.tscn",
+      "chapter": 19,
+      "difficulty": 9,
+      "par_time_frames": 4830
+    },
+    {
+      "id": "19.05",
+      "display_name": "The Top Ring",
+      "scene_path": "res://data/sections/c19/s19_05.tscn",
+      "chapter": 19,
+      "difficulty": 9,
+      "par_time_frames": 4940
+    },
+    {
+      "id": "19.06",
+      "display_name": "Above the City",
+      "scene_path": "res://data/sections/c19/s19_06.tscn",
+      "chapter": 19,
+      "difficulty": 9,
+      "par_time_frames": 5050
+    },
+    {
+      "id": "19.07",
+      "display_name": "Open Mast",
+      "scene_path": "res://data/sections/c19/s19_07.tscn",
+      "chapter": 19,
+      "difficulty": 10,
+      "par_time_frames": 5160
+    },
+    {
+      "id": "19.08",
+      "display_name": "Last Regulator",
+      "scene_path": "res://data/sections/c19/s19_08.tscn",
+      "chapter": 19,
+      "difficulty": 10,
+      "par_time_frames": 5270
+    },
+    {
+      "id": "19.09",
+      "display_name": "The Seal",
+      "scene_path": "res://data/sections/c19/s19_09.tscn",
+      "chapter": 19,
+      "difficulty": 10,
+      "par_time_frames": 5380
+    },
+    {
+      "id": "19.10",
+      "display_name": "Wind Start",
+      "scene_path": "res://data/sections/c19/s19_10.tscn",
+      "chapter": 19,
+      "difficulty": 10,
+      "par_time_frames": 5490
+    },
+    {
+      "id": "19.11",
+      "display_name": "The Drop Down",
+      "scene_path": "res://data/sections/c19/s19_11.tscn",
+      "chapter": 19,
+      "difficulty": 10,
+      "par_time_frames": 5600
+    },
+    {
+      "id": "19.12",
+      "display_name": "Canopy",
+      "scene_path": "res://data/sections/c19/s19_12.tscn",
+      "chapter": 19,
+      "difficulty": 10,
+      "par_time_frames": 6010
+    },
+    {
+      "id": "20.01",
+      "display_name": "Sky Access",
+      "scene_path": "res://data/sections/c20/s20_01.tscn",
+      "chapter": 20,
+      "difficulty": 6,
+      "par_time_frames": 3780
+    },
+    {
+      "id": "20.02",
+      "display_name": "Storm Ladder",
+      "scene_path": "res://data/sections/c20/s20_02.tscn",
+      "chapter": 20,
+      "difficulty": 6,
+      "par_time_frames": 3900
+    },
+    {
+      "id": "20.03",
+      "display_name": "Broken Pressure",
+      "scene_path": "res://data/sections/c20/s20_03.tscn",
+      "chapter": 20,
+      "difficulty": 7,
+      "par_time_frames": 4020
+    },
+    {
+      "id": "20.04",
+      "display_name": "Free Current",
+      "scene_path": "res://data/sections/c20/s20_04.tscn",
+      "chapter": 20,
+      "difficulty": 7,
+      "par_time_frames": 4140
+    },
+    {
+      "id": "20.05",
+      "display_name": "Cloudline",
+      "scene_path": "res://data/sections/c20/s20_05.tscn",
+      "chapter": 20,
+      "difficulty": 7,
+      "par_time_frames": 4260
+    },
+    {
+      "id": "20.06",
+      "display_name": "Wind Test",
+      "scene_path": "res://data/sections/c20/s20_06.tscn",
+      "chapter": 20,
+      "difficulty": 8,
+      "par_time_frames": 4380
+    },
+    {
+      "id": "20.07",
+      "display_name": "Uncaged Route",
+      "scene_path": "res://data/sections/c20/s20_07.tscn",
+      "chapter": 20,
+      "difficulty": 8,
+      "par_time_frames": 4500
+    },
+    {
+      "id": "20.08",
+      "display_name": "Rain Section",
+      "scene_path": "res://data/sections/c20/s20_08.tscn",
+      "chapter": 20,
+      "difficulty": 9,
+      "par_time_frames": 4620
+    },
+    {
+      "id": "20.09",
+      "display_name": "Last Cycle",
+      "scene_path": "res://data/sections/c20/s20_09.tscn",
+      "chapter": 20,
+      "difficulty": 9,
+      "par_time_frames": 4740
+    },
+    {
+      "id": "20.10",
+      "display_name": "City Vent",
+      "scene_path": "res://data/sections/c20/s20_10.tscn",
+      "chapter": 20,
+      "difficulty": 9,
+      "par_time_frames": 4860
+    },
+    {
+      "id": "20.11",
+      "display_name": "Open Air",
+      "scene_path": "res://data/sections/c20/s20_11.tscn",
+      "chapter": 20,
+      "difficulty": 10,
+      "par_time_frames": 4980
+    },
+    {
+      "id": "20.12",
+      "display_name": "Weather Choice",
+      "scene_path": "res://data/sections/c20/s20_12.tscn",
+      "chapter": 20,
+      "difficulty": 10,
+      "par_time_frames": 5400
+    }
   ]
 }

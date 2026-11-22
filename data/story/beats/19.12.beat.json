@@ -1,0 +1,53 @@
+{
+  "_meta": {
+    "spdx": "CC-BY-SA-4.0",
+    "spdx_file_copyright_text": "2026 the WINDSHEAR contributors",
+    "license": "CC-BY-SA-4.0",
+    "schema": "windshear.story.beat.v1",
+    "mode": "AMBIENT"
+  },
+  "version": 1,
+  "section_id": "19.12",
+  "beats": [
+    {
+      "id": "19.12.LAST_ANCHOR",
+      "mode": "AMBIENT",
+      "trigger": {
+        "type": "section_entry",
+        "frame": 0
+      },
+      "actors": [
+        {
+          "actor_id": "lancer",
+          "role": "player"
+        },
+        {
+          "actor_id": "the_concord",
+          "role": "speaker"
+        }
+      ],
+      "dialogue": [
+        "en.038",
+        "en.039"
+      ],
+      "duration_frames": 480,
+      "control": {
+        "locked": false,
+        "player_input": "unrestricted"
+      },
+      "world_time": {
+        "mode": "normal",
+        "time_scale": 1.0
+      },
+      "camera": {
+        "mode": "lancer_rig",
+        "detachable": false
+      },
+      "exit": {
+        "type": "player_exit_or_end",
+        "allow_player_exit": true,
+        "penalty_frames": 0
+      }
+    }
+  ]
+}

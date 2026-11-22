@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
+
+[ext_resource type="Shader" path="res://addons/windshear/render/ws_psx.gdshader" id="1_psx"]
+
+[resource]
+resource_name = "PSX Glow"
+shader = ExtResource("1_psx")
+shader_parameter/albedo_color = Color(0.29, 0.64, 1, 1)
+shader_parameter/use_albedo_texture = false
+shader_parameter/emission_color = Color(0.29, 0.64, 1, 1)
+shader_parameter/emission_energy = 1.6

@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
+
+[ext_resource type="Shader" path="res://addons/windshear/render/ws_psx.gdshader" id="1_psx"]
+
+[resource]
+resource_name = "PSX Charcoal"
+shader = ExtResource("1_psx")
+shader_parameter/albedo_color = Color(0.145, 0.157, 0.184, 1)
+shader_parameter/use_albedo_texture = false

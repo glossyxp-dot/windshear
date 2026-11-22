@@ -31,7 +31,8 @@ and Lancer is going to set the sky free anyway.*
 
 ## 1. The world: the Concord
 
-Not aliens. Not nature. A **human civic system**.
+Not aliens. Not nature. A **human civic system** that has been running itself
+for twenty years.
 
 Twenty years ago the **Fracture Year** hit: regulation collapsed, the wind
 became ungovernable, and the city tore itself apart. The survivors built the
@@ -42,6 +43,48 @@ open on schedules. Air moves only where the Concord permits.
 **Lancer** is a Runner: a courier licensed to move inside the cage, paid to
 carry what the Concord allows. Lancer breaks the law by carrying what it
 doesn't.
+
+### What the Concord actually is
+
+It started as software, and it is still software at the top — a scheduling
+system with a maintenance voice and no face. Twenty years of self-repair left
+marks on the hardware it runs on.
+
+Where a seam tore, the Concord grew a patch. Where a vent froze, it grew a
+collar. The growth isn't alive. It doesn't want anything. It just keeps closing
+the gap the way a wound keeps closing, and after long enough the original
+structure is more scaffold than wall. Lancer calls it the patched thing. The
+Concord's own logs call it *continued maintenance*.
+
+Down in the spine basement you can see it: seams that run warm, surfaces that
+bleed when you scrape them, a soft edge where a blast door used to meet
+concrete. It's the ugliest thing in the game and it's still, technically, a
+building inspector's note.
+
+### The blocks
+
+The city is cut into **quarantine blocks** — sealed districts closed after the
+Fracture Year so no two of them could ever coordinate a second one. People live
+inside them. The Concord feeds them, schedules their gates, and forbids anyone
+crossing a sector line with anything the schedule doesn't list.
+
+There are whole blocks the outside world has stopped counting.
+
+### Why it hunts Lancer
+
+Not for being fast. The Concord doesn't care how fast a body is. It cares that
+Lancer is a courier moving physical things between places that are not allowed
+to know about each other.
+
+A war wound, reconnecting isolated populations, looks exactly like a command
+network forming. That is the shape of the threat it was built to stop, and
+that is the shape Lancer keeps accidentally being.
+
+Its defenses reflect what it expects. Chokepoints, blast doors, sensor grids,
+bio-constructs that patrol lines — all of it is built against someone sneaking
+slowly or blowing a wall open. Nothing in the system was designed for someone
+who crosses at fourteen metres a second because the route gives them no
+choice.
 
 ### The dilemma (the main point)
 Freeing the world means free wind — and free wind means the Fracture Year can
@@ -150,7 +193,28 @@ is a legitimate mastery path — and the game treats it as a feature.
 | 9 | **The Long Fall** | Falling past a floor's collision LOD switch | Passes through one floor, lands below |
 | 10 | **Cascade** | Killing a regulator drone mid-spin | +0.4 s of air control, no friction |
 | 11 | **Sound Skip** | Triggering a sound cue on the exact frame of a section transition | Cue doesn't play, doesn't interrupt |
-| 12 | **The First Runner's Path** | Reaching Chapter 4's fracture site with all 11 other Fractures known | Unlocks the third ending |
+| 12 | **The First Runner's Path** | Reaching Chapter 13's fracture site with all 11 other Fractures known | Unlocks the third ending |
+
+### Where the Fractures live
+
+The twelve are spread across twenty chapters, and no two sit in the same act.
+This is a guide, not a promise — a player is meant to find most of them by
+breaking the game rather than by reading a list.
+
+| # | Name | First reachable | Master route |
+| --- | --- | --- | --- |
+| 1 | Seam Skip | 9 — THE QUIET LINE | 12 — BLOCK SEAM |
+| 2 | Wind Pocket | 5 — VENTWORKS | 6 — HOT PLENUM |
+| 3 | Wall-Kiss Chain | 1 — THE LATTICE | 4 — THE LOOP |
+| 4 | Zip Transfer | 9 — THE QUIET LINE | 10 — CARGO SPINE |
+| 5 | Gate Timing | 1 — THE LATTICE | 18 — THE INNER RING |
+| 6 | Regulator Overdraw | 5 — VENTWORKS | 7 — THE REGULATOR BELT |
+| 7 | Grav-Lift Double | 6 — HOT PLENUM | 17 — HOLLOW SPIRE |
+| 8 | Frame Skip | 8 — SPINE BASEMENT | 10 — CARGO SPINE |
+| 9 | The Long Fall | 6 — HOT PLENUM | 8 — SPINE BASEMENT |
+| 10 | Cascade | 7 — THE REGULATOR BELT | 16 — THE FIRST RUNNER |
+| 11 | Sound Skip | 11 — THE LONG FREIGHT | 19 — CANOPY LADDER |
+| 12 | The First Runner's Path | 13 — THE FRACTURE YARD | needs the other eleven |
 
 ### Design rules for Fractures
 - **Intentional, not accidental.** Each is deliberately implemented, documented
@@ -202,7 +266,7 @@ protagonist, even when the game stops to talk.
 
 ---
 
-## 6. Chapter structure: 12 sections each
+## 6. Chapter structure: twenty chapters of twelve sections
 
 Every chapter is **12 numbered sections**. The numbering is a first-class
 organizing device — for saves, leaderboards, speedrun splits, modding, and
@@ -212,21 +276,51 @@ community routes.
 1.01  1.02  1.03  ...  1.12
 2.01  2.02  ...        2.12
 ...
+20.01 20.02 ...        20.12
 ```
 
 The game is **Chapter → Section → Beat**. Sections are 30–180 seconds. A
-chapter is 12–20 minutes. Six chapters ≈ **90 minutes** of first-run content —
-short enough to finish, long enough to master.
+chapter is 12–20 minutes. Twenty chapters ≈ **four and a half hours** of
+first-run content — long enough to master, short enough to finish in a week of
+evenings.
 
-### Chapter roster
-| Ch | Title | Sections | Core idea | Signature mechanics |
+### The six acts
+
+Twenty chapters group into six acts. The acts carry the story; the chapters
+carry the world.
+
+| Act | Chapters | Where | What the Concord is |
+| --- | --- | --- | --- |
+| **I — THE BLOCK** | 1–4 | One quarantine block, morning to dusk | Bureaucracy. Schedules, manifests, a warden |
+| **II — THE UNDER-CITY** | 5–8 | Below the regulation boundary | Machinery. Regulators, heat, exhaust |
+| **III — THE SPINE** | 9–12 | Freight corridors between blocks | Distance. Freight, seams, walls |
+| **IV — THE YARD** | 13–16 | Where the Fracture Year happened | A scar. Growth, records, the First Runner |
+| **V — THE CORE** | 17–19 | Inside the Concord itself | A person. Saye, and what she signed |
+| **VI — OPEN WEATHER** | 20 | Above the last regulation layer | The choice |
+
+### The chapter roster
+| Ch | Title | Act | Core idea | Signature mechanics |
 | --- | --- | --- | --- | --- |
-| **1** | **THE LATTICE** | 1.01–1.12 | Downtown, morning regulation. Lancer's licensed route, then the first illegal crossing. | Run, slide, jump; Gate Timing (F5) introduced |
-| **2** | **VENTWORKS** | 2.01–2.12 | The under-city ventilation spine. Vertical, hot, loud. | Wind pockets (F2), Zip anchors (F4), first Wind Regulator |
-| **3** | **THE QUIET LINE** | 3.01–3.12 | Freight spines and suspended capsules. Precision over speed. | Zip transfers (F4), Thread bonus, Seam Skip (F1) |
-| **4** | **THE FRACTURE YARD** | 4.01–4.12 | Where regulation failed. The story's centre. | First Runner's path, all 6 Fractures available |
-| **5** | **HOLLOW SPIRE** | 5.01–5.12 | Vertical ascent through the Concord's core. Warden Saye. | Every mechanic fused; Grav-Lift Double (F7), Cascade (F10) |
-| **6** | **OPEN WEATHER** | 6.01–6.12 | The finale. The sky itself is the last section. | Wind mastery; endings gated by Fractures |
+| **1** | **THE LATTICE** | I | Downtown, morning regulation. Lancer's licensed route, then the first illegal crossing. | Run, slide, jump; Gate Timing (F5) introduced |
+| **2** | **CUSTOMS ROW** | I | The checkpoint district. Manifests, scanners, and a warden who wants to see the case. | Pressure plates; the first live enforcement |
+| **3** | **NIGHT SEAL** | I | The block locks at dusk. Lancer is inside it when it does. | Slamming bulkheads; patrol cycles |
+| **4** | **THE LOOP** | I | The courier circuit. Short, repeated, worth learning by heart. | Every Act I move, at speed |
+| **5** | **VENTWORKS** | II | The under-city ventilation spine. Vertical, hot, loud. | Wind pockets (F2), Zip anchors (F4), first Wind Regulator |
+| **6** | **HOT PLENUM** | II | The heat that keeps the spine running. Nothing down here is cool. | Thermals (F3); overpressure gates |
+| **7** | **THE REGULATOR BELT** | II | Six regulators in series, each one trimming the last. | Wind regulators (F6); ride the exhaust |
+| **8** | **SPINE BASEMENT** | II | Under the Spire, where the Concord's oldest growth is. | The patched seam; the first grown hazard |
+| **9** | **THE QUIET LINE** | III | Freight spines and suspended capsules. Precision over speed. | Zip transfers (F4), Thread bonus, Seam Skip (F1) |
+| **10** | **CARGO SPINE** | III | The parcels themselves. Weight, balance and slings. | Cargo and slings (F8) |
+| **11** | **THE LONG FREIGHT** | III | A run that starts on a moving deck and ends at a yard. | Every route moves; schedules matter |
+| **12** | **BLOCK SEAM** | III | The wall between two quarantine blocks, and the frame it opens on. | Seam Skip (F1); bulkheads |
+| **13** | **THE FRACTURE YARD** | IV | Where regulation failed. The story's centre. | First Runner's path; Fractures 1–6 |
+| **14** | **THE FRACTURE YEAR** | IV | The year itself, told in the order it happened. | A city with no wind regulation |
+| **15** | **THE PATCHED THING** | IV | What the Concord grew to fix itself, and what it cost. | Organic growth; soft hazards |
+| **16** | **THE FIRST RUNNER** | IV | The mentor's route, and the copy the Concord has been running for twenty years. | Cascade (F10); Grav-Lift Double (F7) |
+| **17** | **HOLLOW SPIRE** | V | Vertical ascent through the Concord's core. Warden Saye. | Every mechanic fused; Grav-Lift Double (F7), Cascade (F10) |
+| **18** | **THE INNER RING** | V | The balance inside the system. Saye waits here. | Gate Timing under pressure; Thread bonus |
+| **19** | **CANOPY LADDER** | V | The last climb, through the canopy anchors, into weather. | Thermals (F3) at full strength |
+| **20** | **OPEN WEATHER** | VI | The finale. The sky itself is the last section. | Wind mastery; endings gated by Fractures |
 
 ### Section taxonomy
 Each chapter's 12 sections mix these roles (typical spread, 12 total):
@@ -252,13 +346,13 @@ without the sprawl.
 - **Loops** — each chapter contains at least one fast-return loop, so mastery
   means learning a circuit, not a corridor.
 - **Vertical sightlines** — look down and you see the layer below; the Spire
-  rises through Chapters 2, 3 and 5.
+  rises through Chapters 5, 9, 17 and 19.
 - **The Quiet Line** — a high-speed transit spine (capsules, ziplines) crosses
-  chapters 1–3; it doubles as a shortcut system and a speedrun line.
+  chapters 9–12; it doubles as a shortcut system and a speedrun line.
 
 **How it is *not* open world:**
 - Every section is a hand-authored cell. No procedural sprawl.
-- The world is ~1.5 hours of unique content, not 15.
+- The world is ~4.5 hours of unique content, not 15.
 - Freedom is in *how* you traverse a section, not in *where* the world goes.
 - The Concord's schedule means some routes are only open at certain times —
   the world changes without being open.
@@ -324,13 +418,27 @@ Camera is a **constrained 3D rig locked to the play plane** — a side-on
 
 ## 10. Enemies and hazards
 
+The Concord does not fight Lancer. It denies her the ground, one room at a
+time. Everything below is area denial: the level closes, the route changes,
+and the run becomes a question of where you were going to be in two seconds.
+
 | Threat | Behaviour | Counter | Rule |
 | --- | --- | --- | --- |
+| **Concord gate** | Opens on a schedule | Timing, speed, or Fracture | Schedules are learnable and displayed |
+| **Bulkhead** | A blast door that slams shut across the route | Be through the gap when it closes | The door is the antagonist's offence, so the player runs *away* from the system |
+| **Purge protocol** | A sector floods with hazards after an intruder is logged | Leave the sector, or find the vent it doesn't reach | Announced before it starts; never a surprise |
+| **Interdiction node** | Stationary turret or snare-tendril guarding a bridge or shaft | Time the sweep, or go around | Always a route it doesn't watch |
 | **Regulator drone** | Patrols a fixed line, rotating fan, contact damage | Filament-slap to reverse it, or slide under | Contact = brief stun, not death |
 | **Wind regulator** | Large, anchored, emits a gust cone | Hit the valve; or exploit exhaust for speed | It blocks the route; there is always a speed line through it |
 | **Pressure plate** | Triggers gates, alarms, collapse | Parcel sling; or overshoot via Fracture | Always two solutions |
 | **Gap / updraft** | Environmental | Timing | Never a blind jump — always readable |
-| **Concord gate** | Opens on a schedule | Timing, speed, or Fracture | Schedules are learnable and displayed |
+| **Grown seam** | The Concord's patched growth. Soft, warm, bleeds when scraped | It deforms, so it slows you differently | Acts like a hazard, reads like a wound |
+
+The escalation runs with the acts. Act I gives you one scheduled gate per
+section and nothing else. By Act VI a section carries four, on three different
+cycles, and the slowest one guards the good route. The player learns to read
+two or three schedules at once, and the speedrun line is the one that assumes
+they can.
 
 **No instant-death.** Hazards reset you to the last checkpoint with a fast
 respawn (< 1.2 s) and no loading. Death is cheap; flow is protected.
@@ -350,7 +458,7 @@ official story — is in the repo, and anyone can change the story without askin
 ### How alternative storylines work
 The game separates **world** from **story**:
 
-- **World layer** (the city, the Concord, physics, mechanics, the 6×12 section
+- **World layer** (the city, the Concord, physics, mechanics, the 20×12 section
   grid) is stable and shared.
 - **Story layer** (Lancer's arc, NPC dialogue, major beats, endings) is
   **data-driven**, defined in a `story/*.json` + per-section beat scripts.
@@ -462,7 +570,7 @@ vertex-snapped geometry, dithered gradients.
 - **Gate:** a 5-minute run feels like a toy people want to replay.
 
 ### Milestone 2 — Systems & content (12 weeks)
-- All 6 chapters playable (greybox), all 12 Fractures implemented.
+- All 20 chapters playable (greybox), all 12 Fractures implemented.
 - Editions/story system, Fracture Codex, accessibility options.
 - **Gate:** an external team ships an alternate storyline.
 
@@ -485,9 +593,9 @@ vertex-snapped geometry, dithered gradients.
    Milestone 1.
 3. **Fracture disclosure** — ship with zero documented Fractures (pure hunt), or
    seed one per chapter? Recommend: seed 3, discover 9.
-4. **Edition scope** — how much of the 6×12 grid can an Edition rewrite before it
+4. **Edition scope** — how much of the 20×12 grid can an Edition rewrite before it
    stops being WindShear?
-5. **Wind in Chapter 1** — introduce wind late (Chapter 2) for contrast, or
+5. **Wind in Chapter 1** — introduce wind late (Chapter 5) for contrast, or
    front-load it?
 
 ---
@@ -497,7 +605,7 @@ vertex-snapped geometry, dithered gradients.
 Sections are addressed as `chapter.section` (e.g. `2.07`). Splits, saves,
 leaderboards, Edition scripts, and community route files all use this ID.
 Content within a section is addressable as `chapter.section.beat` for major
-beats (`4.03.FRACTURE`).
+beats (`13.03.FRACTURE`).
 
 ## Appendix B — Fracture registry policy
 

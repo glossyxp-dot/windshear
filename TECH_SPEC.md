@@ -11,7 +11,7 @@ Target: **Godot 4.7.2**, Compatibility renderer, PSX-style low-resolution 3D,
 | --- | --- | --- |
 | Renderer | **Compatibility** (OpenGL) | Lowest VRAM/RAM of the three; PSX look doesn't need Forward+ |
 | Internal resolution | **480×270** (320×240 in retro chapters) | 40× fewer pixels than 1080p; authentic PSX |
-| Upscale | Nearest-neighbour, integer-ish scale | PSX look, zero cost |
+| Upscale | Nearest-neighbour, integer scale (×2 = 960×540, ×3 = 1440×810, ×4 = 1920×1080) | PSX look, zero cost, no uneven pixels |
 | Colour depth | 8-bit, dithered gradients | Palette consistency |
 | Texture filtering | Nearest | Pixel look, avoids mip memory |
 | Lighting | Forward, baked vertex colours + few dynamic lights | Cheap; shadows only on key lights |
@@ -161,9 +161,10 @@ discovery harness finds rather than features that were built.
 ```
 res://
   data/
-    sections/            # 6 chapters × 12 sections
+    sections/            # 20 chapters × 12 sections
       c1/s1_01.tscn
       ...
+      c20/s20_12.tscn
     story/               # STORY LAYER — swappable by Editions
       c1/s1_01.beat.json
       dialogue/en.json

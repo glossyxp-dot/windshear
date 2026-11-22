@@ -5,62 +5,81 @@ SPDX-License-Identifier: CC-BY-SA-4.0
 
 # Section scenes
 
-The world is divided into six chapters of twelve numbered sections. Each section is one streaming cell and one `PackedScene`.
+The world is twenty chapters of twelve sections. One section is one streaming
+cell and one `PackedScene`.
 
-## Naming and identifiers
+## Naming
 
-A section id is `chapter.section`, with a zero-padded section number, for example `4.03`. Its scene path follows this pattern:
+A section id is `chapter.section`, with the section zero-padded — `13.03`, not
+`13.3`. The scene path follows from it:
 
 ```text
 res://data/sections/c<chapter>/s<chapter>_<section>.tscn
 ```
 
-Examples:
+So:
 
 ```text
 res://data/sections/c1/s1_01.tscn
-res://data/sections/c4/s4_03.tscn
-res://data/sections/c6/s6_12.tscn
+res://data/sections/c13/s13_03.tscn
+res://data/sections/c20/s20_12.tscn
 ```
 
-`data/sections/index.json` is the machine-readable index of the planned grid. A scene path in the index must match this pattern exactly. A section's stable id is used by every subsystem, including split marker data.
+`index.json` is the machine-readable index of the whole grid. It holds the id,
+the display name, the scene path, the difficulty and the par time for all 240
+sections. A scene path in the index has to match the pattern exactly — the
+world data test checks it, and so does anything that loads a section by id.
 
-## Scene composition
+The id is stable. Splits, saves, leaderboards and community route files all use
+it, so renaming a section means breaking someone's splits file.
 
-A section scene may contain the following node types:
+## What goes in a section scene
 
-- Merged geometry, normally `MeshInstance3D` or `MultiMeshInstance3D`.
+- Merged geometry — usually `MeshInstance3D` or `MultiMeshInstance3D`.
 - Static and moving colliders.
-- `SectionTrigger`, which defines the section boundary.
-- `RegulationGate`, which references a gate id in `data/schedule.json`.
-- `WindVolume`, covering thermals, crosswinds, and dead zones.
-- `FilamentAnchor`, with one of the zip, ring, or hold anchor types.
+- `SectionTrigger`, which defines the boundary.
+- `RegulationGate`, which names a gate id from `data/schedule.json`.
+- `WindVolume` for thermals, crosswinds and dead zones.
+- `FilamentAnchor` with one of the zip, ring or hold types.
 - `Checkpoint` nodes.
 - `Parcel` nodes.
-- `RegulatorDrone` nodes.
-- `WindRegulator` nodes.
+- `RegulatorDrone` and `WindRegulator` nodes.
 - `HazardVolume` nodes.
-- `BeatDirector`, which resolves the section's official or Edition story file.
+- `BeatDirector`, which resolves the section's story file.
 
-Geometry and colliders are authored for the cell's plane and staged depth layers. Node counts stay below the draw-call and memory budgets in `TECH_SPEC.md`.
+Geometry is authored for the play plane, with the staged depth layers behind
+it. Node counts stay under the draw-call and memory budgets in `TECH_SPEC.md`
+§2.
 
-## SectionTrigger registration
+## SectionTrigger
 
-Every section contains exactly one node named `SectionTrigger`. It declares:
+Every section has exactly one node named `SectionTrigger`. It declares four
+things:
 
 ```text
-section_id             Stable chapter.section id
-start_checkpoint_id    Checkpoint used at section entry
-end_checkpoint_id      Checkpoint used for the safe respawn at section exit
-split_marker_id        Marker used by the speedrun split system
+section_id             stable chapter.section id
+start_checkpoint_id    checkpoint used at section entry
+end_checkpoint_id      checkpoint used for the safe respawn at section exit
+split_marker_id        marker the speedrun split system uses
 ```
 
-When the section enters the scene tree, `SectionTrigger` registers its section id with the section manager and provides the start, end, and split markers. The registration is rejected if the id is absent from the section index or if a marker does not resolve to a node in the same section.
+On entering the tree it registers its section id with the section manager and
+hands over the three markers. Registration is rejected if the id isn't in the
+index, or if a marker doesn't resolve to a node in the same section — both are
+typos that would otherwise produce a section that loads and can't be finished.
 
-A `RegulationGate` declares its matching `gate_id`, such as `1.02.gate_01`. A `BeatDirector` declares the same `section_id` used by the `SectionTrigger` so the story service can resolve `data/story/beats/<section-id>.beat.json`.
+`RegulationGate` names its `gate_id`, e.g. `13.03.gate_01`. `BeatDirector`
+names the same `section_id` as the trigger, which is how the story service
+finds `data/story/beats/<section-id>.beat.json`.
 
-## Required boundaries
+## Boundaries
 
-Every section must declare a start checkpoint, an end checkpoint, and a split marker. The start checkpoint defines the entry respawn state, the end checkpoint defines the state carried into the next section, and the split marker must align with the section-entry split emitted by `SectionTimer`. Missing any of the three is a section validation error.
+Every section needs a start checkpoint, an end checkpoint and a split marker.
+The start is the respawn state on entry. The end is the state carried into the
+next section. The split marker lines up with the section-entry split that
+`SectionTimer` emits. Missing any one of the three is a validation error.
 
-The section must remain completable without a Fracture route. A closed or cycling Concord gate therefore requires an alternate line through the section rather than making the scheduled gate mandatory.
+One more rule, and it's the one that gets forgotten: a section has to be
+finishable without a Fracture route. A closed or cycling gate therefore needs
+an alternate line through the section. The scheduled gate is never the only
+way through.

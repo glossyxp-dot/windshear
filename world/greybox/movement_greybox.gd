@@ -33,6 +33,8 @@ const LancerControllerScript := preload("res://addons/windshear/movement/lancer_
 
 @onready var _player: LancerControllerScript = $Player
 @onready var _hud: Label = $HUD/Label
+@onready var _help_panel: PanelContainer = $HUD/HelpPanel
+@onready var _help_label: Label = $HUD/HelpPanel/Label
 
 var _hud_timer := 0
 
@@ -40,6 +42,8 @@ var _hud_timer := 0
 func _ready() -> void:
 	_player.respawn(spawn_position)
 	_hud.text = ""
+	_help_label.text = _build_help_text()
+	_help_panel.visible = false
 
 
 func _physics_process(delta: float) -> void:
@@ -56,6 +60,44 @@ func _physics_process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("reset_to_checkpoint"):
 		_player.respawn(spawn_position)
+	if event.is_action_pressed("toggle_help"):
+		_help_panel.visible = not _help_panel.visible
+
+
+## The mechanics reference, read straight off the tuning constants.
+##
+## It is built once, when the room opens, so it can never drift away from
+## what the controller actually does.
+func _build_help_text() -> String:
+	var lines := PackedStringArray()
+	lines.append("LANCER")
+	lines.append("")
+	lines.append("RUN     A / D         %4.1f m/s" % Tuning.MAX_RUN_SPEED)
+	lines.append("SLIDE   S / Ctrl      %4.2f s, friction %d" % [
+		Tuning.SLIDE_DURATION, int(Tuning.SLIDE_FRICTION)
+	])
+	lines.append("JUMP    SPACE        %4.1f m/s, apex %4.1f m" % [
+		Tuning.JUMP_VELOCITY, _jump_apex()
+	])
+	lines.append("AIR     A / D in air  +%4.1f m/s a jump" % Tuning.AIR_ACCEL_MAX_CONTRIB)
+	lines.append("KISS    slide + jump +%4.1f m/s, x%d, max %4.1f" % [
+		Tuning.WALL_KISS_BOOST, Tuning.WALL_KISS_CAP, Tuning.WALL_KISS_SPEED_CEILING
+	])
+	lines.append("")
+	lines.append("coyote %d f   buffer %d f   chain %d f" % [
+		Tuning.COYOTE_FRAMES, Tuning.JUMP_BUFFER_FRAMES, Tuning.WALL_KISS_CHAIN_FRAMES
+	])
+	lines.append("")
+	lines.append("not built yet: filament, mantle")
+	lines.append("")
+	lines.append("RESET   R")
+	lines.append("HELP    F1 or H")
+	return "\n".join(lines)
+
+
+## How high a full jump goes, in metres.
+func _jump_apex() -> float:
+	return Tuning.JUMP_VELOCITY * Tuning.JUMP_VELOCITY / (2.0 * Tuning.GRAVITY)
 
 
 func _refresh_hud() -> void:

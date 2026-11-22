@@ -9,7 +9,7 @@ What exists now:
 - A Godot 4.7.2 project that boots to a menu and into a movement greybox.
 - A frame-exact movement controller with every number in `TECH_SPEC.md` §3.
 - A camera rig that never leaves Lancer.
-- A test suite of **271 checks** that runs headless in about ten seconds.
+- A test suite of **322 checks** that runs headless in about ten seconds.
 - A discovery harness that plays candidate movement techniques against the
   controller and reports what it finds.
 
@@ -168,7 +168,7 @@ go and look.
 
 ## 5. What the tests actually cover
 
-271 checks, in ten suites. They are deliberately *not* "does the node
+322 checks, in eleven suites. They are deliberately *not* "does the node
 exist" tests.
 
 | Suite | Checks | What it is for |
@@ -181,7 +181,8 @@ exist" tests.
 | determinism | 8 | The same inputs give the same outputs; the section-seeded generator is stable |
 | performance | 10 | The project settings and the cost of a frame |
 | code policy | 10 | Licence headers, no global `randf()`, no allocation in the frame loops |
-| greybox | 19 | The scene: the player, the camera, the plane, the budget, a 90-second route |
+| world data | 37 | The 20x12 grid, the gate schedule, the Fracture registry, the endings, the beats |
+| greybox | 33 | The scene: the player, the camera, the plane, the budget, the materials, the help panel, a 90-second route |
 | PSX | 39 | The amount dial: the globals, the shader, the clamping, the settings round trip, and the slider in the menu |
 
 The camera, movement and determinism suites are the ones that matter most.
@@ -247,7 +248,7 @@ stage:
 2. **The filament verb.** It is tuned (`0.25 s`, `18°`) but not implemented
    yet, because it is the first verb that touches something other than the
    ground.
-3. **The first Fracture.** The fracture site in chapter 4 (`4.03`) is the
+3. **The first Fracture.** The fracture site in chapter 13 (`13.03`) is the
    design's promise that the movement has depth worth exploiting — and it
    will only work if the movement underneath it is stable.
 

@@ -1,25 +1,12 @@
-[gd_scene load_steps=31 format=3]
+[gd_scene load_steps=32 format=3]
 
 [ext_resource type="Script" path="res://world/greybox/movement_greybox.gd" id="1_greybox"]
 [ext_resource type="Script" path="res://addons/windshear/movement/lancer_controller.gd" id="2_lancer"]
 [ext_resource type="Script" path="res://addons/windshear/movement/camera_rig.gd" id="3_camera"]
-
-[sub_resource type="StandardMaterial3D" id="Charcoal"]
-albedo_color = Color(0.145, 0.157, 0.184, 1)
-roughness = 1.0
-metallic_specular = 0.1
-
-[sub_resource type="StandardMaterial3D" id="Deep"]
-albedo_color = Color(0.086, 0.094, 0.11, 1)
-roughness = 1.0
-metallic_specular = 0.05
-
-[sub_resource type="StandardMaterial3D" id="Glow"]
-albedo_color = Color(0.29, 0.64, 1, 1)
-emission_enabled = true
-emission = Color(0.29, 0.64, 1, 1)
-emission_energy_multiplier = 1.6
-roughness = 0.6
+[ext_resource type="Material" path="res://assets/materials/psx_charcoal.tres" id="4_charcoal"]
+[ext_resource type="Material" path="res://assets/materials/psx_deep.tres" id="5_deep"]
+[ext_resource type="Material" path="res://assets/materials/psx_glow.tres" id="6_glow"]
+[ext_resource type="Theme" path="res://ui/theme/windshear_theme.tres" id="7_theme"]
 
 [sub_resource type="Environment" id="GreyboxEnvironment"]
 background_mode = 1
@@ -120,7 +107,7 @@ position = Vector3(0, -0.5, 0)
 
 [node name="Mesh" type="MeshInstance3D" parent="Geometry/Floor"]
 mesh = SubResource("FloorMesh")
-surface_material_override/0 = SubResource("Charcoal")
+material_override = ExtResource("4_charcoal")
 
 [node name="Shape" type="CollisionShape3D" parent="Geometry/Floor"]
 shape = SubResource("FloorShape")
@@ -130,7 +117,7 @@ position = Vector3(0, 4, -4.1)
 
 [node name="Mesh" type="MeshInstance3D" parent="Geometry/BackWall"]
 mesh = SubResource("BackWallMesh")
-surface_material_override/0 = SubResource("Deep")
+material_override = ExtResource("5_deep")
 
 [node name="Shape" type="CollisionShape3D" parent="Geometry/BackWall"]
 shape = SubResource("BackWallShape")
@@ -140,7 +127,7 @@ position = Vector3(-16, 1, 0)
 
 [node name="Mesh" type="MeshInstance3D" parent="Geometry/PlatformA"]
 mesh = SubResource("PlatformAMesh")
-surface_material_override/0 = SubResource("Charcoal")
+material_override = ExtResource("4_charcoal")
 
 [node name="Shape" type="CollisionShape3D" parent="Geometry/PlatformA"]
 shape = SubResource("PlatformAShape")
@@ -150,7 +137,7 @@ position = Vector3(-9, 2.6, 0)
 
 [node name="Mesh" type="MeshInstance3D" parent="Geometry/PlatformB"]
 mesh = SubResource("PlatformBMesh")
-surface_material_override/0 = SubResource("Charcoal")
+material_override = ExtResource("4_charcoal")
 
 [node name="Shape" type="CollisionShape3D" parent="Geometry/PlatformB"]
 shape = SubResource("PlatformBShape")
@@ -160,7 +147,7 @@ position = Vector3(-2, 1.4, 0)
 
 [node name="Mesh" type="MeshInstance3D" parent="Geometry/PlatformC"]
 mesh = SubResource("PlatformCMesh")
-surface_material_override/0 = SubResource("Charcoal")
+material_override = ExtResource("4_charcoal")
 
 [node name="Shape" type="CollisionShape3D" parent="Geometry/PlatformC"]
 shape = SubResource("PlatformCShape")
@@ -170,7 +157,7 @@ position = Vector3(6, 3, 0)
 
 [node name="Mesh" type="MeshInstance3D" parent="Geometry/PlatformD"]
 mesh = SubResource("PlatformDMesh")
-surface_material_override/0 = SubResource("Charcoal")
+material_override = ExtResource("4_charcoal")
 
 [node name="Shape" type="CollisionShape3D" parent="Geometry/PlatformD"]
 shape = SubResource("PlatformDShape")
@@ -180,7 +167,7 @@ position = Vector3(14, 1.2, 0)
 
 [node name="Mesh" type="MeshInstance3D" parent="Geometry/PlatformE"]
 mesh = SubResource("PlatformEMesh")
-surface_material_override/0 = SubResource("Charcoal")
+material_override = ExtResource("4_charcoal")
 
 [node name="Shape" type="CollisionShape3D" parent="Geometry/PlatformE"]
 shape = SubResource("PlatformEShape")
@@ -191,7 +178,7 @@ rotation = Vector3(0, 0, -0.309)
 
 [node name="Mesh" type="MeshInstance3D" parent="Geometry/Ramp"]
 mesh = SubResource("RampMesh")
-surface_material_override/0 = SubResource("Charcoal")
+material_override = ExtResource("4_charcoal")
 
 [node name="Shape" type="CollisionShape3D" parent="Geometry/Ramp"]
 shape = SubResource("RampShape")
@@ -201,7 +188,7 @@ position = Vector3(26, 2.5, 0)
 
 [node name="Mesh" type="MeshInstance3D" parent="Geometry/WallBlock"]
 mesh = SubResource("WallMesh")
-surface_material_override/0 = SubResource("Deep")
+material_override = ExtResource("5_deep")
 
 [node name="Shape" type="CollisionShape3D" parent="Geometry/WallBlock"]
 shape = SubResource("WallShape")
@@ -211,7 +198,7 @@ position = Vector3(0, 1.5, -0.5)
 
 [node name="Mesh" type="MeshInstance3D" parent="Geometry/GuideWall"]
 mesh = SubResource("GuideWallMesh")
-surface_material_override/0 = SubResource("Deep")
+material_override = ExtResource("5_deep")
 
 [node name="Shape" type="CollisionShape3D" parent="Geometry/GuideWall"]
 shape = SubResource("GuideWallShape")
@@ -221,7 +208,7 @@ position = Vector3(-21, 0.04, 0)
 
 [node name="Mesh" type="MeshInstance3D" parent="Geometry/Strip1"]
 mesh = SubResource("StripMesh")
-surface_material_override/0 = SubResource("Glow")
+material_override = ExtResource("6_glow")
 
 [node name="Shape" type="CollisionShape3D" parent="Geometry/Strip1"]
 shape = SubResource("StripShape")
@@ -231,7 +218,7 @@ position = Vector3(-13, 0.04, 0)
 
 [node name="Mesh" type="MeshInstance3D" parent="Geometry/Strip2"]
 mesh = SubResource("StripMesh")
-surface_material_override/0 = SubResource("Glow")
+material_override = ExtResource("6_glow")
 
 [node name="Shape" type="CollisionShape3D" parent="Geometry/Strip2"]
 shape = SubResource("StripShape")
@@ -241,7 +228,7 @@ position = Vector3(-5, 0.04, 0)
 
 [node name="Mesh" type="MeshInstance3D" parent="Geometry/Strip3"]
 mesh = SubResource("StripMesh")
-surface_material_override/0 = SubResource("Glow")
+material_override = ExtResource("6_glow")
 
 [node name="Shape" type="CollisionShape3D" parent="Geometry/Strip3"]
 shape = SubResource("StripShape")
@@ -251,7 +238,7 @@ position = Vector3(3, 0.04, 0)
 
 [node name="Mesh" type="MeshInstance3D" parent="Geometry/Strip4"]
 mesh = SubResource("StripMesh")
-surface_material_override/0 = SubResource("Glow")
+material_override = ExtResource("6_glow")
 
 [node name="Shape" type="CollisionShape3D" parent="Geometry/Strip4"]
 shape = SubResource("StripShape")
@@ -283,3 +270,21 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 0.85)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 9
 text = "SPEED"
+
+[node name="HelpPanel" type="PanelContainer" parent="HUD"]
+visible = false
+offset_left = 6.0
+offset_top = 22.0
+offset_right = 244.0
+offset_bottom = 176.0
+theme = ExtResource("7_theme")
+
+[node name="Label" type="Label" parent="HUD/HelpPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.843, 0.859, 0.878, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.85)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 8
+text = "HELP"
+horizontal_alignment = 0
+vertical_alignment = 0

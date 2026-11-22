@@ -27,6 +27,8 @@ extends "res://tests/ws_test.gd"
 const Controller := preload("res://addons/windshear/movement/lancer_controller.gd")
 ## The per-frame input record.
 const InputState := preload("res://addons/windshear/movement/lancer_input.gd")
+## The PSX shader, so the hand-made materials can be checked.
+const PsxShader := preload("res://addons/windshear/render/ws_psx.gdshader")
 
 ## One physics frame.
 const DT := 1.0 / 60.0
@@ -45,6 +47,8 @@ func run_with_scene(scene: Node) -> void:
 	_test_the_camera_stays_with_lancer(scene)
 	_test_the_player_stays_on_the_plane(scene)
 	_test_budget(scene)
+	_test_the_materials_are_hand_editable(scene)
+	_test_the_mechanics_reference(scene)
 	_test_a_ninety_second_route()
 
 
@@ -102,6 +106,63 @@ func _test_budget(scene: Node) -> void:
 	var triangles := _count_triangles(scene)
 	ok(triangles <= TRIANGLE_BUDGET,
 		"the greybox has %d triangles, the budget is %d" % [triangles, TRIANGLE_BUDGET])
+
+
+## The surfaces have to use the PSX shader, and they have to be real
+## resources on disk rather than inline blocks, so the art can be edited by
+## hand in the inspector.
+func _test_the_materials_are_hand_editable(scene: Node) -> void:
+	heading("the materials")
+	var meshes := _collect_meshes(scene)
+	ok(meshes.size() > 0, "the room has meshes to dress")
+	var psx_count := 0
+	var external_count := 0
+	for mesh in meshes:
+		var material := mesh.material_override
+		if material is ShaderMaterial:
+			if (material as ShaderMaterial).shader == PsxShader:
+				psx_count += 1
+		if material != null and material.resource_path.begins_with("res://assets/"):
+			external_count += 1
+	ok(psx_count == meshes.size(),
+		"every surface uses the PSX shader (%d of %d)" % [psx_count, meshes.size()])
+	ok(external_count == meshes.size(),
+		"every surface points at a material file in assets/ (%d of %d)" % [
+			external_count, meshes.size()
+		])
+
+
+## The in-game mechanics reference has to exist and tell the truth.
+func _test_the_mechanics_reference(scene: Node) -> void:
+	heading("the mechanics reference")
+	var panel := scene.get_node_or_null("HUD/HelpPanel")
+	ok(panel != null, "the room has a help panel")
+	if panel == null:
+		return
+	ok(not panel.visible, "the help panel starts hidden")
+
+	var label := panel.get_node_or_null("Label") as Label
+	ok(label != null, "the help panel has a label")
+	if label == null:
+		return
+
+	var text := label.text
+	ok(text.contains("RUN"), "the reference lists the run verb")
+	ok(text.contains("SLIDE"), "the reference lists the slide verb")
+	ok(text.contains("JUMP"), "the reference lists the jump verb")
+	ok(text.contains("KISS"), "the reference lists the wall-kiss verb")
+
+	# The numbers have to be the real ones, or the reference is a lie.
+	var tuning := preload("res://addons/windshear/core/ws_tuning.gd")
+	ok(text.contains("%.1f" % tuning.MAX_RUN_SPEED),
+		"the reference quotes the real run speed")
+	ok(text.contains("%.1f" % tuning.WALL_KISS_SPEED_CEILING),
+		"the reference quotes the real wall-kiss ceiling")
+	ok(text.contains("not built yet"),
+		"the reference says which verbs do not exist yet")
+
+	# And the toggle has to be bound to something.
+	ok(InputMap.has_action("toggle_help"), "the help toggle is an input action")
 
 
 func _test_a_ninety_second_route() -> void:
@@ -170,3 +231,13 @@ func _count_triangles(node: Node) -> int:
 	for child in node.get_children():
 		total += _count_triangles(child)
 	return total
+
+
+## Every mesh in the tree.
+func _collect_meshes(node: Node) -> Array[MeshInstance3D]:
+	var found: Array[MeshInstance3D] = []
+	if node is MeshInstance3D:
+		found.append(node as MeshInstance3D)
+	for child in node.get_children():
+		found.append_array(_collect_meshes(child))
+	return found

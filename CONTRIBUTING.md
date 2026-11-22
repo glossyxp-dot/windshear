@@ -1,64 +1,94 @@
-# Contributing to WINDSHEAR
+# Contributing
 
-## License of contributions
+WindShear is GPL code and CC-BY-SA content, and it's going to stay that way.
+If that's a problem, this isn't the project for you, and that's fine.
 
-- **Code** contributions land under **GPL-2.0-or-later** (see `LICENSE`).
-  By opening a PR you agree your code is licensed that way. Don't submit code
-  you don't have the right to license.
-- **Asset** contributions (models, textures, audio, animation) land under
+## What your contribution is licensed as
+
+- **Code** goes out under **GPL-2.0-or-later**. See `LICENSE`. Opening a PR
+  means you're licensing it that way. Don't send code you don't have the right
+  to relicense.
+- **Assets** — models, textures, audio, animation — go out under
   **CC-BY-SA 4.0**.
-- **Story/beat** contributions land under **CC-BY-SA 4.0** (same as the rest of
-  the story layer).
-- Third-party code must be GPL-2.0-compatible and be listed in `NOTICE` with
-  its license and source.
+- **Story and beats** go out under **CC-BY-SA 4.0** too. Same layer, same
+  terms.
+- Third-party code has to be GPL-2.0-compatible, and it goes in `NOTICE` with
+  its licence and where you got it.
 
-## Community Editions
+No CLA. No copyright assignment. You keep your copyright; the licence does the
+work.
 
-Editions (alternate storylines) are the flagship community activity.
+## Editions
 
-- Editions that reuse the game **code** inherit the GPL and must be open source.
-- Editions that reuse the **assets or the official story** inherit CC-BY-SA and
-  must be shared alike.
-- Editions published to the official index must declare a license and a source
-  URL in `edition.json`. The index only lists open-licensed editions.
-- Nothing stops you running anything locally — the game never blocks a local
-  folder. The index just curates.
+Editions are the whole point of the open licence: same city, same movement,
+somebody else's story. They're the community activity I actually want to see.
+
+- An Edition that reuses the **code** inherits the GPL and has to be open
+  source.
+- One that reuses the **art or the official story** inherits CC-BY-SA and has
+  to be shared alike.
+- Editions on the official index declare a licence and a `source_url` in
+  `edition.json`. The index checks both and lists nothing else.
+- A local Edition always loads. There's no activation step to get around
+  because there isn't one. The index curates; it doesn't gate.
+
+The format is written up in `editions/README.md`. It's a folder of JSON and a
+manifest, and you can build one in an afternoon.
 
 ## Fractures
 
-Fractures are a feature, not bugs. If you find one:
+Fractures are a feature. The game ships twelve of them on purpose, they're
+documented, and speedrunners are expected to build routes on them.
 
-1. Name it, describe the exact inputs, and record a clip.
-2. Submit it in the Fracture Codex issue tracker.
-3. Accepted Fractures get documented in `data/fractures.json` and in-game.
+If you find a new one:
 
-**Shipped Fractures are never removed or altered** — only added. Changing one
-breaks community speedrun routes, which is a bigger sin than leaving a quirky
-behaviour in place.
+1. Name it. Give the exact inputs, frame numbers if you have them, and a clip.
+2. Open it in the Fracture Codex issue tracker.
+3. If it's accepted, it goes into `data/fractures.json` and into the game.
 
-## Performance rules (hard requirements)
+**A shipped Fracture is never removed or altered. Only added.** Somebody has a
+route recorded against version 1 of it, and that route has to keep working.
+Leaving a weird bit of physics in the game is a much smaller sin than breaking
+everybody's splits.
 
-- Peak RAM ≤ 2.5 GB, hard ceiling 4 GB.
-- Per-cell budgets: ≤ 45 MB textures, ≤ 20 MB meshes, ≤ 12 MB audio.
+## The performance rules are hard
+
+This isn't "we'd like it to be fast". The game has to run on a 4 GB machine
+with no swap, holding the whole city in memory.
+
+- Peak RAM ≤ 2.5 GB, ceiling 4 GB.
+- Per cell: ≤ 45 MB textures, ≤ 20 MB meshes, ≤ 12 MB audio.
 - ≤ 220 draw calls, ≤ 35k visible triangles.
-- No allocation in `_process` / `_physics_process`.
-- CI fails the build if a cell exceeds its budget.
+- No allocation in `_process` or `_physics_process`.
+- CI fails the build if a cell goes over.
 
-The RAM ceiling is a design requirement, not an optimisation goal — the game
-has to run on 4 GB machines without swap, and it has to run on them while
-holding the whole city in memory.
+The per-cell numbers are checked by `tools/cell_budget_checker.gd`, and the
+frame-loop rules are checked by the code-policy suite. Both run in CI, so
+you'll find out before I do.
 
 ## Before you open a PR
 
-- [ ] Reads `GAME_DESIGN.md` — the design is the spec, not a suggestion.
-- [ ] New mechanics fit the existing verb list (run / slide / jump / wall-kiss /
-      filament / wind). If it adds a fifth core verb, that's a design
-      conversation first.
-- [ ] Cutscenes never take the camera off Lancer, and major beats freeze the
-      player and the world.
-- [ ] 60 Hz physics determinism preserved — no `randf()` in gameplay logic;
-      use the section-seeded RNG.
-- [ ] Tests pass: `godot --headless --path . res://tests/run_all.tscn`
-- [ ] Memory budget check passes.
-- [ ] No Lancer gender is specified anywhere in your content (no pronouns in
-      dialogue, no gendered voice direction, no gendered framing).
+- [ ] You've read `GAME_DESIGN.md`. It's the spec, not a mood board.
+- [ ] New mechanics fit the existing verbs — run, slide, jump, wall-kiss,
+      filament, wind. A new core verb is a design conversation before it's a
+      PR.
+- [ ] The camera never leaves Lancer. Major beats freeze the player and the
+      world, and the framing stays composed because the camera is hers.
+- [ ] 60 Hz determinism holds. No `randf()` in gameplay logic; use the
+      section-seeded generator so ghosts and replays match.
+- [ ] `godot --headless --path . res://tests/run_all.tscn` passes.
+- [ ] The memory budget check passes.
+- [ ] Lancer's gender is still unspecified. No pronouns in dialogue, no
+      gendered voice direction, no gendered framing. This one is not
+      negotiable and it's easy to break by accident.
+
+## How a PR actually lands
+
+Small PRs land fast. One thing per PR, a sentence about why, and the tests
+green. If it touches movement numbers in `ws_tuning.gd`, it also touches
+`TECH_SPEC.md` §3, because `test_tuning.gd` reads the Markdown and compares —
+change one without the other and the build fails on purpose.
+
+If you're not sure whether something is wanted, open an issue first. I'd
+rather talk about it for ten minutes than review a week of work that goes the
+wrong way.

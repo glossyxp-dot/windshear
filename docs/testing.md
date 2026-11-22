@@ -25,7 +25,7 @@ godot --headless --path . --script res://tools/cell_budget_checker.gd
 The suite exits with a non-zero status when a check fails, so CI is one
 line and there is nothing to parse.
 
-The current state is **271 checks, 0 failures**.
+The current state is **322 checks, 0 failures**.
 
 ---
 
@@ -63,7 +63,8 @@ bugs. So the suite is built around those:
 | `test_determinism.gd` | 8 | Identical inputs give identical outputs; the section seed is stable |
 | `test_perf_budget.gd` | 10 | The project settings and the cost of a frame |
 | `test_code_policy.gd` | 10 | Licence headers, no global random numbers, no allocation in the frame loops, the documentation |
-| `test_greybox.gd` | 19 | The scene: the player, the camera, the plane, the budget, a 90-second route |
+| `test_world_data.gd` | 37 | The 20×12 grid, the gate schedule, the Fracture registry, the endings, the beats and the dialogue |
+| `test_greybox.gd` | 33 | The scene: the player, the camera, the plane, the budget, the materials, the help panel, a 90-second route |
 | `test_psx.gd` | 39 | The amount dial: the globals, the shader, the clamping, the settings round trip, and the slider in the menu |
 
 ### The two kinds of suite
