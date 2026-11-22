@@ -149,8 +149,9 @@ technique and stops it being farmed.
 
 ### Movement research
 The shapes of these numbers come from Quake, GoldSrc, Doom, ULTRAKILL and
-GRACE, and the reasoning is written down in `docs/movement_reference.md`. The
-rule that governs the whole file is that **a movement glitch is never
+GRACE. The cited sources, evidence confidence, folklore corrections, and
+design synthesis are in [`docs/MOVEMENT_RESEARCH.md`](docs/MOVEMENT_RESEARCH.md).
+The rule that governs the whole file is that **a movement glitch is never
 implemented on purpose**: the controller implements the verbs and nothing
 else, and the techniques that exist are consequences of the physics that the
 discovery harness finds rather than features that were built.

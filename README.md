@@ -10,7 +10,7 @@ an SDK.
 
 - 📘 [Game Design Document](GAME_DESIGN.md)
 - 🛠 [Technical Specification](TECH_SPEC.md)
-- 🏃 [Movement Reference](docs/movement_reference.md) — where the movement comes from
+- 🏃 [Movement Research](docs/MOVEMENT_RESEARCH.md) — cited sources, evidence, and the movement design synthesis
 - 📓 [Dev Stage 1](docs/dev_stage_1.md) — the movement base, and the bug it found
 - 🧱 [Architecture](docs/architecture.md) · [Testing](docs/testing.md)
 - 🤝 [Contributing](CONTRIBUTING.md)
@@ -21,7 +21,7 @@ an SDK.
 ## Status
 
 **Dev Stage 1 — the movement base.** The project boots, the menu works, and
-Lancer moves. 192 headless checks pass, the movement is frame-exact, and the
+Lancer moves. 271 headless checks pass, the movement is frame-exact, and the
 PSX amount is the player's to pick. No levels, no art, no story in the engine
 yet — see [Dev Stage 1](docs/dev_stage_1.md) §7 for what is missing and why.
 

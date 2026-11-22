@@ -9,7 +9,7 @@ What exists now:
 - A Godot 4.7.2 project that boots to a menu and into a movement greybox.
 - A frame-exact movement controller with every number in `TECH_SPEC.md` §3.
 - A camera rig that never leaves Lancer.
-- A test suite of **192 checks** that runs headless in about ten seconds.
+- A test suite of **271 checks** that runs headless in about ten seconds.
 - A discovery harness that plays candidate movement techniques against the
   controller and reports what it finds.
 
@@ -21,11 +21,12 @@ floor has to be good before anything is built on top of it.
 
 ## 1. Why the movement is built this way
 
-The numbers did not come from taste. They came from reading five sets of
-movement code and documentation, comparing them, and then writing down the
-parts that survived the comparison. That research is in
-[`docs/movement_reference.md`](movement_reference.md), and this document does
-not repeat it.
+The numbers did not come from taste. They came from released movement source
+where it is available, official data where the engine is closed, and clearly
+labelled community documentation otherwise. Those sources were compared, and
+then the parts that survived the comparison were written down. That research
+is in [`docs/MOVEMENT_RESEARCH.md`](MOVEMENT_RESEARCH.md), and this document
+does not repeat it.
 
 What survives here is one principle, and it is the reason the whole stage
 exists:
@@ -158,7 +159,7 @@ Two things about this are worth stating plainly:
   has its full designed value, and still rewards the player for setting it
   up. All that changed is that it cannot be farmed.
 
-This is also why the rule in `docs/movement_reference.md` §1 exists. The
+This is also why the rule in `docs/MOVEMENT_RESEARCH.md` §1 exists. The
 distance between a good speedrun technique and a movement exploit is often
 just a missing clamp, and the only way to find out which one you have is to
 go and look.
@@ -167,13 +168,14 @@ go and look.
 
 ## 5. What the tests actually cover
 
-192 checks, in eight suites. They are deliberately *not* "does the node
+271 checks, in ten suites. They are deliberately *not* "does the node
 exist" tests.
 
 | Suite | Checks | What it is for |
 | --- | --- | --- |
-| tuning | 21 | Every constant in `ws_tuning.gd` matches `TECH_SPEC.md` §3 |
+| tuning | 23 | Documented constants in `ws_tuning.gd` match `TECH_SPEC.md` §3 |
 | movement | 42 | Frame-exact movement: top speed, acceleration rates, coyote time, jump buffer, air cap, slide, wall-kiss, plane constraint |
+| characterization | 77 | Arming and chain boundaries, collision energy, repeated cycles, adversarial input, full-state replay |
 | discovery | 26 | The report above, the invariants, and the bunny-hop promise |
 | camera | 17 | Pitch clamp, yaw wrap, speed dolly, the camera belonging to the rig |
 | determinism | 8 | The same inputs give the same outputs; the section-seeded generator is stable |

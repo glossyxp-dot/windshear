@@ -25,7 +25,7 @@ godot --headless --path . --script res://tools/cell_budget_checker.gd
 The suite exits with a non-zero status when a check fails, so CI is one
 line and there is nothing to parse.
 
-The current state is **192 checks, 0 failures**.
+The current state is **271 checks, 0 failures**.
 
 ---
 
@@ -55,8 +55,9 @@ bugs. So the suite is built around those:
 
 | Suite | Checks | Covers |
 | --- | --- | --- |
-| `test_tuning.gd` | 21 | Every constant in `ws_tuning.gd` against `TECH_SPEC.md` §3 |
+| `test_tuning.gd` | 23 | Documented constants in `ws_tuning.gd` against `TECH_SPEC.md` §3 |
 | `test_movement.gd` | 42 | Top speed, acceleration rates, turnarounds, jump height, coyote time, jump buffer, air cap, slide, wall-kiss, plane constraint |
+| `test_movement_characterization.gd` | 77 | Arming and chain boundaries, collision energy, repeated cycles, adversarial input, full-state replay |
 | `test_movement_discovery.gd` | 26 | The discovery report, the invariants, and the bunny-hop promise |
 | `test_camera.gd` | 17 | Pitch clamp, yaw wrap, speed dolly, the camera belonging to the rig |
 | `test_determinism.gd` | 8 | Identical inputs give identical outputs; the section seed is stable |

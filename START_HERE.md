@@ -192,7 +192,7 @@ Locked in `GAME_DESIGN.md` §14 — do not re-open them while Milestone 0 runs:
 | `GAME_DESIGN.md` | pillars, movement model, Fractures, story, roadmap |
 | `TECH_SPEC.md` | renderer, budgets, controller numbers, formats, CI, licensing |
 | `CONTRIBUTING.md` | how to land a PR, licence of contributions |
-| `docs/movement_reference.md` | where the movement numbers come from, and the rule about glitches |
+| `docs/MOVEMENT_RESEARCH.md` | cited movement sources, evidence confidence, and the design synthesis |
 | `docs/dev_stage_1.md` | what the movement base is, and the bug the discovery harness found |
 | `docs/architecture.md` | how the codebase is put together |
 | `docs/testing.md` | the suite, and how to add to it |
