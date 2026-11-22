@@ -1,18 +1,18 @@
-# WindShear — Testing
+# WindShear: testing
 
 The test suite, how to run it, how to add to it, and what each suite is
 actually for.
 
-There is no test framework to install and no plugin to enable. The whole
-suite is one Godot scene and a few dozen assertions per file, and it runs
-headless in about ten seconds.
+There's no framework to install and no plugin to enable. The whole suite is
+one Godot scene and a few dozen assertions per file, and it runs headless in
+about ten seconds.
 
 ---
 
 ## 1. Running it
 
 ```bash
-# import the project once — this builds .godot/ and the global class cache
+# import the project once: this builds .godot/ and the global class cache
 godot --headless --editor --quit-after 20 --path .
 
 # the suite
@@ -31,14 +31,14 @@ The current state is **322 checks, 0 failures**.
 
 ## 2. Why these tests and not those
 
-A generic test suite for a platformer would check that the player node
-exists, that the camera is a child of the rig, and that the level loads.
-All three of those would pass on a game that drops every second jump on a
-60 Hz display and who's coyote window is one frame short.
+A generic test suite for a platformer checks that the player node exists, that
+the camera is a child of the rig, and that the level loads. All three of those
+pass on a game that drops every second jump on a 60 Hz display and has a
+coyote window one frame short.
 
-That is not a useful test suite for this game. The bugs that ruin a speedrun
-are frame bugs, and the bugs that ruin a release are budget and policy
-bugs. So the suite is built around those:
+That's no use here. The bugs that ruin a speedrun are frame bugs, and the bugs
+that ruin a release are budget and policy bugs. The suite is built around
+those instead:
 
 - **Frame-exact movement.** The coyote window is 8 frames. It is asserted to
   be exactly 8 frames, on the 8th frame and not on the 9th.
@@ -105,10 +105,10 @@ message. The failure messages are sentences, not expressions, because the
 first thing you read at 2am should tell you what broke, not which operator
 disagreed.
 
-Note the `extends "res://tests/ws_test.gd"` — a path extend rather than the
-global class name. The global class cache lives in `.godot/` and is not in
-the repository, so a fresh clone has no class names until the project has
-been imported. Path extends work on a fresh clone.
+Notice the `extends "res://tests/ws_test.gd"`, a path extend rather than the
+global class name. The global class cache lives in `.godot/` and isn't in the
+repository, so a fresh clone has no class names until the project has been
+imported. Path extends work straight away.
 
 ### The code-policy test
 
@@ -195,8 +195,8 @@ The guard rails are:
 - Every technique never leaves the XY plane.
 - Every technique respects the air acceleration cap.
 - Every technique respects the wall-kiss chain cap.
-- **Bunny hopping is not a speed exploit** — it may not exceed a plain run
-  by more than 0.5 m/s.
+- **Bunny hopping is not a speed exploit.** It may not exceed a plain run by
+  more than 0.5 m/s.
 
 That last one is the promise the project makes. If it ever fails, somebody
 changed the physics on purpose and has to argue for it.
@@ -240,12 +240,12 @@ func run() -> void:
 ### The leak that was
 
 One suite, `_test_wall_kiss_cap()` in `test_movement.gd`, forgot to free its
-controller. The leak report at exit named a `CharacterBody3D`, two
-GDScripts and a Jolt RID, and it was the only thing in the exit log, so it
-was easy to find — but only because the runner was run with `--verbose`.
+controller. The leak report at exit named a `CharacterBody3D`, two GDScripts
+and a Jolt RID, and it was the only thing in the exit log, so it was easy to
+find. Only because the runner had been started with `--verbose`, though.
 
-Nothing in the game was wrong. The test was simply not tidying up, and a
-test that leaks is a test that hides the next leak.
+Nothing in the game was wrong. The test just wasn't tidying up, and a test
+that leaks is a test that hides the next leak.
 
 ---
 
@@ -287,7 +287,7 @@ the check fails CI.
 
 ## 10. What is not tested yet
 
-Honesty is cheaper than a surprised player.
+Worth knowing before anyone goes looking for a bug that isn't there.
 
 - **The renderer.** The headless runner uses the dummy renderer, so nothing
   checks that the PSX shader actually *looks* right, only that it compiles

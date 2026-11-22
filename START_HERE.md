@@ -1,20 +1,18 @@
 # Start here
 
-The design is locked (`GAME_DESIGN.md`, `TECH_SPEC.md`). This is the shortest
-path from "I cloned the repo" to "I'm running around the movement room and I
+The design is settled (`GAME_DESIGN.md`, `TECH_SPEC.md`). This is the shortest
+path from "I've cloned the repo" to "I'm running round the movement room and I
 know what to do next".
 
----
+## Get it running
 
-## 1. Get it running
-
-You need **Godot 4.7.2**, the same build CI uses. Not 4.6, not 4.8.
+You want **Godot 4.7.2**, the same build CI uses. Not 4.6, not 4.8.
 
 ```bash
 git clone https://github.com/glossyxp-dot/windshear.git
 cd windshear
 
-# import once — builds .godot/ and the class cache
+# import once, so .godot/ and the class cache exist
 godot --headless --editor --quit-after 20 --path .
 
 # the test suite
@@ -24,51 +22,51 @@ godot --headless --path . res://tests/run_all.tscn
 godot --path .
 ```
 
-If you'd rather not use the command line, open the Godot project manager,
-click *Import*, and point it at `project.godot`. Same result.
+Prefer not to use a terminal? Open the Godot project manager, click *Import*,
+point it at `project.godot`. Same result.
 
-The editor will look empty for a minute on the first import. That's normal —
+The editor will look empty for a minute on the first import. That's normal.
 `.godot/` isn't in the repo and Godot has to build it. `docs/AUTHORING.md` §1
 explains it properly.
 
-## 2. What's already done
+## What's already done
 
-Don't rebuild these:
+Don't rebuild any of this:
 
 | | |
 | --- | --- |
-| Project settings | 480×270 internal, 960×540 window, `canvas_items` + `keep`, nearest filter, Jolt, 60 Hz |
-| Movement | Run, slide, jump, wall-kiss. Frame-exact, locked to `TECH_SPEC.md` §3 |
+| Project settings | 480×270 internal, 960×540 window, `canvas_items` and `keep`, nearest filter, Jolt, 60 Hz |
+| Movement | Run, slide, jump, wall-kiss. Frame exact, locked to `TECH_SPEC.md` §3 |
 | Camera | Mouse-look rig parented to Lancer. It never leaves |
-| PSX | Shader plus a 0–100% slider. The player picks the amount |
+| PSX | The shader plus a 0–100% slider. The player picks the amount |
 | Menu | Main menu, settings panel, PSX slider, affine toggle |
-| Greybox | One test room with a floor, platforms, a ramp, a wall to kiss and a help panel |
-| Tests | 322 checks, 11 suites, headless, ~10 seconds |
+| Greybox | One test room: floor, platforms, a ramp, a wall to kiss, a help panel |
+| Tests | 322 checks in 11 suites, headless, about ten seconds |
 | World data | 20 chapters × 12 sections, 540 gate schedules, 12 Fractures, 11 beats, 43 dialogue lines |
-| CI | Pinned Godot, SHA-256 checked, import → tests → budget |
+| CI | Pinned Godot, SHA-256 checked, import then tests then budget |
 
-## 3. What's yours
+## What's yours
 
-The visual work is by hand. The code is done for this stage.
+The visual work is by hand. The code for this stage is done.
 
 1. **Play the greybox.** Open `world/greybox/movement_greybox.tscn`, press F6,
-   and press F1 for the mechanics reference. If the movement doesn't feel good
-   yet, that's the only thing that matters this week.
-2. **Decide the `wall_kiss_chain` Fracture.** It duplicates the core wall-kiss
-   verb exactly. Redefine it, remove it, or change the core verb — but the
-   third ending's condition needs twelve Fractures, so "remove" means a design
-   change too. `docs/MOVEMENT_RESEARCH.md` §16.3 has the details.
-3. **Install the export templates** for 4.7.2. You need them before any export.
-4. **Build Level 2.** The greybox is a rig, not a level. `2.01` is the first
-   section that has to be fun.
-5. **Implement the filament.** It's the last of the five verbs and the first
-   one that touches something other than the ground.
+   press F1 for the mechanics reference. If the movement doesn't feel good yet,
+   that's the only thing that matters this week.
+2. **Decide what happens to the `wall_kiss_chain` Fracture.** It duplicates the
+   core wall-kiss verb exactly. Redefine it, drop it, or change the core verb.
+   Dropping it is a design change too, because the third ending's condition
+   needs twelve Fractures. `docs/MOVEMENT_RESEARCH.md` §16.3 has the argument.
+3. **Install the export templates** for 4.7.2. You can't export without them.
+4. **Build Level 2.** The greybox is a rig. `2.01` is the first section that
+   has to be fun.
+5. **Implement the filament.** Last of the five verbs, and the first one that
+   touches something other than the ground.
 6. **Do the art**, by hand, in the editor. `docs/AUTHORING.md` covers the
    materials, the theme, the fonts and the resolution.
-7. **Get five external testers** on the movement. That's Milestone 0's gate and
-   it's the only thing between you and Milestone 1.
+7. **Get five external testers** on the movement. That's Milestone 0's gate
+   and it's the only thing between you and Milestone 1.
 
-## 4. The numbers you'll be held to
+## The numbers you'll be held to
 
 | Feature | Value |
 | --- | --- |
@@ -83,13 +81,13 @@ The visual work is by hand. The code is done for this stage.
 | Tick | 60 Hz fixed, `max_physics_steps_per_frame` 4 |
 | Plane | Gameplay on XY, `velocity.z = 0`, walls on the plane |
 
-These are asserted by `tests/test_tuning.gd` against `TECH_SPEC.md` §3. Change
-one without changing the other and the build fails. That's the deal.
+`tests/test_tuning.gd` asserts all of that against `TECH_SPEC.md` §3. Change
+one without the other and the build fails. That's the deal.
 
-Also: no `randf()` in gameplay code. Section randomness comes from a seeded
+Also: no `randf()` in gameplay logic. Section randomness comes from a seeded
 `RandomNumberGenerator` per section, so ghosts and replays match.
 
-## 5. The milestones
+## The milestones
 
 Locked in `GAME_DESIGN.md` §14. Don't re-open them while Milestone 0 runs.
 
@@ -101,16 +99,18 @@ Locked in `GAME_DESIGN.md` §14. Don't re-open them while Milestone 0 runs.
 | 3 — Polish & ship | 8 weeks | public release, community forks > 0 |
 | 4 — Community era | ongoing | edition index, community maps, seasonal Fractures |
 
-## 6. Don't do these yet
+## Don't do these yet
 
-- No combat. Movement first; there are no guns in Milestone 1.
-- No new Fractures beyond what Milestone 1 needs. And never *remove* one that
-  shipped.
-- No accounts, no DRM, no mandatory network. That's the licence and the point.
-- No engine or plugin that breaks the 4 GB ceiling or the Compatibility
-  renderer.
+No combat. Movement first, and there are no guns in Milestone 1.
 
-## 7. Where to read next
+No new Fractures beyond what Milestone 1 needs, and never remove one that has
+shipped.
+
+No accounts, no DRM, no mandatory network. That's the licence and the point.
+
+Nothing that breaks the 4 GB ceiling or the Compatibility renderer.
+
+## Where to read next
 
 | Document | What it locks |
 | --- | --- |

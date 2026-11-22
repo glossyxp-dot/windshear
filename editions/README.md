@@ -62,9 +62,9 @@ A complete data-only example:
 ```
 
 JSON has no comment syntax, so the SPDX line goes in a top-level `_meta` object
-next to the payload. Every JSON file in this repository does that. The `_meta`
-block in `edition.json` is optional and isn't part of the manifest's required
-fields.
+next to the payload. Every JSON file in this repository does it that way. The
+`_meta` block in `edition.json` is optional and isn't one of the manifest's
+required fields.
 
 ## Open source, and what the index will refuse
 
@@ -78,7 +78,7 @@ The official index won't list an Edition when:
   content it reuses;
 - `source_url` is missing or doesn't point at the corresponding source.
 
-That's it. And it's worth being clear about what the index is: a distribution
-list, not a lock. An Edition a player has installed locally always loads.
-Rejection from the index never stops anyone from running it. There is no
-activation step to bypass because there is no activation step.
+That's the whole list. It's worth being clear about what the index is, though:
+a distribution list, not a lock. An Edition somebody has installed locally
+always loads, and being turned down by the index never stops anyone from
+running it. There's no activation step to bypass, because there isn't one.

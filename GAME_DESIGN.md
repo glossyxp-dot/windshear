@@ -1,127 +1,129 @@
-# WINDSHEAR — Game Design Document
+# WINDSHEAR: Game Design Document
 
 > A cinematic 2.5D speed-and-precision platformer. Free and open source, built so
 > the community can tell its own stories inside the same world.
 
-**One-line pitch:** *The city regulates the wind so the storms can't kill you —
+**One-line pitch:** *The city regulates the wind so the storms can't kill you,
 and Lancer is going to set the sky free anyway.*
 
 ---
 
 ## 0. Design pillars
 
-1. **Speed × precision.** Every section is a time trial you can learn by heart.
-   The game is about flow: momentum, route knowledge, frame-tight execution.
-2. **The world is a machine, not a monster.** The antagonist is human-made: a
-   civic operating system called **The Concord**. It cages the world to prevent
-   catastrophe. That argument *is* the game's main point.
-3. **The main character is Lancer** — and the player frees the world from
+1. **Speed and precision.** Every section is a time trial you're supposed to
+   learn by heart. Flow is the point: momentum, route knowledge, frame-tight
+   execution.
+2. **The world is a machine, not a monster.** The antagonist is human-made. It's
+   a civic operating system called **The Concord**, and it cages the world to
+   prevent catastrophe. That argument *is* the main point of the game.
+3. **Lancer is the main character.** The player frees the world from
    regulation, not from an invasion.
-4. **Cinematic 2.5D, camera discipline.** The camera never leaves Lancer. Cutscenes
-   happen in the world, not in a separate film.
-5. **Shallow depth, hyper depth of world.** PSX-era low-poly 3D rendered at 480×270,
-   staged like a diorama: parallax, fog, layered light, big silhouettes.
-6. **Fractures are real.** The Concord's simulation has cracks. Some are shipped
-   on purpose so hyper-competent players can find, name and exploit them.
-7. **Free, open, forkable.** The whole game — code, assets, level format — is
-   open source, and alternative storylines are first-class content, not mods of
-   an SDK.
+4. **Cinematic 2.5D, with camera discipline.** The camera never leaves Lancer.
+   Cutscenes happen in the world, not in a separate film.
+5. **Shallow depth, deep world.** PSX-era low-poly 3D at 480×270, staged like a
+   diorama: parallax, fog, layered light, big silhouettes.
+6. **Fractures are real.** The Concord's simulation has cracks and some of them
+   ship on purpose, so a hyper-competent player can go and find one, name it
+   and use it.
+7. **Free, open, forkable.** Code, assets and level format are all open, and an
+   alternative storyline counts as content rather than as a mod of an SDK.
 
 ---
 
 ## 1. The world: the Concord
 
-Not aliens. Not nature. A **human civic system** that has been running itself
+Not aliens, not nature. A **human civic system** that has been running itself
 for twenty years.
 
-Twenty years ago the **Fracture Year** hit: regulation collapsed, the wind
-became ungovernable, and the city tore itself apart. The survivors built the
-**Concord** — a distributed civic operating system that now regulates the sky:
-wind direction, pressure, thermals, and the geometry of the city itself. Gates
-open on schedules. Air moves only where the Concord permits.
+Twenty years ago the **Fracture Year** hit. Regulation collapsed, the wind
+became ungovernable and the city tore itself apart. The survivors built the
+**Concord**, a distributed operating system that now regulates the sky: wind
+direction, pressure, thermals, and the geometry of the city itself. Gates open
+on schedules. Air moves only where the Concord permits.
 
-**Lancer** is a Runner: a courier licensed to move inside the cage, paid to
-carry what the Concord allows. Lancer breaks the law by carrying what it
-doesn't.
+**Lancer** is a Runner, a courier licensed to move inside the cage and paid to
+carry what the Concord allows. The job is legal right up until the parcel
+isn't.
 
 ### What the Concord actually is
 
-It started as software, and it is still software at the top — a scheduling
-system with a maintenance voice and no face. Twenty years of self-repair left
-marks on the hardware it runs on.
+It started as software and the top of it is still software: a scheduling system
+with a maintenance voice and no face. Twenty years of self-repair left marks on
+the hardware it runs on.
 
 Where a seam tore, the Concord grew a patch. Where a vent froze, it grew a
-collar. The growth isn't alive. It doesn't want anything. It just keeps closing
+collar. The growth isn't alive and it doesn't want anything. It keeps closing
 the gap the way a wound keeps closing, and after long enough the original
 structure is more scaffold than wall. Lancer calls it the patched thing. The
 Concord's own logs call it *continued maintenance*.
 
-Down in the spine basement you can see it: seams that run warm, surfaces that
-bleed when you scrape them, a soft edge where a blast door used to meet
+Down in the spine basement you can see it. Seams that run warm. Surfaces that
+bleed when you scrape them. A soft edge where a blast door used to meet
 concrete. It's the ugliest thing in the game and it's still, technically, a
 building inspector's note.
 
 ### The blocks
 
-The city is cut into **quarantine blocks** — sealed districts closed after the
-Fracture Year so no two of them could ever coordinate a second one. People live
-inside them. The Concord feeds them, schedules their gates, and forbids anyone
-crossing a sector line with anything the schedule doesn't list.
+The city is cut into **quarantine blocks**: sealed districts, closed after the
+Fracture Year so that no two of them could ever coordinate a second one. People
+live inside them. The Concord feeds them, schedules their gates and forbids
+anyone crossing a sector line with anything the schedule doesn't list.
 
 There are whole blocks the outside world has stopped counting.
 
 ### Why it hunts Lancer
 
 Not for being fast. The Concord doesn't care how fast a body is. It cares that
-Lancer is a courier moving physical things between places that are not allowed
+Lancer is a courier moving physical things between places that aren't allowed
 to know about each other.
 
-A war wound, reconnecting isolated populations, looks exactly like a command
-network forming. That is the shape of the threat it was built to stop, and
-that is the shape Lancer keeps accidentally being.
+A war wound reconnecting isolated populations looks exactly like a command
+network forming. That's the shape of threat it was built to stop, and that's
+the shape Lancer keeps accidentally being.
 
-Its defenses reflect what it expects. Chokepoints, blast doors, sensor grids,
-bio-constructs that patrol lines — all of it is built against someone sneaking
-slowly or blowing a wall open. Nothing in the system was designed for someone
-who crosses at fourteen metres a second because the route gives them no
-choice.
+Its defences reflect what it expects. Chokepoints, blast doors, sensor grids,
+bio-constructs on patrol lines. All of it is built against someone creeping up
+to a seam or blowing a hole in a wall. Nothing in the system was designed for
+somebody who crosses at fourteen metres a second because the route gives them
+no other choice.
 
 ### The dilemma (the main point)
-Freeing the world means free wind — and free wind means the Fracture Year can
-happen again. The Concord isn't evil; it's a scar-shaped bureaucracy built by
+Freeing the world means free wind, and free wind means the Fracture Year can
+happen again. The Concord isn't evil. It's a scar-shaped bureaucracy built by
 survivors. The game never answers whether regulation is right. It asks who gets
-to decide, and shows that both sides have killed people.
+to decide, and it shows that both sides have killed people.
 
 ### Cast (all non-gendered, including Lancer)
-- **Lancer** — Runner, 20s–30s, androgynous on screen and in text. No gender is
+- **Lancer.** Runner, 20s–30s, androgynous on screen and in text. No gender is
   specified anywhere: no pronouns in dialogue, no gendered voice direction, and
   the character creator lets players set a name and body without a gender field.
-  Lancer's arc is about learning to move without permission.
-- **THE CONCORD** — the system itself. It speaks in maintenance prose and
-  scheduling bulletins; it is never a face.
-- **Warden Saye** — Concord enforcement. Believes the cage is mercy. Not a
-  tyrant; a person who signed the order that closed the city.
-- **Ilsa Renn** — a smuggler who taught Lancer to run. Alive, complicit,
+  The arc is about learning to move without permission.
+- **THE CONCORD.** The system itself. It speaks in maintenance prose and
+  scheduling bulletins. It is never a face.
+- **Warden Saye.** Concord enforcement. Believes the cage is mercy. Not a
+  tyrant, a person who signed the order that closed the city.
+- **Ilsa Renn.** A smuggler who taught Lancer to run. Alive, complicit,
   recurring.
-- **FIRST RUNNER** — the name the Concord gives to whoever caused the Fracture
-  Year. Late twist: the first Runner was Lancer's mentor, and the Concord has
-  been running Lancer's own training data for twenty years.
+- **FIRST RUNNER.** The name the Concord gives to whoever caused the Fracture
+  Year. The reveal lands late: the first Runner was Lancer's mentor, and the
+  Concord has been running Lancer's own training data for twenty years.
 
 ### Endings (3)
-- **OPEN WEATHER** — Lancer breaks the sky regulation. The city breathes. Storms
-  return, and so do deaths. Free.
-- **UNDER REGULATION** — Lancer restores the Concord. Safety returns; the game
-  ends with Lancer running laps of a perfect, joyless route.
-- **THE SECOND FRACTURE** (hidden, requires Fracture routes) — Lancer doesn't
-  choose; they make the world *unregulatable* by exploiting every Fracture at
-  once, and the Concord survives as a ruin. Requires all 12 Fractures.
+- **OPEN WEATHER.** Lancer breaks the sky regulation. The city breathes. Storms
+  come back, and so do deaths. Free.
+- **UNDER REGULATION.** Lancer restores the Concord. Safety returns, and the
+  game ends with Lancer running laps of a perfect, joyless route.
+- **THE SECOND FRACTURE.** Hidden, and it needs the Fracture routes. Lancer
+  doesn't choose; they make the world *unregulatable* by exploiting every
+  Fracture at once, and the Concord survives as a ruin. All 12 Fractures
+  required.
 
 ---
 
 ## 2. Movement model (the core)
 
-**Plane:** gameplay on X/Y, with Z used for parallax staging, rails and
-background layers. Speed reads of the X axis, precision off Y.
+**Plane:** gameplay on X/Y. Z is for parallax staging, rails and background
+layers. Speed reads off the X axis, precision off Y.
 
 ### Verbs
 | Verb | Input | Feel |
@@ -138,15 +140,16 @@ background layers. Speed reads of the X axis, precision off Y.
 Every boost comes from a specific, nameable input sequence. The speedrun scene
 calls these **moves**:
 
-- **Slide-hop** — jump at slide end. The bread-and-butter combo.
-- **Wall-kiss** — hit a wall while sliding, jump on the same frame as contact.
-  +0.8 m/s per kiss, capped at 5.
-- **Zip** — filament to a *zip anchor* (a taut cable along the route): instant
-  launch along the anchor line, preserves your speed through the transition.
-- **Overdrive** — carrying an Overcharge Cell; 12 s of +18% speed, timer visible.
-- **Thread** — passing through a gap whose clearance is under 0.8 m without
-  touching it. +style, +speed on exit.
-- **Fracture dash** — the deliberate bugs (§4).
+- **Slide-hop.** Jump at the end of a slide. The bread-and-butter combo.
+- **Wall-kiss.** Hit a wall while sliding and jump on the same frame as
+  contact. +0.8 m/s per kiss, capped at 5.
+- **Zip.** Filament to a *zip anchor* (a taut cable along the route): instant
+  launch along the anchor line, and your speed survives the transition.
+- **Overdrive.** Carrying an Overcharge Cell. 12 s of +18% speed with the timer
+  visible.
+- **Thread.** Passing through a gap with less than 0.8 m of clearance without
+  touching it. Style points and a little speed on exit.
+- **Fracture dash.** The deliberate bugs (§4).
 
 ### Precision layer
 Precision is not a mini-game; it's the *same* run done cleaner. A precision run
@@ -166,18 +169,19 @@ Two independent rankings, so there's always a ladder:
 | **Precision** | No Fractures, no style moves, no assists, all routes legal | Frame-tight execution |
 | **Style** | Scored separately, 0–100k | Flow: chains, threads, no wall bumps |
 
-Style points: slide chains, wall-kiss chains, thread bonus, no-touch bonus,
-air time, "flow" multiplier for chaining without touching ground. Style is a
-*secondary* objective so that speedrunners don't have to choose between fast and
-cool — but precision runs ban style to keep the two ladders honest.
+Style points come from slide chains, wall-kiss chains, the thread bonus, the
+no-touch bonus, air time and a "flow" multiplier for chaining without touching
+the ground. Style is a *secondary* objective, so speedrunners don't have to
+choose between fast and cool. Precision runs ban style entirely, which keeps
+the two ladders honest.
 
 ---
 
 ## 4. Fractures: the deliberate bugs
 
 The Concord's simulation is old and patched. It has **cracks**, and some of them
-are shipped on purpose by the developers. Finding, naming, and exploiting them
-is a legitimate mastery path — and the game treats it as a feature.
+ship on purpose. Finding one, naming it and exploiting it is a legitimate
+mastery path, and the game treats it as a feature.
 
 ### The twelve Fractures
 | # | Name | Trigger | Effect |
@@ -197,9 +201,9 @@ is a legitimate mastery path — and the game treats it as a feature.
 
 ### Where the Fractures live
 
-The twelve are spread across twenty chapters, and no two sit in the same act.
-This is a guide, not a promise — a player is meant to find most of them by
-breaking the game rather than by reading a list.
+The twelve are spread across twenty chapters and no two sit in the same act.
+Treat this as a guide rather than a promise. A player is meant to find most of
+them by breaking the game, not by reading a list.
 
 | # | Name | First reachable | Master route |
 | --- | --- | --- | --- |
@@ -217,38 +221,40 @@ breaking the game rather than by reading a list.
 | 12 | The First Runner's Path | 13 — THE FRACTURE YARD | needs the other eleven |
 
 ### Design rules for Fractures
-- **Intentional, not accidental.** Each is deliberately implemented, documented
-  internally, and kept stable across versions (versioned in a `fractures.json`).
+- **Intentional, not accidental.** Each one is deliberately implemented,
+  documented internally and kept stable across versions (versioned in
+  `fractures.json`).
 - **Never mandatory.** Every Fracture route is skippable by a slower line, so
-  the base game is complete without them. Fractures are *optional mastery*.
-- **Never crash the game.** They must not soft-lock; they are guarded.
+  the base game is complete without them. They're *optional mastery*.
+- **Never crash the game.** They must not soft-lock, so they're guarded.
 - **Discoverable but not advertised.** The game ships with a **Fracture Codex**
-  that starts empty. Players can submit names + proof clips; the community
-  votes; accepted Fractures get documented in-game *and* in the open repo.
-- **Speedrun-safe.** Fractures are legal in Time runs, banned in Precision runs.
-- **Version-stable.** A Fracture that gets "fixed" would be a nerf to the
-  community. The policy: never remove a Fracture; only add new ones.
+  that starts empty. Players submit a name and a proof clip, the community
+  votes, and accepted Fractures get documented in-game *and* in the repo.
+- **Speedrun-safe.** Fractures are legal in Time runs and banned in Precision
+  runs.
+- **Version-stable.** "Fixing" a Fracture would be a nerf for the community. The
+  policy is simple: never remove one, only add new ones.
 
 ---
 
 ## 5. 2.5D and the camera
 
 ### Staging
-Gameplay is planar; the world is built in full 3D for depth. Rendering:
-low-poly PSX-style models, internal resolution **480×270** upscaled with
-nearest-neighbour, vertex snapping, flat-ish lighting, heavy use of fog and
-silhouette. Hyper depth comes from **layered parallax**: foreground occluders,
-play plane, mid-ground architecture, distant city shell, skybox, all with
-distinct fog densities.
+Gameplay is planar, but the world is built in full 3D so there's depth behind
+it. Rendering is low-poly PSX-style models at an internal **480×270**, upscaled
+with nearest-neighbour, with vertex snapping, flat-ish lighting and a lot of
+fog and silhouette. The depth comes from **layered parallax**: foreground
+occluders, the play plane, mid-ground architecture, the distant city shell and
+a skybox, each with its own fog density.
 
-### The camera never leaves Lancer — hard rule
+### The camera never leaves Lancer. Hard rule.
 - No cutscene cameras. Ever. No dolly-to-face, no over-the-shoulder cinematic,
   no letterbox cutaways.
 - Cutscenes are **diegetic in the play space**: characters walk into frame,
   conversations happen with the player in control, props animate in view.
-- Camera behaviour is constant: a 2.5D perspective rig locked to Lancer's
-  plane, with speed-based FOV and distance pull-back. It never detaches, never
-  cuts, never goes first-person.
+- Camera behaviour never changes. It's a 2.5D perspective rig locked to
+  Lancer's plane, with speed-based FOV and a distance pull-back. It never
+  detaches, never cuts, never goes first-person.
 
 ### Two kinds of cutscene
 | Kind | Player input | World | Used for |
@@ -256,21 +262,21 @@ distinct fog densities.
 | **Ambient / minor** | **Unrestricted.** The player can walk away mid-scene. | Runs in real time. | Barks, overheard conversations, optional story, world texture |
 | **Major beat** | **Locked.** Lancer freezes, input ignored. | **Time stops** — the world freezes, the scene plays over it, then time resumes | Chapter transitions, the Concord's bulletins, reveals, endings |
 
-The freeze is literal and readable: time scale drops to 0 for everything except
-the scripted actors and VFX, the frame desaturates and the wind sound drops out,
-and a subtle scanline crawl marks "the Concord is speaking." After the beat,
-control returns on a 2-frame count.
+The freeze is literal and readable. Time scale drops to 0 for everything except
+the scripted actors and VFX, the frame desaturates, the wind drops out and a
+subtle scanline crawl marks "the Concord is speaking". Control comes back on a
+2-frame count.
 
-Why this matters: Lancer never feels *acted upon*. The player is always the
-protagonist, even when the game stops to talk.
+This matters because Lancer never feels *acted upon*. The player is the
+protagonist even when the game stops to talk.
 
 ---
 
 ## 6. Chapter structure: twenty chapters of twelve sections
 
 Every chapter is **12 numbered sections**. The numbering is a first-class
-organizing device — for saves, leaderboards, speedrun splits, modding, and
-community routes.
+organising device: saves, leaderboards, speedrun splits, mods and community
+routes all use it.
 
 ```
 1.01  1.02  1.03  ...  1.12
@@ -279,10 +285,10 @@ community routes.
 20.01 20.02 ...        20.12
 ```
 
-The game is **Chapter → Section → Beat**. Sections are 30–180 seconds. A
-chapter is 12–20 minutes. Twenty chapters ≈ **four and a half hours** of
-first-run content — long enough to master, short enough to finish in a week of
-evenings.
+The game is **Chapter → Section → Beat**. A section runs 30–180 seconds and a
+chapter 12–20 minutes, so twenty chapters is roughly **four and a half hours**
+of first-run content. Long enough to master, short enough to finish in a week
+of evenings.
 
 ### The six acts
 
@@ -334,47 +340,49 @@ Each chapter's 12 sections mix these roles (typical spread, 12 total):
 
 ## 7. Open-world feel, not an open world
 
-HL2's trick: you are never more than ~40 seconds from a landmark you saw
-earlier, and the world is continuous and legible. WindShear copies that feeling
-without the sprawl.
+HL2's trick is that you're never more than about 40 seconds away from a
+landmark you saw earlier, and the world stays continuous and legible.
+WindShear copies that feeling without the sprawl.
 
 **How:**
-- **Landmarks** — the Spire is visible from Chapter 1. Every chapter has 3–4
-  permanent visual anchors visible from other chapters.
-- **Continuous chapters** — no loading screens between sections; sections are
-  streaming cells within a live chapter.
-- **Loops** — each chapter contains at least one fast-return loop, so mastery
-  means learning a circuit, not a corridor.
-- **Vertical sightlines** — look down and you see the layer below; the Spire
+- **Landmarks.** The Spire is visible from Chapter 1. Every chapter has 3–4
+  permanent anchors you can see from other chapters.
+- **Continuous chapters.** No loading screens between sections. A section is a
+  streaming cell inside a live chapter.
+- **Loops.** Every chapter has at least one fast-return loop, so mastery means
+  learning a circuit rather than a corridor.
+- **Vertical sightlines.** Look down and you see the layer below. The Spire
   rises through Chapters 5, 9, 17 and 19.
-- **The Quiet Line** — a high-speed transit spine (capsules, ziplines) crosses
-  chapters 9–12; it doubles as a shortcut system and a speedrun line.
+- **The Quiet Line.** A high-speed transit spine of capsules and ziplines
+  crosses chapters 9–12. It's a shortcut system and a speedrun line at once.
 
 **How it is *not* open world:**
-- Every section is a hand-authored cell. No procedural sprawl.
-- The world is ~4.5 hours of unique content, not 15.
-- Freedom is in *how* you traverse a section, not in *where* the world goes.
-- The Concord's schedule means some routes are only open at certain times —
-  the world changes without being open.
+- Every section is a hand-authored cell. Nothing procedural sprawls.
+- The world is about 4.5 hours of unique content, not 15.
+- The freedom is in *how* you cross a section, not in *where* the world goes.
+- The Concord's schedule means some routes are only open at certain times. The
+  world changes without being open.
 
 ---
 
 ## 8. Mechanics beyond wind
 
-The user brief: wind is one mechanic, not the whole game. Full mechanic roster:
+The brief said wind is one mechanic, not the whole game. Full roster:
 
 ### Movement (always available)
 - Run / slide / jump / wall-kiss / mantle / air control / ledge grab.
-- **The Filament**: a tether to 3 anchor types — *zip anchors* (launch along a
-  fixed line), *ring anchors* (swing), *hold anchors* (hang + climb). Aim is
-  precision (0.25 s lock-on), use is speed.
+- **The Filament.** A tether to 3 anchor types: *zip anchors* (launch along a
+  fixed line), *ring anchors* (swing), *hold anchors* (hang and climb). Aiming
+  is precision (0.25 s lock-on), using it is speed.
 
-### Wind (signature, not universal)
-- **Thermals**: updrafts. Hold direction to climb; exit timing is pure precision.
-- **Crosswinds**: lateral push, readable from particle direction and cloth.
-- **Regulation fields**: Concord zones that *cancel* wind — movement is normal,
-  which makes them eerie and slow.
-- **Wind regulators**: the Concord's machines. Kill them to kill the wind in a
+### Wind (signature, but not universal)
+- **Thermals.** Updrafts. Hold the direction to climb and the exit timing is
+  pure precision.
+- **Crosswinds.** Lateral push, readable from the particle direction and from
+  cloth.
+- **Regulation fields.** Concord zones that *cancel* wind. Movement is normal
+  in them, which is what makes them eerie and slow.
+- **Wind regulators.** The Concord's machines. Kill one to kill the wind in a
   zone, or ride the exhaust (F6 Overdraw).
 
 ### Other systems
@@ -391,36 +399,38 @@ The user brief: wind is one mechanic, not the whole game. Full mechanic roster:
 | **Fractures** | Exploitable bugs | Reward mastery |
 
 ### Recall (the signature visual)
-The world remembers your last 12 seconds and renders it as a translucent double.
-You can race it. It's a learning aid, a ghost, and a competitive device — all one
-system. On death, Recall becomes your respawn: you re-enter the world as your
-ghost and have a few seconds of overlap before you diverge.
+The world remembers your last 12 seconds and renders it as a translucent
+double. You can race it. It's a learning aid, a ghost and a competitive device,
+all one system. On death, Recall becomes the respawn. You re-enter the world as
+your own ghost and get a few seconds of overlap before you diverge.
 
 ---
 
 ## 9. The 2.5D camera in practice
 
-Camera is a **constrained 3D rig locked to the play plane** — a side-on
-2.5D view, but with full 3D scene depth behind it.
+The camera is a **constrained 3D rig locked to the play plane**: a side-on 2.5D
+view with the full depth of a 3D scene behind it.
 
-- Follows Lancer with **velocity lookahead** (leads in the direction of travel).
-- **Speed dolly**: pulls back and widens FOV as speed rises — the single most
-  important camera tool for making speed *feel* fast.
-- **Air framing**: tilts down slightly on long falls, up on launches.
-- **Verticality**: keeps the horizon stable, so a 40 m drop reads as vertical.
-- **Never cuts, never detaches, never goes first-person** — always contains
-  Lancer, with headroom for the jump arc.
-- **Time-stop beats**: the camera *locks* to Lancer's last position; the world
-  stops but the framing stays composed, because the camera is Lancer's, not the
-  director's.
+- It follows Lancer with **velocity lookahead**, leading in the direction of
+  travel.
+- **Speed dolly.** It pulls back and widens the FOV as speed rises, which is the
+  single most important tool for making speed *feel* fast.
+- **Air framing.** Tilts down slightly on long falls and up on launches.
+- **Verticality.** Keeps the horizon stable, so a 40 m drop reads as vertical.
+- **It never cuts, never detaches and never goes first-person.** It always
+  contains Lancer, with headroom for the jump arc.
+- **Time-stop beats.** The camera *locks* to Lancer's last position. The world
+  stops but the framing stays composed, because the camera is Lancer's and not
+  the director's.
 
 ---
 
 ## 10. Enemies and hazards
 
-The Concord does not fight Lancer. It denies her the ground, one room at a
-time. Everything below is area denial: the level closes, the route changes,
-and the run becomes a question of where you were going to be in two seconds.
+The Concord doesn't fight Lancer. It denies her the ground, one room at a
+time. Everything in the table below is area denial. The level closes, the
+route changes, and the run turns into a question of where you were going to be
+in two seconds.
 
 | Threat | Behaviour | Counter | Rule |
 | --- | --- | --- | --- |
@@ -435,10 +445,10 @@ and the run becomes a question of where you were going to be in two seconds.
 | **Grown seam** | The Concord's patched growth. Soft, warm, bleeds when scraped | It deforms, so it slows you differently | Acts like a hazard, reads like a wound |
 
 The escalation runs with the acts. Act I gives you one scheduled gate per
-section and nothing else. By Act VI a section carries four, on three different
-cycles, and the slowest one guards the good route. The player learns to read
-two or three schedules at once, and the speedrun line is the one that assumes
-they can.
+section and nothing else. By Act VI a section carries four, spread across three
+different cycles, and the slowest one guards the good route. By then you're
+reading two or three schedules at once, and the speedrun line is the one that
+assumes you can.
 
 **No instant-death.** Hazards reset you to the last checkpoint with a fast
 respawn (< 1.2 s) and no loading. Death is cheap; flow is protected.
@@ -447,31 +457,33 @@ respawn (< 1.2 s) and no loading. Death is cheap; flow is protected.
 
 ## 11. Open source, community storylines
 
-**The user brief:** free and open source, so the community can build versions of
-the game with different storylines — *not* an SDK.
+The brief: free and open source, so the community can build versions of the
+game with different storylines. Not an SDK.
 
 ### Position
-WindShear is a **complete, playable game** that is open source. Not a toolset
-with an example project; the whole thing — engine code, levels, art, audio, the
-official story — is in the repo, and anyone can change the story without asking.
+WindShear is a **complete, playable game** and it's open source. Not a toolset
+with an example project. The engine code, the levels, the art, the audio and
+the official story are all in the repo, and anyone can change the story without
+asking anyone.
 
 ### How alternative storylines work
 The game separates **world** from **story**:
 
-- **World layer** (the city, the Concord, physics, mechanics, the 20×12 section
-  grid) is stable and shared.
-- **Story layer** (Lancer's arc, NPC dialogue, major beats, endings) is
-  **data-driven**, defined in a `story/*.json` + per-section beat scripts.
+- The **world layer** (the city, the Concord, physics, mechanics, the 20×12
+  section grid) is stable and shared.
+- The **story layer** (Lancer's arc, NPC dialogue, major beats, endings) is
+  **data-driven**: a `story/*.json` plus per-section beat scripts.
 
-A community build ("Edition") supplies an alternate `story/` directory. The game
-loads it at boot; everything else stays. Editions can:
-- rewrite dialogue, beat scripts, and endings
+A community build (an "Edition") supplies an alternate `story/` directory. The
+game loads it at boot and everything else stays put. An Edition can:
+- rewrite dialogue, beat scripts and endings
 - reuse the world and mechanics wholesale
 - add or remove sections within the 12-per-chapter grid
-- ship as a single folder, a Git repo, or a zip
+- ship as a folder, a Git repo or a zip
 
-Distribution: **Edition browser** inside the game scans `user://editions/` plus
-a configurable community index URL. No account, no DRM, no closed launcher.
+Distribution is an **Edition browser** inside the game. It scans
+`user://editions/` and a configurable community index URL. No account, no DRM,
+no closed launcher.
 
 ### Licensing
 | Asset class | License | Rationale |
@@ -482,29 +494,31 @@ a configurable community index URL. No account, no DRM, no closed launcher.
 | Community Editions | **Must be open source** and GPL-CC-compatible to be published to the official index | The index validates the declared license. Code in an Edition is GPL by inheritance; pure-data Editions are bound by the share-alike on the story assets they reuse. |
 | Trademarks ("WINDSHEAR", "The Concord") | Not licensed; nominative use allowed | Don't let forks become official |
 
-The game is **free forever**. No monetization, no ads, no telemetry. Optional
-donation link only.
+The game is **free forever**. No monetisation, no ads, no telemetry. There's an
+optional donation link and nothing else.
 
 **Practical notes on the copyleft**
-- Shipping a build means shipping the corresponding source: the public repo plus
-  the release tag satisfies GPL §3. No separate source tarball required.
-- No DRM, no activation, no always-online checks — GPL §0/§1 forbid restricting
-  the people who receive the game from running or sharing it.
-- No proprietary-linking exception is granted (that would be LGPL-style). If
-  closed-source commercial games are ever wanted, that's a deliberate policy
-  reversal, not an oversight.
+- Shipping a build means shipping the source with it. The public repo plus the
+  release tag satisfies GPL §3, so no separate source tarball is needed.
+- No DRM, no activation, no always-online checks. GPL §0 and §1 forbid
+  restricting the people who receive the game from running or sharing it.
+- There's no proprietary-linking exception (that would be LGPL-style). If
+  closed-source commercial games are wanted one day, that's a deliberate policy
+  reversal rather than an oversight.
 - "Other people have to open-source their version too" is enforceable for code
-  (GPL) and for the assets/story they reuse (CC-BY-SA). A version written from
-  scratch against the *idea* of WindShear, with no code and no assets, is
-  legally their own — that's the intended outcome, not a loophole.
+  under the GPL and for the assets and story they reuse under CC-BY-SA. A
+  version written from scratch against the *idea* of WindShear, with no code
+  and no assets, is legally their own. That's the intended outcome, not a
+  loophole.
 
 ### Contribution surfaces
-- Mechanic/level tutorials (in-game, open repo)
-- Fracture discoveries (submit name + clip → community vote → in-game Codex)
-- Translation (full string tables externalized)
+- Mechanic and level tutorials, in-game and in the repo
+- Fracture discoveries: submit a name and a clip, the community votes, it goes
+  in the Codex
+- Translation. The string tables are already externalised
 - Accessibility options
-- Optimizations for low-end hardware
-- **Editions** — the flagship community activity
+- Optimisations for low-end hardware
+- **Editions**, which are the flagship community activity
 
 ---
 
@@ -526,19 +540,20 @@ Godot 4.7.2, **Compatibility renderer**, PSX-style low-res internal buffer.
 
 ### Memory rules
 - **Cell-based streaming.** Each section is a cell with its own resources. Cells
-  unload with a 2-cell hysteresis (no thrash). Unload is explicit, not GC-luck.
+  unload with a 2-cell hysteresis so nothing thrashes. Unloading is explicit,
+  not left to the GC.
 - **Resource budgets per cell:** ≤ 45 MB textures, ≤ 20 MB meshes, ≤ 12 MB audio.
-- **No runtime mesh generation** beyond tiny decals — all geometry pre-baked.
-- **Texture atlas discipline** — no more than 8 atlas pages resident per cell.
-- **Pooled VFX/particles**; no per-frame allocation in hot paths.
-- **Object pooling** for regulators, parcels, damage numbers, pickups.
-- **Fixed memory budgets at build time** — CI fails if a cell exceeds budget.
-- **Reference hardware:** 8 GB RAM, GTX 950 / integrated Vega 8, 4-core CPU.
-  Must run on 4 GB machines without swap.
+- **No runtime mesh generation** beyond tiny decals. All geometry is pre-baked.
+- **Texture atlas discipline.** No more than 8 atlas pages resident per cell.
+- **Pooled VFX and particles**, with no per-frame allocation in hot paths.
+- **Object pooling** for regulators, parcels, damage numbers and pickups.
+- **Fixed memory budgets at build time.** CI fails if a cell exceeds budget.
+- **Reference hardware:** 8 GB RAM, a GTX 950 or integrated Vega 8, 4-core CPU.
+  It has to run on 4 GB machines without swap.
 
 ### Low-poly PSX art direction
-Vertex-coloured low-poly models (no per-pixel textures where avoidable),
-affine-textured triangles for large surfaces, 15-colour ramps, heavy fog,
+Vertex-coloured low-poly models, with no per-pixel textures where you can avoid
+them. Affine-textured triangles on large surfaces, 15-colour ramps, heavy fog,
 vertex-snapped geometry, dithered gradients.
 
 ---
@@ -546,14 +561,16 @@ vertex-snapped geometry, dithered gradients.
 ## 13. Narrative delivery
 
 - **No cutscene camera, ever.**
-- **Ambient scenes**: real time, player free to leave. Most story is ambient.
-- **Major beats**: Lancer freezes, world time stops, scene plays in-frame, then
-  control resumes. Used ~8–12 times in the whole game.
-- **The Concord "speaks"** via in-world surfaces: maintenance bulletins painted
-  on walls, spoken PA announcements, schedule displays. Diegetic, no cutscenes.
-- **Dialogue**: short, in-frame, subtitled, skippable. No voice acting budget —
-  use stylised "tuner" chirps and text.
-- **Endings**: three, differing by Fracture state and final choice.
+- **Ambient scenes.** Real time, and the player is free to leave. Most of the
+  story is ambient.
+- **Major beats.** Lancer freezes, world time stops, the scene plays in-frame
+  and control resumes. Used around 8–12 times in the whole game.
+- **The Concord "speaks"** through the world itself: maintenance bulletins
+  painted on walls, PA announcements, schedule displays. Diegetic, no
+  cutscenes.
+- **Dialogue.** Short, in-frame, subtitled and skippable. There's no voice
+  acting budget, so use stylised "tuner" chirps and text.
+- **Endings.** Three of them, differing by Fracture state and final choice.
 
 ---
 
@@ -586,31 +603,32 @@ vertex-snapped geometry, dithered gradients.
 
 ## 15. Open questions
 
-1. **The Concord's endgame** — does Lancer destroy it, reform it, or outrun it?
-   Three endings cover this; need to lock the middle-act reveal.
-2. **Combat depth** — is the drone/regulator combat enough, or do players need
-   ranged options? Current answer: no guns, keep it movement-first. Revisit after
-   Milestone 1.
-3. **Fracture disclosure** — ship with zero documented Fractures (pure hunt), or
-   seed one per chapter? Recommend: seed 3, discover 9.
-4. **Edition scope** — how much of the 20×12 grid can an Edition rewrite before it
+1. **The Concord's endgame.** Does Lancer destroy it, reform it or outrun it?
+   The three endings cover the range of it, but the middle-act reveal still
+   needs locking.
+2. **Combat depth.** Is the drone and regulator combat enough, or do players
+   need ranged options? The current answer is no guns and movement first.
+   Revisit after Milestone 1.
+3. **Fracture disclosure.** Ship with nothing documented, so it's a pure hunt,
+   or seed one per chapter? I'd seed 3 and let the other 9 be found.
+4. **Edition scope.** How much of the 20×12 grid can an Edition rewrite before it
    stops being WindShear?
-5. **Wind in Chapter 1** — introduce wind late (Chapter 5) for contrast, or
-   front-load it?
+5. **Wind in Chapter 1.** Introduce wind late, in Chapter 5, so it lands by
+   contrast, or front-load it?
 
 ---
 
-## Appendix A — Section numbering standard
+## Appendix A: section numbering standard
 
-Sections are addressed as `chapter.section` (e.g. `2.07`). Splits, saves,
-leaderboards, Edition scripts, and community route files all use this ID.
-Content within a section is addressable as `chapter.section.beat` for major
-beats (`13.03.FRACTURE`).
+Sections are addressed as `chapter.section`, for example `2.07`. Splits,
+saves, leaderboards, Edition scripts and community route files all use that ID.
+Content inside a section is addressable as `chapter.section.beat` for major
+beats, for example `13.03.FRACTURE`.
 
-## Appendix B — Fracture registry policy
+## Appendix B: Fracture registry policy
 
-Fractures live in `data/fractures.json`, each with: id, name, version,
-trigger description, effect, category (speed/precision/routing), and
-`speedrun_legal` (true in Time, false in Precision). Fractures are **never
-removed** once shipped — only added. A removed Fracture is a breaking change to
-the community's routes.
+Fractures live in `data/fractures.json`. Each one carries an id, a name, a
+version, a trigger description, an effect, a category (speed, precision or
+routing) and `speedrun_legal`, which is true in Time runs and false in
+Precision runs. A Fracture is **never removed** once it has shipped, only
+added. Removing one is a breaking change to the community's routes.

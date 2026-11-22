@@ -1,8 +1,8 @@
-# WindShear — Dev Stage 1: the movement base
+# WindShear: Dev Stage 1, the movement base
 
-**Level 1** of the development stages. This is the stage where the game stops
-being documents and starts being a thing you can move around in, and where
-the movement gets its numbers.
+**Level 1** of the development stages. This is where the game stops being
+documents and starts being a thing you can move around in, and where the
+movement gets its numbers.
 
 What exists now:
 
@@ -33,9 +33,9 @@ exists:
 
 > **A movement technique is found, not built.**
 
-The controller implements five verbs — run, slide, jump, wall-kiss, filament —
-and nothing else. There is no bunny hop button, no "speed boost" move, no
-hidden state that rewards a specific input sequence. The techniques that
+The controller implements five verbs (run, slide, jump, wall-kiss, filament)
+and nothing else. There's no bunny hop button, no "speed boost" move, no
+hidden state that rewards a particular input sequence. The techniques that
 exist are consequences of the physics, and the job of this stage was to find
 out what those consequences are before a single level was designed around
 them.
@@ -90,21 +90,20 @@ and prints a report:
 Reading it:
 
 - **plain run** is the baseline. 14.00 m/s, exactly the run speed.
-- **bunny hop** — jump on every landing, 19 times — reaches 14.27 m/s. That
-  is 0.27 m/s above a plain run, and it is *not* a speed exploit. It is the
-  air cap being spent a little at a time, which is the whole point of the
-  cap.
+- **bunny hop** (jump on every landing, 19 times) reaches 14.27 m/s. That's
+  0.27 m/s above a plain run, and it is *not* a speed exploit. It's the air
+  cap being spent a little at a time, which is the whole point of the cap.
 - **slide-hop** reaches 14.43 m/s. Sliding into a jump costs a little speed
   and buys a little height, and the net is a small gain.
-- **air flick** — run right, then pull left in the air — peaks at 14.00 and
-  ends at 3.60. It does what it does in every game with a Quake-style air
-  cap: you can steer, you cannot cheat.
-- **wall-kiss chain** reaches 18.00 m/s. That is the run speed plus the
-  full chain of five kisses at +0.8 m/s each. It is the fastest thing in
-  the game, and it is 18.00 exactly, because of the ceiling below.
-- **turnaround** — reverse the stick at full speed — comes back to 14.00.
-  The turn costs nothing in the long run, but it costs frames, and frames
-  are the currency of this game.
+- **air flick** (run right, then pull left in the air) peaks at 14.00 and ends
+  at 3.60. It does what it does in every game with a Quake-style air cap. You
+  can steer, you can't cheat.
+- **wall-kiss chain** reaches 18.00 m/s, which is the run speed plus the full
+  chain of five kisses at +0.8 m/s each. It's the fastest thing in the game,
+  and it's 18.00 exactly, because of the ceiling below.
+- **turnaround** (reverse the stick at full speed) comes back to 14.00. The
+  turn costs nothing in the long run, but it costs frames, and frames are the
+  currency of this game.
 
 After the report the suite asserts four invariants for every technique (the
 speed stays under the ceiling, the player never leaves the XY plane, the air
@@ -133,31 +132,30 @@ ceiling. The discovery harness reported this:
     wall-kiss chain     26.00    26.00     15      0      5     0.00
 ```
 
-Twenty-six metres per second. Nearly twice the run speed, reached by
-holding a button against a wall. The chain cap of five was doing nothing —
-the speed went up by 0.8 per kiss, and each kiss also triggered another
-kiss, and the only thing that stopped it was the chain cap, which the
-player could reset by touching the ground and doing it again.
+Twenty-six metres per second. Nearly twice the run speed, reached by holding
+a button against a wall. The chain cap of five was doing nothing. The speed
+went up by 0.8 per kiss, each kiss triggered another kiss, and the only thing
+stopping it was the chain cap, which the player could reset by touching the
+ground and doing it again.
 
 A route that ran along a wall at 26 m/s was not a technique. It was a
 different movement game layered on top of the first one, and it made every
 other speed number meaningless. The greybox has a guide wall at z = -0.5
 specifically so this could be found early.
 
-The fix was a **hard horizontal speed ceiling of 18.0 m/s** — the run speed
-plus the full chain — applied to the wall-kiss boost. The chain of five
-kisses still reaches exactly 18.00 m/s, so the mechanic keeps its full
-value; it simply cannot be repeated into a bigger number.
+The fix was a **hard horizontal speed ceiling of 18.0 m/s** (the run speed
+plus the full chain) applied to the wall-kiss boost. The chain of five kisses
+still reaches exactly 18.00 m/s, so the mechanic keeps its full value. It
+simply can't be repeated into a bigger number.
 
 Two things about this are worth stating plainly:
 
 - **The exploit was not designed in.** Nothing in the code said "let the
-  player chain infinitely". It was a consequence of the boost being
-  uncapped, found by a harness that plays the technique and prints the
-  number.
+  player chain infinitely". It was a consequence of the boost being uncapped,
+  found by a harness that plays the technique and prints the number.
 - **The fix is a ceiling, not a removal.** The technique still works, still
   has its full designed value, and still rewards the player for setting it
-  up. All that changed is that it cannot be farmed.
+  up. All that changed is that it can't be farmed.
 
 This is also why the rule in `docs/MOVEMENT_RESEARCH.md` §16.2 exists. The
 distance between a good speedrun technique and a movement exploit is often
