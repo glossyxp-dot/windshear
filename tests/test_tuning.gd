@@ -58,6 +58,8 @@ func run() -> void:
 	same(Tuning.WALL_KISS_WINDOW_FRAMES, 2, "wall-kiss window in frames")
 	near(Tuning.WALL_KISS_BOOST, 0.8, 0.0001, "wall-kiss boost")
 	same(Tuning.WALL_KISS_CAP, 5, "wall-kiss chain cap")
+	same(Tuning.WALL_KISS_CHAIN_FRAMES, 30, "wall-kiss chain expiry in frames")
+	near(Tuning.WALL_KISS_SPEED_CEILING, 18.0, 0.0001, "wall-kiss horizontal speed ceiling")
 
 	heading("filament")
 	near(Tuning.FILAMENT_LOCK_TIME, 0.25, 0.0001, "filament lock-on time")

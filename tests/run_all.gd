@@ -42,6 +42,7 @@ const GreyboxScene := preload("res://world/greybox/movement_greybox.tscn")
 const SUITES := [
 	preload("res://tests/test_tuning.gd"),
 	preload("res://tests/test_movement.gd"),
+	preload("res://tests/test_movement_characterization.gd"),
 	preload("res://tests/test_movement_discovery.gd"),
 	preload("res://tests/test_camera.gd"),
 	preload("res://tests/test_determinism.gd"),
