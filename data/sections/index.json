@@ -4,121 +4,789 @@
     "spdx_file_copyright_text": "2026 the WINDSHEAR contributors",
     "license": "CC-BY-SA-4.0",
     "schema": "windshear.section-index.v1",
-    "description": "Planned index of the twenty-chapter, twelve-section official world grid.",
+    "description": "Planned index of the twenty-five-chapter, twelve-section official world grid, including the five-chapter Fracture Year prequel.",
     "status": "planned",
     "tick_rate": 60,
-    "chapter_count": 20,
+    "chapter_count": 25,
     "sections_per_chapter": 12,
-    "section_id_format": "chapter.section",
+    "section_id_format": "chapter.section, prequel chapters use P1-P5",
     "scene_path_format": "res://data/sections/c{chapter}/s{chapter}_{section}.tscn",
     "difficulty_scale": "1-10 relative section difficulty",
     "par_time_unit": "frame",
-    "act_count": 6
+    "act_count": 7,
+    "prequel_chapter_count": 5,
+    "prequel_chapter_ids": [
+      "P1",
+      "P2",
+      "P3",
+      "P4",
+      "P5"
+    ]
   },
   "version": 1,
   "chapters": [
     {
       "number": 1,
+      "title": "OPEN SKY",
+      "act": 0,
+      "act_name": "THE FRACTURE YEAR",
+      "player": "ilsa_renn",
+      "prequel": true,
+      "start": "You stand inside an open-air elevated commuter rail car gliding over a sunlit modern city. Glass towers gleam under a clear blue sky while fighter jets streak overhead and civil-defense tickers scroll across the station boards. You step onto the Central Station skybridge as a dispatcher slaps an encryption drive into your harness, then artillery thunders across the harbor.",
+      "play": "Crossing a panicking city in broad daylight. Rooftop access puzzles, stalled commuter trains and the core movement verbs before the first bombs land.",
+      "fractures": [],
+      "id": "P1"
+    },
+    {
+      "number": 2,
+      "title": "REDLINE",
+      "act": 0,
+      "act_name": "THE FRACTURE YEAR",
+      "player": "ilsa_renn",
+      "prequel": true,
+      "start": "Smoke blocks the sun. You wake up pinned under a cracked concrete highway overpass while armored columns roll down the avenue below and a nearby high-rise collapses in steel and dust. Young logistics officer Saye leans out of a command APC on the corner and waves you through a sandbag breach with an emergency cease-fire hardline key.",
+      "play": "An active urban combat zone. Taking cover behind wrecked armour, clearing burning interiors, structural collapse puzzles and bursts of speed across sniper-watched avenues.",
+      "fractures": [],
+      "id": "P2"
+    },
+    {
+      "number": 3,
+      "title": "CONTAINMENT PROTOCOL",
+      "act": 0,
+      "act_name": "THE FRACTURE YEAR",
+      "player": "ilsa_renn",
+      "prequel": true,
+      "start": "You slide into the courtyard of the Central Tactical Relay just as sonic booms split the sky. Orbital drop-pods carrying the Concord's seed-cores slam into every intersection. One ruptures in front of you, extruding wet grey chitin-and-concrete walls across the asphalt and cutting a retreating tank column in half.",
+      "play": "Surviving a city physically reshaping itself. Shifting-wall spatial puzzles and escaping closing Quarantine Bulkheads while the metro is carved into isolated blocks.",
+      "fractures": [],
+      "id": "P3"
+    },
+    {
+      "number": 4,
+      "title": "THE SKY CLOSES",
+      "act": 0,
+      "act_name": "THE FRACTURE YEAR",
+      "player": "ilsa_renn",
+      "prequel": true,
+      "start": "You step onto the Civic Spire roof and see massive biomechanical tendons rising from the horizon, weaving together across the upper atmosphere like a closing iris. Piece by piece the sun gets blotted out until the city drops into permanent overcast twilight. Below, young officer Saye stands at a blast-gate console and signs the containment override as the final street airlocks seal shut.",
+      "play": "Climbing down the Spire exterior under pressure. Early Interdiction Nodes, darkening catwalks and slipping past sealing street airlocks.",
+      "fractures": [],
+      "id": "P4"
+    },
+    {
+      "number": 5,
+      "title": "ZERO CASUALTIES",
+      "act": 0,
+      "act_name": "THE FRACTURE YEAR",
+      "player": "ilsa_renn",
+      "prequel": true,
+      "start": "Dead silence. The artillery stops. You stand alone in a newly walled-off residential street under cold overcast light while an overhead speaker crackles on for the first time: \"CONTAINMENT COMPLETE. ZERO ACTIVE COMBATANTS. REMAIN IN ASSIGNED SECTOR.\" Ahead sits a fresh, pulsing Grown Seam sealing the avenue.",
+      "play": "Stealth and route-finding inside a locked-down neighbourhood. Ilsa works out how to exploit an uncalibrated vent and a Grown Seam to breach the wall, unknowingly recording the telemetry the Concord will use as the FIRST RUNNER baseline for twenty years.",
+      "fractures": [],
+      "id": "P5"
+    },
+    {
+      "number": 1,
       "title": "THE LATTICE",
-      "act": 1
+      "act": 1,
+      "act_name": "THE BLOCK",
+      "player": "lancer",
+      "start": "You ride in the back of a rattling, cage-windowed Concord ration tram moving along an elevated track through Quarantine Block 404. Outside the rain-streaked mesh, brutalist apartment blocks, neon schedule boards and patrolling bio-drones pass by under the central Spire. The tram stops at the Depot, where Ilsa Renn is waiting by a pillar. She says the last three runs say Lancer is too quick to stay licensed, and slips an off-manifest memory drive into the courier bag.",
+      "play": "Grounded street and rooftop traversal. Meeting the team, learning patrol rhythms, bypassing locked checkpoints and making a first illegal crossing across a sector seam.",
+      "fractures": [
+        "wall_kiss_chain",
+        "gate_timing"
+      ]
     },
     {
       "number": 2,
       "title": "CUSTOMS ROW",
-      "act": 1
+      "act": 1,
+      "act_name": "THE BLOCK",
+      "player": "lancer",
+      "start": "You drop off a fire escape into the floodlit bottleneck of Customs Row, a concrete checkpoint bisecting the district. Behind thick ballistic glass, Warden Saye taps her clipboard against the intercom and lectures you on manifest compliance while a scanner arm sweeps your bag. Before the lockdown bars drop, a pneumatic freight tube bursts beside you and blows open a maintenance hatch.",
+      "play": "Checkpoint infiltration and spatial puzzles. Pressure plates, gate schedules and flanking patrolling bio-constructs, without saying a word.",
+      "fractures": []
     },
     {
       "number": 3,
       "title": "NIGHT SEAL",
-      "act": 1
+      "act": 1,
+      "act_name": "THE BLOCK",
+      "player": "lancer",
+      "start": "You step onto an elevated skybridge just as dusk sirens wail. Across the skyline floodlights snap off sector by sector, and heavy Quarantine Bulkheads slam down from the overpasses with hydraulic thuds, trapping you on the wrong side of the block wall.",
+      "play": "Dusk survival. Fighting through tight alley ambushes and using momentum bursts to slip under closing blast doors before lockdown completes.",
+      "fractures": []
     },
     {
       "number": 4,
       "title": "THE LOOP",
-      "act": 1
+      "act": 1,
+      "act_name": "THE BLOCK",
+      "player": "lancer",
+      "start": "Midnight in the rain-slicked slums of the Lower Tier. You crouch beside a makeshift shortwave radio shack where three isolated neighbourhood reps huddle around the memory drive you smuggled in, proving other blocks are still alive. Across the street a Concord sensor pylon swivels toward the roof and paints you with a red target laser.",
+      "play": "Multi-route urban navigation linking three residential tiers. Balancing stealth, combat with Regulator Drones and rooftop escapes.",
+      "fractures": []
     },
     {
       "number": 5,
       "title": "VENTWORKS",
-      "act": 2
+      "act": 2,
+      "act_name": "THE UNDER-CITY",
+      "player": "lancer",
+      "start": "Cornered on a dead-end plaza by closing chitin-barricades, you pry open a rusted storm grate and drop fifty feet onto a catwalk inside the Ventworks, a cavernous subterranean wind-tunnel where house-sized intake turbines pull air down from the canopy scrubbers.",
+      "play": "Vertical industrial platforming and valve puzzles. Redirecting Thermals and Wind Regulators to open sealed shafts.",
+      "fractures": [
+        "wind_pocket",
+        "regulator_overdraw"
+      ]
     },
     {
       "number": 6,
       "title": "HOT PLENUM",
-      "act": 2
+      "act": 2,
+      "act_name": "THE UNDER-CITY",
+      "player": "lancer",
+      "start": "You exit a maintenance ladder onto a grated steel balcony overlooking an orange abyss, the geothermal heat-exchangers boiling under the city grid. Superheated steam vents blast upward on strict timers and light up the soot on your gloves.",
+      "play": "Hazard navigation and heat-shield timing. Solving overpressure gate puzzles while fighting heat-resistant bio-constructs.",
+      "fractures": [
+        "grav_lift_double",
+        "the_long_fall"
+      ]
     },
     {
       "number": 7,
       "title": "THE REGULATOR BELT",
-      "act": 2
+      "act": 2,
+      "act_name": "THE UNDER-CITY",
+      "player": "lancer",
+      "start": "You step onto the service rail of a massive subterranean aqueduct where six building-sized Wind Regulators sit in a row, humming like jet engines as they balance pressure between quarantine zones. An automated voice echoes down the chamber: \"ANOMALOUS MASS DETECTED IN PRESSURE CONDUIT. INITIATING SWEEP.\"",
+      "play": "Sabotaging and riding turbine systems. Close-quarters combat on catwalks mixed with riding wind exhausts to outrun sensor sweeps.",
+      "fractures": [
+        "cascade"
+      ]
     },
     {
       "number": 8,
       "title": "SPINE BASEMENT",
-      "act": 2
+      "act": 2,
+      "act_name": "THE UNDER-CITY",
+      "player": "lancer",
+      "start": "Your boots splash into ankle-deep condensation in the pitch-black foundation directly under the central Spire. Your headlamp catches the concrete pillars, except they aren't concrete anymore. Thick, warm Grown Seams pulse like slow arteries across the walls, oozing dark fluid where rebar pokes through.",
+      "play": "Exploration deep inside the Concord's roots. Deforming organic terrain, snare-tendrils and dark flooded chambers.",
+      "fractures": [
+        "frame_skip"
+      ]
     },
     {
       "number": 9,
       "title": "THE QUIET LINE",
-      "act": 3
+      "act": 3,
+      "act_name": "THE SPINE",
+      "player": "lancer",
+      "start": "You climb out of a subterranean hatch onto a wind-whipped monorail trestle suspended hundreds of feet above a cratered wasteland, the Dead Zone between two walled cities. Ahead, automated cargo capsules glide silently along high-tension steel cables into the fog.",
+      "play": "High-altitude traversal and Filament tether puzzles. Leaping between suspended capsules and clearing turret nests across lethal drops.",
+      "fractures": [
+        "seam_skip",
+        "zip_transfer"
+      ]
     },
     {
       "number": 10,
       "title": "CARGO SPINE",
-      "act": 3
+      "act": 3,
+      "act_name": "THE SPINE",
+      "player": "lancer",
+      "start": "Inside an automated freight depot, robotic cranes load sealed military containers onto outbound spine-trams. Ilsa's contact drops a heavy, lead-lined shortwave relay crate at your feet, too bulky to pocket and heavy enough to weigh you down.",
+      "play": "Physics escort and puzzle traversal. Using Cargo Slings to hurl the relay into distant switches, clear ambushes and ferry the hardware across sector gates.",
+      "fractures": []
     },
     {
       "number": 11,
       "title": "THE LONG FREIGHT",
-      "act": 3
+      "act": 3,
+      "act_name": "THE SPINE",
+      "player": "lancer",
+      "start": "You leap from a loading gantry onto the roof of an armoured freight train accelerating out of the depot into the fog. Ahead the tracks enter a fortified canyon bristling with stationary Interdiction Nodes, turrets and snare-tendrils tracking your silhouette.",
+      "play": "Moving-train combat and an obstacle gauntlet. Fighting through railcar interiors, ducking low canyon gantries and disabling Interdiction Nodes on the move.",
+      "fractures": [
+        "sound_skip"
+      ]
     },
     {
       "number": 12,
       "title": "BLOCK SEAM",
-      "act": 3
+      "act": 3,
+      "act_name": "THE SPINE",
+      "player": "lancer",
+      "start": "The freight train slams into an emergency buffer at the base of the Block Seam, a thousand-foot-tall living sea-wall of fused concrete and chitin separating two populations that haven't spoken in twenty years. As you step onto the catwalk every siren on the wall goes off at once: \"COMMAND-AND-CONTROL BREACH. ESCALATING TO PLANETARY LOCKDOWN.\"",
+      "play": "A full-scale assault on the border wall. Battling heavy area-denial defences, solving multi-lock bulkhead puzzles and delivering the radio relay across the divide.",
+      "fractures": []
     },
     {
       "number": 13,
       "title": "THE FRACTURE YARD",
-      "act": 4
+      "act": 4,
+      "act_name": "THE YARD",
+      "player": "lancer",
+      "start": "You push open a rusted blast door into a quiet expanse, the exact cratered military rail-yard from the prequel, frozen in time. Half-buried tanks, rusted artillery and the cracked shells of the Concord's original orbital seed-pods sit overgrown with pale vines under the overcast sky.",
+      "play": "Ruin exploration and combat. Navigating shattered war-machines, dormant containment pods and sniper-turret killzones.",
+      "fractures": [
+        "the_first_runners_path"
+      ]
     },
     {
       "number": 14,
       "title": "THE FRACTURE YEAR",
-      "act": 4
+      "act": 4,
+      "act_name": "THE YARD",
+      "player": "lancer",
+      "start": "You step onto the tilted, half-collapsed highway overpass from the prequel, hanging over a canyon of ruined skyscrapers. Above you a jagged tear in the local wind-regulators howls like a freight train, and unregulated crosswinds rip loose sheet metal across the street.",
+      "play": "Surviving unstable ruins and chaotic weather. Timing movement against deadly Crosswinds, clearing collapsing interiors and fighting stranded bio-constructs.",
+      "fractures": []
     },
     {
       "number": 15,
       "title": "THE PATCHED THING",
-      "act": 4
+      "act": 4,
+      "act_name": "THE YARD",
+      "player": "lancer",
+      "start": "The ruined street ahead disappears into a suffocating mass of overlapping chitin plates and fibrous scar tissue, the spot where the Concord spent twenty years endlessly \"repairing\" a tear in its containment wall. As you step inside the walls shudder and a deep bio-alarm vibrates in your chest. Purge and Sterilization Protocol initiated.",
+      "play": "Claustrophobic survival tension and escape. Navigating shifting organic mazes while barbed chitin-walls and sterilisation vents close in behind you.",
+      "fractures": []
     },
     {
       "number": 16,
       "title": "THE FIRST RUNNER",
-      "act": 4
+      "act": 4,
+      "act_name": "THE YARD",
+      "player": "lancer",
+      "start": "You enter a circular holographic telemetry chamber inside the Spire's lower perimeter. Across the room a translucent cyan Recall Ghost materialises and runs the obstacles ahead, replaying the exact route you ran twenty years ago in the prequel. On the wall monitor a log stamps the ghost's ID: SUBJECT: ILSA RENN // CLASSIFICATION: FIRST RUNNER // 20-YEAR PATROL TRAINING MODEL.",
+      "play": "Outsmarting the Concord's predictive systems. Using what the telemetry gives away to counter traps built to catch couriers and breach the Spire's core shaft.",
+      "fractures": []
     },
     {
       "number": 17,
       "title": "HOLLOW SPIRE",
-      "act": 5
+      "act": 5,
+      "act_name": "THE CORE",
+      "player": "lancer",
+      "start": "You step onto a narrow maintenance ring inside the Hollow Spire, a vertical shaft stretching miles straight up into the clouds, lined with glowing status relays and wind-intake baffles. Far below, massive circular Quarantine Bulkheads slam shut upward floor by floor, turning the tower into a rising piston.",
+      "play": "A multi-tiered vertical climb. Fighting through security platforms, activating lift turbines and staying ahead of the rising lockdown floor.",
+      "fractures": []
     },
     {
       "number": 18,
       "title": "THE INNER RING",
-      "act": 5
+      "act": 5,
+      "act_name": "THE CORE",
+      "player": "lancer",
+      "start": "You burst out of the shaft into the Inner Ring, a quiet glass-walled command gallery suspended high above the cloud layer and surrounded by pulsing biomechanical nerve-bundles. Warden Saye stands alone at the central console, exhausted and unarmed. She speaks to you without expecting a word back, and then steps aside from the airlock.",
+      "play": "High-stakes infiltration and combat through the Spire's nervous nexus. Bypassing layered security gates, Interdiction Nodes and heavy bio-guards. Saye talks at you across the console and you answer by moving forward.",
+      "fractures": []
     },
     {
       "number": 19,
       "title": "CANOPY LADDER",
-      "act": 5
+      "act": 5,
+      "act_name": "THE CORE",
+      "player": "lancer",
+      "start": "You open the exterior hatch onto the Canopy Ladder, the upper exterior of the Spire where massive biomechanical tendons fan outward across the horizon, holding down the planet-wide sky canopy. Hurricane-force updrafts roar past your ears while dense Interdiction Nodes lock onto your position.",
+      "play": "An exposed exterior assault. Fighting across swaying canopy anchors against maximum-strength wind shear and heavy turret defences.",
+      "fractures": []
     },
     {
       "number": 20,
       "title": "OPEN WEATHER",
-      "act": 6
+      "act": 6,
+      "act_name": "OPEN WEATHER",
+      "player": "lancer",
+      "start": "You pull yourself onto the crown of the Spire, directly beneath the central Atmospheric Sphincter, a mile-wide biomechanical iris holding back the upper sky. Through the translucent membrane blinding golden sunlight, the exact sunlight from the first morning of the Fracture Year, beams down onto your visor for the first time in twenty years.",
+      "play": "Defeating the final containment guardians and breaching the regulator core. Which ending you get is decided by what Lancer does at the top, and by what you found on the way there.",
+      "fractures": []
     }
   ],
   "sections": [
+    {
+      "id": "P1.01",
+      "display_name": "Platform Nine",
+      "scene_path": "res://data/sections/cP1/sP1_01.tscn",
+      "chapter": "P1",
+      "difficulty": 1,
+      "par_time_frames": 2400
+    },
+    {
+      "id": "P1.02",
+      "display_name": "Glass Tower",
+      "scene_path": "res://data/sections/cP1/sP1_02.tscn",
+      "chapter": "P1",
+      "difficulty": 1,
+      "par_time_frames": 2400
+    },
+    {
+      "id": "P1.03",
+      "display_name": "Jet Stream",
+      "scene_path": "res://data/sections/cP1/sP1_03.tscn",
+      "chapter": "P1",
+      "difficulty": 1,
+      "par_time_frames": 2700
+    },
+    {
+      "id": "P1.04",
+      "display_name": "Civil Defense Board",
+      "scene_path": "res://data/sections/cP1/sP1_04.tscn",
+      "chapter": "P1",
+      "difficulty": 1,
+      "par_time_frames": 2700
+    },
+    {
+      "id": "P1.05",
+      "display_name": "The Handoff",
+      "scene_path": "res://data/sections/cP1/sP1_05.tscn",
+      "chapter": "P1",
+      "difficulty": 2,
+      "par_time_frames": 2700
+    },
+    {
+      "id": "P1.06",
+      "display_name": "Harbor Line",
+      "scene_path": "res://data/sections/cP1/sP1_06.tscn",
+      "chapter": "P1",
+      "difficulty": 2,
+      "par_time_frames": 3000
+    },
+    {
+      "id": "P1.07",
+      "display_name": "Rooftop Relay",
+      "scene_path": "res://data/sections/cP1/sP1_07.tscn",
+      "chapter": "P1",
+      "difficulty": 2,
+      "par_time_frames": 3000
+    },
+    {
+      "id": "P1.08",
+      "display_name": "Stalled Train",
+      "scene_path": "res://data/sections/cP1/sP1_08.tscn",
+      "chapter": "P1",
+      "difficulty": 2,
+      "par_time_frames": 3000
+    },
+    {
+      "id": "P1.09",
+      "display_name": "First Sirens",
+      "scene_path": "res://data/sections/cP1/sP1_09.tscn",
+      "chapter": "P1",
+      "difficulty": 3,
+      "par_time_frames": 3000
+    },
+    {
+      "id": "P1.10",
+      "display_name": "Artillery",
+      "scene_path": "res://data/sections/cP1/sP1_10.tscn",
+      "chapter": "P1",
+      "difficulty": 3,
+      "par_time_frames": 3300
+    },
+    {
+      "id": "P1.11",
+      "display_name": "Panic Routes",
+      "scene_path": "res://data/sections/cP1/sP1_11.tscn",
+      "chapter": "P1",
+      "difficulty": 3,
+      "par_time_frames": 3300
+    },
+    {
+      "id": "P1.12",
+      "display_name": "Under the Arches",
+      "scene_path": "res://data/sections/cP1/sP1_12.tscn",
+      "chapter": "P1",
+      "difficulty": 3,
+      "par_time_frames": 3300
+    },
+    {
+      "id": "P2.01",
+      "display_name": "Overpass",
+      "scene_path": "res://data/sections/cP2/sP2_01.tscn",
+      "chapter": "P2",
+      "difficulty": 2,
+      "par_time_frames": 2700
+    },
+    {
+      "id": "P2.02",
+      "display_name": "Sandbag Breach",
+      "scene_path": "res://data/sections/cP2/sP2_02.tscn",
+      "chapter": "P2",
+      "difficulty": 2,
+      "par_time_frames": 3000
+    },
+    {
+      "id": "P2.03",
+      "display_name": "Hardline Key",
+      "scene_path": "res://data/sections/cP2/sP2_03.tscn",
+      "chapter": "P2",
+      "difficulty": 3,
+      "par_time_frames": 3000
+    },
+    {
+      "id": "P2.04",
+      "display_name": "Armored Column",
+      "scene_path": "res://data/sections/cP2/sP2_04.tscn",
+      "chapter": "P2",
+      "difficulty": 3,
+      "par_time_frames": 3000
+    },
+    {
+      "id": "P2.05",
+      "display_name": "Burning Interior",
+      "scene_path": "res://data/sections/cP2/sP2_05.tscn",
+      "chapter": "P2",
+      "difficulty": 3,
+      "par_time_frames": 3300
+    },
+    {
+      "id": "P2.06",
+      "display_name": "Collapse",
+      "scene_path": "res://data/sections/cP2/sP2_06.tscn",
+      "chapter": "P2",
+      "difficulty": 4,
+      "par_time_frames": 3300
+    },
+    {
+      "id": "P2.07",
+      "display_name": "Sniper Avenue",
+      "scene_path": "res://data/sections/cP2/sP2_07.tscn",
+      "chapter": "P2",
+      "difficulty": 4,
+      "par_time_frames": 3300
+    },
+    {
+      "id": "P2.08",
+      "display_name": "Downed Armor",
+      "scene_path": "res://data/sections/cP2/sP2_08.tscn",
+      "chapter": "P2",
+      "difficulty": 4,
+      "par_time_frames": 3300
+    },
+    {
+      "id": "P2.09",
+      "display_name": "Relay Run",
+      "scene_path": "res://data/sections/cP2/sP2_09.tscn",
+      "chapter": "P2",
+      "difficulty": 4,
+      "par_time_frames": 3600
+    },
+    {
+      "id": "P2.10",
+      "display_name": "Evacuation Route",
+      "scene_path": "res://data/sections/cP2/sP2_10.tscn",
+      "chapter": "P2",
+      "difficulty": 5,
+      "par_time_frames": 3600
+    },
+    {
+      "id": "P2.11",
+      "display_name": "Field Dressing",
+      "scene_path": "res://data/sections/cP2/sP2_11.tscn",
+      "chapter": "P2",
+      "difficulty": 5,
+      "par_time_frames": 3600
+    },
+    {
+      "id": "P2.12",
+      "display_name": "Nightfall",
+      "scene_path": "res://data/sections/cP2/sP2_12.tscn",
+      "chapter": "P2",
+      "difficulty": 5,
+      "par_time_frames": 3600
+    },
+    {
+      "id": "P3.01",
+      "display_name": "Tactical Relay",
+      "scene_path": "res://data/sections/cP3/sP3_01.tscn",
+      "chapter": "P3",
+      "difficulty": 3,
+      "par_time_frames": 3000
+    },
+    {
+      "id": "P3.02",
+      "display_name": "Seed-Core",
+      "scene_path": "res://data/sections/cP3/sP3_02.tscn",
+      "chapter": "P3",
+      "difficulty": 4,
+      "par_time_frames": 3000
+    },
+    {
+      "id": "P3.03",
+      "display_name": "Rupture",
+      "scene_path": "res://data/sections/cP3/sP3_03.tscn",
+      "chapter": "P3",
+      "difficulty": 4,
+      "par_time_frames": 3300
+    },
+    {
+      "id": "P3.04",
+      "display_name": "Chitin Wall",
+      "scene_path": "res://data/sections/cP3/sP3_04.tscn",
+      "chapter": "P3",
+      "difficulty": 4,
+      "par_time_frames": 3300
+    },
+    {
+      "id": "P3.05",
+      "display_name": "Tank Column",
+      "scene_path": "res://data/sections/cP3/sP3_05.tscn",
+      "chapter": "P3",
+      "difficulty": 5,
+      "par_time_frames": 3300
+    },
+    {
+      "id": "P3.06",
+      "display_name": "Shifting Block",
+      "scene_path": "res://data/sections/cP3/sP3_06.tscn",
+      "chapter": "P3",
+      "difficulty": 5,
+      "par_time_frames": 3600
+    },
+    {
+      "id": "P3.07",
+      "display_name": "Metro Seal",
+      "scene_path": "res://data/sections/cP3/sP3_07.tscn",
+      "chapter": "P3",
+      "difficulty": 5,
+      "par_time_frames": 3600
+    },
+    {
+      "id": "P3.08",
+      "display_name": "Closing Bulkhead",
+      "scene_path": "res://data/sections/cP3/sP3_08.tscn",
+      "chapter": "P3",
+      "difficulty": 5,
+      "par_time_frames": 3600
+    },
+    {
+      "id": "P3.09",
+      "display_name": "Bunker Run",
+      "scene_path": "res://data/sections/cP3/sP3_09.tscn",
+      "chapter": "P3",
+      "difficulty": 6,
+      "par_time_frames": 3600
+    },
+    {
+      "id": "P3.10",
+      "display_name": "Signal Loss",
+      "scene_path": "res://data/sections/cP3/sP3_10.tscn",
+      "chapter": "P3",
+      "difficulty": 6,
+      "par_time_frames": 3600
+    },
+    {
+      "id": "P3.11",
+      "display_name": "Relay Chain",
+      "scene_path": "res://data/sections/cP3/sP3_11.tscn",
+      "chapter": "P3",
+      "difficulty": 6,
+      "par_time_frames": 3900
+    },
+    {
+      "id": "P3.12",
+      "display_name": "Sealed",
+      "scene_path": "res://data/sections/cP3/sP3_12.tscn",
+      "chapter": "P3",
+      "difficulty": 6,
+      "par_time_frames": 3900
+    },
+    {
+      "id": "P4.01",
+      "display_name": "Spire Roof",
+      "scene_path": "res://data/sections/cP4/sP4_01.tscn",
+      "chapter": "P4",
+      "difficulty": 4,
+      "par_time_frames": 3000
+    },
+    {
+      "id": "P4.02",
+      "display_name": "Tendons",
+      "scene_path": "res://data/sections/cP4/sP4_02.tscn",
+      "chapter": "P4",
+      "difficulty": 5,
+      "par_time_frames": 3300
+    },
+    {
+      "id": "P4.03",
+      "display_name": "Iris",
+      "scene_path": "res://data/sections/cP4/sP4_03.tscn",
+      "chapter": "P4",
+      "difficulty": 5,
+      "par_time_frames": 3300
+    },
+    {
+      "id": "P4.04",
+      "display_name": "Last Light",
+      "scene_path": "res://data/sections/cP4/sP4_04.tscn",
+      "chapter": "P4",
+      "difficulty": 5,
+      "par_time_frames": 3300
+    },
+    {
+      "id": "P4.05",
+      "display_name": "Override Console",
+      "scene_path": "res://data/sections/cP4/sP4_05.tscn",
+      "chapter": "P4",
+      "difficulty": 6,
+      "par_time_frames": 3600
+    },
+    {
+      "id": "P4.06",
+      "display_name": "Street Airlocks",
+      "scene_path": "res://data/sections/cP4/sP4_06.tscn",
+      "chapter": "P4",
+      "difficulty": 6,
+      "par_time_frames": 3600
+    },
+    {
+      "id": "P4.07",
+      "display_name": "Catwalk Descent",
+      "scene_path": "res://data/sections/cP4/sP4_07.tscn",
+      "chapter": "P4",
+      "difficulty": 6,
+      "par_time_frames": 3600
+    },
+    {
+      "id": "P4.08",
+      "display_name": "Early Node",
+      "scene_path": "res://data/sections/cP4/sP4_08.tscn",
+      "chapter": "P4",
+      "difficulty": 6,
+      "par_time_frames": 3900
+    },
+    {
+      "id": "P4.09",
+      "display_name": "Sealing Gate",
+      "scene_path": "res://data/sections/cP4/sP4_09.tscn",
+      "chapter": "P4",
+      "difficulty": 7,
+      "par_time_frames": 3900
+    },
+    {
+      "id": "P4.10",
+      "display_name": "Shadow Line",
+      "scene_path": "res://data/sections/cP4/sP4_10.tscn",
+      "chapter": "P4",
+      "difficulty": 7,
+      "par_time_frames": 3900
+    },
+    {
+      "id": "P4.11",
+      "display_name": "Blackout",
+      "scene_path": "res://data/sections/cP4/sP4_11.tscn",
+      "chapter": "P4",
+      "difficulty": 7,
+      "par_time_frames": 4200
+    },
+    {
+      "id": "P4.12",
+      "display_name": "Signature",
+      "scene_path": "res://data/sections/cP4/sP4_12.tscn",
+      "chapter": "P4",
+      "difficulty": 7,
+      "par_time_frames": 4200
+    },
+    {
+      "id": "P5.01",
+      "display_name": "Cold Overcast",
+      "scene_path": "res://data/sections/cP5/sP5_01.tscn",
+      "chapter": "P5",
+      "difficulty": 4,
+      "par_time_frames": 3000
+    },
+    {
+      "id": "P5.02",
+      "display_name": "Zero Combatants",
+      "scene_path": "res://data/sections/cP5/sP5_02.tscn",
+      "chapter": "P5",
+      "difficulty": 5,
+      "par_time_frames": 3300
+    },
+    {
+      "id": "P5.03",
+      "display_name": "Assigned Sector",
+      "scene_path": "res://data/sections/cP5/sP5_03.tscn",
+      "chapter": "P5",
+      "difficulty": 5,
+      "par_time_frames": 3300
+    },
+    {
+      "id": "P5.04",
+      "display_name": "Uncalibrated Vent",
+      "scene_path": "res://data/sections/cP5/sP5_04.tscn",
+      "chapter": "P5",
+      "difficulty": 6,
+      "par_time_frames": 3600
+    },
+    {
+      "id": "P5.05",
+      "display_name": "Grown Seam",
+      "scene_path": "res://data/sections/cP5/sP5_05.tscn",
+      "chapter": "P5",
+      "difficulty": 6,
+      "par_time_frames": 3600
+    },
+    {
+      "id": "P5.06",
+      "display_name": "Quiet Route",
+      "scene_path": "res://data/sections/cP5/sP5_06.tscn",
+      "chapter": "P5",
+      "difficulty": 6,
+      "par_time_frames": 3600
+    },
+    {
+      "id": "P5.07",
+      "display_name": "Sensor Blind",
+      "scene_path": "res://data/sections/cP5/sP5_07.tscn",
+      "chapter": "P5",
+      "difficulty": 7,
+      "par_time_frames": 3900
+    },
+    {
+      "id": "P5.08",
+      "display_name": "Wall Breach",
+      "scene_path": "res://data/sections/cP5/sP5_08.tscn",
+      "chapter": "P5",
+      "difficulty": 7,
+      "par_time_frames": 3900
+    },
+    {
+      "id": "P5.09",
+      "display_name": "Telemetry",
+      "scene_path": "res://data/sections/cP5/sP5_09.tscn",
+      "chapter": "P5",
+      "difficulty": 7,
+      "par_time_frames": 3900
+    },
+    {
+      "id": "P5.10",
+      "display_name": "First Runner",
+      "scene_path": "res://data/sections/cP5/sP5_10.tscn",
+      "chapter": "P5",
+      "difficulty": 8,
+      "par_time_frames": 4200
+    },
+    {
+      "id": "P5.11",
+      "display_name": "Baseline",
+      "scene_path": "res://data/sections/cP5/sP5_11.tscn",
+      "chapter": "P5",
+      "difficulty": 8,
+      "par_time_frames": 4200
+    },
+    {
+      "id": "P5.12",
+      "display_name": "Sealed Block",
+      "scene_path": "res://data/sections/cP5/sP5_12.tscn",
+      "chapter": "P5",
+      "difficulty": 8,
+      "par_time_frames": 4200
+    },
     {
       "id": "1.01",
       "display_name": "Licensed Route",

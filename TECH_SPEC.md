@@ -161,8 +161,8 @@ discovery harness finds rather than features that were built.
 ```
 res://
   data/
-    sections/            # 20 chapters × 12 sections
-      c1/s1_01.tscn
+    sections/            # 25 chapters × 12 sections
+      cP1/sP1_01.tscn    # the five-chapter Fracture Year prequel
       ...
       c20/s20_12.tscn
     story/               # STORY LAYER — swappable by Editions

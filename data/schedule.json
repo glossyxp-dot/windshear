@@ -4,7 +4,7 @@
     "spdx_file_copyright_text": "2026 the WINDSHEAR contributors",
     "license": "CC-BY-SA-4.0",
     "schema": "windshear.schedule.v1",
-    "description": "Deterministic Concord gate schedules keyed by section and gate id.",
+    "description": "Concord gate and regulation schedules for the twenty-five-chapter grid, including the Fracture Year prequel.",
     "tick_rate": 60,
     "time_unit": "frame",
     "clock": "global_schedule_frame",
@@ -20,6 +20,1296 @@
   },
   "version": 1,
   "chapters": [
+    {
+      "chapter": "P1",
+      "title": "OPEN SKY",
+      "sections": [
+        {
+          "section_id": "P1.01",
+          "gates": [
+            {
+              "gate_id": "P1.01.gate_01",
+              "state": "open",
+              "cycle_period_frames": 0,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": null,
+                  "state": "open"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P1.02",
+          "gates": [
+            {
+              "gate_id": "P1.02.gate_01",
+              "state": "open",
+              "cycle_period_frames": 0,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": null,
+                  "state": "open"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P1.03",
+          "gates": [
+            {
+              "gate_id": "P1.03.gate_01",
+              "state": "open",
+              "cycle_period_frames": 0,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": null,
+                  "state": "open"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P1.04",
+          "gates": [
+            {
+              "gate_id": "P1.04.gate_01",
+              "state": "open",
+              "cycle_period_frames": 0,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": null,
+                  "state": "open"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P1.05",
+          "gates": [
+            {
+              "gate_id": "P1.05.gate_01",
+              "state": "open",
+              "cycle_period_frames": 0,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": null,
+                  "state": "open"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P1.06",
+          "gates": [
+            {
+              "gate_id": "P1.06.gate_01",
+              "state": "open",
+              "cycle_period_frames": 0,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": null,
+                  "state": "open"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P1.07",
+          "gates": [
+            {
+              "gate_id": "P1.07.gate_01",
+              "state": "open",
+              "cycle_period_frames": 0,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": null,
+                  "state": "open"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P1.08",
+          "gates": [
+            {
+              "gate_id": "P1.08.gate_01",
+              "state": "open",
+              "cycle_period_frames": 0,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": null,
+                  "state": "open"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P1.09",
+          "gates": [
+            {
+              "gate_id": "P1.09.gate_01",
+              "state": "open",
+              "cycle_period_frames": 0,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": null,
+                  "state": "open"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P1.10",
+          "gates": [
+            {
+              "gate_id": "P1.10.gate_01",
+              "state": "open",
+              "cycle_period_frames": 0,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": null,
+                  "state": "open"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P1.11",
+          "gates": [
+            {
+              "gate_id": "P1.11.gate_01",
+              "state": "open",
+              "cycle_period_frames": 0,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": null,
+                  "state": "open"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P1.12",
+          "gates": [
+            {
+              "gate_id": "P1.12.gate_01",
+              "state": "open",
+              "cycle_period_frames": 0,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": null,
+                  "state": "open"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter": "P2",
+      "title": "REDLINE",
+      "sections": [
+        {
+          "section_id": "P2.01",
+          "gates": [
+            {
+              "gate_id": "P2.01.gate_01",
+              "state": "open",
+              "cycle_period_frames": 0,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": null,
+                  "state": "open"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P2.02",
+          "gates": [
+            {
+              "gate_id": "P2.02.gate_01",
+              "state": "open",
+              "cycle_period_frames": 0,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": null,
+                  "state": "open"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P2.03",
+          "gates": [
+            {
+              "gate_id": "P2.03.gate_01",
+              "state": "open",
+              "cycle_period_frames": 0,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": null,
+                  "state": "open"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P2.04",
+          "gates": [
+            {
+              "gate_id": "P2.04.gate_01",
+              "state": "open",
+              "cycle_period_frames": 0,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": null,
+                  "state": "open"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P2.05",
+          "gates": [
+            {
+              "gate_id": "P2.05.gate_01",
+              "state": "open",
+              "cycle_period_frames": 0,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": null,
+                  "state": "open"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P2.06",
+          "gates": [
+            {
+              "gate_id": "P2.06.gate_01",
+              "state": "open",
+              "cycle_period_frames": 0,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": null,
+                  "state": "open"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P2.07",
+          "gates": [
+            {
+              "gate_id": "P2.07.gate_01",
+              "state": "open",
+              "cycle_period_frames": 0,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": null,
+                  "state": "open"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P2.08",
+          "gates": [
+            {
+              "gate_id": "P2.08.gate_01",
+              "state": "open",
+              "cycle_period_frames": 0,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": null,
+                  "state": "open"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P2.09",
+          "gates": [
+            {
+              "gate_id": "P2.09.gate_01",
+              "state": "open",
+              "cycle_period_frames": 0,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": null,
+                  "state": "open"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P2.10",
+          "gates": [
+            {
+              "gate_id": "P2.10.gate_01",
+              "state": "open",
+              "cycle_period_frames": 0,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": null,
+                  "state": "open"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P2.11",
+          "gates": [
+            {
+              "gate_id": "P2.11.gate_01",
+              "state": "open",
+              "cycle_period_frames": 0,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": null,
+                  "state": "open"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P2.12",
+          "gates": [
+            {
+              "gate_id": "P2.12.gate_01",
+              "state": "open",
+              "cycle_period_frames": 0,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": null,
+                  "state": "open"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter": "P3",
+      "title": "CONTAINMENT PROTOCOL",
+      "sections": [
+        {
+          "section_id": "P3.01",
+          "gates": [
+            {
+              "gate_id": "P3.01.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 40,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P3.02",
+          "gates": [
+            {
+              "gate_id": "P3.02.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 80,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P3.03",
+          "gates": [
+            {
+              "gate_id": "P3.03.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 120,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P3.04",
+          "gates": [
+            {
+              "gate_id": "P3.04.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 160,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P3.05",
+          "gates": [
+            {
+              "gate_id": "P3.05.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 200,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P3.06",
+          "gates": [
+            {
+              "gate_id": "P3.06.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 240,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P3.07",
+          "gates": [
+            {
+              "gate_id": "P3.07.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 280,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P3.08",
+          "gates": [
+            {
+              "gate_id": "P3.08.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 320,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P3.09",
+          "gates": [
+            {
+              "gate_id": "P3.09.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P3.10",
+          "gates": [
+            {
+              "gate_id": "P3.10.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 40,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P3.11",
+          "gates": [
+            {
+              "gate_id": "P3.11.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 80,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P3.12",
+          "gates": [
+            {
+              "gate_id": "P3.12.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 120,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter": "P4",
+      "title": "THE SKY CLOSES",
+      "sections": [
+        {
+          "section_id": "P4.01",
+          "gates": [
+            {
+              "gate_id": "P4.01.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 40,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P4.02",
+          "gates": [
+            {
+              "gate_id": "P4.02.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 80,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P4.03",
+          "gates": [
+            {
+              "gate_id": "P4.03.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 120,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P4.04",
+          "gates": [
+            {
+              "gate_id": "P4.04.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 160,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P4.05",
+          "gates": [
+            {
+              "gate_id": "P4.05.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 200,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P4.06",
+          "gates": [
+            {
+              "gate_id": "P4.06.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 240,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P4.07",
+          "gates": [
+            {
+              "gate_id": "P4.07.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 280,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P4.08",
+          "gates": [
+            {
+              "gate_id": "P4.08.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 320,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P4.09",
+          "gates": [
+            {
+              "gate_id": "P4.09.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P4.10",
+          "gates": [
+            {
+              "gate_id": "P4.10.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 40,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P4.11",
+          "gates": [
+            {
+              "gate_id": "P4.11.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 80,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P4.12",
+          "gates": [
+            {
+              "gate_id": "P4.12.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 120,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter": "P5",
+      "title": "ZERO CASUALTIES",
+      "sections": [
+        {
+          "section_id": "P5.01",
+          "gates": [
+            {
+              "gate_id": "P5.01.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 40,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P5.02",
+          "gates": [
+            {
+              "gate_id": "P5.02.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 80,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P5.03",
+          "gates": [
+            {
+              "gate_id": "P5.03.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 120,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P5.04",
+          "gates": [
+            {
+              "gate_id": "P5.04.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 160,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P5.05",
+          "gates": [
+            {
+              "gate_id": "P5.05.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 200,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P5.06",
+          "gates": [
+            {
+              "gate_id": "P5.06.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 240,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P5.07",
+          "gates": [
+            {
+              "gate_id": "P5.07.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 280,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P5.08",
+          "gates": [
+            {
+              "gate_id": "P5.08.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 320,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P5.09",
+          "gates": [
+            {
+              "gate_id": "P5.09.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 0,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P5.10",
+          "gates": [
+            {
+              "gate_id": "P5.10.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 40,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P5.11",
+          "gates": [
+            {
+              "gate_id": "P5.11.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 80,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "P5.12",
+          "gates": [
+            {
+              "gate_id": "P5.12.gate_01",
+              "state": "cycling",
+              "cycle_period_frames": 360,
+              "phase_offset_frames": 120,
+              "windows": [
+                {
+                  "start_frame": 0,
+                  "end_frame": 120,
+                  "state": "open"
+                },
+                {
+                  "start_frame": 120,
+                  "end_frame": 360,
+                  "state": "closed"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
     {
       "chapter": 1,
       "title": "THE LATTICE",

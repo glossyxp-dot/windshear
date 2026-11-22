@@ -12,7 +12,9 @@
     {
       "id": "lancer",
       "display_name": "Lancer",
-      "color": "#82CFFF"
+      "color": "#82CFFF",
+      "silent": true,
+      "note": "Lancer never speaks. Lines attached to this speaker are bracketed action directions."
     },
     {
       "id": "the_concord",
@@ -22,7 +24,8 @@
     {
       "id": "ilsa_renn",
       "display_name": "Ilsa Renn",
-      "color": "#86D69A"
+      "color": "#86D69A",
+      "note": "The scientist who noticed what Lancer could do and brought Lancer to the team. In the prequel she is the original courier, and the Concord's FIRST RUNNER."
     },
     {
       "id": "warden_saye",
@@ -32,14 +35,20 @@
     {
       "id": "first_runner",
       "display_name": "FIRST RUNNER",
-      "color": "#C4A7FF"
+      "color": "#C4A7FF",
+      "note": "The Concord's designation for Ilsa Renn's recorded movement profile. The prequel is played as her."
+    },
+    {
+      "id": "civil_defense",
+      "display_name": "CIVIL DEFENSE",
+      "color": "#D8D2B8"
     }
   ],
   "lines": [
     {
       "id": "en.001",
       "speaker_id": "lancer",
-      "text": "Lattice dispatch. Route clear through the morning cycle."
+      "text": "[Lancer reads the dispatch on the wall panel and starts running. The panel is not answered.]"
     },
     {
       "id": "en.002",
@@ -49,7 +58,7 @@
     {
       "id": "en.003",
       "speaker_id": "lancer",
-      "text": "The parcel changed. The permit did not."
+      "text": "[Lancer keeps the permit folded in one hand and the memory drive in the other.]"
     },
     {
       "id": "en.004",
@@ -59,7 +68,7 @@
     {
       "id": "en.005",
       "speaker_id": "lancer",
-      "text": "Give me the quiet route."
+      "text": "[Lancer takes the service seam.]"
     },
     {
       "id": "en.006",
@@ -79,7 +88,7 @@
     {
       "id": "en.009",
       "speaker_id": "lancer",
-      "text": "The city can wait. The parcel cannot."
+      "text": "[Lancer is already past the checkpoint when the order lands, and does not slow down.]"
     },
     {
       "id": "en.010",
@@ -94,7 +103,7 @@
     {
       "id": "en.012",
       "speaker_id": "lancer",
-      "text": "Ventworks intake. Going down."
+      "text": "[Lancer steps into the intake shaft and the hatch closes behind them.]"
     },
     {
       "id": "en.013",
@@ -109,7 +118,7 @@
     {
       "id": "en.015",
       "speaker_id": "lancer",
-      "text": "Quiet Line, freight twelve. Capsule coming in under."
+      "text": "[Lancer taps the capsule twice. It comes in under, low and slow.]"
     },
     {
       "id": "en.016",
@@ -134,7 +143,7 @@
     {
       "id": "en.020",
       "speaker_id": "lancer",
-      "text": "Then the wall has more people behind it than you told me."
+      "text": "[Lancer puts a hand flat on the wall, where the other side should be.]"
     },
     {
       "id": "en.021",
@@ -149,7 +158,7 @@
     {
       "id": "en.023",
       "speaker_id": "the_concord",
-      "text": "Year Zero. Atmospheric regulation offline at 04:12. All city districts unsealed. No recovery schedule exists."
+      "text": "Year Zero. Atmospheric regulation offline at 04:12. All containment seals released. No recovery schedule exists."
     },
     {
       "id": "en.024",
@@ -159,7 +168,7 @@
     {
       "id": "en.025",
       "speaker_id": "lancer",
-      "text": "You are the one who broke it."
+      "text": "[Lancer does not turn around.]"
     },
     {
       "id": "en.026",
@@ -179,7 +188,7 @@
     {
       "id": "en.029",
       "speaker_id": "lancer",
-      "text": "It grew because you made it grow."
+      "text": "[Lancer scrapes the seam with a fingernail. It comes away warm.]"
     },
     {
       "id": "en.030",
@@ -199,7 +208,7 @@
     {
       "id": "en.033",
       "speaker_id": "lancer",
-      "text": "You have been teaching the Concord how you run."
+      "text": "[Lancer watches the model predict the next junction. It is right.]"
     },
     {
       "id": "en.034",
@@ -214,7 +223,7 @@
     {
       "id": "en.036",
       "speaker_id": "lancer",
-      "text": "Then you know what it says."
+      "text": "[Lancer walks past the checkpoint glass and keeps climbing.]"
     },
     {
       "id": "en.037",
@@ -229,17 +238,17 @@
     {
       "id": "en.039",
       "speaker_id": "lancer",
-      "text": "Good. I am not traffic."
+      "text": "[Lancer crosses the anchor line without stopping.]"
     },
     {
       "id": "en.040",
       "speaker_id": "the_concord",
-      "text": "Final choice available. Open the canopy, or restore the schedule. Both are within your licence."
+      "text": "Final choice available. Open the canopy, or restore the schedule. Both remain within the mandate."
     },
     {
       "id": "en.041",
       "speaker_id": "lancer",
-      "text": "Neither one is within my licence. That is the whole point."
+      "text": "[Lancer sets the drive down on the canopy control and steps back off it.]"
     },
     {
       "id": "en.042",
@@ -250,6 +259,66 @@
       "id": "en.043",
       "speaker_id": "the_concord",
       "text": "Twelve deviations recorded against the official route. Each is technically legal. One of them is required."
+    },
+    {
+      "id": "en.044",
+      "speaker_id": "ilsa_renn",
+      "text": "That was my voice. Twenty years of it, running my line to catch couriers like me."
+    },
+    {
+      "id": "en.045",
+      "speaker_id": "lancer",
+      "text": "[Lancer waits. Ilsa does not look away from the wall.]"
+    },
+    {
+      "id": "en.046",
+      "speaker_id": "warden_saye",
+      "text": "Break it and the war comes back. I would rather be hated by a living world than mourned by a dead one."
+    },
+    {
+      "id": "en.047",
+      "speaker_id": "civil_defense",
+      "text": "CIVIL DEFENSE ADVISORY. ALL CIVILIANS REPORT TO THE NEAREST STATION. REPEAT: ALL CIVILIANS REPORT TO THE NEAREST STATION."
+    },
+    {
+      "id": "en.048",
+      "speaker_id": "civil_defense",
+      "text": "ARTILLERY INBOUND. TAKE COVER BELOW GRADE. TAKE COVER."
+    },
+    {
+      "id": "en.049",
+      "speaker_id": "warden_saye",
+      "text": "Dispatch runner. That breach is the only way through the column. Go."
+    },
+    {
+      "id": "en.050",
+      "speaker_id": "warden_saye",
+      "text": "The hardline key opens the north relay. You carry it. I cannot."
+    },
+    {
+      "id": "en.051",
+      "speaker_id": "the_concord",
+      "text": "Containment protocol active. All sectors sealed. Return to your assigned position."
+    },
+    {
+      "id": "en.052",
+      "speaker_id": "the_concord",
+      "text": "Atmospheric canopy closing. No traffic is scheduled above the last regulation layer."
+    },
+    {
+      "id": "en.053",
+      "speaker_id": "warden_saye",
+      "text": "Override signed. The airlocks are sealed. It is done, and it is not mine to undo."
+    },
+    {
+      "id": "en.054",
+      "speaker_id": "the_concord",
+      "text": "CONTAINMENT COMPLETE. ZERO ACTIVE COMBATANTS. REMAIN IN ASSIGNED SECTOR."
+    },
+    {
+      "id": "en.055",
+      "speaker_id": "the_concord",
+      "text": "New growth in sector 4-C is within tolerance. No further comment."
     }
   ]
 }

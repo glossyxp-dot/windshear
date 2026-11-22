@@ -41,8 +41,9 @@ Don't rebuild any of this:
 | PSX | The shader plus a 0–100% slider. The player picks the amount |
 | Menu | Main menu, settings panel, PSX slider, affine toggle |
 | Greybox | One test room: floor, platforms, a ramp, a wall to kiss, a help panel |
-| Tests | 322 checks in 11 suites, headless, about ten seconds |
-| World data | 20 chapters × 12 sections, 540 gate schedules, 12 Fractures, 11 beats, 43 dialogue lines |
+| Tests | 335 checks in 12 suites, headless, about ten seconds |
+| World data | 25 chapters × 12 sections, 600 gate schedules, 12 Fractures, 16 beats, 55 dialogue lines |
+| Speed | Measured in metres per second, shown on the HUD as current and peak |
 | CI | Pinned Godot, SHA-256 checked, import then tests then budget |
 
 ## What's yours
@@ -50,8 +51,9 @@ Don't rebuild any of this:
 The visual work is by hand. The code for this stage is done.
 
 1. **Play the greybox.** Open `world/greybox/movement_greybox.tscn`, press F6,
-   press F1 for the mechanics reference. If the movement doesn't feel good yet,
-   that's the only thing that matters this week.
+   press F1 for the mechanics reference. The HUD in the corner reads your speed
+   in m/s, current and peak. If the movement doesn't feel good yet, that's the
+   only thing that matters this week.
 2. **Decide what happens to the `wall_kiss_chain` Fracture.** It duplicates the
    core wall-kiss verb exactly. Redefine it, drop it, or change the core verb.
    Dropping it is a design change too, because the third ending's condition

@@ -81,6 +81,10 @@ The reference panel gets built from the tuning constants when the room opens,
 so it can't drift away from what the controller actually does. It also says
 which verbs aren't built yet. Right now that's the filament and the mantle.
 
+The small readout in the corner is the speed, in metres per second. It shows
+the current horizontal speed and the peak since the last respawn. It refreshes
+ten times a second rather than every frame, so it costs almost nothing.
+
 The camera is mouse-look. Click into the window if the mouse is captured and
 Escape lets it go.
 

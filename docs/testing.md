@@ -25,7 +25,7 @@ godot --headless --path . --script res://tools/cell_budget_checker.gd
 The suite exits with a non-zero status when a check fails, so CI is one
 line and there is nothing to parse.
 
-The current state is **322 checks, 0 failures**.
+The current state is **335 checks, 0 failures**.
 
 ---
 
@@ -61,9 +61,10 @@ those instead:
 | `test_movement_discovery.gd` | 26 | The discovery report, the invariants, and the bunny-hop promise |
 | `test_camera.gd` | 17 | Pitch clamp, yaw wrap, speed dolly, the camera belonging to the rig |
 | `test_determinism.gd` | 8 | Identical inputs give identical outputs; the section seed is stable |
+| `test_speed_meter.gd` | 11 | The speed readout, in metres per second: the reading, the peak, the reset and the units |
 | `test_perf_budget.gd` | 10 | The project settings and the cost of a frame |
 | `test_code_policy.gd` | 10 | Licence headers, no global random numbers, no allocation in the frame loops, the documentation |
-| `test_world_data.gd` | 37 | The 20×12 grid, the gate schedule, the Fracture registry, the endings, the beats and the dialogue |
+| `test_world_data.gd` | 39 | The 25×12 grid, the prequel, the gate schedule, the Fracture registry, the endings, the beats and the dialogue |
 | `test_greybox.gd` | 33 | The scene: the player, the camera, the plane, the budget, the materials, the help panel, a 90-second route |
 | `test_psx.gd` | 39 | The amount dial: the globals, the shader, the clamping, the settings round trip, and the slider in the menu |
 

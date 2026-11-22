@@ -1,0 +1,55 @@
+{
+  "_meta": {
+    "spdx": "CC-BY-SA-4.0",
+    "spdx_file_copyright_text": "2026 the WINDSHEAR contributors",
+    "license": "CC-BY-SA-4.0",
+    "schema": "windshear.story.beat.v1",
+    "mode": "AMBIENT"
+  },
+  "version": 1,
+  "section_id": "P1.01",
+  "beats": [
+    {
+      "id": "P1.01.OPEN_SKY",
+      "mode": "AMBIENT",
+      "trigger": {
+        "type": "section_entry",
+        "frame": 0
+      },
+      "actors": [
+        {
+          "actor_id": "ilsa_renn",
+          "role": "player"
+        },
+        {
+          "actor_id": "civil_defense",
+          "role": "speaker"
+        }
+      ],
+      "dialogue": [
+        "en.047",
+        "en.048"
+      ],
+      "duration_frames": 600,
+      "control": {
+        "locked": false,
+        "player_input": "unrestricted"
+      },
+      "world_time": {
+        "mode": "normal",
+        "time_scale": 1.0,
+        "scripted_actor_time": "unscaled"
+      },
+      "camera": {
+        "mode": "lancer_rig",
+        "detachable": false
+      },
+      "exit": {
+        "type": "player_exit_or_end",
+        "resume_count_frames": 2,
+        "allow_player_exit": true,
+        "penalty_frames": 0
+      }
+    }
+  ]
+}

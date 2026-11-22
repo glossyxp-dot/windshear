@@ -21,6 +21,7 @@ windshear/
       lancer_input.gd    # one frame of input
       lancer_controller.gd # the movement simulation
       camera_rig.gd      # the camera that never leaves Lancer
+      speed_meter.gd     # speed in metres per second, current and peak
     render/
       ws_psx.gd          # the PSX dial
       ws_psx.gdshader    # the PSX shader
@@ -76,6 +77,17 @@ A speedrunner's complaint is always about a frame ("the coyote time is one
 frame short"), and a frame-accurate test is the only thing that can answer
 it.
 
+### `movement/speed_meter.gd`
+
+Speed, measured in metres per second. It keeps two numbers: the current
+horizontal speed and the peak since the last reset. The unit is metres per
+second everywhere in the project, because a number that only means something
+inside the engine is a number nobody can argue with.
+
+The greybox HUD reads it, the mechanics reference quotes it, and
+`tests/test_speed_meter.gd` holds the reading, the peak, the reset and the
+unit string.
+
 ### `movement/camera_rig.gd`
 
 The camera is parented to Lancer. It never leaves. It does pitch clamping
@@ -110,7 +122,7 @@ Anything that can be a table is a table.
 | --- | --- |
 | `data/fractures.json` | The twelve Fractures, with stable ids and their legality flags |
 | `data/schedule.json` | The Concord gate and regulation schedules, per section |
-| `data/sections/index.json` | The 20 × 12 section index, with difficulty and par times |
+| `data/sections/index.json` | The 25 × 12 section index, with difficulty and par times |
 | `data/story/dialogue/en.json` | The dialogue |
 | `data/story/beats/*.beat.json` | The story beats, AMBIENT and MAJOR |
 | `data/story/endings.json` | The endings table |
@@ -125,10 +137,16 @@ altered, only added.** Routes recorded against version 1 of a Fracture have to
 keep working, so the Fracture has to keep behaving the same way.
 
 `tests/test_world_data.gd` reads all five files and checks that they still
-describe the same world: 240 sections numbered 1.01 to 20.12, a gate schedule
+describe the same world: 300 sections numbered P1.01 to 20.12, a gate schedule
 that covers every one of them, twelve Fractures, and beats and endings that
 point at ids which exist. It collects every problem into one failure message
 instead of printing a wall of near-identical lines.
+
+The prequel chapters are keyed `P1` to `P5` and their sections are `P3.07`
+and friends, so the grid has two kinds of chapter key and the test has to
+cope with both. The chapter key in the JSON is a string for the prequel and a
+number for the present day, and the test normalises before it compares
+anything.
 
 ### Editions
 

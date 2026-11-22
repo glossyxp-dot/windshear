@@ -35,9 +35,11 @@
         "en.031",
         "en.032",
         "en.033",
-        "en.034"
+        "en.034",
+        "en.044",
+        "en.045"
       ],
-      "duration_frames": 480,
+      "duration_frames": 600,
       "control": {
         "locked": true,
         "player_input": "ignored"

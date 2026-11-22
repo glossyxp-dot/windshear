@@ -10,11 +10,11 @@
   "final_choices": [
     {
       "id": "free_sky",
-      "display_name": "Break the sky regulation"
+      "display_name": "Open the canopy"
     },
     {
       "id": "restore_concord",
-      "display_name": "Restore the Concord"
+      "display_name": "Restore the containment schedule"
     }
   ],
   "endings": [
@@ -34,8 +34,8 @@
           }
         ]
       },
-      "summary": "Lancer breaks the sky regulation. The city breathes, storms return, and deaths return with them.",
-      "ending_text": "The regulation record ends. The wind does not. Lancer runs into weather that no longer asks permission, carrying a city that has not learned what freedom costs."
+      "summary": "Lancer opens the canopy. Daylight reaches the blocks for the first time in twenty years, and so does everything the canopy was holding back.",
+      "ending_text": "The seal opens and the daylight comes down into the blocks like water into a dry shaft. Storms come with it, and the first of them kills three people inside a week. Lancer runs out into weather that no longer asks permission, carrying a city that has not learned what the sky costs."
     },
     {
       "id": "under_regulation",
@@ -53,8 +53,8 @@
           }
         ]
       },
-      "summary": "Lancer restores the Concord. Safety returns, followed by laps of a perfect and joyless route.",
-      "ending_text": "The gates close on schedule. Lancer begins another licensed lap, and the Concord records every clean turn without asking whether the route is worth running."
+      "summary": "Lancer restores the schedule. The canopy seals, the blocks stay fed and safe, and the war stays ended by a machine that never learned why it was built.",
+      "ending_text": "The canopy closes and the schedule comes back online, tick by tick. Nobody in the blocks sees the sun for the next twenty years and nobody starts the next war. Lancer begins another licensed lap, and the Concord records every clean turn without ever asking whether the route is worth running."
     },
     {
       "id": "the_second_fracture",
@@ -76,8 +76,8 @@
           }
         ]
       },
-      "summary": "Lancer does not choose. Every Fracture is used at once, making the world unregulatable while the Concord survives as a ruin.",
-      "ending_text": "There is no final selection. The First Runner's path opens beneath the city, and every known Fracture is used in one continuous route. The Concord remains online, but it can no longer produce a single legal wind."
+      "summary": "Lancer does not choose. Every Fracture is used at once, making the world uncontainable while the Concord survives as a ruin.",
+      "ending_text": "There is no final selection. The First Runner's path opens beneath the city and every known Fracture goes into one continuous route, all twelve of them, from the lattice to the canopy in a single run. The Concord is still online when the route ends, and it can no longer produce a single legal wind."
     }
   ]
 }

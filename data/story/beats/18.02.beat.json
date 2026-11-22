@@ -30,9 +30,10 @@
       "dialogue": [
         "en.035",
         "en.036",
-        "en.037"
+        "en.037",
+        "en.046"
       ],
-      "duration_frames": 360,
+      "duration_frames": 420,
       "control": {
         "locked": true,
         "player_input": "ignored"

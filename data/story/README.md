@@ -23,6 +23,20 @@ Every JSON file has a top-level `_meta` object with an `spdx` key, because
 JSON can't hold a comment header. Community Editions follow the same
 convention, and `editions/README.md` writes it up.
 
+## Who is allowed to speak
+
+Lancer never speaks. There are no Lancer lines in the dialogue file. The
+lines attached to the `lancer` speaker are bracketed action directions, and
+that speaker entry carries `"silent": true`, so a tool can tell the
+difference between a character talking and a character doing something.
+
+Ilsa Renn is the same way in the prequel, where she is the playable
+character. In the present day she talks, and she is the scientist who noticed
+what Lancer could do.
+
+Every other character speaks. Warden Saye and Ilsa have pronouns; Lancer has
+none, anywhere, in any locale.
+
 ## Identifiers
 
 - Section id: `chapter.section`, for example `13.03`.
@@ -77,6 +91,17 @@ cutscene camera.
 When the script ends, control and normal time come back after a two-frame
 count. A major beat has to name every actor it animates, and the director
 validates those ids before it locks anything.
+
+## The prequel
+
+Act 0 is five chapters played as Ilsa Renn, twenty years before the first
+present-day chapter. Its sections are keyed `P1` to `P5`, so a prequel beat
+file is `P4.12.beat.json` and a prequel section id is `P4.12`.
+
+The prequel has its own rules and its own tone. There is no Concord for the
+first two chapters, only a war, so the bulletins come from civil defence
+instead. The Concord arrives in P3 and the canopy closes in P4, and by P5 the
+city is walled and quiet and the Concord is reading the courier's telemetry.
 
 ## Endings
 

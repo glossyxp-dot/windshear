@@ -75,9 +75,10 @@ before I do.
       section-seeded generator so ghosts and replays match.
 - [ ] `godot --headless --path . res://tests/run_all.tscn` passes.
 - [ ] The memory budget check passes.
-- [ ] Lancer's gender is still unspecified. No pronouns in dialogue, no
-      gendered voice direction, no gendered framing. This one isn't negotiable
-      and it's easy to break by accident.
+- [ ] Lancer's gender is still unspecified, and Lancer still never speaks.
+      Saye and Ilsa have pronouns; Lancer has none. No pronouns in Lancer's
+      dialogue, no gendered voice direction, no gendered framing. This one
+      isn't negotiable and it's easy to break by accident.
 
 ## How a PR actually lands
 

@@ -27,6 +27,8 @@ class_name MovementGreybox
 const Tuning := preload("res://addons/windshear/core/ws_tuning.gd")
 ## The player controller script.
 const LancerControllerScript := preload("res://addons/windshear/movement/lancer_controller.gd")
+## The speed meter, in metres per second.
+const SpeedMeter := preload("res://addons/windshear/movement/speed_meter.gd")
 
 ## Where Lancer starts (and respawns).
 @export var spawn_position := Vector3(-24.0, 1.2, 0.0)
@@ -35,6 +37,9 @@ const LancerControllerScript := preload("res://addons/windshear/movement/lancer_
 @onready var _hud: Label = $HUD/Label
 @onready var _help_panel: PanelContainer = $HUD/HelpPanel
 @onready var _help_label: Label = $HUD/HelpPanel/Label
+
+## The speed readout, in metres per second.
+var _meter := SpeedMeter.new()
 
 var _hud_timer := 0
 
@@ -60,6 +65,7 @@ func _physics_process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("reset_to_checkpoint"):
 		_player.respawn(spawn_position)
+		_meter.reset()
 	if event.is_action_pressed("toggle_help"):
 		_help_panel.visible = not _help_panel.visible
 
@@ -88,6 +94,9 @@ func _build_help_text() -> String:
 		Tuning.COYOTE_FRAMES, Tuning.JUMP_BUFFER_FRAMES, Tuning.WALL_KISS_CHAIN_FRAMES
 	])
 	lines.append("")
+	lines.append("the HUD reads speed in m/s, current and peak")
+	lines.append("peak clears when you respawn")
+	lines.append("")
 	lines.append("not built yet: filament, mantle")
 	lines.append("")
 	lines.append("RESET   R")
@@ -100,9 +109,14 @@ func _jump_apex() -> float:
 	return Tuning.JUMP_VELOCITY * Tuning.JUMP_VELOCITY / (2.0 * Tuning.GRAVITY)
 
 
+## Refreshes the speed readout.
+##
+## The speed is in metres per second. The current number is the horizontal
+## speed right now and the peak is the fastest reading since the last
+## respawn, which is the number a speedrunner actually wants.
 func _refresh_hud() -> void:
-	var speed := absf(_player.velocity.x)
+	_meter.sample(_player.velocity)
 	var position := _player.global_position
-	_hud.text = "SPEED %5.1f m/s    X %6.1f    Y %5.1f    KISS %d" % [
-		speed, position.x, position.y, _player.wall_kiss_count
+	_hud.text = "SPEED %6s   PEAK %6s   X %6.1f   Y %5.1f   KISS %d" % [
+		_meter.current_text(), _meter.peak_text(), position.x, position.y, _player.wall_kiss_count
 	]

@@ -32,7 +32,11 @@
 extends "res://tests/ws_test.gd"
 
 ## The number of chapters in the official world.
-const CHAPTER_COUNT := 20
+const CHAPTER_COUNT := 25
+## The chapters of the present day, numbered 1 to 20.
+const PRESENT_CHAPTER_COUNT := 20
+## The Fracture Year prequel, played as Ilsa Renn.
+const PREQUEL_CHAPTERS := ["P1", "P2", "P3", "P4", "P5"]
 ## The number of sections in every chapter.
 const SECTIONS_PER_CHAPTER := 12
 ## The number of Fractures a player has to know for the hidden ending.
@@ -124,6 +128,24 @@ func _array(source: Dictionary, key: String) -> Array:
 	return value
 
 
+## The chapter key as a string. JSON numbers arrive as floats, so a number is
+## forced back to an int first. The prequel chapters are strings already.
+func _chapter_key(value) -> String:
+	if typeof(value) == TYPE_INT or typeof(value) == TYPE_FLOAT:
+		return str(int(value))
+	return str(value)
+
+
+## Every chapter key the grid is allowed to use.
+func _known_chapter_keys() -> Dictionary:
+	var known := {}
+	for chapter in PREQUEL_CHAPTERS:
+		known[chapter] = true
+	for chapter in range(1, PRESENT_CHAPTER_COUNT + 1):
+		known[str(chapter)] = true
+	return known
+
+
 ## Joins a list of problems into one readable sentence.
 func _list_problems(problems: Array) -> String:
 	if problems.is_empty():
@@ -133,52 +155,77 @@ func _list_problems(problems: Array) -> String:
 	return "%s and %d more" % [", ".join(problems.slice(0, 6)), problems.size() - 6]
 
 
-## The grid is twenty chapters of twelve, with no gaps.
+## The grid is twenty-five chapters of twelve, with no gaps.
 func _test_the_grid_shape() -> void:
 	heading("the shape of the grid")
 	var sections := _array(_index, "sections")
 	var chapters := _array(_index, "chapters")
 	same(sections.size(), CHAPTER_COUNT * SECTIONS_PER_CHAPTER,
-		"the grid holds twenty chapters of twelve sections")
-	same(chapters.size(), CHAPTER_COUNT, "the index lists twenty chapters")
+		"the grid holds twenty-five chapters of twelve sections")
+	same(chapters.size(), CHAPTER_COUNT, "the index lists twenty-five chapters")
 	same(int(_index.get("_meta", {}).get("chapter_count", 0)), CHAPTER_COUNT,
 		"the index metadata agrees")
 
-	# The ids have to run 1.01 to 20.12 with nothing skipped, and nothing
-	# outside that range.
+	# The ids have to run P1.01 to P5.12 and 1.01 to 20.12 with nothing
+	# skipped, and nothing outside that range.
 	var missing: Array = []
-	for chapter in range(1, CHAPTER_COUNT + 1):
+	for chapter in PREQUEL_CHAPTERS:
+		for number in range(1, SECTIONS_PER_CHAPTER + 1):
+			var wanted := "%s.%02d" % [chapter, number]
+			if not _section_ids.has(wanted):
+				missing.append(wanted)
+	for chapter in range(1, PRESENT_CHAPTER_COUNT + 1):
 		for number in range(1, SECTIONS_PER_CHAPTER + 1):
 			var wanted := "%d.%02d" % [chapter, number]
 			if not _section_ids.has(wanted):
 				missing.append(wanted)
 	ok(missing.is_empty(),
-		"every section from 1.01 to 20.12 is in the index (missing: %s)" % _list_problems(missing))
+		"every section from P1.01 to 20.12 is in the index (missing: %s)" % _list_problems(missing))
 
+	var known := _known_chapter_keys()
 	var unexpected: Array = []
 	for section in sections:
 		var parts := String(section.id).split(".")
 		if parts.size() != 2:
 			unexpected.append(String(section.id))
 			continue
-		var chapter := int(parts[0])
 		var number := int(parts[1])
-		if chapter < 1 or chapter > CHAPTER_COUNT or number < 1 or number > SECTIONS_PER_CHAPTER:
+		if number < 1 or number > SECTIONS_PER_CHAPTER:
+			unexpected.append(String(section.id))
+			continue
+		if not known.has(parts[0]):
 			unexpected.append(String(section.id))
 	ok(unexpected.is_empty(),
 		"no section sits outside the grid (stray: %s)" % _list_problems(unexpected))
 
-	# Every chapter has to hold exactly twelve sections. JSON numbers arrive as
-	# floats, so the key is forced back to an int before it is used.
+	# Every chapter has to hold exactly twelve sections. The chapter key is a
+	# string, because the prequel chapters are named and the rest are numbered.
 	var counts := {}
 	for section in sections:
-		var key := int(section.chapter)
+		var key := _chapter_key(section.chapter)
 		counts[key] = int(counts.get(key, 0)) + 1
 	var uneven: Array = []
-	for chapter in range(1, CHAPTER_COUNT + 1):
-		if int(counts.get(chapter, 0)) != SECTIONS_PER_CHAPTER:
-			uneven.append("%d has %d" % [chapter, int(counts.get(chapter, 0))])
+	for key in known:
+		if int(counts.get(key, 0)) != SECTIONS_PER_CHAPTER:
+			uneven.append("%s has %d" % [key, int(counts.get(key, 0))])
 	ok(uneven.is_empty(), "every chapter holds twelve sections (%s)" % _list_problems(uneven))
+
+	# The prequel has to be marked as such, and it is played as Ilsa Renn.
+	# The present day is played as Lancer.
+	var bad_players: Array = []
+	var bad_acts: Array = []
+	for chapter in chapters:
+		var key := _chapter_key(chapter.get("id", chapter.number))
+		if key.begins_with("P"):
+			if chapter.get("player", "") != "ilsa_renn":
+				bad_players.append(key)
+			if int(chapter.get("act", -1)) != 0:
+				bad_acts.append(key)
+		elif int(chapter.get("act", -1)) < 1:
+			bad_acts.append(key)
+	ok(bad_players.is_empty(),
+		"the prequel is played as Ilsa Renn (%s)" % _list_problems(bad_players))
+	ok(bad_acts.is_empty(), "every chapter sits in an act (%s)" % _list_problems(bad_acts))
 
 
 ## The per-section fields have to be sane.
@@ -199,8 +246,9 @@ func _test_the_grid_numbers() -> void:
 			bad_names.append(sid)
 
 		# The scene path has to agree with the chapter and the number.
-		var parts := sid.split(".")
-		var wanted := "res://data/sections/c%s/s%s_%s.tscn" % [parts[0], parts[0], parts[1]]
+		var key := _chapter_key(section.chapter)
+		var number := int(sid.split(".")[1])
+		var wanted := "res://data/sections/c%s/s%s_%02d.tscn" % [key, key, number]
 		if section.scene_path != wanted:
 			bad_paths.append("%s points at %s" % [sid, section.scene_path])
 
@@ -221,7 +269,7 @@ func _test_the_grid_numbers() -> void:
 func _test_the_schedule() -> void:
 	heading("the gate schedule")
 	var chapters := _array(_schedule, "chapters")
-	same(chapters.size(), CHAPTER_COUNT, "the schedule covers twenty chapters")
+	same(chapters.size(), CHAPTER_COUNT, "the schedule covers twenty-five chapters")
 
 	var scheduled := {}
 	var bad_counts: Array = []
@@ -233,7 +281,7 @@ func _test_the_schedule() -> void:
 
 	for chapter in chapters:
 		if chapter.sections.size() != SECTIONS_PER_CHAPTER:
-			bad_counts.append("%d schedules %d" % [chapter.chapter, chapter.sections.size()])
+			bad_counts.append("%s schedules %d" % [_chapter_key(chapter.chapter), chapter.sections.size()])
 		for section in chapter.sections:
 			scheduled[section.section_id] = section
 			if section.gates.is_empty():
