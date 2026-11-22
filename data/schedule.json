@@ -1,0 +1,132 @@
+{
+  "_meta": {
+    "spdx": "CC-BY-SA-4.0",
+    "spdx_file_copyright_text": "2026 the WINDSHEAR contributors",
+    "license": "CC-BY-SA-4.0",
+    "schema": "windshear.schedule.v1",
+    "description": "Deterministic Concord gate schedules keyed by section and gate id.",
+    "tick_rate": 60,
+    "time_unit": "frame",
+    "clock": "global_schedule_frame",
+    "gate_state_values": [
+      "open",
+      "closed",
+      "cycling"
+    ],
+    "window_semantics": "Window start_frame is inclusive and end_frame is exclusive. A null end_frame is unbounded.",
+    "cycle_resolution": "For a cycling gate, local_frame = (global_schedule_frame + phase_offset_frames) mod cycle_period_frames. The window containing local_frame determines the actual state. A non-cycling gate uses its single window directly.",
+    "fallback_state": "closed",
+    "reference": "A RegulationGate node references the matching gate_id. The section_id field is repeated for validation against data/sections/index.json."
+  },
+  "version": 1,
+  "chapters": [
+    {
+      "chapter": 1,
+      "title": "THE LATTICE",
+      "sections": [
+        {"section_id": "1.01", "gates": [{"gate_id": "1.01.gate_01", "state": "open", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "open"}]}]},
+        {"section_id": "1.02", "gates": [{"gate_id": "1.02.gate_01", "state": "cycling", "cycle_period_frames": 360, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": 120, "state": "open"}, {"start_frame": 120, "end_frame": 360, "state": "closed"}]}]},
+        {"section_id": "1.03", "gates": [{"gate_id": "1.03.gate_01", "state": "closed", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "closed"}]}]},
+        {"section_id": "1.04", "gates": [{"gate_id": "1.04.gate_01", "state": "cycling", "cycle_period_frames": 360, "phase_offset_frames": 30, "windows": [{"start_frame": 0, "end_frame": 120, "state": "open"}, {"start_frame": 120, "end_frame": 360, "state": "closed"}]}]},
+        {"section_id": "1.05", "gates": [{"gate_id": "1.05.gate_01", "state": "open", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "open"}]}]},
+        {"section_id": "1.06", "gates": [{"gate_id": "1.06.gate_01", "state": "cycling", "cycle_period_frames": 360, "phase_offset_frames": 60, "windows": [{"start_frame": 0, "end_frame": 120, "state": "open"}, {"start_frame": 120, "end_frame": 360, "state": "closed"}]}]},
+        {"section_id": "1.07", "gates": [{"gate_id": "1.07.gate_01", "state": "closed", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "closed"}]}]},
+        {"section_id": "1.08", "gates": [{"gate_id": "1.08.gate_01", "state": "cycling", "cycle_period_frames": 360, "phase_offset_frames": 90, "windows": [{"start_frame": 0, "end_frame": 120, "state": "open"}, {"start_frame": 120, "end_frame": 360, "state": "closed"}]}]},
+        {"section_id": "1.09", "gates": [{"gate_id": "1.09.gate_01", "state": "open", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "open"}]}]},
+        {"section_id": "1.10", "gates": [{"gate_id": "1.10.gate_01", "state": "cycling", "cycle_period_frames": 360, "phase_offset_frames": 120, "windows": [{"start_frame": 0, "end_frame": 120, "state": "open"}, {"start_frame": 120, "end_frame": 360, "state": "closed"}]}]},
+        {"section_id": "1.11", "gates": [{"gate_id": "1.11.gate_01", "state": "closed", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "closed"}]}]},
+        {"section_id": "1.12", "gates": [{"gate_id": "1.12.gate_01", "state": "cycling", "cycle_period_frames": 360, "phase_offset_frames": 150, "windows": [{"start_frame": 0, "end_frame": 120, "state": "open"}, {"start_frame": 120, "end_frame": 360, "state": "closed"}]}]}
+      ]
+    },
+    {
+      "chapter": 2,
+      "title": "VENTWORKS",
+      "sections": [
+        {"section_id": "2.01", "gates": [{"gate_id": "2.01.gate_01", "state": "cycling", "cycle_period_frames": 420, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": 150, "state": "open"}, {"start_frame": 150, "end_frame": 420, "state": "closed"}]}]},
+        {"section_id": "2.02", "gates": [{"gate_id": "2.02.gate_01", "state": "open", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "open"}]}]},
+        {"section_id": "2.03", "gates": [{"gate_id": "2.03.gate_01", "state": "cycling", "cycle_period_frames": 420, "phase_offset_frames": 30, "windows": [{"start_frame": 0, "end_frame": 150, "state": "open"}, {"start_frame": 150, "end_frame": 420, "state": "closed"}]}]},
+        {"section_id": "2.04", "gates": [{"gate_id": "2.04.gate_01", "state": "closed", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "closed"}]}]},
+        {"section_id": "2.05", "gates": [{"gate_id": "2.05.gate_01", "state": "cycling", "cycle_period_frames": 420, "phase_offset_frames": 60, "windows": [{"start_frame": 0, "end_frame": 150, "state": "open"}, {"start_frame": 150, "end_frame": 420, "state": "closed"}]}]},
+        {"section_id": "2.06", "gates": [{"gate_id": "2.06.gate_01", "state": "open", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "open"}]}]},
+        {"section_id": "2.07", "gates": [{"gate_id": "2.07.gate_01", "state": "cycling", "cycle_period_frames": 420, "phase_offset_frames": 90, "windows": [{"start_frame": 0, "end_frame": 150, "state": "open"}, {"start_frame": 150, "end_frame": 420, "state": "closed"}]}]},
+        {"section_id": "2.08", "gates": [{"gate_id": "2.08.gate_01", "state": "closed", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "closed"}]}]},
+        {"section_id": "2.09", "gates": [{"gate_id": "2.09.gate_01", "state": "cycling", "cycle_period_frames": 420, "phase_offset_frames": 120, "windows": [{"start_frame": 0, "end_frame": 150, "state": "open"}, {"start_frame": 150, "end_frame": 420, "state": "closed"}]}]},
+        {"section_id": "2.10", "gates": [{"gate_id": "2.10.gate_01", "state": "open", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "open"}]}]},
+        {"section_id": "2.11", "gates": [{"gate_id": "2.11.gate_01", "state": "cycling", "cycle_period_frames": 420, "phase_offset_frames": 150, "windows": [{"start_frame": 0, "end_frame": 150, "state": "open"}, {"start_frame": 150, "end_frame": 420, "state": "closed"}]}]},
+        {"section_id": "2.12", "gates": [{"gate_id": "2.12.gate_01", "state": "closed", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "closed"}]}]}
+      ]
+    },
+    {
+      "chapter": 3,
+      "title": "THE QUIET LINE",
+      "sections": [
+        {"section_id": "3.01", "gates": [{"gate_id": "3.01.gate_01", "state": "open", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "open"}]}]},
+        {"section_id": "3.02", "gates": [{"gate_id": "3.02.gate_01", "state": "cycling", "cycle_period_frames": 480, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": 180, "state": "open"}, {"start_frame": 180, "end_frame": 480, "state": "closed"}]}]},
+        {"section_id": "3.03", "gates": [{"gate_id": "3.03.gate_01", "state": "closed", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "closed"}]}]},
+        {"section_id": "3.04", "gates": [{"gate_id": "3.04.gate_01", "state": "open", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "open"}]}]},
+        {"section_id": "3.05", "gates": [{"gate_id": "3.05.gate_01", "state": "cycling", "cycle_period_frames": 480, "phase_offset_frames": 60, "windows": [{"start_frame": 0, "end_frame": 180, "state": "open"}, {"start_frame": 180, "end_frame": 480, "state": "closed"}]}]},
+        {"section_id": "3.06", "gates": [{"gate_id": "3.06.gate_01", "state": "closed", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "closed"}]}]},
+        {"section_id": "3.07", "gates": [{"gate_id": "3.07.gate_01", "state": "open", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "open"}]}]},
+        {"section_id": "3.08", "gates": [{"gate_id": "3.08.gate_01", "state": "cycling", "cycle_period_frames": 480, "phase_offset_frames": 120, "windows": [{"start_frame": 0, "end_frame": 180, "state": "open"}, {"start_frame": 180, "end_frame": 480, "state": "closed"}]}]},
+        {"section_id": "3.09", "gates": [{"gate_id": "3.09.gate_01", "state": "closed", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "closed"}]}]},
+        {"section_id": "3.10", "gates": [{"gate_id": "3.10.gate_01", "state": "open", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "open"}]}]},
+        {"section_id": "3.11", "gates": [{"gate_id": "3.11.gate_01", "state": "cycling", "cycle_period_frames": 480, "phase_offset_frames": 180, "windows": [{"start_frame": 0, "end_frame": 180, "state": "open"}, {"start_frame": 180, "end_frame": 480, "state": "closed"}]}]},
+        {"section_id": "3.12", "gates": [{"gate_id": "3.12.gate_01", "state": "closed", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "closed"}]}]}
+      ]
+    },
+    {
+      "chapter": 4,
+      "title": "THE FRACTURE YARD",
+      "sections": [
+        {"section_id": "4.01", "gates": [{"gate_id": "4.01.gate_01", "state": "cycling", "cycle_period_frames": 540, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": 180, "state": "open"}, {"start_frame": 180, "end_frame": 540, "state": "closed"}]}]},
+        {"section_id": "4.02", "gates": [{"gate_id": "4.02.gate_01", "state": "open", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "open"}]}]},
+        {"section_id": "4.03", "gates": [{"gate_id": "4.03.gate_01", "state": "closed", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "closed"}]}]},
+        {"section_id": "4.04", "gates": [{"gate_id": "4.04.gate_01", "state": "cycling", "cycle_period_frames": 540, "phase_offset_frames": 60, "windows": [{"start_frame": 0, "end_frame": 180, "state": "open"}, {"start_frame": 180, "end_frame": 540, "state": "closed"}]}]},
+        {"section_id": "4.05", "gates": [{"gate_id": "4.05.gate_01", "state": "open", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "open"}]}]},
+        {"section_id": "4.06", "gates": [{"gate_id": "4.06.gate_01", "state": "closed", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "closed"}]}]},
+        {"section_id": "4.07", "gates": [{"gate_id": "4.07.gate_01", "state": "cycling", "cycle_period_frames": 540, "phase_offset_frames": 120, "windows": [{"start_frame": 0, "end_frame": 180, "state": "open"}, {"start_frame": 180, "end_frame": 540, "state": "closed"}]}]},
+        {"section_id": "4.08", "gates": [{"gate_id": "4.08.gate_01", "state": "open", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "open"}]}]},
+        {"section_id": "4.09", "gates": [{"gate_id": "4.09.gate_01", "state": "closed", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "closed"}]}]},
+        {"section_id": "4.10", "gates": [{"gate_id": "4.10.gate_01", "state": "cycling", "cycle_period_frames": 540, "phase_offset_frames": 180, "windows": [{"start_frame": 0, "end_frame": 180, "state": "open"}, {"start_frame": 180, "end_frame": 540, "state": "closed"}]}]},
+        {"section_id": "4.11", "gates": [{"gate_id": "4.11.gate_01", "state": "open", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "open"}]}]},
+        {"section_id": "4.12", "gates": [{"gate_id": "4.12.gate_01", "state": "closed", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "closed"}]}]}
+      ]
+    },
+    {
+      "chapter": 5,
+      "title": "HOLLOW SPIRE",
+      "sections": [
+        {"section_id": "5.01", "gates": [{"gate_id": "5.01.gate_01", "state": "open", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "open"}]}]},
+        {"section_id": "5.02", "gates": [{"gate_id": "5.02.gate_01", "state": "cycling", "cycle_period_frames": 600, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": 210, "state": "open"}, {"start_frame": 210, "end_frame": 600, "state": "closed"}]}]},
+        {"section_id": "5.03", "gates": [{"gate_id": "5.03.gate_01", "state": "closed", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "closed"}]}]},
+        {"section_id": "5.04", "gates": [{"gate_id": "5.04.gate_01", "state": "cycling", "cycle_period_frames": 600, "phase_offset_frames": 60, "windows": [{"start_frame": 0, "end_frame": 210, "state": "open"}, {"start_frame": 210, "end_frame": 600, "state": "closed"}]}]},
+        {"section_id": "5.05", "gates": [{"gate_id": "5.05.gate_01", "state": "open", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "open"}]}]},
+        {"section_id": "5.06", "gates": [{"gate_id": "5.06.gate_01", "state": "closed", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "closed"}]}]},
+        {"section_id": "5.07", "gates": [{"gate_id": "5.07.gate_01", "state": "cycling", "cycle_period_frames": 600, "phase_offset_frames": 120, "windows": [{"start_frame": 0, "end_frame": 210, "state": "open"}, {"start_frame": 210, "end_frame": 600, "state": "closed"}]}]},
+        {"section_id": "5.08", "gates": [{"gate_id": "5.08.gate_01", "state": "open", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "open"}]}]},
+        {"section_id": "5.09", "gates": [{"gate_id": "5.09.gate_01", "state": "closed", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "closed"}]}]},
+        {"section_id": "5.10", "gates": [{"gate_id": "5.10.gate_01", "state": "cycling", "cycle_period_frames": 600, "phase_offset_frames": 180, "windows": [{"start_frame": 0, "end_frame": 210, "state": "open"}, {"start_frame": 210, "end_frame": 600, "state": "closed"}]}]},
+        {"section_id": "5.11", "gates": [{"gate_id": "5.11.gate_01", "state": "open", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "open"}]}]},
+        {"section_id": "5.12", "gates": [{"gate_id": "5.12.gate_01", "state": "closed", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "closed"}]}]}
+      ]
+    },
+    {
+      "chapter": 6,
+      "title": "OPEN WEATHER",
+      "sections": [
+        {"section_id": "6.01", "gates": [{"gate_id": "6.01.gate_01", "state": "cycling", "cycle_period_frames": 660, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": 240, "state": "open"}, {"start_frame": 240, "end_frame": 660, "state": "closed"}]}]},
+        {"section_id": "6.02", "gates": [{"gate_id": "6.02.gate_01", "state": "open", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "open"}]}]},
+        {"section_id": "6.03", "gates": [{"gate_id": "6.03.gate_01", "state": "closed", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "closed"}]}]},
+        {"section_id": "6.04", "gates": [{"gate_id": "6.04.gate_01", "state": "cycling", "cycle_period_frames": 660, "phase_offset_frames": 60, "windows": [{"start_frame": 0, "end_frame": 240, "state": "open"}, {"start_frame": 240, "end_frame": 660, "state": "closed"}]}]},
+        {"section_id": "6.05", "gates": [{"gate_id": "6.05.gate_01", "state": "open", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "open"}]}]},
+        {"section_id": "6.06", "gates": [{"gate_id": "6.06.gate_01", "state": "closed", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "closed"}]}]},
+        {"section_id": "6.07", "gates": [{"gate_id": "6.07.gate_01", "state": "cycling", "cycle_period_frames": 660, "phase_offset_frames": 120, "windows": [{"start_frame": 0, "end_frame": 240, "state": "open"}, {"start_frame": 240, "end_frame": 660, "state": "closed"}]}]},
+        {"section_id": "6.08", "gates": [{"gate_id": "6.08.gate_01", "state": "open", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "open"}]}]},
+        {"section_id": "6.09", "gates": [{"gate_id": "6.09.gate_01", "state": "closed", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "closed"}]}]},
+        {"section_id": "6.10", "gates": [{"gate_id": "6.10.gate_01", "state": "cycling", "cycle_period_frames": 660, "phase_offset_frames": 180, "windows": [{"start_frame": 0, "end_frame": 240, "state": "open"}, {"start_frame": 240, "end_frame": 660, "state": "closed"}]}]},
+        {"section_id": "6.11", "gates": [{"gate_id": "6.11.gate_01", "state": "open", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "open"}]}]},
+        {"section_id": "6.12", "gates": [{"gate_id": "6.12.gate_01", "state": "closed", "cycle_period_frames": 0, "phase_offset_frames": 0, "windows": [{"start_frame": 0, "end_frame": null, "state": "closed"}]}]}
+      ]
+    }
+  ]
+}

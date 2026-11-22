@@ -1,0 +1,83 @@
+{
+  "_meta": {
+    "spdx": "CC-BY-SA-4.0",
+    "spdx_file_copyright_text": "2026 the WINDSHEAR contributors",
+    "license": "CC-BY-SA-4.0",
+    "schema": "windshear.story.endings.v1",
+    "description": "Final-choice and Fracture conditions for the official three-ending table."
+  },
+  "version": 1,
+  "final_choices": [
+    {
+      "id": "free_sky",
+      "display_name": "Break the sky regulation"
+    },
+    {
+      "id": "restore_concord",
+      "display_name": "Restore the Concord"
+    }
+  ],
+  "endings": [
+    {
+      "id": "open_weather",
+      "display_name": "OPEN WEATHER",
+      "priority": 100,
+      "conditions": {
+        "all_of": [
+          {
+            "type": "final_choice",
+            "equals": "free_sky"
+          },
+          {
+            "type": "fracture_known_count",
+            "less_than": 12
+          }
+        ]
+      },
+      "summary": "Lancer breaks the sky regulation. The city breathes, storms return, and deaths return with them.",
+      "ending_text": "The regulation record ends. The wind does not. Lancer runs into weather that no longer asks permission, carrying a city that has not learned what freedom costs."
+    },
+    {
+      "id": "under_regulation",
+      "display_name": "UNDER REGULATION",
+      "priority": 50,
+      "conditions": {
+        "all_of": [
+          {
+            "type": "final_choice",
+            "equals": "restore_concord"
+          },
+          {
+            "type": "fracture_known_count",
+            "less_than": 12
+          }
+        ]
+      },
+      "summary": "Lancer restores the Concord. Safety returns, followed by laps of a perfect and joyless route.",
+      "ending_text": "The gates close on schedule. Lancer begins another licensed lap, and the Concord records every clean turn without asking whether the route is worth running."
+    },
+    {
+      "id": "the_second_fracture",
+      "display_name": "THE SECOND FRACTURE",
+      "priority": 200,
+      "conditions": {
+        "all_of": [
+          {
+            "type": "fracture_known",
+            "id": "the_first_runners_path"
+          },
+          {
+            "type": "fracture_known_count",
+            "equals": 12
+          },
+          {
+            "type": "section_reached",
+            "id": "4.03"
+          }
+        ]
+      },
+      "summary": "Lancer does not choose. Every Fracture is used at once, making the world unregulatable while the Concord survives as a ruin.",
+      "ending_text": "There is no final selection. The First Runner's path opens beneath the city, and every known Fracture is used in one continuous route. The Concord remains online, but it can no longer produce a single legal wind."
+    }
+  ]
+}

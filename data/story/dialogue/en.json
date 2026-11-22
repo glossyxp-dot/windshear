@@ -1,0 +1,95 @@
+{
+  "_meta": {
+    "spdx": "CC-BY-SA-4.0",
+    "spdx_file_copyright_text": "2026 the WINDSHEAR contributors",
+    "license": "CC-BY-SA-4.0",
+    "schema": "windshear.story.dialogue.v1",
+    "locale": "en"
+  },
+  "version": 1,
+  "locale": "en",
+  "speakers": [
+    {
+      "id": "lancer",
+      "display_name": "Lancer",
+      "color": "#82CFFF"
+    },
+    {
+      "id": "the_concord",
+      "display_name": "THE CONCORD",
+      "color": "#F2C879"
+    },
+    {
+      "id": "ilsa_renn",
+      "display_name": "Ilsa Renn",
+      "color": "#86D69A"
+    },
+    {
+      "id": "warden_saye",
+      "display_name": "Warden Saye",
+      "color": "#F08A8A"
+    },
+    {
+      "id": "first_runner",
+      "display_name": "FIRST RUNNER",
+      "color": "#C4A7FF"
+    }
+  ],
+  "lines": [
+    {
+      "id": "en.001",
+      "speaker_id": "lancer",
+      "text": "Lattice dispatch. Route clear through the morning cycle."
+    },
+    {
+      "id": "en.002",
+      "speaker_id": "the_concord",
+      "text": "Courier Lancer. Your license permits the licensed route only."
+    },
+    {
+      "id": "en.003",
+      "speaker_id": "lancer",
+      "text": "The parcel changed. The permit did not."
+    },
+    {
+      "id": "en.004",
+      "speaker_id": "ilsa_renn",
+      "text": "If you run the lattice before the gate cycle settles, use the service seam. The checkpoint lies, but your line does not."
+    },
+    {
+      "id": "en.005",
+      "speaker_id": "lancer",
+      "text": "Give me the quiet route."
+    },
+    {
+      "id": "en.006",
+      "speaker_id": "ilsa_renn",
+      "text": "Then carry the parcel through and leave the regulation panel alone."
+    },
+    {
+      "id": "en.007",
+      "speaker_id": "the_concord",
+      "text": "Schedule update. Ventworks access begins at the next pressure interval."
+    },
+    {
+      "id": "en.008",
+      "speaker_id": "warden_saye",
+      "text": "Step away from the carry case, Lancer. This is an order, not a question."
+    },
+    {
+      "id": "en.009",
+      "speaker_id": "lancer",
+      "text": "The city can wait. The parcel cannot."
+    },
+    {
+      "id": "en.010",
+      "speaker_id": "first_runner",
+      "text": "Run where the wind cannot count your steps."
+    },
+    {
+      "id": "en.011",
+      "speaker_id": "the_concord",
+      "text": "Carrier deviation recorded. Recovery route authorized."
+    }
+  ]
+}

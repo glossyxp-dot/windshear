@@ -1,0 +1,41 @@
+WINDSHEAR
+Copyright (C) 2026 the WINDSHEAR contributors
+
+This program is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation; either version 2 of the License, or (at your option) any later
+version. See LICENSE for the full text.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+--------------------------------------------------------------------------------
+Third-party components
+--------------------------------------------------------------------------------
+
+Godot Engine 4.7.2
+  https://godotengine.org
+  Copyright (c) 2014-present Godot Engine contributors.
+  Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
+  Licensed under the MIT License.
+
+  Engine build used for development and CI:
+  godot 4.7.2.stable.arch_linux.ed1daf0bf  (Arch package `godot`)
+
+  The game code, artwork, level data, audio and story data in this repository
+  are covered by the licenses stated in README.md; the Godot Engine itself is
+  distributed separately under the MIT License and is not relicensed here.
+
+--------------------------------------------------------------------------------
+Content licensing
+--------------------------------------------------------------------------------
+
+  Game code ...................... GNU GPL v2 or later
+  Levels, models, audio, art .... CC BY-SA 4.0
+  Official story layer ........... CC BY-SA 4.0
+  Community Editions ............. must be open source (GPL-CC compatible)
+                                   to be listed on the official index
+
+  Third-party assets bundled in future releases must be listed here with their
+  license, author and source URL.

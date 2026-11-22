@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WindShear — UI Reference Editor</title>
+<style>
+  :root {
+    --bg: #0a0b0d;
+    --panel: #14161a;
+    --panel-2: #1b1e24;
+    --line: #262a31;
+    --text: #d7dbe0;
+    --dim: #7d848d;
+    --accent: #d9801e;
+    --accent-dim: #8a5214;
+    --blue: #4aa3ff;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; height: 100%;
+    background: var(--bg); color: var(--text);
+    font: 12px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    overflow: hidden;
+  }
+  #app { display: grid; grid-template-rows: 42px 1fr 210px; height: 100%; }
+  body.css-collapsed #app { grid-template-rows: 42px 1fr 0px; }
+  body.css-collapsed #css-pane { display: none; }
+
+  /* ---------- top bar ---------- */
+  #topbar {
+    display: flex; align-items: center; gap: 8px; padding: 0 10px;
+    background: var(--panel); border-bottom: 1px solid var(--line);
+  }
+  #topbar .brand {
+    font-weight: 700; letter-spacing: .14em; font-size: 11px;
+    text-transform: uppercase; color: var(--accent); margin-right: 4px;
+  }
+  .sep { width: 1px; height: 22px; background: var(--line); margin: 0 4px; }
+  button, select, input[type="text"], input[type="number"] {
+    font: inherit; color: var(--text); background: var(--panel-2);
+    border: 1px solid var(--line); border-radius: 0; padding: 4px 8px;
+  }
+  button { cursor: pointer; }
+  button:hover { background: #242830; border-color: #39404a; }
+  button:active { background: #2c313a; }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #120c04; font-weight: 600; }
+  button.primary:hover { background: #e8902c; }
+  button.on { background: var(--accent-dim); border-color: var(--accent); color: #f2d3ac; }
+  .field { display: flex; align-items: center; gap: 4px; }
+  .field label { color: var(--dim); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; }
+  input[type="number"] { width: 58px; }
+  input[type="color"] {
+    width: 26px; height: 22px; padding: 0; border: 1px solid var(--line);
+    background: transparent; cursor: pointer;
+  }
+  input[type="range"] { accent-color: var(--accent); }
+  input[type="checkbox"] { accent-color: var(--accent); }
+  .spacer { flex: 1; }
+
+  /* ---------- main ---------- */
+  #main { display: grid; grid-template-columns: 190px 1fr 232px; min-height: 0; }
+  .pane { background: var(--panel); min-height: 0; overflow: auto; }
+  #layers { border-right: 1px solid var(--line); }
+  #props { border-left: 1px solid var(--line); }
+  .pane h3 {
+    margin: 0; padding: 8px 10px; font-size: 10px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--dim);
+    border-bottom: 1px solid var(--line); position: sticky; top: 0;
+    background: var(--panel); z-index: 2;
+  }
+  .layer {
+    display: flex; align-items: center; gap: 6px; padding: 5px 8px;
+    border-bottom: 1px solid #1c1f24; cursor: pointer;
+  }
+  .layer:hover { background: var(--panel-2); }
+  .layer.sel { background: #232833; box-shadow: inset 2px 0 0 var(--blue); }
+  .layer .eye { width: 16px; text-align: center; color: var(--dim); }
+  .layer .eye.off { color: #4a4f57; }
+  .layer .kind {
+    font: 9px var(--mono); color: var(--dim); text-transform: uppercase;
+    border: 1px solid var(--line); padding: 0 3px;
+  }
+  .layer .nm { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .empty { padding: 14px 10px; color: #5a6068; }
+
+  /* ---------- canvas ---------- */
+  #canvas-wrap {
+    overflow: auto;
+    background:
+      linear-gradient(45deg, #111318 25%, transparent 25%, transparent 75%, #111318 75%),
+      linear-gradient(45deg, #111318 25%, #0d0f12 25%, #0d0f12 75%, #111318 75%);
+    background-size: 18px 18px; background-position: 0 0, 9px 9px;
+    display: flex; flex-direction: column; align-items: safe center;
+    justify-content: safe center; padding: 30px 40px 40px;
+  }
+  #artboard-shell { position: relative; flex: 0 0 auto; }
+  #artboard {
+    position: relative; transform-origin: 0 0; background: #000;
+    box-shadow: 0 0 0 1px #333944, 0 18px 50px rgba(0,0,0,.65);
+  }
+  #sim-status {
+    margin-top: 14px; padding: 6px 12px; background: var(--panel);
+    border: 1px solid var(--line); color: var(--dim); min-height: 28px;
+    display: flex; align-items: center; gap: 10px; max-width: 100%;
+  }
+  #sim-status b { color: var(--accent); font-weight: 600; }
+  #sim-status .pill {
+    border: 1px solid var(--line); padding: 1px 6px; color: var(--text);
+    font: 10px var(--mono); text-transform: uppercase;
+  }
+
+  .el {
+    position: absolute; overflow: hidden; white-space: pre-wrap;
+    word-break: break-word; line-height: 1.2; cursor: move;
+    display: flex; align-items: center;
+  }
+  .el.text { background: transparent !important; }
+  .el.sel { outline: 1px solid var(--blue); outline-offset: 0; z-index: 9999 !important; }
+  .el .handle {
+    position: absolute; width: 7px; height: 7px; background: var(--blue);
+    border: 1px solid #fff; z-index: 10000; pointer-events: auto;
+  }
+  .el .handle.nw { cursor: nwse-resize; }
+  .el .handle.n  { cursor: ns-resize; }
+  .el .handle.ne { cursor: nesw-resize; }
+  .el .handle.e  { cursor: ew-resize; }
+  .el .handle.se { cursor: nwse-resize; }
+  .el .handle.s  { cursor: ns-resize; }
+  .el .handle.sw { cursor: nesw-resize; }
+  .el .handle.w  { cursor: ew-resize; }
+  #marquee {
+    position: absolute; border: 1px solid var(--blue);
+    background: rgba(74,163,255,.12); pointer-events: none; display: none; z-index: 10001;
+  }
+
+  /* ---------- preview mode ---------- */
+  body.preview .el { cursor: default; }
+  body.preview #artboard { box-shadow: 0 0 0 1px #4aa3ff88, 0 18px 50px rgba(0,0,0,.65); }
+  button.el {
+    padding: 0; border: 0; background: transparent; font-family: inherit;
+    cursor: pointer; -webkit-appearance: none; appearance: none;
+  }
+  button.el:focus { outline: none; }
+  button.el:focus-visible { outline: 1px dashed rgba(255,255,255,.55); outline-offset: 1px; }
+  button.elbtn { background: var(--base-fill); }
+  button.elbtn:hover { background: var(--h-fill); }
+  button.elbtn:focus { background: var(--f-fill); }
+  button.elbtn:active { background: var(--a-fill); }
+  button.eltoggle { background: var(--base-fill); }
+  button.eltoggle.on { background: var(--on-fill); }
+  button.eltoggle .knob {
+    position: absolute; top: 1px; width: 14px; height: 14px; background: var(--knob);
+  }
+  input.el {
+    border: 0; outline: none; background: transparent; padding: 0 4px;
+    font-family: inherit; caret-color: #fff;
+  }
+  input.el:focus { box-shadow: inset 0 0 0 1px #4aa3ff; }
+  div.elslider { background: var(--base-fill); cursor: ew-resize; }
+  div.elslider .fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--on-fill); }
+  div.elslider .knob {
+    position: absolute; top: -3px; width: 10px; height: 16px; background: var(--knob);
+    margin-left: -5px;
+  }
+
+  /* ---------- properties ---------- */
+  .row { display: grid; grid-template-columns: 78px 1fr; gap: 6px; align-items: center; padding: 3px 10px; }
+  .row > label { color: var(--dim); font-size: 10px; text-transform: uppercase; letter-spacing: .05em; }
+  .row input[type="text"], .row input[type="number"], .row select { width: 100%; }
+  .row.full { grid-template-columns: 1fr; }
+  .sect {
+    margin: 10px 0 4px; padding: 4px 10px; color: var(--accent);
+    font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  }
+  .hint { padding: 6px 10px; color: #5f666e; font-size: 11px; }
+  .warn { color: #e0a33c; }
+
+  /* ---------- css output ---------- */
+  #css-pane { border-top: 1px solid var(--line); background: var(--panel); display: grid; grid-template-rows: 30px 1fr; }
+  #css-head { display: flex; align-items: center; gap: 8px; padding: 0 10px; border-bottom: 1px solid var(--line); }
+  #css-head h3 { border: 0; padding: 0; position: static; background: none; }
+  #css {
+    width: 100%; height: 100%; border: 0; resize: none; background: #0d0f12;
+    color: #9fd3a0; font: 11px/1.5 var(--mono); padding: 10px; outline: none;
+  }
+  #help { display: none; padding: 10px 14px; overflow: auto; }
+  #help.open { display: block; }
+  #help table { border-collapse: collapse; margin-bottom: 10px; }
+  #help td, #help th { border: 1px solid var(--line); padding: 3px 8px; text-align: left; }
+  kbd {
+    background: var(--panel-2); border: 1px solid var(--line); border-bottom-width: 2px;
+    padding: 0 4px; font: 10px var(--mono);
+  }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <div id="topbar">
+    <span class="brand">WindShear · UI Reference</span>
+    <div class="field"><label>W</label><input type="number" id="ab-w" value="480" min="16"></div>
+    <div class="field"><label>H</label><input type="number" id="ab-h" value="270" min="16"></div>
+    <div class="field"><label>BG</label><input type="color" id="ab-bg" value="#000000"></div>
+    <div class="sep"></div>
+    <button id="mode-design" class="on">Design</button>
+    <button id="mode-preview">Preview ▸</button>
+    <div class="sep"></div>
+    <div class="field"><label>Grid</label><input type="number" id="grid" value="8" min="1" max="64"></div>
+    <button id="snap" class="on" title="Snap to grid (S)">Snap</button>
+    <button id="grid-toggle" class="on" title="Show grid (G)">Grid</button>
+    <div class="field"><label>Zoom</label>
+      <select id="zoom">
+        <option value="fit" selected>Fit</option>
+        <option value="1">1×</option>
+        <option value="2">2×</option>
+        <option value="3">3×</option>
+        <option value="4">4×</option>
+      </select>
+      <span id="zoom-label" style="color:#7d848d;min-width:34px">1×</span>
+    </div>
+    <div class="sep"></div>
+    <button data-add="rect">+ Rect</button>
+    <button data-add="text">+ Text</button>
+    <button data-add="button">+ Button</button>
+    <button data-add="input">+ Input</button>
+    <button data-add="slider">+ Slider</button>
+    <button data-add="toggle">+ Toggle</button>
+    <div class="spacer"></div>
+    <button id="undo" title="Undo (Ctrl+Z)">Undo</button>
+    <button id="redo" title="Redo (Ctrl+Shift+Z)">Redo</button>
+    <button id="import-json">Import JSON</button>
+    <button id="export-json">Save JSON</button>
+    <button id="copy-css">Copy CSS</button>
+    <button id="download-css" class="primary">Export .css</button>
+    <button id="help-btn">?</button>
+    <input type="file" id="file-json" accept=".json,application/json" hidden>
+  </div>
+
+  <div id="main">
+    <div class="pane" id="layers">
+      <h3>Layers</h3>
+      <div id="layer-list"></div>
+    </div>
+
+    <div id="canvas-wrap">
+      <div id="artboard-shell">
+        <div id="artboard"></div>
+        <div id="marquee"></div>
+      </div>
+      <div id="sim-status">
+        <span class="pill" id="sim-mode">DESIGN</span>
+        <span id="sim-msg"><b>Design mode</b> — drag, resize and recolour elements. Hit <b>Preview ▸</b> to click and type in your UI.</span>
+      </div>
+    </div>
+
+    <div class="pane" id="props">
+      <h3>Properties</h3>
+      <div id="prop-body"></div>
+    </div>
+  </div>
+
+  <div id="css-pane">
+    <div id="css-head">
+      <h3>Exported CSS</h3>
+      <span class="hint" style="padding:0">Give me this file and I will turn it into a Godot Theme (.tres) + scene layout.</span>
+      <div class="spacer"></div>
+      <span id="css-stats" class="hint" style="padding:0"></span>
+      <button id="toggle-css" class="ghost" title="Hide/show the CSS pane for more canvas room">CSS ▾</button>
+    </div>
+    <textarea id="css" spellcheck="false"></textarea>
+  </div>
+
+  <div id="help">
+    <b>How to use</b>
+    <table>
+      <tr><th>Add element</th><td>Click a <code>+ Button</code> style tool, then drag on the canvas. Or double-click a text element to type into it.</td></tr>
+      <tr><th>Move</th><td>Drag an element. Hold <kbd>Shift</kbd> to move along one axis only.</td></tr>
+      <tr><th>Resize</th><td>Drag any of the 8 blue handles. Hold <kbd>Shift</kbd> to keep the aspect ratio.</td></tr>
+      <tr><th>Multi-select</th><td><kbd>Shift</kbd>+click, or drag on empty canvas to marquee.</td></tr>
+      <tr><th>Nudge</th><td>Arrow keys (hold <kbd>Shift</kbd> for 10px steps).</td></tr>
+      <tr><th>Duplicate</th><td><kbd>Ctrl</kbd>+<kbd>D</kbd> · Delete: <kbd>Del</kbd> · Undo: <kbd>Ctrl</kbd>+<kbd>Z</kbd></td></tr>
+      <tr><th>Export</th><td><b>Export .css</b> downloads the reference. <b>Save JSON</b> keeps your working file so you can continue later.</td></tr>
+    </table>
+    <b>Preview mode (click "Preview ▸")</b>
+    <table>
+      <tr><th>Buttons</th><td>Hover to see the hover colour, click to see the press colour, <kbd>Tab</kbd> to focus, <kbd>Enter</kbd>/<kbd>Space</kbd> to activate.</td></tr>
+      <tr><th>Inputs</th><td>Click and type — the text is saved with the element and exported.</td></tr>
+      <tr><th>Toggles</th><td>Click to flip on/off (the knob slides and the fill changes).</td></tr>
+      <tr><th>Sliders</th><td>Click or drag along the track to move the knob.</td></tr>
+      <tr><th>Status line</th><td>Under the artboard shows the last interaction, so you can confirm every element is wired to something.</td></tr>
+    </table>
+    <b>What the CSS maps to in Godot</b>
+    <table>
+      <tr><th>CSS</th><th>Godot</th></tr>
+      <tr><td>background-color</td><td>Theme → Styles → <code>bg_color</code> on the StyleBoxFlat</td></tr>
+      <tr><td>border-radius</td><td>StyleBoxFlat → <code>corner_radius_*</code></td></tr>
+      <tr><td>border / border-width</td><td>StyleBoxFlat → <code>border_width_*</code> + <code>border_color</code></td></tr>
+      <tr><td>color / font-size / font-weight</td><td>Theme → Colors / Font Sizes / Fonts</td></tr>
+      <tr><td>letter-spacing</td><td>Theme → Constants (or a FontVariation's spacing)</td></tr>
+      <tr><td>absolute left/top/width/height</td><td>Control offsets in the .tscn (or anchors for full-rect nodes)</td></tr>
+      <tr><td>:hover / :focus / :active</td><td>Theme → Styles → <code>hover</code> / <code>focus</code> / <code>pressed</code></td></tr>
+      <tr><td>button / input / toggle / slider</td><td>Button / LineEdit / CheckButton / HSlider</td></tr>
+    </table>
+    <b>Tip</b>
+    <div>Design at <b>480×270</b> (the game's internal resolution) — every pixel here is one pixel in-game.</div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+/* ------------------------------------------------------------------ state */
+const KINDS = {
+  rect:   { label: "Rect",   def: { w: 120, h: 40,  fill: "#1b1f27", radius: 0, strokeWidth: 0, stroke: "#2b3038" } },
+  text:   { label: "Text",   def: { w: 120, h: 16,  fill: "transparent", fontSize: 11, fontColor: "#d7dbe0", text: "TEXT" } },
+  button: { label: "Button", def: { w: 120, h: 24,  fill: "#d9801e", radius: 0, fontSize: 11, fontWeight: "600", fontColor: "#ffffff", text: "BUTTON", align: "center", hoverFill: "", focusFill: "", activeFill: "" } },
+  input:  { label: "Input",  def: { w: 160, h: 20,  fill: "#0c0e12", radius: 0, strokeWidth: 1, stroke: "#3a4048", fontSize: 10, fontColor: "#9aa1aa", text: "Input field" } },
+  slider: { label: "Slider", def: { w: 160, h: 10,  fill: "#262b33", radius: 0, knob: "#d9801e", onFill: "#8a5214", sliderValue: 0.5 } },
+  toggle: { label: "Toggle", def: { w: 32,  h: 16,  fill: "#262b33", radius: 0, knob: "#d9801e", onFill: "#d9801e", toggleOn: false } },
+};
+const FONT_STACK = [
+  ["system-ui, sans-serif", "System / sans"],
+  ["ui-monospace, monospace", "Monospace"],
+  ["Georgia, serif", "Serif"],
+  ["Arial, Helvetica, sans-serif", "Arial"],
+  ["'Courier New', monospace", "Courier"],
+];
+
+const state = {
+  ab: { w: 480, h: 270, bg: "#000000" },
+  grid: 8, snap: true, showGrid: true, zoom: 2,
+  mode: "design",
+  els: [], sel: [], nextId: 1,
+  history: [], future: [],
+  tool: null,
+  clipboard: null,
+  sim: {
+    values: {},    // elId -> typed text (inputs)
+    toggles: {},   // elId -> bool
+    sliders: {},   // elId -> 0..1
+    last: "",
+    focusId: null,
+  },
+};
+const $ = (s) => document.querySelector(s);
+const artboard = $("#artboard");
+const marquee = $("#marquee");
+const propBody = $("#prop-body");
+const cssOut = $("#css");
+
+/* ---------------------------------------------------------------- helpers */
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+function snapVal(v) {
+  if (!state.snap) return Math.round(v * 100) / 100;
+  const g = state.grid || 1;
+  return Math.round(v / g) * g;
+}
+function slug(name, taken) {
+  let s = String(name).toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  if (!s) s = "element";
+  let out = s, i = 2;
+  while (taken.has(out)) out = s + "-" + (i++);
+  taken.add(out);
+  return out;
+}
+function byId(id) { return state.els.find((e) => e.id === id); }
+function selected() { return state.sel.map(byId).filter(Boolean); }
+function isPreview() { return state.mode === "preview"; }
+
+/* ---------------------------------------------------------------- history */
+function snapshot() {
+  return JSON.stringify({ ab: state.ab, grid: state.grid, els: state.els });
+}
+function pushHistory() {
+  state.history.push(snapshot());
+  if (state.history.length > 80) state.history.shift();
+  state.future.length = 0;
+}
+function restore(json) {
+  const d = JSON.parse(json);
+  state.ab = d.ab; state.grid = d.grid; state.els = d.els;
+  state.sel = state.sel.filter((id) => byId(id));
+  syncInputs(); render();
+}
+function undo() {
+  if (!state.history.length) return;
+  state.future.push(snapshot());
+  restore(state.history.pop());
+}
+function redo() {
+  if (!state.future.length) return;
+  state.history.push(snapshot());
+  restore(state.future.pop());
+}
+
+/* -------------------------------------------------------------- elements */
+function makeEl(kind, x, y, w, h) {
+  const def = KINDS[kind].def;
+  return Object.assign({
+    id: state.nextId++,
+    name: KINDS[kind].label + " " + state.nextId,
+    kind, x, y, w, h,
+    fill: "#1b1f27", stroke: "#2b3038", strokeWidth: 0, radius: 0,
+    text: "", fontSize: 11, fontWeight: "400", fontColor: "#d7dbe0",
+    align: "left", letterSpacing: 0, lineHeight: 1.2, uppercase: false,
+    fontFamily: FONT_STACK[0][0],
+    hoverFill: "", focusFill: "", activeFill: "", onFill: "", knob: "#d9801e",
+    sliderValue: 0.5, toggleOn: false,
+    opacity: 1, visible: true, locked: false, z: state.nextId,
+  }, def);
+}
+function addElement(kind, x, y, w, h) {
+  pushHistory();
+  const e = makeEl(kind, snapVal(x), snapVal(y), snapVal(w), snapVal(h));
+  state.els.push(e);
+  state.sel = [e.id];
+  render();
+}
+function deleteSelected() {
+  if (!state.sel.length) return;
+  pushHistory();
+  state.els = state.els.filter((e) => !state.sel.includes(e.id));
+  state.sel = [];
+  render();
+}
+function duplicateSelected() {
+  const s = selected();
+  if (!s.length) return;
+  pushHistory();
+  const copies = s.map((e) => {
+    const c = Object.assign({}, e, { id: state.nextId++, z: state.nextId++ });
+    c.x += 8; c.y += 8;
+    c.name = e.name + " copy";
+    return c;
+  });
+  state.els.push(...copies);
+  state.sel = copies.map((c) => c.id);
+  render();
+}
+function nudge(dx, dy) {
+  const s = selected();
+  if (!s.length) return;
+  pushHistory();
+  for (const e of s) { e.x += dx; e.y += dy; }
+  render();
+}
+function reorder(dir) {
+  const s = selected();
+  if (!s.length) return;
+  pushHistory();
+  const sorted = state.els.slice().sort((a, b) => a.z - b.z);
+  for (const e of s) {
+    const i = sorted.indexOf(e);
+    const j = clamp(i + dir, 0, sorted.length - 1);
+    sorted.splice(i, 1); sorted.splice(j, 0, e);
+  }
+  sorted.forEach((e, i) => e.z = i + 1);
+  render();
+}
+
+/* ---------------------------------------------------------------- render */
+function applyZoom() {
+  const sel = $("#zoom");
+  const v = sel.value;
+  if (v === "fit") {
+    const wrap = $("#canvas-wrap");
+    const availW = Math.max(120, wrap.clientWidth - 90);
+    const availH = Math.max(120, wrap.clientHeight - 150);
+    const raw = Math.min(availW / state.ab.w, availH / state.ab.h);
+    state.zoom = clamp(Math.floor(raw * 4) / 4, 0.25, 4);
+  } else {
+    state.zoom = parseFloat(v) || 1;
+  }
+  $("#zoom-label").textContent = (Math.round(state.zoom * 100) / 100) + "×";
+}
+
+function render(opts) {
+  const skipProps = !!(opts && opts.skipProps);
+  const ab = state.ab;
+  applyZoom();
+  artboard.style.width = ab.w + "px";
+  artboard.style.height = ab.h + "px";
+  artboard.style.transform = "scale(" + state.zoom + ")";
+  artboard.style.background = ab.bg;
+  artboard.style.backgroundImage = (state.showGrid && !isPreview())
+    ? "linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px)," +
+      "linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px)"
+    : "none";
+  artboard.style.backgroundSize = (state.grid * state.zoom) + "px " + (state.grid * state.zoom) + "px";
+
+  const shell = $("#artboard-shell");
+  shell.style.width = (ab.w * state.zoom) + "px";
+  shell.style.height = (ab.h * state.zoom) + "px";
+
+  artboard.innerHTML = "";
+  const sorted = state.els.slice().sort((a, b) => a.z - b.z);
+  const hs = 7 / state.zoom;
+
+  for (const e of sorted) {
+    const d = isPreview() ? buildPreviewEl(e) : buildDesignEl(e, hs);
+    if (d) artboard.appendChild(d);
+  }
+
+  renderLayers();
+  if (!skipProps) renderProps();
+  updateCSS();
+  updateStatus();
+}
+
+/** Light update used while typing: repaint the canvas, leave the property
+ *  panel untouched so the caret and focus stay where the user put them. */
+function refresh(opts) {
+  render({ skipProps: true });
+}
+
+function commonStyle(d, e) {
+  d.style.left = e.x + "px";
+  d.style.top = e.y + "px";
+  d.style.width = e.w + "px";
+  d.style.height = e.h + "px";
+  d.style.opacity = e.opacity;
+  d.style.zIndex = e.z;
+  d.style.borderRadius = e.radius + "px";
+  d.style.border = e.strokeWidth > 0 ? e.strokeWidth + "px solid " + e.stroke : "0 solid transparent";
+  d.style.color = e.fontColor;
+  d.style.fontSize = e.fontSize + "px";
+  d.style.fontWeight = e.fontWeight;
+  d.style.fontFamily = e.fontFamily;
+  d.style.letterSpacing = e.letterSpacing + "px";
+  d.style.lineHeight = e.lineHeight;
+  d.style.textAlign = e.align;
+  d.style.justifyContent = e.align === "center" ? "center" : (e.align === "right" ? "flex-end" : "flex-start");
+  d.style.textTransform = e.uppercase ? "uppercase" : "none";
+  if (!e.visible) d.style.display = "none";
+}
+
+function buildDesignEl(e, hs) {
+  const d = document.createElement("div");
+  d.className = "el" + (e.kind === "text" ? " text" : "") + (state.sel.includes(e.id) ? " sel" : "");
+  d.dataset.id = e.id;
+  commonStyle(d, e);
+  if (e.kind !== "text") d.style.background = e.fill;
+  d.textContent = e.text || "";
+  if (e.kind === "toggle") {
+    const knob = document.createElement("div");
+    knob.className = "knob";
+    knob.style.cssText = "position:absolute;left:1px;top:1px;width:" + Math.max(4, e.h - 2) +
+      "px;height:" + Math.max(4, e.h - 2) + "px;background:" + e.knob + ";";
+    d.appendChild(knob);
+  }
+  if (e.kind === "slider") {
+    const knob = document.createElement("div");
+    knob.style.cssText = "position:absolute;left:35%;top:-2px;width:" + Math.max(4, e.h + 4) +
+      "px;height:" + Math.max(4, e.h + 4) + "px;background:" + e.knob + ";";
+    d.appendChild(knob);
+  }
+  if (state.sel.includes(e.id) && state.sel.length === 1 && !e.locked) {
+    const dirs = ["nw", "n", "ne", "e", "se", "s", "sw", "w"];
+    const pos = {
+      nw: [0, 0], n: [0.5, 0], ne: [1, 0], e: [1, 0.5],
+      se: [1, 1], s: [0.5, 1], sw: [0, 1], w: [0, 0.5],
+    };
+    for (const dir of dirs) {
+      const h = document.createElement("div");
+      h.className = "handle " + dir;
+      h.dataset.dir = dir;
+      h.dataset.for = e.id;
+      h.style.width = hs + "px"; h.style.height = hs + "px";
+      h.style.left = "calc(" + (pos[dir][0] * 100) + "% - " + (hs / 2) + "px)";
+      h.style.top = "calc(" + (pos[dir][1] * 100) + "% - " + (hs / 2) + "px)";
+      d.appendChild(h);
+    }
+  }
+  return d;
+}
+
+function buildPreviewEl(e) {
+  if (e.kind === "input") {
+    const inp = document.createElement("input");
+    inp.className = "el";
+    inp.type = "text";
+    inp.dataset.id = e.id;
+    inp.placeholder = e.text || "";
+    inp.value = state.sim.values[e.id] || "";
+    inp.style.background = e.fill;
+    inp.style.padding = "0 4px";
+    commonStyle(inp, e);
+    inp.addEventListener("input", () => {
+      state.sim.values[e.id] = inp.value;
+      updateCSS();
+    });
+    inp.addEventListener("focus", () => { state.sim.focusId = e.id; updateStatus(); });
+    inp.addEventListener("blur", () => { if (state.sim.focusId === e.id) state.sim.focusId = null; updateStatus(); });
+    inp.addEventListener("keydown", (ev) => {
+      if (ev.key === "Enter") { ev.preventDefault(); inp.blur(); }
+    });
+    return inp;
+  }
+
+  if (e.kind === "button") {
+    const b = document.createElement("button");
+    b.className = "el elbtn";
+    b.type = "button";
+    b.dataset.id = e.id;
+    b.textContent = e.text || "";
+    b.style.setProperty("--base-fill", e.fill);
+    b.style.setProperty("--h-fill", e.hoverFill || e.fill);
+    b.style.setProperty("--f-fill", e.focusFill || e.fill);
+    b.style.setProperty("--a-fill", e.activeFill || e.hoverFill || e.fill);
+    commonStyle(b, e);
+    b.addEventListener("click", () => {
+      state.sim.last = "Clicked “" + (e.name || e.text || "button") + "”";
+      updateStatus();
+    });
+    b.addEventListener("focus", () => { state.sim.focusId = e.id; updateStatus(); });
+    b.addEventListener("blur", () => { if (state.sim.focusId === e.id) state.sim.focusId = null; updateStatus(); });
+    return b;
+  }
+
+  if (e.kind === "toggle") {
+    const on = state.sim.toggles[e.id] !== undefined ? state.sim.toggles[e.id] : !!e.toggleOn;
+    const b = document.createElement("button");
+    b.className = "el eltoggle" + (on ? " on" : "");
+    b.type = "button";
+    b.dataset.id = e.id;
+    b.style.setProperty("--base-fill", e.fill);
+    b.style.setProperty("--on-fill", e.onFill || e.knob);
+    b.style.setProperty("--knob", e.knob);
+    commonStyle(b, e);
+    const knob = document.createElement("div");
+    knob.className = "knob";
+    const ks = Math.max(4, e.h - 2);
+    knob.style.width = ks + "px";
+    knob.style.height = ks + "px";
+    knob.style.left = on ? Math.max(1, e.w - ks - 1) + "px" : "1px";
+    b.appendChild(knob);
+    b.addEventListener("click", () => {
+      state.sim.toggles[e.id] = !on;
+      state.sim.last = "Toggled “" + (e.name || "toggle") + "” → " + (!on ? "ON" : "OFF");
+      render();
+    });
+    return b;
+  }
+
+  if (e.kind === "slider") {
+    const val = state.sim.sliders[e.id] !== undefined ? state.sim.sliders[e.id] : (e.sliderValue ?? 0.5);
+    const d = document.createElement("div");
+    d.className = "el elslider";
+    d.dataset.id = e.id;
+    d.style.setProperty("--base-fill", e.fill);
+    d.style.setProperty("--on-fill", e.onFill || e.knob);
+    d.style.setProperty("--knob", e.knob);
+    commonStyle(d, e);
+    const fill = document.createElement("div");
+    fill.className = "fill";
+    fill.style.width = (val * 100) + "%";
+    d.appendChild(fill);
+    const knob = document.createElement("div");
+    knob.className = "knob";
+    knob.style.left = (val * 100) + "%";
+    d.appendChild(knob);
+    const setFromEvent = (ev) => {
+      const r = d.getBoundingClientRect();
+      const v = clamp((ev.clientX - r.left) / Math.max(1, r.width), 0, 1);
+      state.sim.sliders[e.id] = v;
+      e.sliderValue = v;
+      fill.style.width = (v * 100) + "%";
+      knob.style.left = (v * 100) + "%";
+      state.sim.last = "Slider “" + (e.name || "slider") + "” → " + Math.round(v * 100) + "%";
+      updateStatus(); updateCSS();
+    };
+    d.addEventListener("pointerdown", (ev) => {
+      setFromEvent(ev);
+      const move = (m) => setFromEvent(m);
+      const up = () => {
+        window.removeEventListener("pointermove", move);
+        window.removeEventListener("pointerup", up);
+      };
+      window.addEventListener("pointermove", move);
+      window.addEventListener("pointerup", up);
+    });
+    return d;
+  }
+
+  const d = document.createElement("div");
+  d.className = "el" + (e.kind === "text" ? " text" : "");
+  d.dataset.id = e.id;
+  commonStyle(d, e);
+  if (e.kind !== "text") d.style.background = e.fill;
+  d.textContent = e.text || "";
+  return d;
+}
+
+function renderLayers() {
+  const list = $("#layer-list");
+  list.innerHTML = "";
+  const sorted = state.els.slice().sort((a, b) => b.z - a.z);
+  if (!sorted.length) {
+    list.innerHTML = '<div class="empty">No elements yet.<br>Pick a tool above, then drag on the canvas.</div>';
+    return;
+  }
+  for (const e of sorted) {
+    const row = document.createElement("div");
+    row.className = "layer" + (state.sel.includes(e.id) ? " sel" : "");
+    const eye = document.createElement("span");
+    eye.className = "eye" + (e.visible ? "" : " off");
+    eye.textContent = e.visible ? "◉" : "○";
+    eye.title = "Toggle visibility";
+    eye.onclick = (ev) => { ev.stopPropagation(); pushHistory(); e.visible = !e.visible; render(); };
+    const kind = document.createElement("span");
+    kind.className = "kind"; kind.textContent = e.kind;
+    const nm = document.createElement("span");
+    nm.className = "nm"; nm.textContent = e.name;
+    row.append(eye, kind, nm);
+    row.onclick = (ev) => {
+      if (ev.shiftKey) {
+        const i = state.sel.indexOf(e.id);
+        if (i >= 0) state.sel.splice(i, 1); else state.sel.push(e.id);
+      } else state.sel = [e.id];
+      render();
+    };
+    list.appendChild(row);
+  }
+}
+
+function updateStatus() {
+  const pill = $("#sim-mode");
+  const msg = $("#sim-msg");
+  if (!isPreview()) {
+    pill.textContent = "DESIGN";
+    msg.innerHTML = "<b>Design mode</b> — drag, resize and recolour elements. Hit <b>Preview ▸</b> to click and type in your UI.";
+    return;
+  }
+  pill.textContent = "PREVIEW";
+  const bits = [];
+  if (state.sim.last) bits.push(state.sim.last);
+  const focused = state.sim.focusId ? byId(state.sim.focusId) : null;
+  if (focused) bits.push("focus: " + (focused.name || focused.kind));
+  bits.push("Tab to move focus · Enter/Space to activate · click inputs to type");
+  msg.innerHTML = "<b>Preview</b> — " + bits.map((b) => b.replace(/&/g, "&").replace(/</g, "<")).join(" &nbsp;·&nbsp; ");
+}
+
+/* ------------------------------------------------------------- properties */
+function renderProps() {
+  const s = selected();
+  propBody.innerHTML = "";
+  if (!s.length) {
+    propBody.innerHTML = '<div class="empty">Select an element to edit it.<br><br>' +
+      'Double-click a text element to type into it directly.</div>';
+    return;
+  }
+  if (s.length > 1) {
+    const info = document.createElement("div");
+    info.className = "hint";
+    info.textContent = s.length + " elements selected. Drag to move them together; properties edit the first one.";
+    propBody.appendChild(info);
+  }
+  const e = s[0];
+  const R = (label, control) => {
+    const row = document.createElement("div");
+    row.className = "row";
+    const l = document.createElement("label"); l.textContent = label;
+    row.append(l, control);
+    propBody.appendChild(row);
+    return row;
+  };
+  const sect = (t) => {
+    const d = document.createElement("div"); d.className = "sect"; d.textContent = t;
+    propBody.appendChild(d);
+  };
+  const num = (val, step, fn) => {
+    const i = document.createElement("input");
+    i.type = "number"; i.value = val; if (step) i.step = step;
+    i.oninput = () => fn(parseFloat(i.value) || 0);
+    return i;
+  };
+  const txt = (val, fn) => {
+    const i = document.createElement("input");
+    i.type = "text"; i.value = val;
+    i.oninput = () => fn(i.value);
+    i.onchange = pushHistory;
+    return i;
+  };
+  const color = (val, fn) => {
+    const i = document.createElement("input");
+    i.type = "color"; i.value = normHex(val);
+    i.oninput = () => fn(i.value);
+    i.onchange = pushHistory;
+    return i;
+  };
+  const check = (val, fn) => {
+    const i = document.createElement("input");
+    i.type = "checkbox"; i.checked = !!val;
+    i.onchange = () => { pushHistory(); fn(i.checked); };
+    return i;
+  };
+  const sel = (val, opts, fn) => {
+    const i = document.createElement("select");
+    for (const o of opts) {
+      const op = document.createElement("option");
+      op.value = o[0]; op.textContent = o[1];
+      i.appendChild(op);
+    }
+    i.value = val;
+    i.onchange = () => { pushHistory(); fn(i.value); };
+    return i;
+  };
+
+  sect("Element");
+  R("Name", txt(e.name, (v) => { e.name = v; renderLayers(); }));
+  R("Kind", (() => { const i = document.createElement("div"); i.textContent = e.kind; i.style.color = "#7d848d"; return i; })());
+  R("X", num(e.x, 1, (v) => { e.x = v; refresh(); }));
+  R("Y", num(e.y, 1, (v) => { e.y = v; refresh(); }));
+  R("Width", num(e.w, 1, (v) => { e.w = Math.max(1, v); refresh(); }));
+  R("Height", num(e.h, 1, (v) => { e.h = Math.max(1, v); refresh(); }));
+  R("Opacity", (() => {
+    const wrap = document.createElement("div");
+    const r = document.createElement("input");
+    r.type = "range"; r.min = "0"; r.max = "1"; r.step = "0.05"; r.value = e.opacity;
+    r.oninput = () => { e.opacity = parseFloat(r.value); refresh(); };
+    r.onchange = pushHistory;
+    wrap.appendChild(r); return wrap;
+  })());
+  R("Order", (() => {
+    const wrap = document.createElement("div");
+    wrap.style.cssText = "display:flex;gap:4px;";
+    const up = document.createElement("button"); up.textContent = "↑"; up.onclick = () => reorder(1);
+    const dn = document.createElement("button"); dn.textContent = "↓"; dn.onclick = () => reorder(-1);
+    wrap.append(up, dn); return wrap;
+  })());
+
+  if (e.kind !== "text") {
+    sect("Box");
+    R("Fill", color(e.fill, (v) => { e.fill = v; refresh(); }));
+    R("Radius", num(e.radius, 1, (v) => { e.radius = Math.max(0, v); refresh(); }));
+    R("Border", num(e.strokeWidth, 1, (v) => { e.strokeWidth = Math.max(0, v); refresh(); }));
+    R("Border color", color(e.stroke, (v) => { e.stroke = v; refresh(); }));
+  }
+
+  if (e.kind === "button") {
+    sect("Button states");
+    R("Hover fill", color(e.hoverFill || "#e8902c", (v) => { e.hoverFill = v; refresh(); }));
+    R("Focus fill", color(e.focusFill || "#8a5214", (v) => { e.focusFill = v; refresh(); }));
+    R("Press fill", color(e.activeFill || "#f2a03c", (v) => { e.activeFill = v; refresh(); }));
+  }
+  if (e.kind === "toggle") {
+    sect("Toggle states");
+    R("On fill", color(e.onFill || "#d9801e", (v) => { e.onFill = v; refresh(); }));
+    R("Knob color", color(e.knob, (v) => { e.knob = v; refresh(); }));
+    R("Starts on", check(e.toggleOn, (v) => { e.toggleOn = v; state.sim.toggles[e.id] = v; refresh(); }));
+  }
+  if (e.kind === "slider") {
+    sect("Slider");
+    R("Knob color", color(e.knob, (v) => { e.knob = v; refresh(); }));
+    R("Filled", color(e.onFill || "#8a5214", (v) => { e.onFill = v; refresh(); }));
+    R("Value", num(Math.round((e.sliderValue ?? 0.5) * 100), 1, (v) => {
+      e.sliderValue = clamp(v / 100, 0, 1); state.sim.sliders[e.id] = e.sliderValue; refresh();
+    }));
+  }
+
+  if (e.kind !== "rect") {
+    sect("Text");
+    R(e.kind === "input" ? "Placeholder" : "Content", txt(e.text, (v) => { e.text = v; refresh(); }));
+    R("Color", color(e.fontColor, (v) => { e.fontColor = v; refresh(); }));
+    R("Size", num(e.fontSize, 1, (v) => { e.fontSize = Math.max(1, v); refresh(); }));
+    R("Weight", sel(e.fontWeight, [["400", "Regular"], ["500", "Medium"], ["600", "Semi-bold"], ["700", "Bold"]], (v) => { e.fontWeight = v; refresh(); }));
+    R("Align", sel(e.align, [["left", "Left"], ["center", "Center"], ["right", "Right"]], (v) => { e.align = v; refresh(); }));
+    R("Letter sp.", num(e.letterSpacing, 0.5, (v) => { e.letterSpacing = v; refresh(); }));
+    R("Line height", num(e.lineHeight, 0.05, (v) => { e.lineHeight = v; refresh(); }));
+    R("Uppercase", check(e.uppercase, (v) => { e.uppercase = v; refresh(); }));
+    R("Font", sel(e.fontFamily, FONT_STACK, (v) => { e.fontFamily = v; refresh(); }));
+  }
+}
+
+function normHex(c) {
+  if (!c || c === "transparent") return "#000000";
+  if (/^#[0-9a-f]{6}$/i.test(c)) return c;
+  if (/^#[0-9a-f]{3}$/i.test(c)) return "#" + c[1] + c[1] + c[2] + c[2] + c[3] + c[3];
+  return "#000000";
+}
+
+/* ------------------------------------------------------------------- css */
+function buildCSS() {
+  const taken = new Set();
+  const used = new Map();
+  const track = (c) => {
+    if (!c || c === "transparent") return;
+    const key = c.toLowerCase();
+    used.set(key, (used.get(key) || 0) + 1);
+  };
+  state.els.forEach((e) => {
+    track(e.fill); track(e.stroke); track(e.fontColor);
+    track(e.hoverFill); track(e.focusFill); track(e.activeFill); track(e.onFill); track(e.knob);
+  });
+
+  const GODOT = { button: "Button", input: "LineEdit", toggle: "CheckButton", slider: "HSlider", text: "Label", rect: "Panel/ColorRect" };
+  const L = [];
+  L.push("/* ------------------------------------------------------------------");
+  L.push(" * WindShear — UI reference (generated by ui_reference_editor.html)");
+  L.push(" * Artboard: " + state.ab.w + " x " + state.ab.h + " px  (game's internal resolution)");
+  L.push(" * 1 px here = 1 px in game. Grid: " + state.grid + " px.");
+  L.push(" * Convert to Godot: background/border/radius -> StyleBoxFlat in a Theme;");
+  L.push(" * colour/font/letter-spacing -> Theme Colors / Fonts / Constants;");
+  L.push(" * left/top/width/height -> Control offsets (or anchors) in the .tscn.");
+  L.push(" * Label text is carried in a /* text: \"...\" */ comment on each rule.");
+  L.push(" * ------------------------------------------------------------------ */");
+  L.push("");
+  L.push(":root {");
+  L.push("  --ws-bg: " + state.ab.bg + ";");
+  let i = 1;
+  for (const [c, n] of [...used.entries()].sort((a, b) => b[1] - a[1])) {
+    L.push("  --ws-c" + i + ": " + c + "; /* used " + n + "x */");
+    i++;
+  }
+  L.push("}");
+  L.push("");
+  L.push(".artboard {");
+  L.push("  position: relative;");
+  L.push("  width: " + state.ab.w + "px;");
+  L.push("  height: " + state.ab.h + "px;");
+  L.push("  background: var(--ws-bg);");
+  L.push("  overflow: hidden;");
+  L.push("}");
+  L.push("");
+
+  const sorted = state.els.slice().sort((a, b) => a.z - b.z);
+  for (const e of sorted) {
+    if (!e.visible) continue;
+    const cls = slug(e.name, taken);
+    L.push("/* " + e.kind + " — " + e.name + "  →  Godot: " + (GODOT[e.kind] || "Control") + " */");
+    L.push("." + cls + " {");
+    L.push("  position: absolute;");
+    L.push("  left: " + round(e.x) + "px;");
+    L.push("  top: " + round(e.y) + "px;");
+    L.push("  width: " + round(e.w) + "px;");
+    L.push("  height: " + round(e.h) + "px;");
+    if (e.opacity !== 1) L.push("  opacity: " + e.opacity + ";");
+    if (e.kind !== "text") {
+      L.push("  background: " + e.fill + ";");
+      L.push("  border-radius: " + round(e.radius) + "px;");
+      if (e.strokeWidth > 0) L.push("  border: " + e.strokeWidth + "px solid " + e.stroke + ";");
+    }
+    if (e.kind === "toggle" || e.kind === "slider") {
+      L.push("  /* knob colour: " + e.knob + " */");
+    }
+    if (e.kind !== "rect") {
+      L.push("  color: " + e.fontColor + ";");
+      L.push("  font-family: " + e.fontFamily + ";");
+      L.push("  font-size: " + e.fontSize + "px;");
+      L.push("  font-weight: " + e.fontWeight + ";");
+      L.push("  text-align: " + e.align + ";");
+      if (e.letterSpacing) L.push("  letter-spacing: " + e.letterSpacing + "px;");
+      L.push("  line-height: " + e.lineHeight + ";");
+      if (e.uppercase) L.push("  text-transform: uppercase;");
+      if (e.text !== "") {
+        L.push("  /* text: \"" + e.text.replace(/"/g, "\\\"") + "\" */");
+      }
+      if (e.kind === "input") {
+        const val = state.sim.values[e.id];
+        if (val) L.push("  /* value: \"" + val.replace(/"/g, "\\\"") + "\" */");
+      }
+    }
+    if (e.kind === "toggle") {
+      const on = state.sim.toggles[e.id] !== undefined ? state.sim.toggles[e.id] : !!e.toggleOn;
+      L.push("  /* toggle states: off = " + e.fill + ", on = " + (e.onFill || e.knob) + " */");
+      L.push("  /* starts " + (on ? "on" : "off") + " */");
+    }
+    if (e.kind === "slider") {
+      const val = state.sim.sliders[e.id] !== undefined ? state.sim.sliders[e.id] : (e.sliderValue ?? 0.5);
+      L.push("  /* slider value: " + Math.round(val * 100) + "% */");
+      L.push("  /* filled track: " + (e.onFill || e.knob) + " */");
+    }
+    L.push("}");
+    if (e.kind === "button") {
+      if (e.hoverFill) L.push("." + cls + ":hover { background: " + e.hoverFill + "; }");
+      if (e.focusFill) L.push("." + cls + ":focus { background: " + e.focusFill + "; }");
+      if (e.activeFill) L.push("." + cls + ":active { background: " + e.activeFill + "; }");
+    }
+    L.push("");
+  }
+  return L.join("\n");
+}
+function round(v) { return Math.round(v * 100) / 100; }
+function updateCSS() {
+  cssOut.value = buildCSS();
+  $("#css-stats").textContent = state.els.length + " element(s) · " + cssOut.value.length + " chars";
+}
+
+/* ------------------------------------------------------------ interaction */
+function boardPoint(ev) {
+  const r = artboard.getBoundingClientRect();
+  return { x: (ev.clientX - r.left) / state.zoom, y: (ev.clientY - r.top) / state.zoom };
+}
+let drag = null;
+
+artboard.addEventListener("pointerdown", (ev) => {
+  if (isPreview()) return;
+  const handle = ev.target.closest(".handle");
+  if (handle) {
+    const e = byId(parseInt(handle.dataset.for, 10));
+    if (!e) return;
+    pushHistory();
+    drag = { mode: "resize", dir: handle.dataset.dir, el: e, start: boardPoint(ev), orig: Object.assign({}, e) };
+    artboard.setPointerCapture(ev.pointerId);
+    ev.preventDefault();
+    return;
+  }
+  const node = ev.target.closest(".el");
+  if (node) {
+    const e = byId(parseInt(node.dataset.id, 10));
+    if (!e) return;
+    if (ev.shiftKey) {
+      const i = state.sel.indexOf(e.id);
+      if (i >= 0) state.sel.splice(i, 1); else state.sel.push(e.id);
+      render();
+    } else if (!state.sel.includes(e.id)) {
+      state.sel = [e.id];
+      render();
+    }
+    if (e.locked) return;
+    pushHistory();
+    drag = { mode: "move", start: boardPoint(ev), origs: selected().map((s) => ({ id: s.id, x: s.x, y: s.y })) };
+    artboard.setPointerCapture(ev.pointerId);
+    ev.preventDefault();
+    return;
+  }
+  if (state.tool) {
+    const p = boardPoint(ev);
+    drag = { mode: "create", start: p, kind: state.tool };
+    state.tool = null;
+    document.querySelectorAll("[data-add]").forEach((b) => b.classList.remove("on"));
+    artboard.setPointerCapture(ev.pointerId);
+    return;
+  }
+  drag = { mode: "marquee", start: boardPoint(ev) };
+  marquee.style.display = "block";
+  artboard.setPointerCapture(ev.pointerId);
+});
+
+window.addEventListener("pointermove", (ev) => {
+  if (!drag || isPreview()) return;
+  const p = boardPoint(ev);
+  if (drag.mode === "move") {
+    let dx = p.x - drag.start.x, dy = p.y - drag.start.y;
+    if (ev.shiftKey) { if (Math.abs(dx) > Math.abs(dy)) dy = 0; else dx = 0; }
+    for (const o of drag.origs) {
+      const el = byId(o.id);
+      if (!el) continue;
+      el.x = o.x + dx; el.y = o.y + dy;
+      if (state.snap) { el.x = snapVal(el.x); el.y = snapVal(el.y); }
+    }
+    render();
+  } else if (drag.mode === "resize") {
+    const e = drag.el, o = drag.orig;
+    let dx = p.x - drag.start.x, dy = p.y - drag.start.y;
+    if (ev.shiftKey) { const m = Math.max(Math.abs(dx), Math.abs(dy)); dx = Math.sign(dx || 1) * m; dy = Math.sign(dy || 1) * m; }
+    let x = o.x, y = o.y, w = o.w, h = o.h;
+    if (drag.dir.includes("e")) w = o.w + dx;
+    if (drag.dir.includes("s")) h = o.h + dy;
+    if (drag.dir.includes("w")) { w = o.w - dx; x = o.x + dx; }
+    if (drag.dir.includes("n")) { h = o.h - dy; y = o.y + dy; }
+    if (w < 2) { w = 2; if (drag.dir.includes("w")) x = o.x + o.w - 2; }
+    if (h < 2) { h = 2; if (drag.dir.includes("n")) y = o.y + o.h - 2; }
+    if (state.snap) { x = snapVal(x); y = snapVal(y); w = snapVal(w); h = snapVal(h); }
+    e.x = x; e.y = y; e.w = w; e.h = h;
+    render();
+  } else if (drag.mode === "marquee") {
+    const a = drag.start;
+    const x = Math.min(a.x, p.x), y = Math.min(a.y, p.y);
+    const w = Math.abs(p.x - a.x), h = Math.abs(p.y - a.y);
+    marquee.style.left = x + "px"; marquee.style.top = y + "px";
+    marquee.style.width = w + "px"; marquee.style.height = h + "px";
+  } else if (drag.mode === "create") {
+    const a = drag.start;
+    const x = Math.min(a.x, p.x), y = Math.min(a.y, p.y);
+    const w = Math.abs(p.x - a.x), h = Math.abs(p.y - a.y);
+    let d = document.getElementById("__ghost");
+    if (!d) {
+      d = document.createElement("div"); d.id = "__ghost";
+      d.style.cssText = "position:absolute;border:1px dashed #4aa3ff;pointer-events:none;";
+      artboard.appendChild(d);
+    }
+    d.style.left = x + "px"; d.style.top = y + "px";
+    d.style.width = w + "px"; d.style.height = h + "px";
+  }
+});
+
+window.addEventListener("pointerup", (ev) => {
+  if (!drag || isPreview()) { drag = null; return; }
+  const p = boardPoint(ev);
+  if (drag.mode === "marquee") {
+    const a = drag.start;
+    const x = Math.min(a.x, p.x), y = Math.min(a.y, p.y);
+    const w = Math.abs(p.x - a.x), h = Math.abs(p.y - a.y);
+    marquee.style.display = "none";
+    if (w > 2 || h > 2) {
+      state.sel = state.els.filter((e) => e.visible &&
+        e.x < x + w && e.x + e.w > x && e.y < y + h && e.y + e.h > y).map((e) => e.id);
+    } else state.sel = [];
+    render();
+  } else if (drag.mode === "create") {
+    const ghost = document.getElementById("__ghost");
+    if (ghost) ghost.remove();
+    const a = drag.start;
+    const w = Math.abs(p.x - a.x), h = Math.abs(p.y - a.y);
+    const def = KINDS[drag.kind].def;
+    addElement(drag.kind, Math.min(a.x, p.x), Math.min(a.y, p.y),
+      w > 4 ? w : def.w, h > 4 ? h : def.h);
+  }
+  drag = null;
+});
+
+artboard.addEventListener("dblclick", (ev) => {
+  if (isPreview()) return;
+  const node = ev.target.closest(".el");
+  if (!node) return;
+  const e = byId(parseInt(node.dataset.id, 10));
+  if (!e) return;
+  state.sel = [e.id];
+  const d = artboard.querySelector('.el[data-id="' + e.id + '"]');
+  if (d && (e.kind === "text" || e.kind === "button" || e.kind === "input")) {
+    d.contentEditable = "true";
+    d.style.outline = "1px solid #4aa3ff";
+    d.focus();
+    const caret = d.textContent.length;
+    const sel = window.getSelection();
+    if (sel && sel.rangeCount === 0) {
+      const range = document.createRange();
+      range.setStart(d.firstChild || d, caret);
+      range.collapse(true);
+      sel.addRange(range);
+    }
+    // While editing, update the model live but never re-render the artboard:
+    // rebuilding the DOM would destroy the editor mid-keystroke.
+    d.oninput = () => { e.text = d.textContent; updateCSS(); };
+    const commit = () => {
+      d.contentEditable = "false";
+      e.text = d.textContent;
+      render();
+    };
+    d.onblur = commit;
+    d.onkeydown = (ke) => {
+      ke.stopPropagation();
+      if (ke.key === "Enter" && !ke.shiftKey) { ke.preventDefault(); d.blur(); }
+      if (ke.key === "Escape") { ke.preventDefault(); d.blur(); }
+    };
+  }
+});
+
+/* ------------------------------------------------------------- shortcuts */
+function isTextEntryTarget(ev) {
+  const t = ev.target;
+  if (!t) return false;
+  const tag = (t.tagName || "").toLowerCase();
+  if (tag === "input" || tag === "textarea" || tag === "select") return true;
+  if (t.isContentEditable) return true;
+  if (t.closest && t.closest('[contenteditable="true"]')) return true;
+  if (t.closest && t.closest("#prop-body")) return true;
+  return false;
+}
+
+window.addEventListener("keydown", (ev) => {
+  // Never steal keystrokes from text fields or inline editors.
+  if (isTextEntryTarget(ev)) {
+    if ((ev.ctrlKey || ev.metaKey) && ev.key.toLowerCase() === "s") ev.preventDefault();
+    return;
+  }
+  const k = ev.key.toLowerCase();
+  if (ev.ctrlKey || ev.metaKey) {
+    if (k === "z") { ev.preventDefault(); ev.shiftKey ? redo() : undo(); }
+    else if (k === "y") { ev.preventDefault(); redo(); }
+    else if (k === "d") { ev.preventDefault(); duplicateSelected(); }
+    else if (k === "c") { ev.preventDefault(); state.clipboard = selected().map((e) => Object.assign({}, e)); }
+    else if (k === "v") {
+      ev.preventDefault();
+      if (state.clipboard && state.clipboard.length) {
+        pushHistory();
+        const copies = state.clipboard.map((e) => Object.assign({}, e, { id: state.nextId++, z: state.nextId++, x: e.x + 12, y: e.y + 12 }));
+        state.els.push(...copies);
+        state.sel = copies.map((c) => c.id);
+        render();
+      }
+    }
+    else if (k === "e") { ev.preventDefault(); downloadCSS(); }
+    return;
+  }
+  if (isPreview()) return;   // preview keeps native keyboard behaviour
+  if (k === "delete" || k === "backspace") { ev.preventDefault(); deleteSelected(); }
+  else if (k === "arrowleft") { ev.preventDefault(); nudge(ev.shiftKey ? -10 : -1, 0); }
+  else if (k === "arrowright") { ev.preventDefault(); nudge(ev.shiftKey ? 10 : 1, 0); }
+  else if (k === "arrowup") { ev.preventDefault(); nudge(0, ev.shiftKey ? -10 : -1); }
+  else if (k === "arrowdown") { ev.preventDefault(); nudge(0, ev.shiftKey ? 10 : 1); }
+  else if (k === "g") { toggleGrid(); }
+  else if (k === "s") { toggleSnap(); }
+  else if (k === "escape") { state.sel = []; render(); }
+});
+
+/* ------------------------------------------------------------------ io */
+function download(name, text, mime) {
+  const blob = new Blob([text], { type: mime || "text/plain" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+}
+function downloadCSS() {
+  download("windshear_ui_reference.css", buildCSS(), "text/css");
+}
+function copyCSS() {
+  const txt = buildCSS();
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt).then(
+      () => flash("#copy-css", "Copied"),
+      () => fallbackCopy(txt)
+    );
+  } else fallbackCopy(txt);
+}
+function fallbackCopy(txt) {
+  cssOut.focus(); cssOut.select();
+  try { document.execCommand("copy"); flash("#copy-css", "Copied"); }
+  catch (e) { flash("#copy-css", "Ctrl+C"); }
+}
+function flash(sel, msg) {
+  const b = $(sel); const old = b.textContent;
+  b.textContent = msg;
+  setTimeout(() => { b.textContent = old; }, 1200);
+}
+
+/* ---------------------------------------------------------------- wiring */
+function syncInputs() {
+  $("#ab-w").value = state.ab.w; $("#ab-h").value = state.ab.h;
+  $("#ab-bg").value = normHex(state.ab.bg); $("#grid").value = state.grid;
+}
+function toggleGrid() {
+  state.showGrid = !state.showGrid;
+  $("#grid-toggle").classList.toggle("on", state.showGrid);
+  render();
+}
+function toggleSnap() {
+  state.snap = !state.snap;
+  $("#snap").classList.toggle("on", state.snap);
+}
+function setMode(mode) {
+  state.mode = mode;
+  document.body.classList.toggle("preview", mode === "preview");
+  $("#mode-design").classList.toggle("on", mode === "design");
+  $("#mode-preview").classList.toggle("on", mode === "preview");
+  if (mode === "design") {
+    state.sel = [];
+    document.querySelectorAll("[data-add]").forEach((b) => b.classList.remove("on"));
+  }
+  render();
+}
+
+document.querySelectorAll("[data-add]").forEach((b) => {
+  b.onclick = () => {
+    if (isPreview()) setMode("design");
+    state.tool = b.dataset.add;
+    document.querySelectorAll("[data-add]").forEach((o) => o.classList.toggle("on", o === b));
+  };
+});
+$("#ab-w").oninput = (e) => { state.ab.w = Math.max(16, parseInt(e.target.value) || 480); render(); };
+$("#ab-h").oninput = (e) => { state.ab.h = Math.max(16, parseInt(e.target.value) || 270); render(); };
+$("#ab-bg").oninput = (e) => { state.ab.bg = e.target.value; render(); };
+$("#grid").oninput = (e) => { state.grid = Math.max(1, parseInt(e.target.value) || 8); render(); };
+$("#zoom").onchange = () => render();
+window.addEventListener("resize", () => {
+  if ($("#zoom").value === "fit") render();
+});
+$("#snap").onclick = toggleSnap;
+$("#grid-toggle").onclick = toggleGrid;
+$("#mode-design").onclick = () => setMode("design");
+$("#mode-preview").onclick = () => setMode("preview");
+$("#undo").onclick = undo;
+$("#redo").onclick = redo;
+$("#download-css").onclick = downloadCSS;
+$("#copy-css").onclick = copyCSS;
+$("#export-json").onclick = () => download("windshear_ui_reference.json", JSON.stringify(state, null, 2), "application/json");
+$("#import-json").onclick = () => $("#file-json").click();
+$("#file-json").onchange = (e) => {
+  const f = e.target.files[0];
+  if (!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    try {
+      const d = JSON.parse(r.result);
+      pushHistory();
+      state.ab = d.ab || state.ab;
+      state.grid = d.grid || state.grid;
+      state.els = d.els || [];
+      state.nextId = state.els.reduce((m, x) => Math.max(m, x.id + 1), 1);
+      state.sel = [];
+      syncInputs(); render();
+    } catch (err) { alert("Could not parse that file: " + err.message); }
+  };
+  r.readAsText(f);
+  e.target.value = "";
+};
+$("#help-btn").onclick = () => {
+  const h = $("#help");
+  h.classList.toggle("open");
+  $("#css-pane").style.display = h.classList.contains("open") ? "none" : "grid";
+};
+$("#toggle-css").onclick = () => {
+  document.body.classList.toggle("css-collapsed");
+  $("#toggle-css").textContent = document.body.classList.contains("css-collapsed") ? "CSS ▴" : "CSS ▾";
+  render();
+};
+
+/* ------------------------------------------------------------- bootstrap */
+const DEMO = [
+  { kind: "text", name: "Game title", x: 52, y: 18, w: 240, h: 54, text: "WINDSHEAR", fontSize: 34, fontWeight: "700", letterSpacing: 2, fontColor: "#f2f4f6" },
+  { kind: "button", name: "Load game", x: 52, y: 112, w: 180, h: 18, text: "LOAD GAME", fontSize: 11, fontWeight: "400", align: "left", fill: "transparent", fontColor: "#d7dbe0", hoverFill: "#d9801e", focusFill: "#8a5214", activeFill: "#f2a03c" },
+  { kind: "button", name: "Save game", x: 52, y: 135, w: 180, h: 18, text: "SAVE GAME", fontSize: 11, fontWeight: "400", align: "left", fill: "transparent", fontColor: "#d7dbe0", hoverFill: "#d9801e", focusFill: "#8a5214", activeFill: "#f2a03c" },
+  { kind: "button", name: "Settings", x: 52, y: 158, w: 180, h: 18, text: "SETTINGS", fontSize: 11, fontWeight: "400", align: "left", fill: "transparent", fontColor: "#d7dbe0", hoverFill: "#d9801e", focusFill: "#8a5214", activeFill: "#f2a03c" },
+  { kind: "button", name: "Quit", x: 52, y: 181, w: 180, h: 18, text: "QUIT", fontSize: 11, fontWeight: "400", align: "left", fill: "transparent", fontColor: "#d7dbe0", hoverFill: "#d9801e", focusFill: "#8a5214", activeFill: "#f2a03c" },
+  { kind: "text", name: "Footer", x: 52, y: 213, w: 400, h: 11, text: "v0.1.0-alpha · WINDSHEAR · FREE AND OPEN SOURCE", fontSize: 7, fontColor: "#8d949c", letterSpacing: 0.5 },
+  { kind: "text", name: "Demo panel title", x: 300, y: 120, w: 160, h: 12, text: "INTERACTIVE DEMO", fontSize: 7, fontColor: "#8d949c", letterSpacing: 1 },
+  { kind: "slider", name: "Demo slider", x: 300, y: 140, w: 150, h: 8, fill: "#262b33", onFill: "#8a5214", knob: "#d9801e", sliderValue: 0.4 },
+  { kind: "toggle", name: "Demo toggle", x: 300, y: 162, w: 30, h: 16, fill: "#262b33", onFill: "#d9801e", knob: "#e9e9e9", toggleOn: false },
+  { kind: "input", name: "Demo input", x: 340, y: 162, w: 110, h: 16, fill: "#0c0e12", stroke: "#3a4048", strokeWidth: 1, fontSize: 9, fontColor: "#d7dbe0", text: "type here" },
+  { kind: "button", name: "Demo button", x: 300, y: 190, w: 150, h: 22, text: "DEMO BUTTON", fontSize: 9, fontWeight: "600", align: "center", fill: "#1b1f27", fontColor: "#d7dbe0", hoverFill: "#2a303a", focusFill: "#8a5214", activeFill: "#f2a03c" },
+];
+(function seed() {
+  for (const d of DEMO) {
+    const e = makeEl(d.kind, d.x, d.y, d.w, d.h);
+    Object.assign(e, d, { id: state.nextId++, z: state.nextId++ });
+    state.els.push(e);
+  }
+  syncInputs();
+  render();
+})();
+
+/* expose a tiny API for automated smoke checks */
+window.__uiref = {
+  state,
+  buildCSS,
+  addElement,
+  setSize: (w, h) => { state.ab.w = w; state.ab.h = h; render(); },
+  setMode,
+  ready: true,
+};
+</script>
+</body>
+</html>

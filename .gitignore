@@ -1,0 +1,26 @@
+# Godot 4 — generated editor/import cache
+.godot/
+.import/
+
+# Export output
+/build/
+/dist/
+/export/
+*.pck
+*.zip
+
+# Editor / OS cruft
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Python (tools/)
+__pycache__/
+*.pyc
+
+# Local scratch
+*.log
+/tmp/

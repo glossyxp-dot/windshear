@@ -1,0 +1,285 @@
+[gd_scene load_steps=31 format=3]
+
+[ext_resource type="Script" path="res://world/greybox/movement_greybox.gd" id="1_greybox"]
+[ext_resource type="Script" path="res://addons/windshear/movement/lancer_controller.gd" id="2_lancer"]
+[ext_resource type="Script" path="res://addons/windshear/movement/camera_rig.gd" id="3_camera"]
+
+[sub_resource type="StandardMaterial3D" id="Charcoal"]
+albedo_color = Color(0.145, 0.157, 0.184, 1)
+roughness = 1.0
+metallic_specular = 0.1
+
+[sub_resource type="StandardMaterial3D" id="Deep"]
+albedo_color = Color(0.086, 0.094, 0.11, 1)
+roughness = 1.0
+metallic_specular = 0.05
+
+[sub_resource type="StandardMaterial3D" id="Glow"]
+albedo_color = Color(0.29, 0.64, 1, 1)
+emission_enabled = true
+emission = Color(0.29, 0.64, 1, 1)
+emission_energy_multiplier = 1.6
+roughness = 0.6
+
+[sub_resource type="Environment" id="GreyboxEnvironment"]
+background_mode = 1
+background_color = Color(0.027, 0.035, 0.047, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.42, 0.45, 0.51, 1)
+ambient_light_energy = 0.55
+fog_enabled = true
+fog_light_color = Color(0.055, 0.071, 0.094, 1)
+fog_density = 0.008
+
+[sub_resource type="BoxShape3D" id="FloorShape"]
+size = Vector3(60, 1, 8)
+
+[sub_resource type="BoxMesh" id="FloorMesh"]
+size = Vector3(60, 1, 8)
+
+[sub_resource type="BoxShape3D" id="BackWallShape"]
+size = Vector3(60, 12, 0.2)
+
+[sub_resource type="BoxMesh" id="BackWallMesh"]
+size = Vector3(60, 12, 0.2)
+
+[sub_resource type="BoxShape3D" id="PlatformAShape"]
+size = Vector3(5, 0.5, 5)
+
+[sub_resource type="BoxMesh" id="PlatformAMesh"]
+size = Vector3(5, 0.5, 5)
+
+[sub_resource type="BoxShape3D" id="PlatformBShape"]
+size = Vector3(4, 0.5, 5)
+
+[sub_resource type="BoxMesh" id="PlatformBMesh"]
+size = Vector3(4, 0.5, 5)
+
+[sub_resource type="BoxShape3D" id="PlatformCShape"]
+size = Vector3(5, 0.5, 5)
+
+[sub_resource type="BoxMesh" id="PlatformCMesh"]
+size = Vector3(5, 0.5, 5)
+
+[sub_resource type="BoxShape3D" id="PlatformDShape"]
+size = Vector3(6, 0.5, 5)
+
+[sub_resource type="BoxMesh" id="PlatformDMesh"]
+size = Vector3(6, 0.5, 5)
+
+[sub_resource type="BoxShape3D" id="PlatformEShape"]
+size = Vector3(4, 0.5, 5)
+
+[sub_resource type="BoxMesh" id="PlatformEMesh"]
+size = Vector3(4, 0.5, 5)
+
+[sub_resource type="BoxShape3D" id="RampShape"]
+size = Vector3(8, 0.5, 5)
+
+[sub_resource type="BoxMesh" id="RampMesh"]
+size = Vector3(8, 0.5, 5)
+
+[sub_resource type="BoxShape3D" id="WallShape"]
+size = Vector3(1, 5, 5)
+
+[sub_resource type="BoxMesh" id="WallMesh"]
+size = Vector3(1, 5, 5)
+
+[sub_resource type="BoxShape3D" id="StripShape"]
+size = Vector3(0.25, 0.08, 5.5)
+
+[sub_resource type="BoxMesh" id="StripMesh"]
+size = Vector3(0.25, 0.08, 5.5)
+
+[sub_resource type="BoxShape3D" id="GuideWallShape"]
+size = Vector3(44, 3, 0.2)
+
+[sub_resource type="BoxMesh" id="GuideWallMesh"]
+size = Vector3(44, 3, 0.2)
+
+[sub_resource type="CapsuleShape3D" id="PlayerShape"]
+radius = 0.4
+height = 1.8
+
+[node name="MovementGreybox" type="Node3D"]
+script = ExtResource("1_greybox")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("GreyboxEnvironment")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-52, -35, 0)
+light_color = Color(0.92, 0.94, 1, 1)
+light_energy = 1.1
+shadow_enabled = false
+
+[node name="Geometry" type="Node3D" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="Geometry"]
+position = Vector3(0, -0.5, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Geometry/Floor"]
+mesh = SubResource("FloorMesh")
+surface_material_override/0 = SubResource("Charcoal")
+
+[node name="Shape" type="CollisionShape3D" parent="Geometry/Floor"]
+shape = SubResource("FloorShape")
+
+[node name="BackWall" type="StaticBody3D" parent="Geometry"]
+position = Vector3(0, 4, -4.1)
+
+[node name="Mesh" type="MeshInstance3D" parent="Geometry/BackWall"]
+mesh = SubResource("BackWallMesh")
+surface_material_override/0 = SubResource("Deep")
+
+[node name="Shape" type="CollisionShape3D" parent="Geometry/BackWall"]
+shape = SubResource("BackWallShape")
+
+[node name="PlatformA" type="StaticBody3D" parent="Geometry"]
+position = Vector3(-16, 1, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Geometry/PlatformA"]
+mesh = SubResource("PlatformAMesh")
+surface_material_override/0 = SubResource("Charcoal")
+
+[node name="Shape" type="CollisionShape3D" parent="Geometry/PlatformA"]
+shape = SubResource("PlatformAShape")
+
+[node name="PlatformB" type="StaticBody3D" parent="Geometry"]
+position = Vector3(-9, 2.6, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Geometry/PlatformB"]
+mesh = SubResource("PlatformBMesh")
+surface_material_override/0 = SubResource("Charcoal")
+
+[node name="Shape" type="CollisionShape3D" parent="Geometry/PlatformB"]
+shape = SubResource("PlatformBShape")
+
+[node name="PlatformC" type="StaticBody3D" parent="Geometry"]
+position = Vector3(-2, 1.4, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Geometry/PlatformC"]
+mesh = SubResource("PlatformCMesh")
+surface_material_override/0 = SubResource("Charcoal")
+
+[node name="Shape" type="CollisionShape3D" parent="Geometry/PlatformC"]
+shape = SubResource("PlatformCShape")
+
+[node name="PlatformD" type="StaticBody3D" parent="Geometry"]
+position = Vector3(6, 3, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Geometry/PlatformD"]
+mesh = SubResource("PlatformDMesh")
+surface_material_override/0 = SubResource("Charcoal")
+
+[node name="Shape" type="CollisionShape3D" parent="Geometry/PlatformD"]
+shape = SubResource("PlatformDShape")
+
+[node name="PlatformE" type="StaticBody3D" parent="Geometry"]
+position = Vector3(14, 1.2, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Geometry/PlatformE"]
+mesh = SubResource("PlatformEMesh")
+surface_material_override/0 = SubResource("Charcoal")
+
+[node name="Shape" type="CollisionShape3D" parent="Geometry/PlatformE"]
+shape = SubResource("PlatformEShape")
+
+[node name="Ramp" type="StaticBody3D" parent="Geometry"]
+position = Vector3(20, 0.7, 0)
+rotation = Vector3(0, 0, -0.309)
+
+[node name="Mesh" type="MeshInstance3D" parent="Geometry/Ramp"]
+mesh = SubResource("RampMesh")
+surface_material_override/0 = SubResource("Charcoal")
+
+[node name="Shape" type="CollisionShape3D" parent="Geometry/Ramp"]
+shape = SubResource("RampShape")
+
+[node name="WallBlock" type="StaticBody3D" parent="Geometry"]
+position = Vector3(26, 2.5, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Geometry/WallBlock"]
+mesh = SubResource("WallMesh")
+surface_material_override/0 = SubResource("Deep")
+
+[node name="Shape" type="CollisionShape3D" parent="Geometry/WallBlock"]
+shape = SubResource("WallShape")
+
+[node name="GuideWall" type="StaticBody3D" parent="Geometry"]
+position = Vector3(0, 1.5, -0.5)
+
+[node name="Mesh" type="MeshInstance3D" parent="Geometry/GuideWall"]
+mesh = SubResource("GuideWallMesh")
+surface_material_override/0 = SubResource("Deep")
+
+[node name="Shape" type="CollisionShape3D" parent="Geometry/GuideWall"]
+shape = SubResource("GuideWallShape")
+
+[node name="Strip1" type="StaticBody3D" parent="Geometry"]
+position = Vector3(-21, 0.04, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Geometry/Strip1"]
+mesh = SubResource("StripMesh")
+surface_material_override/0 = SubResource("Glow")
+
+[node name="Shape" type="CollisionShape3D" parent="Geometry/Strip1"]
+shape = SubResource("StripShape")
+
+[node name="Strip2" type="StaticBody3D" parent="Geometry"]
+position = Vector3(-13, 0.04, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Geometry/Strip2"]
+mesh = SubResource("StripMesh")
+surface_material_override/0 = SubResource("Glow")
+
+[node name="Shape" type="CollisionShape3D" parent="Geometry/Strip2"]
+shape = SubResource("StripShape")
+
+[node name="Strip3" type="StaticBody3D" parent="Geometry"]
+position = Vector3(-5, 0.04, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Geometry/Strip3"]
+mesh = SubResource("StripMesh")
+surface_material_override/0 = SubResource("Glow")
+
+[node name="Shape" type="CollisionShape3D" parent="Geometry/Strip3"]
+shape = SubResource("StripShape")
+
+[node name="Strip4" type="StaticBody3D" parent="Geometry"]
+position = Vector3(3, 0.04, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Geometry/Strip4"]
+mesh = SubResource("StripMesh")
+surface_material_override/0 = SubResource("Glow")
+
+[node name="Shape" type="CollisionShape3D" parent="Geometry/Strip4"]
+shape = SubResource("StripShape")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+position = Vector3(-24, 1.2, 0)
+script = ExtResource("2_lancer")
+
+[node name="Shape" type="CollisionShape3D" parent="Player"]
+shape = SubResource("PlayerShape")
+
+[node name="CameraRig" type="Node3D" parent="Player"]
+script = ExtResource("3_camera")
+
+[node name="Camera3D" type="Camera3D" parent="Player/CameraRig"]
+position = Vector3(0, 1.7, 7)
+fov = 72.0
+far = 220.0
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="HUD"]
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 320.0
+offset_bottom = 18.0
+theme_override_colors/font_color = Color(0.29, 0.64, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.85)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 9
+text = "SPEED"

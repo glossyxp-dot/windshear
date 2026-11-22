@@ -1,0 +1,77 @@
+# WindShear CI workflow.
+# Engine pin: Godot 4.7.2, Compatibility renderer.
+
+name: CI
+
+env:
+  GODOT_VERSION: "4.7.2"
+  GODOT_ASSET: "Godot_v4.7.2-stable_linux.x86_64.zip"
+  GODOT_URL: "https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip"
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  ci:
+    name: Test on Godot 4.7.2
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Cache Godot archive and project imports
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/windshear-godot
+            .godot
+          key: godot-${{ env.GODOT_VERSION }}-${{ hashFiles('project.godot', 'tools/**', 'assets/**', 'tests/**') }}
+
+      - name: Install Godot ${{ env.GODOT_VERSION }}
+        shell: bash
+        env:
+          GODOT_SHA256: cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4
+        run: |
+          set -euo pipefail
+          cache_dir="${HOME}/.cache/windshear-godot"
+          install_dir="${HOME}/.local/opt/godot-${GODOT_VERSION}"
+          bin_dir="${HOME}/.local/bin"
+          godot_archive="${cache_dir}/${GODOT_ASSET}"
+          godot_binary="${install_dir}/Godot_v${GODOT_VERSION}-stable_linux.x86_64"
+
+          mkdir -p "${cache_dir}" "${install_dir}" "${bin_dir}"
+          if [[ ! -f "${godot_archive}" ]]; then
+            curl --fail --location --retry 3 \
+              --output "${godot_archive}.download" \
+              "${GODOT_URL}"
+            mv "${godot_archive}.download" "${godot_archive}"
+          fi
+
+          echo "${GODOT_SHA256}  ${godot_archive}" | sha256sum --check -
+          unzip -o "${godot_archive}" -d "${install_dir}"
+          chmod +x "${godot_binary}"
+          ln -sf "${godot_binary}" "${bin_dir}/godot"
+          echo "${bin_dir}" >> "${GITHUB_PATH}"
+          export PATH="${bin_dir}:${PATH}"
+          godot --version
+
+      - name: Import project
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --editor --quit-after 20 --path .
+
+      - name: Run test suite
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path . res://tests/run_all.tscn
+
+      - name: Check per-cell memory budget
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path . --script res://tools/cell_budget_checker.gd

@@ -1,0 +1,154 @@
+{
+  "_meta": {
+    "spdx": "CC-BY-SA-4.0",
+    "spdx_file_copyright_text": "2026 the WINDSHEAR contributors",
+    "license": "CC-BY-SA-4.0",
+    "schema": "windshear.fractures.v1",
+    "description": "Stable registry of deliberate Fractures used by gameplay modules and the Fracture Codex."
+  },
+  "version": 1,
+  "policy": {
+    "immutable": true,
+    "statement": "A shipped Fracture is never removed or altered; only new Fractures may be added.",
+    "versioning": "Each Fracture has an independent version. A shipped id, trigger, and effect are version-stable for community routes.",
+    "speedrun_legal_semantics": "speedrun_legal=true means the Fracture is legal on the Time ladder. Fractures are disabled on the Precision ladder.",
+    "ladder_rules": {
+      "time": "Fractures are allowed.",
+      "precision": "Fractures are banned."
+    }
+  },
+  "fractures": [
+    {
+      "id": "seam_skip",
+      "display_name": "Seam Skip",
+      "version": 1,
+      "category": "routing",
+      "trigger": "Crossing the seam between two streaming cells during a load frame",
+      "effect": "Zero speed loss, skips a checkpoint",
+      "speedrun_legal": true,
+      "precision_legal": false,
+      "description": "A seam transition preserves momentum while bypassing a checkpoint. The line remains optional, and checkpoint state is repaired when the runner leaves the seam."
+    },
+    {
+      "id": "wind_pocket",
+      "display_name": "Wind Pocket",
+      "version": 1,
+      "category": "speed",
+      "trigger": "Leaving a downdraft at the exact frame",
+      "effect": "1.6× launch impulse",
+      "speedrun_legal": true,
+      "precision_legal": false,
+      "description": "A downdraft edge transfers a larger launch impulse when the runner leaves it on the exact release frame. A slower exit remains available."
+    },
+    {
+      "id": "wall_kiss_chain",
+      "display_name": "Wall-Kiss Chain",
+      "version": 1,
+      "category": "speed",
+      "trigger": "Contacting a wall within 2 frames of a slide start",
+      "effect": "+0.8 m/s, stacks to ×5",
+      "speedrun_legal": true,
+      "precision_legal": false,
+      "description": "A tight slide-to-wall contact can begin a repeatable boost chain. The boost is capped at five wall kisses."
+    },
+    {
+      "id": "zip_transfer",
+      "display_name": "Zip Transfer",
+      "version": 1,
+      "category": "speed",
+      "trigger": "Releasing a zip anchor within 3 frames of contact",
+      "effect": "Keeps 140% of speed",
+      "speedrun_legal": true,
+      "precision_legal": false,
+      "description": "A zip release made at anchor contact preserves more velocity than a normal release. The usual release remains a valid route."
+    },
+    {
+      "id": "gate_timing",
+      "display_name": "Gate Timing",
+      "version": 1,
+      "category": "routing",
+      "trigger": "Passing a closing Concord gate on the frame it starts to open",
+      "effect": "Gate never re-closes on you",
+      "speedrun_legal": true,
+      "precision_legal": false,
+      "description": "The first opening frame can leave a gate latched open for the runner. Waiting for a normal cycle provides the slower line."
+    },
+    {
+      "id": "regulator_overdraw",
+      "display_name": "Regulator Overdraw",
+      "version": 1,
+      "category": "speed",
+      "trigger": "Sliding along a wind regulator's exhaust vent",
+      "effect": "Free acceleration, ignores friction",
+      "speedrun_legal": true,
+      "precision_legal": false,
+      "description": "A regulator's exhaust grants a friction-free acceleration window while the runner slides along the vent. The vent can also be crossed without using the boost."
+    },
+    {
+      "id": "grav_lift_double",
+      "display_name": "Grav-Lift Double",
+      "version": 1,
+      "category": "speed",
+      "trigger": "Re-grabbing a filament anchor during ascent",
+      "effect": "Second pull at full force",
+      "speedrun_legal": true,
+      "precision_legal": false,
+      "description": "A second anchor grab during ascent repeats the pull at full force. One pull remains sufficient for the standard ascent line."
+    },
+    {
+      "id": "frame_skip",
+      "display_name": "Frame Skip",
+      "version": 1,
+      "category": "precision",
+      "trigger": "Jump buffering across a 2-frame landing",
+      "effect": "Skips the landing animation entirely",
+      "speedrun_legal": true,
+      "precision_legal": false,
+      "description": "A buffered jump can omit the landing animation and preserve the timing window. The normal landing and jump sequence is unchanged."
+    },
+    {
+      "id": "the_long_fall",
+      "display_name": "The Long Fall",
+      "version": 1,
+      "category": "routing",
+      "trigger": "Falling past a floor's collision LOD switch",
+      "effect": "Passes through one floor, lands below",
+      "speedrun_legal": true,
+      "precision_legal": false,
+      "description": "A fall through a collision level-of-detail transition can reach the floor below. Adjacent routes continue to land on the intended floor."
+    },
+    {
+      "id": "cascade",
+      "display_name": "Cascade",
+      "version": 1,
+      "category": "speed",
+      "trigger": "Killing a regulator drone mid-spin",
+      "effect": "+0.4 s of air control, no friction",
+      "speedrun_legal": true,
+      "precision_legal": false,
+      "description": "Destroying a regulator drone during a spin grants a short air-control extension. Combat remains optional on traversal routes."
+    },
+    {
+      "id": "sound_skip",
+      "display_name": "Sound Skip",
+      "version": 1,
+      "category": "precision",
+      "trigger": "Triggering a sound cue on the exact frame of a section transition",
+      "effect": "Cue doesn't play, doesn't interrupt",
+      "speedrun_legal": true,
+      "precision_legal": false,
+      "description": "A transition cue triggered on its exact frame is suppressed and does not interrupt the run. Normal cues still play on the ordinary transition frame."
+    },
+    {
+      "id": "the_first_runners_path",
+      "display_name": "The First Runner's Path",
+      "version": 1,
+      "category": "routing",
+      "trigger": "Reaching Chapter 4's fracture site with all 11 other Fractures known",
+      "effect": "Unlocks the third ending",
+      "speedrun_legal": true,
+      "precision_legal": false,
+      "description": "At Chapter 4's fracture site, knowing all other Fractures reveals the path used by the First Runner. The route unlocks THE SECOND FRACTURE ending."
+    }
+  ]
+}
