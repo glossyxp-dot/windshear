@@ -159,7 +159,7 @@ Two things about this are worth stating plainly:
   has its full designed value, and still rewards the player for setting it
   up. All that changed is that it cannot be farmed.
 
-This is also why the rule in `docs/MOVEMENT_RESEARCH.md` §1 exists. The
+This is also why the rule in `docs/MOVEMENT_RESEARCH.md` §16.2 exists. The
 distance between a good speedrun technique and a movement exploit is often
 just a missing clamp, and the only way to find out which one you have is to
 go and look.

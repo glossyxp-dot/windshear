@@ -24,8 +24,8 @@ their provenance and boundaries.
 
 Movement folklore is unusually good at turning a projection limit into a
 speed limit, a per-tic impulse into a top speed, and a community measurement
-into engine source. The labels below are therefore part of the result, not
-decoration.
+into engine source. The labels below are therefore part of the result, and
+not decoration.
 
 | Label | Meaning | Example |
 | --- | --- | --- |
@@ -75,7 +75,7 @@ Two details are easy to miss:
    GoldSrc, and Source.
 
 Therefore a player moving at 320 u/s can receive an air acceleration vector
-whose length is greater than 30 u/s. The vector can be mostly perpendicular
+who's length is greater than 30 u/s. The vector can be mostly perpendicular
 to existing velocity, so total speed can grow. This is the structural reason
 classic strafe-jumping works; there is no separate “strafe-jump code.”
 
@@ -970,7 +970,6 @@ This is intentionally conservative. Current air control does not add above
 14 m/s in the same direction, and the wall-kiss path itself is capped at
 18 m/s. The `20.2` value is an envelope for finding unknowns, not a declared
 player speed.
-
 ### 15.3 Wall-kiss semantics
 
 A slide opens a two-frame window. A route-parallel side-wall contact during
@@ -1040,7 +1039,7 @@ ownership ambiguity:
   subject to the project's immutable-Fracture policy.
 
 No registry or controller change is made by this research document because
-the shipped/not-shipped status and the intended Fracture identity require an
+the shipped/not-shipped status and the intended Fracture identity require a
 explicit product decision.
 
 ---
