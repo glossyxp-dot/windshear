@@ -1,11 +1,11 @@
-# WINDSHEAR: Game Design Document
+# WINDSHEAR: dev directions
 
-> A cinematic 2.5D speed-and-precision platformer. Free and open source, built so
+> A goldsrc 2.5D speed-and-precision platformer. Free and open source, built so
 > the community can tell its own stories inside the same world.
 
-**One-line pitch:** *Twenty years ago, a desperate military deployment walled
-off every city on Earth to stop an extinction war. Today, Lancer Ivanov is
-going to punch through the sky-canopy and set the wind free anyway.*
+**One-line pitch:** *Twenty years ago, Longhorn Science made a hypersmart organism that took over the world
+Today, Lancer Ivanov is
+going to punch through the sky-canopy and set the world free.*
 
 ---
 
