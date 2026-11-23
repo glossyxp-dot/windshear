@@ -5,11 +5,11 @@ SPDX-License-Identifier: CC-BY-SA-4.0
 
 # Community Editions
 
-An Edition changes the story and keeps the world. Same city, same movement, same
-section grid, different things happening in it.
+An Edition changes the story and keeps the world. Same city, same movement,
+same section grid, but different things happening in it.
 
-Editions are data packages. They are not plugins, not private code, and not
-something the player has to activate. There are no accounts, no DRM and no
+An Edition is a data package. It isn't a plugin or private code, and the
+player doesn't have to activate it. There are no accounts, no DRM and no
 network requirement anywhere in this game, and there won't be.
 
 ## What a package looks like
@@ -26,8 +26,8 @@ my-edition/
   assets/
 ```
 
-`story/` is optional. Where a file exists it overrides the official file of the
-same relative path, as described in `data/story/README.md`. `assets/` is
+`story/` is optional. Where a file exists, it overrides the official file at
+the same relative path, as described in `data/story/README.md`. `assets/` is
 optional too, for replacement art. Changing world geometry or mechanics means
 changing source, not writing an Edition.
 
@@ -61,24 +61,24 @@ A complete data-only example:
 }
 ```
 
-JSON has no comment syntax, so the SPDX line goes in a top-level `_meta` object
-next to the payload. Every JSON file in this repository does it that way. The
-`_meta` block in `edition.json` is optional and isn't one of the manifest's
-required fields.
+JSON has no comment syntax, so I kept the SPDX line in a top-level `_meta`
+object next to the payload. Every JSON file in this repository does it that
+way. The `_meta` block in `edition.json` is optional and isn't one of the
+manifest's required fields.
 
-## Open source, and what the index will refuse
+## Open source and the index
 
-Every Edition has to be open source. Code inherits `GPL-2.0-or-later` from the
-game. A data-only Edition that reuses official story or art inherits
-`CC-BY-SA-4.0` and stays share-alike.
+Every Edition has to be open source. Code inherits `GPL-2.0-or-later` from
+the game. A data-only Edition that reuses official story or art inherits
+`CC-BY-SA 4.0` and stays share-alike.
 
-The official index won't list an Edition when:
+The official index won't list an Edition when its licence is missing, closed,
+proprietary or incompatible with whatever content it reuses. It also refuses
+an Edition whose `source_url` is missing or doesn't point at the corresponding
+source.
 
-- the licence is missing, closed, proprietary, or incompatible with whatever
-  content it reuses;
-- `source_url` is missing or doesn't point at the corresponding source.
-
-That's the whole list. It's worth being clear about what the index is, though:
-a distribution list, not a lock. An Edition somebody has installed locally
-always loads, and being turned down by the index never stops anyone from
-running it. There's no activation step to bypass, because there isn't one.
+That's the whole list. It's worth being clear about what the index is,
+though: a distribution list, not a lock. An Edition somebody has installed
+locally always loads, and being turned down by the index never stops anyone
+from running it. There's no activation step to bypass, because there isn't
+one.

@@ -50,6 +50,7 @@ func run() -> void:
 	_test_slide_cancels_into_jump()
 	_test_wall_kiss()
 	_test_wall_kiss_cap()
+	_test_wall_kiss_fracture()
 	_test_wall_kiss_speed_ceiling()
 	_test_plane_constraint()
 
@@ -316,10 +317,47 @@ func _test_wall_kiss_cap() -> void:
 				"kiss %d adds the boost" % (kiss + 1))
 		else:
 			near(controller.velocity.x - before, 0.0, 0.0001,
-				"the sixth kiss adds nothing: the chain is capped at 5")
+				"kiss %d adds nothing: the chain is capped at %d" % [
+					kiss + 1, Tuning.WALL_KISS_CAP])
 
 	same(controller.wall_kiss_count, Tuning.WALL_KISS_CAP,
 		"the chain never goes past the cap")
+	pair[0].free()
+
+
+## The Fracture takes the chain from three wall-jumps to five, and the speed
+## ceiling goes up with it.
+func _test_wall_kiss_fracture() -> void:
+	heading("the wall-kiss Fracture")
+	var pair := _at_top_speed()
+	var controller: Object = pair[0]
+	var input: Object = pair[1]
+	input.wall_contact = true
+	input.wall_normal = Vector3(0.0, 0.0, 1.0)
+
+	same(controller.wall_kiss_cap, Tuning.WALL_KISS_CAP,
+		"the base chain is three wall-jumps")
+	controller.enable_wall_kiss_chain_fracture()
+	same(controller.wall_kiss_cap, Tuning.WALL_KISS_FRACTURE_CAP,
+		"the Fracture takes the chain to five")
+	near(controller.wall_kiss_speed_ceiling, Tuning.WALL_KISS_FRACTURE_SPEED_CEILING,
+		0.0001, "the Fracture raises the speed ceiling")
+
+	# A full Fracture chain, from a standing start at the run speed.
+	for _kiss in range(Tuning.WALL_KISS_FRACTURE_CAP):
+		input.slip_pressed = true
+		input.jump_pressed = true
+		controller.simulate(DT, input)
+		input.slip_pressed = false
+		input.jump_pressed = false
+	same(controller.wall_kiss_count, Tuning.WALL_KISS_FRACTURE_CAP,
+		"the Fracture chain reaches five")
+	near(absf(controller.velocity.x), Tuning.WALL_KISS_FRACTURE_SPEED_CEILING, 0.0001,
+		"the Fracture chain reaches 18.0 m/s")
+
+	controller.disable_wall_kiss_chain_fracture()
+	same(controller.wall_kiss_cap, Tuning.WALL_KISS_CAP,
+		"turning the Fracture off puts the chain back to three")
 	pair[0].free()
 
 

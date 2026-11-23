@@ -37,7 +37,7 @@ const Tuning := preload("res://addons/windshear/core/ws_tuning.gd")
 ## One physics frame.
 const DT := 1.0 / 60.0
 ## The designed maximum horizontal speed across the current movement model.
-const DESIGNED_SPEED_CEILING := 18.0
+const DESIGNED_SPEED_CEILING := 16.4
 ## The wider discovery envelope used to make unexpected speed visible.
 const DISCOVERY_SPEED_ENVELOPE := 20.2
 ## Legal horizontal input choices used by the deterministic fuzz probe.
@@ -240,7 +240,7 @@ func _test_repeated_wall_kiss_cycles() -> void:
 	input.wall_normal = Vector3(0.0, 0.0, 1.0)
 	var peak := 0.0
 
-	# Five quick legal kisses reach the designed full-chain speed.
+	# A full quick chain of legal kisses reaches the designed speed.
 	for _kiss in range(Tuning.WALL_KISS_CAP):
 		input.slip_pressed = true
 		input.jump_pressed = true
@@ -249,7 +249,7 @@ func _test_repeated_wall_kiss_cycles() -> void:
 		input.jump_pressed = false
 		peak = maxf(peak, absf(controller.velocity.x))
 	same(controller.wall_kiss_count, Tuning.WALL_KISS_CAP,
-		"the quick chain reaches the five-kiss cap")
+		"the quick chain reaches the cap")
 	near(peak, Tuning.WALL_KISS_SPEED_CEILING, 0.0001,
 		"the quick chain reaches the designed speed ceiling")
 
@@ -448,7 +448,7 @@ func _test_adversarial_input_fuzz() -> void:
 		])
 		ok(bool(result["finite"]), "fuzz seed %d keeps all speeds finite" % seed_value)
 		ok(float(result["peak"]) <= DESIGNED_SPEED_CEILING + 0.0001,
-			"fuzz seed %d stays below the designed 18 m/s ceiling" % seed_value)
+			"fuzz seed %d stays below the designed 16.4 m/s ceiling" % seed_value)
 		ok(float(result["peak"]) <= DISCOVERY_SPEED_ENVELOPE + 0.0001,
 			"fuzz seed %d stays inside the 20.2 m/s discovery envelope" % seed_value)
 		ok(float(result["air"]) <= Tuning.AIR_ACCEL_MAX_CONTRIB + 0.0001,

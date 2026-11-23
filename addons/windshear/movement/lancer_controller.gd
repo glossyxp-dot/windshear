@@ -35,6 +35,8 @@
 ## a kiss; pressing jump while armed adds 0.8 m/s to the running speed and
 ## launches Lancer. The bonus survives the ground acceleration because the
 ## jump happens on the same frame, so the boost is carried through the air.
+## A chain is three wall-jumps long in the base game. The `wall_kiss_chain`
+## Fracture takes it to five.
 extends CharacterBody3D
 class_name LancerController
 
@@ -78,6 +80,13 @@ var airborne_frames := 0
 var speed_ratio := 0.0
 ## True while a slide is running.
 var sliding := false
+
+## Wall-jumps allowed in one chain. Three in the base game; the
+## `wall_kiss_chain` Fracture raises it.
+var wall_kiss_cap := Tuning.WALL_KISS_CAP
+## The horizontal speed a chain may not pass. The Fracture raises it too,
+## because five boosts need more room than three.
+var wall_kiss_speed_ceiling := Tuning.WALL_KISS_SPEED_CEILING
 
 # --- Private state --------------------------------------------------------
 
@@ -157,7 +166,7 @@ func simulate(delta: float, inp: LancerInputState) -> void:
 		sliding = false
 		jumped = true
 		jump_performed.emit()
-		if wall_kiss_armed and wall_kiss_count < Tuning.WALL_KISS_CAP:
+		if wall_kiss_armed and wall_kiss_count < wall_kiss_cap:
 			_apply_wall_kiss()
 	elif jump_buffer_frames > 0:
 		jump_buffer_frames -= 1
@@ -233,17 +242,18 @@ func _is_side_wall(normal: Vector3) -> bool:
 
 ## Adds one wall-kiss boost to the running speed.
 ##
-## The boost is capped: a full chain of five lifts the running speed to
-## 18 m/s and not a metre further. Without that cap a long route could
-## stack kisses until the player was faster than the level designer
-## expected — the discovery suite (`tests/test_movement_discovery.gd`) is
-## what found it.
+## The boost is capped, and the cap belongs to the controller rather than to
+## the tuning file, because the Fracture moves it. Three kisses take the
+## running speed to 16.4 m/s and not a metre further; five take it to 18.0.
+## Without a cap a long route could stack kisses until the player was faster
+## than the level designer expected — the discovery suite
+## (`tests/test_movement_discovery.gd`) is what found it.
 func _apply_wall_kiss() -> void:
 	var direction := signf(velocity.x)
 	if direction == 0.0:
 		direction = facing
 	var boost := minf(Tuning.WALL_KISS_BOOST,
-		Tuning.WALL_KISS_SPEED_CEILING - absf(velocity.x))
+		wall_kiss_speed_ceiling - absf(velocity.x))
 	wall_kiss_armed = false
 	if boost <= 0.0:
 		return
@@ -251,6 +261,23 @@ func _apply_wall_kiss() -> void:
 	wall_kiss_count += 1
 	frames_since_kiss = 0
 	wall_kiss_registered.emit(wall_kiss_count)
+
+
+## Turns the `wall_kiss_chain` Fracture on.
+##
+## The registry says the chain stacks to five, and registry text does not
+## change once it has shipped, so the fourth and fifth wall-jump live here.
+## The speed ceiling goes up with the count, because five boosts of 0.8 m/s
+## need more room above the run speed than three of them do.
+func enable_wall_kiss_chain_fracture() -> void:
+	wall_kiss_cap = Tuning.WALL_KISS_FRACTURE_CAP
+	wall_kiss_speed_ceiling = Tuning.WALL_KISS_FRACTURE_SPEED_CEILING
+
+
+## Puts the chain back to the base game's three.
+func disable_wall_kiss_chain_fracture() -> void:
+	wall_kiss_cap = Tuning.WALL_KISS_CAP
+	wall_kiss_speed_ceiling = Tuning.WALL_KISS_SPEED_CEILING
 
 
 ## Puts Lancer back at [param spawn_position] with no momentum.

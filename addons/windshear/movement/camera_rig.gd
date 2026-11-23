@@ -19,7 +19,7 @@
 ## the world instead (see `GAME_DESIGN.md` §5).
 ##
 ## The rig owns three things:
-## [br]- mouse and stick look, with a hard pitch clamp;
+## [br]- mouse, key and stick look, with a hard pitch clamp;
 ## [br]- the speed dolly, which pulls back and widens the field of view as
 ##   Lancer picks up speed. It is the single most important camera tool for
 ##   making speed feel fast;
@@ -91,11 +91,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 ## The look axes.
 ##
-## The mouse is the camera, so the mouse is not the only way to look. The
-## keyboard gets its own actions and its own rate, and the stick keeps the
-## right thumb. The stick's vertical axis is negated: in Godot a stick pushed
-## down is a positive value, and pushing the stick down has to tilt the
-## camera down, the same way the mouse does.
+## The mouse is the camera, but it is not the only way to look. The arrows
+## and W/S turn and tilt it from the keyboard, at their own rate, and the
+## right stick does the same job for a pad. The stick's vertical axis is
+## negated: in Godot a stick pushed down is a positive value, and pushing the
+## stick down has to tilt the camera down, the same way the mouse does.
 func _process(delta: float) -> void:
 	var stick_x := Input.get_axis("look_left", "look_right")
 	var stick_y := Input.get_axis("look_up", "look_down")

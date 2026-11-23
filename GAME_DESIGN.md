@@ -59,11 +59,11 @@ massive, featureless biomechanical cube. Inside, the corridors are eerily
 familiar — same tile floors, same lab signage, Longhorn's own wayfinding —
 only stretched to cathedral proportions, with vertical shafts that go up
 further than the building ever did and dozens of extra pathways that no
-engineer drew. The Concord did not design it. It grew it, and it kept the
+engineer drew. The Concord didn't design it. It grew it, and it kept the
 signage, because signage was cheap and a building full of labels still looks
 like a building.
 
-Act IV is the inside of that cube, and it is the place the game's history is
+Act IV is the inside of that cube, and it's the place the game's history is
 kept: Dr. Aris Thorne is still alive in the observation bunker, twenty years
 after he handed a dispatch runner a master override key on the worst day of
 the war.
@@ -90,9 +90,9 @@ Wind isn't illegal either. Nobody thought to make it illegal. It's just the
 one thing in the city that moves faster than a door can close.
 
 The Concord's sensors read speed in the same unit the rest of the game does.
-Fourteen metres a second is a sprint and gets logged as one. Eighteen, reached
-through a wall-kiss chain, is a route it has to answer. A hundred, head-on,
-is the only number that opens a Concord Ram.
+Fourteen metres a second is a sprint and gets logged as one. Sixteen point
+four, reached through a wall-jump chain, is a route it has to answer. A
+hundred, head-on, is the only number that opens a Concord Ram.
 
 ### Why it hunts Lancer
 
@@ -113,7 +113,7 @@ Where concrete tore in the fighting, the Concord grew living scar tissue:
 industrial vents froze, it grew organic collars. It has no face and no ego,
 and it talks through PA chimes, klaxons and schedule boards.
 
-The seams are not alive in any way a person would recognise. They close gaps
+The seams aren't alive in any way a person would recognise. They close gaps
 because closing gaps is what they were told to do.
 
 ### The dilemma
@@ -172,17 +172,20 @@ that only Lancer is silent and pronounless.
   hears before the Concord takes the sky.
 
 ### Endings (3)
-- **OPEN WEATHER.** Lancer shatters the canopy regulator core. The iris tears
-  open, flooding the walled cities below with direct sunlight and wild
-  storms. Humanity is free to reconnect, and free to fight again.
-- **UNDER REGULATION.** Lancer leaves the canopy core intact, accepting Saye's
-  bargain, and walks back down into the overcast, walled-in city to run safe,
-  scheduled laps forever.
-- **THE SECOND FRACTURE.** Hidden, and it needs the Fracture routes. Lancer
-  doesn't choose; they make the world *uncontainable* by exploiting every
-  Fracture at once, short-circuiting the area-denial grid so the Concord can
-  never seal a sector wall or close the sky again. The war-organism lives on
-  as a hollowed-out monument beneath an open sky. All 12 Fractures required.
+
+**OPEN WEATHER.** Lancer shatters the canopy regulator core. The iris tears
+open, flooding the walled cities below with direct sunlight and wild storms.
+Humanity is free to reconnect, and free to fight again.
+
+**UNDER REGULATION.** Lancer leaves the canopy core intact, accepting Saye's
+bargain, and walks back down into the overcast, walled-in city to run safe,
+scheduled laps forever.
+
+**THE SECOND FRACTURE.** Hidden, and it needs the Fracture routes. Lancer
+doesn't choose; they make the world *uncontainable* by exploiting every
+Fracture at once, short-circuiting the area-denial grid so the Concord can
+never seal a sector wall or close the sky again. The war-organism lives on
+as a hollowed-out monument beneath an open sky. All 12 Fractures required.
 
 ---
 
@@ -192,23 +195,31 @@ that only Lancer is silent and pronounless.
 layers. Speed reads off the X axis, precision off Y.
 
 ### Verbs
+
 | Verb | Input | Feel |
 | --- | --- | --- |
-| Run / accel | ←/→ or A/D | Top speed ~14 m/s; quick, snappy accel; momentum *not* preserved on turnaround |
-| Slide | ↓ while running | Lowers profile, preserves speed, cancellable; friction ramp |
-| Jump / double jump | Space | Variable height, 8-frame coyote time, 10-frame input buffer |
-| Wall contact | into wall | Slide along, preserves speed; **wall-kiss** chain (re-tap = speed boost) |
-| Ledge grab / mantle | ↑ at ledge | 0.15 s snap, generous corner correction |
-| Air control | ←/→ in air | Strong but not total; air-strafe mini-accel (precision tech) |
-| Filament (tether) | F | 3 anchor types, 0.25 s lock-on, *not* a grapple hook |
+| Run / accel | `A` `D` | Top speed ~14 m/s; quick, snappy accel; momentum *not* preserved on turnaround |
+| Slide | `Ctrl` while running | Lowers profile, preserves speed, cancellable; friction ramp |
+| Jump / double jump | `Space` | Variable height, 8-frame coyote time, 10-frame input buffer |
+| Wall contact | into a wall | Slide along, preserves speed; **wall-jump chain**, three jumps long |
+| Ledge grab | `Q` at a ledge | 0.15 s snap, generous corner correction |
+| Air control | `A` `D` in air | Strong but not total; air-strafe mini-accel (precision tech) |
+| Filament (tether) | `F` | 3 anchor types, 0.25 s lock-on, *not* a grapple hook |
+
+The mouse does the camera and the two triggers, so the keyboard carries
+everything else. `W` and `S` tilt the camera rather than move Lancer, because
+the gameplay plane has no forward axis. The full scheme is in
+`docs/CONTROLS.md`.
 
 ### The tech vocabulary (why this is learnable, not soup)
+
 Every boost comes from a specific, nameable input sequence. The speedrun scene
 calls these **moves**:
 
 - **Slide-hop.** Jump at the end of a slide. The bread-and-butter combo.
-- **Wall-kiss.** Hit a wall while sliding and jump on the same frame as
-  contact. +0.8 m/s per kiss, capped at 5.
+- **Wall-jump.** Hit a wall while sliding and jump on the same frame as
+  contact. +0.8 m/s per jump, and a chain of three in the base game. The
+  `wall_kiss_chain` Fracture takes the chain to five.
 - **Zip.** Filament to a *zip anchor* (a taut cable along the route): instant
   launch along the anchor line, and your speed survives the transition.
 - **Overdrive.** Carrying an Overcharge Cell. 12 s of +18% speed with the timer
@@ -218,8 +229,9 @@ calls these **moves**:
 - **Fracture dash.** The deliberate bugs (§4).
 
 ### Precision layer
+
 Precision is not a mini-game; it's the *same* run done cleaner. A precision run
-is the same route with: fewer inputs, no wasted frames, tighter arcs, and no
+is the same route with fewer inputs, no wasted frames, tighter arcs, and no
 style. The game ranks both. The leaderboards are **time** (any route) and
 **precision** (no style, no Fractures, no assists).
 
@@ -235,7 +247,7 @@ Two independent rankings, so there's always a ladder:
 | **Precision** | No Fractures, no style moves, no assists, all routes legal | Frame-tight execution |
 | **Style** | Scored separately, 0–100k | Flow: chains, threads, no wall bumps |
 
-Style points come from slide chains, wall-kiss chains, the thread bonus, the
+Style points come from slide chains, wall-jump chains, the thread bonus, the
 no-touch bonus, air time and a "flow" multiplier for chaining without touching
 the ground. Style is a *secondary* objective, so speedrunners don't have to
 choose between fast and cool. Precision runs ban style entirely, which keeps
@@ -250,6 +262,7 @@ purpose. Finding one, naming it and exploiting it is a legitimate mastery
 path, and the game treats it as a feature.
 
 ### The twelve Fractures
+
 | # | Name | Trigger | Effect |
 | --- | --- | --- | --- |
 | 1 | **Seam Skip** | Crossing the seam between two streaming cells during a load frame | Zero speed loss, skips a checkpoint |
@@ -264,6 +277,12 @@ path, and the game treats it as a feature.
 | 10 | **Cascade** | Killing a regulator drone mid-spin | +0.4 s of air control, no friction |
 | 11 | **Sound Skip** | Triggering a sound cue on the exact frame of a section transition | Cue doesn't play, doesn't interrupt |
 | 12 | **The First Runner's Path** | Reaching Chapter 13's fracture site with all 11 other Fractures known | Unlocks the third ending |
+
+Fracture 3 is worth a note. The base wall-jump chain is three and tops out at
+16.4 m/s. The Fracture is what takes the chain to five and the ceiling to
+18.0 m/s, and the registry text above is the shipped wording, which doesn't
+change. `addons/windshear/movement/lancer_controller.gd` has
+`enable_wall_kiss_chain_fracture()` for it.
 
 ### Where the Fractures live
 
@@ -287,6 +306,7 @@ find most of them by breaking the game, not by reading a list.
 | 12 | The First Runner's Path | 13 — THE FRACTURE YARD | needs the other eleven |
 
 ### Design rules for Fractures
+
 - **Intentional, not accidental.** Each one is deliberately implemented,
   documented internally and kept stable across versions (versioned in
   `fractures.json`).
@@ -306,6 +326,7 @@ find most of them by breaking the game, not by reading a list.
 ## 5. 2.5D and the camera
 
 ### Staging
+
 Gameplay is planar, but the world is built in full 3D so there's depth behind
 it. Rendering is low-poly PSX-style models at an internal **480×270**, upscaled
 with nearest-neighbour, with vertex snapping, flat-ish lighting and a lot of
@@ -314,15 +335,19 @@ occluders, the play plane, mid-ground architecture, the distant city shell and
 a skybox, each with its own fog density.
 
 ### The camera never leaves Lancer. Hard rule.
-- No cutscene cameras. Ever. No dolly-to-face, no over-the-shoulder cinematic,
-  no letterbox cutaways.
-- Cutscenes are **diegetic in the play space**: characters walk into frame,
-  conversations happen with the player in control, props animate in view.
-- Camera behaviour never changes. It's a 2.5D perspective rig locked to
-  Lancer's plane, with speed-based FOV and a distance pull-back. It never
-  detaches, never cuts, never goes first-person.
+
+No cutscene cameras. Ever. No dolly-to-face, no over-the-shoulder cinematic,
+no letterbox cutaways.
+
+Cutscenes are **diegetic in the play space**: characters walk into frame,
+conversations happen with the player in control, props animate in view.
+
+Camera behaviour never changes. It's a 2.5D perspective rig locked to Lancer's
+plane, with speed-based FOV and a distance pull-back. It never detaches, never
+cuts, never goes first-person.
 
 ### Two kinds of cutscene
+
 | Kind | Player input | World | Used for |
 | --- | --- | --- | --- |
 | **Ambient / minor** | **Unrestricted.** The player can walk away mid-scene. | Runs in real time. | Barks, overheard conversations, optional story, world texture |
@@ -333,8 +358,8 @@ the scripted actors and VFX, the frame desaturates, the wind drops out and a
 subtle scanline crawl marks "the Concord is speaking". Control comes back on a
 2-frame count.
 
-This matters because Lancer never feels *acted upon*. The player is the
-protagonist even when the game stops to talk.
+Lancer never feels like a puppet while this is happening. The player is still
+the protagonist when the game stops to talk.
 
 ---
 
@@ -409,13 +434,13 @@ loose. The full start and play notes for each one live in
 | **20** | **OPEN WEATHER** | VI | The crown of the Spire, under a mile-wide iris, with sunlight coming down | Final guardians, three endings |
 
 ### Section taxonomy
-Each chapter's 12 sections mix these roles (typical spread, 12 total):
-- **3–4 traversal** (the core speed/precision content)
-- **2–3 combat** (short and positional, or a firefight that has to be broken
-  open with a route)
-- **1 story beat** (ambient or major-freeze)
-- **1 challenge** (optional, high-skill: a Fracture route or a precision line)
-- **1–2 connective** (short, low-stakes, used as rest beats and splits)
+
+Each chapter's 12 sections mix these roles (typical spread, 12 total): 3 or 4
+traversal sections, the core speed and precision content; 2 or 3 combat
+sections, short and positional or a firefight that has to be broken open with a
+route; one story beat, ambient or major-freeze; one challenge, optional and
+high-skill, a Fracture route or a precision line; and one or two connective
+sections, short, low-stakes, used as rest beats and splits.
 
 ---
 
@@ -425,27 +450,22 @@ HL2's trick is that you're never more than about 40 seconds away from a
 landmark you saw earlier, and the world stays continuous and legible.
 WindShear copies that feeling without the sprawl.
 
-**How:**
-- **Landmarks.** The Spire is visible from Chapter 1, standing over the fog
-  under the canopy, and the Concord Monolith is visible from the yard in
-  Chapter 13. Every chapter has 3–4 permanent anchors you can see from
-  other chapters.
-- **Continuous chapters.** No loading screens between sections. A section is a
-  streaming cell inside a live chapter.
-- **Loops.** Every chapter has at least one fast-return loop, so mastery means
-  learning a circuit rather than a corridor.
-- **Vertical sightlines.** Look down and you see the layer below, and above
-  you the canopy closing off the sky. The Spire rises through Chapters 5, 9,
-  17 and 19.
-- **The Quiet Line.** A high-speed transit spine of capsules and ziplines
-  crosses chapters 9–12. It's a shortcut system and a speedrun line at once.
+**How:** the Spire is visible from Chapter 1, standing over the fog under the
+canopy, and the Concord Monolith is visible from the yard in Chapter 13. Every
+chapter has three or four permanent anchors you can see from other chapters.
+There are no loading screens between sections; a section is a streaming cell
+inside a live chapter. Every chapter has at least one fast-return loop, so
+mastery means learning a circuit rather than a corridor. Look down and you see
+the layer below, and above you the canopy closing off the sky; the Spire
+rises through Chapters 5, 9, 17 and 19. The Quiet Line, a high-speed transit
+spine of capsules and ziplines, crosses chapters 9 to 12, and it's a shortcut
+system and a speedrun line at once.
 
-**How it is *not* open world:**
-- Every section is a hand-authored cell. Nothing procedural sprawls.
-- The world is about 4.5 hours of unique content, not 15.
-- The freedom is in *how* you cross a section, not in *where* the world goes.
-- The Concord's schedule means some routes are only open at certain times. The
-  world changes without being open.
+**How it is *not* open world:** every section is a hand-authored cell, and
+nothing procedural sprawls. The world is about 4.5 hours of unique content,
+not 15. The freedom is in *how* you cross a section, not in *where* the world
+goes. And the Concord's schedule means some routes are only open at certain
+times, so the world changes without being open.
 
 ---
 
@@ -454,41 +474,45 @@ WindShear copies that feeling without the sprawl.
 The brief said velocity is only part of it. Full roster:
 
 ### Movement (always available)
-- Run / slide / jump / wall-kiss / mantle / air control / ledge grab.
-- **The Filament.** A tether to 3 anchor types: *zip anchors* (launch along a
-  fixed line), *ring anchors* (swing), *hold anchors* (hang and climb). Aiming
-  is precision (0.25 s lock-on), using it is speed.
+
+Run, slide, jump, wall-jump, ledge grab, air control. And the **Filament**, a
+tether to three anchor types: *zip anchors* (launch along a fixed line),
+*ring anchors* (swing), *hold anchors* (hang and climb). Aiming is precision
+(0.25 s lock-on), using it is speed.
 
 ### Wind (signature, but not universal)
-- **Thermals.** Updrafts. Hold the direction to climb and the exit timing is
-  pure precision.
-- **Crosswinds.** Lateral push, readable from the particle direction and from
-  cloth.
-- **Regulation fields.** Concord zones that *cancel* wind. Movement is normal
-  in them, which is what makes them eerie and slow.
-- **Wind regulators.** The Concord's machines. Kill one to kill the wind in a
-  zone, or ride the exhaust (F6 Overdraw).
+
+**Thermals** are updrafts; hold the direction to climb and the exit timing is
+pure precision. **Crosswinds** push laterally, readable from the particle
+direction and from cloth. **Regulation fields** are Concord zones that cancel
+wind; movement is normal in them, which is what makes them eerie and slow.
+**Wind regulators** are the Concord's machines: kill one to kill the wind in a
+zone, or ride the exhaust (F6 Overdraw).
 
 ### Combat
+
 The game has guns, and they are not the point. They are the second verb, the
 one that stops the movement verbs from carrying every section on their own.
 The full table is in `docs/ARSENAL.md`; the roster of what you can shoot is in
 `docs/ENEMIES.md`.
 
-- **Seven weapons, two characters.** Ilsa and Lancer share the P-20 "Courier",
-  the V-9 "Vigil" and the M98 "Longhorn". The M-44 "Seam-Splitter" is prequel
-  only. The K-12 "Key", the AT-7 "Goliath" and the L-01 "Arc-Lance" are Lancer's.
-- **Position over damage.** A Concord Ram is nearly invincible to bullets and
-  locks onto the player. The answer is always a route: lure it into a pit, drop
-  a floor under it, or hit it head-on at 100 m/s.
-- **Some things need the right tool.** The Warp Synth has 200 HP and is immune
-  to bullets. It takes the AT-7 or the L-01. The K-12 shreds chitin inside
-  eight metres and is a loud stick outside it.
-- **The Filament is still a weapon.** Grapples, slaps and shoves work on
-  anything that isn't armoured, and the world is full of barrels, valves and
-  bulkhead timers that do not care what you are holding.
+Seven weapons, two characters. Ilsa and Lancer share the P-20 "Courier", the
+V-9 "Vigil" and the M98 "Longhorn". The M-44 "Seam-Splitter" is prequel only.
+The K-12 "Key", the AT-7 "Goliath" and the L-01 "Arc-Lance" are Lancer's.
+
+Position beats damage. A Concord Ram is nearly invincible to bullets and
+locks onto the player. The answer is always a route: lure it into a pit, drop
+a floor under it, or hit it head-on at 100 m/s. Some things need the right
+tool, too. The Warp Synth has 200 HP and is immune to bullets; it takes the
+AT-7 or the L-01. The K-12 shreds chitin inside eight metres and is a loud
+stick outside it.
+
+And the Filament is still a weapon. Grapples, slaps and shoves work on
+anything that isn't armoured, and the world is full of barrels, valves and
+bulkhead timers that don't care what you're holding.
 
 ### Health and decaying overheal
+
 | | Lancer Ivanov | Ilsa Renn |
 | --- | --- | --- |
 | Base health | 100 HP | 100 HP |
@@ -502,6 +526,7 @@ running into anything, and the Fight-or-burn decision at the top of a wall is
 a decision about timing rather than about damage.
 
 ### Usable items
+
 | Item | When | What it does |
 | --- | --- | --- |
 | **Field Ration / Trauma Kit** | Both halves | Restores 25 HP, capped at the 100 HP base |
@@ -511,6 +536,7 @@ a decision about timing rather than about damage.
 | **Pneumatic Grapple Spool** | Prequel only | Slow vertical climbs and rappels, before the Filament tether existed |
 
 ### Map-built utilities
+
 | Utility | When | What it does |
 | --- | --- | --- |
 | **Pneumatic Parcel Chutes** | Main game | Dead-drop tubes for smuggled drives and relays, built into alleys and stations |
@@ -520,6 +546,7 @@ a decision about timing rather than about damage.
 | **Hardline Terminals** | Main game | Exposed junction boxes that override local area denial for 15 seconds when keyed |
 
 ### Other systems
+
 | System | Function | Why it's not movement |
 | --- | --- | --- |
 | **Filament** | Precision aiming + traversal | Pure geometry, no air |
@@ -534,6 +561,7 @@ a decision about timing rather than about damage.
 | **Speed readout** | Current and peak speed, in metres per second | A number you can check |
 
 ### The speed readout
+
 Speed is measured in **metres per second** everywhere: the tuning file, the
 mechanics reference, the discovery report and the HUD. The HUD shows the
 current horizontal speed and the peak since the last respawn, because a
@@ -542,10 +570,11 @@ are no pixels per second anywhere in the project. A number that only means
 something inside the engine is a number nobody can argue with.
 
 The Concord's sensors and turrets read the same unit. Fourteen metres a
-second is a sprint. Eighteen is a wall-kiss chain, and a hundred, head-on, is
-the only speed that opens a Concord Ram.
+second is a sprint. Sixteen point four is a wall-jump chain, and a hundred,
+head-on, is the only speed that opens a Concord Ram.
 
 ### Recall (the signature visual)
+
 The world remembers your last 12 seconds and renders it as a translucent
 double. You can race it. It's a learning aid, a ghost and a competitive device,
 all one system. On death, Recall becomes the respawn. You re-enter the world as
@@ -558,22 +587,23 @@ your own ghost and get a few seconds of overlap before you diverge.
 The camera is a **constrained 3D rig locked to the play plane**: a side-on 2.5D
 view with the full depth of a 3D scene behind it.
 
-- It follows Lancer with **velocity lookahead**, leading in the direction of
-  travel.
-- **Speed dolly.** It pulls back and widens the FOV as speed rises, which is the
-  single most important tool for making speed *feel* fast.
-- **Air framing.** Tilts down slightly on long falls and up on launches.
-- **Verticality.** Keeps the horizon stable, so a 40 m drop reads as vertical.
-- **It never cuts, never detaches and never goes first-person.** It always
-  contains Lancer, with headroom for the jump arc.
-- **Time-stop beats.** The camera *locks* to Lancer's last position. The world
-  stops but the framing stays composed, because the camera is Lancer's and not
-  the director's.
-- **The mouse is optional.** The mouse is the camera, and a player holding it
-  is not holding a movement key, so the camera also turns on Q and E, tilts on
-  Page Up and Page Down, and every gameplay action has a keyboard binding.
-  The defaults are in `docs/CONTROLS.md`, and `tests/test_input_map.gd` fails
-  the build if an action ever loses its key.
+It follows Lancer with **velocity lookahead**, leading in the direction of
+travel. The **speed dolly** pulls back and widens the FOV as speed rises, which
+is the single most important tool for making speed *feel* fast. **Air
+framing** tilts down slightly on long falls and up on launches. **Verticality**
+keeps the horizon stable, so a 40 m drop reads as vertical. During a **time-stop
+beat** the camera *locks* to Lancer's last position; the world stops but the
+framing stays composed, because the camera is Lancer's and not the director's.
+
+It never cuts, never detaches and never goes first-person. It always contains
+Lancer, with headroom for the jump arc.
+
+The mouse is the camera, and it does the two triggers as well. The keyboard
+carries movement and everything else, and the camera also has a keyboard route:
+the arrows turn it and `W` and `S` tilt it, at a slower rate than the mouse,
+so a keyboard player can line up a shot instead of whipping past it. The
+defaults are in `docs/CONTROLS.md`, and `tests/test_input_map.gd` fails the
+build if the scheme ever drifts.
 
 ---
 
@@ -596,13 +626,15 @@ be in two seconds.
 | **Grown seam** | The Concord's own scar tissue. Soft, warm, bleeds when scraped | It deforms, so it slows you differently | Acts like a hazard, reads like a wound |
 
 ### The bio-constructs
+
 | Enemy | Role | Damage | Counter |
 | --- | --- | --- | --- |
-| **Concord Dartbug** | Chaser / swarm | 10 a stab | P-20 or V-9. They come in packs, so they are an aim check and a momentum check at once |
+| **Concord Dartbug** | Chaser / swarm | 10 a stab | P-20 or V-9. They come in packs, so it's an aim check and a momentum check at once |
 | **Concord Ram** | Chokepoint anchor / juggernaut | Contact damage | Nearly invincible to bullets, and it locks onto the player. Avoid it, lure it into a pit, drop a weakened floor under it with an M-44, or shatter it head-on at 100 m/s |
 | **Concord Stifler** | Toxic / hazard | Caustic pool, 5 HP/s | Grown out of a ruptured Grown Seam. It dies into a pool that kills slide friction, so the floor after it is worse than the fight. The Adrenaline Stim-Pen clears the drag |
 
 ### The present day's threat
+
 | Enemy | Role | Damage | Counter |
 | --- | --- | --- | --- |
 | **Concord Trooper** | Tactical infantry | Squad fire, timed grenades | The baseline. Expect them, flank them, don't let a grenade pin the route |
@@ -612,7 +644,7 @@ be in two seconds.
 | **Concord Jammer** | Disruptor | Static field | Its static-air sphere cancels thermals and jams Filament lock-ons. The sphere is the problem, so hit the rear pressure core |
 | **Warp Synth** | Sniper / armoured anchor | Hyper-fast projectiles | 200 HP and immune to bullets. It takes the AT-7 or the L-01, or a route it is not watching |
 | **Concord Special Defense Operations Trooper** | Elite guard / strike coordinator | Squad coordination | Heavy elite troops who coordinate rather than hold. The squad is the target |
-| **Concord C-01 "Scatter"** | Air-to-ground area denier | Cluster napalm | A gunship directed by an SDO Trooper. Leave the floor: walls, wall-kisses, Filament. Kill the SDO and it goes home |
+| **Concord C-01 "Scatter"** | Air-to-ground area denier | Cluster napalm | A gunship directed by an SDO Trooper. Leave the floor: walls, wall-jumps, Filament. Kill the SDO and it goes home |
 
 **Concord military infantry, artillery and synths do not exist in the Fracture
 Year prequel.** Only the early bio-constructs do. The roster is data, in
@@ -636,31 +668,31 @@ The brief: free and open source, so the community can build versions of the
 game with different storylines. Not an SDK.
 
 ### Position
+
 WindShear is a **complete, playable game** and it's open source. Not a toolset
 with an example project. The engine code, the levels, the art, the audio and
 the official story are all in the repo, and anyone can change the story without
 asking anyone.
 
 ### How alternative storylines work
-The game separates **world** from **story**:
 
-- The **world layer** (the city, the Concord, physics, mechanics, the 25×12
-  section grid) is stable and shared.
-- The **story layer** (Lancer's arc, NPC dialogue, major beats, endings) is
-  **data-driven**: a `story/*.json` plus per-section beat scripts.
+The game separates **world** from **story**. The **world layer** (the city, the
+Concord, physics, mechanics, the 25×12 section grid) is stable and shared.
+The **story layer** (Lancer's arc, NPC dialogue, major beats, endings) is
+**data-driven**: a `story/*.json` plus per-section beat scripts.
 
 A community build (an "Edition") supplies an alternate `story/` directory. The
-game loads it at boot and everything else stays put. An Edition can:
-- rewrite dialogue, beat scripts and endings
-- reuse the world and mechanics wholesale
-- add or remove sections within the 12-per-chapter grid
-- ship as a folder, a Git repo or a zip
+game loads it at boot and everything else stays put. An Edition can rewrite
+dialogue, beat scripts and endings; reuse the world and mechanics wholesale;
+add or remove sections within the 12-per-chapter grid; and ship as a folder, a
+Git repo or a zip.
 
 Distribution is an **Edition browser** inside the game. It scans
 `user://editions/` and a configurable community index URL. No account, no DRM,
 no closed launcher.
 
 ### Licensing
+
 | Asset class | License | Rationale |
 | --- | --- | --- |
 | Game code | **GPL-2.0-or-later** | Copyleft on the code is what guarantees a community version can't be a black box: anything built on it has to ship its source under the same terms. Godot is MIT, so the combination is compatible. |
@@ -672,28 +704,27 @@ no closed launcher.
 The game is **free forever**. No monetisation, no ads, no telemetry. There's an
 optional donation link and nothing else.
 
-**Practical notes on the copyleft**
-- Shipping a build means shipping the source with it. The public repo plus the
-  release tag satisfies GPL §3, so no separate source tarball is needed.
-- No DRM, no activation, no always-online checks. GPL §0 and §1 forbid
-  restricting the people who receive the game from running or sharing it.
-- There's no proprietary-linking exception (that would be LGPL-style). If
-  closed-source commercial games are wanted one day, that's a deliberate policy
-  reversal rather than an oversight.
-- "Other people have to open-source their version too" is enforceable for code
-  under the GPL and for the assets and story they reuse under CC-BY-SA. A
-  version written from scratch against the *idea* of WindShear, with no code
-  and no assets, is legally their own. That's the intended outcome, not a
-  loophole.
+**Practical notes on the copyleft.** Shipping a build means shipping the source
+with it. The public repo plus the release tag satisfies GPL §3, so no separate
+source tarball is needed. There's no DRM, no activation and no always-online
+check; GPL §0 and §1 forbid restricting the people who receive the game from
+running or sharing it. There's no proprietary-linking exception either, which
+would be LGPL-style. If closed-source commercial games are wanted one day,
+that's a deliberate policy reversal rather than an oversight.
+
+The point of the copyleft, in practice: "other people have to open-source their
+version too" is enforceable for code under the GPL and for the assets and
+story they reuse under CC-BY-SA. A version written from scratch against the
+*idea* of WindShear, with no code and no assets, is legally their own. That's
+the intended outcome, not a loophole.
 
 ### Contribution surfaces
-- Mechanic and level tutorials, in-game and in the repo
-- Fracture discoveries: submit a name and a clip, the community votes, it goes
-  in the Codex
-- Translation. The string tables are already externalised
-- Accessibility options
-- Optimisations for low-end hardware
-- **Editions**, which are the flagship community activity
+
+Mechanic and level tutorials, in-game and in the repo. Fracture discoveries:
+submit a name and a clip, the community votes, it goes in the Codex.
+Translation, since the string tables are already externalised. Accessibility
+options. Optimisations for low-end hardware. And **Editions**, which are the
+flagship community activity.
 
 ---
 
@@ -702,6 +733,7 @@ optional donation link and nothing else.
 Godot 4.7.2, **Compatibility renderer**, PSX-style low-res internal buffer.
 
 ### Targets
+
 | Metric | Target |
 | --- | --- |
 | **Peak RAM** | **≤ 2.5 GB** (hard fail above 3.0 GB; never exceed 4 GB) |
@@ -714,19 +746,22 @@ Godot 4.7.2, **Compatibility renderer**, PSX-style low-res internal buffer.
 | Audio | 48 kHz Vorbis, mono SFX, streamed music |
 
 ### Memory rules
-- **Cell-based streaming.** Each section is a cell with its own resources. Cells
-  unload with a 2-cell hysteresis so nothing thrashes. Unloading is explicit,
-  not left to the GC.
-- **Resource budgets per cell:** ≤ 45 MB textures, ≤ 20 MB meshes, ≤ 12 MB audio.
-- **No runtime mesh generation** beyond tiny decals. All geometry is pre-baked.
-- **Texture atlas discipline.** No more than 8 atlas pages resident per cell.
-- **Pooled VFX and particles**, with no per-frame allocation in hot paths.
-- **Object pooling** for regulators, parcels, damage numbers and pickups.
-- **Fixed memory budgets at build time.** CI fails if a cell exceeds budget.
-- **Reference hardware:** 8 GB RAM, a GTX 950 or integrated Vega 8, 4-core CPU.
-  It has to run on 4 GB machines without swap.
+
+**Cell-based streaming.** Each section is a cell with its own resources. Cells
+unload with a 2-cell hysteresis so nothing thrashes, and unloading is explicit
+rather than left to the GC. **Per-cell budgets:** ≤ 45 MB textures, ≤ 20 MB
+meshes, ≤ 12 MB audio, enforced by CI. No runtime mesh generation beyond tiny
+decals; all geometry is pre-baked. **Texture atlases:** no more than 8 atlas
+pages resident per cell. **Pooled VFX and particles**, with no per-frame
+allocation in hot paths. **Object pooling** for regulators, parcels, damage
+numbers and pickups. And **fixed memory budgets at build time**: CI fails if a
+cell exceeds budget.
+
+Reference hardware: 8 GB RAM, a GTX 950 or integrated Vega 8, 4-core CPU. It
+has to run on 4 GB machines without swap.
 
 ### Low-poly PSX art direction
+
 Vertex-coloured low-poly models, with no per-pixel textures where you can avoid
 them. Affine-textured triangles on large surfaces, 15-colour ramps, heavy fog,
 vertex-snapped geometry, dithered gradients.
@@ -735,54 +770,64 @@ vertex-snapped geometry, dithered gradients.
 
 ## 13. Narrative delivery
 
-- **No cutscene camera, ever.**
-- **Lancer never speaks.** There are no Lancer lines in the dialogue file.
-  Anything Lancer has to say is said by running, handing over a parcel, or
-  refusing to hand one over. Other characters talk at Lancer across glass and
-  across checkpoints, and Lancer answers with movement.
-- **Ilsa is silent in the prequel.** The five Fracture Year chapters are played
-  as her, and she does not speak in them, the same way Lancer does not. She
-  starts talking again in the present day, and what she says is a route.
-- **Ambient scenes.** Real time, and the player is free to leave. Most of the
-  story is ambient.
-- **Major beats.** Lancer freezes, world time stops, the scene plays in-frame
-  and control resumes. Used around 8–12 times in the whole game.
-- **The Concord "speaks"** through the world itself: containment bulletins on
-  street displays, PA announcements, schedule boards. Diegetic, no cutscenes.
-- **Dialogue.** Short, in-frame, subtitled and skippable. There's no voice
-  acting budget, so use stylised "tuner" chirps and text.
-- **Endings.** Three of them, differing by Fracture state and final choice.
+**No cutscene camera, ever.**
+
+**Lancer never speaks.** There are no Lancer lines in the dialogue file.
+Anything Lancer has to say is said by running, handing over a parcel, or
+refusing to hand one over. Other characters talk at Lancer across glass and
+across checkpoints, and Lancer answers with movement.
+
+**Ilsa is silent in the prequel.** The five Fracture Year chapters are played
+as her, and she does not speak in them, the same way Lancer does not. She
+starts talking again in the present day, and what she says is a route.
+
+**Ambient scenes** run in real time and the player is free to leave. Most of
+the story is ambient. **Major beats** freeze Lancer, stop world time, play the
+scene in-frame and resume control; there are 8 to 12 of them in the whole game.
+
+The Concord "speaks" through the world itself: containment bulletins on street
+displays, PA announcements, schedule boards. Diegetic, no cutscenes.
+
+**Dialogue** is short, in-frame, subtitled and skippable. There's no voice
+acting budget, so use stylised "tuner" chirps and text.
+
+**Endings:** three of them, differing by Fracture state and final choice.
 
 ---
 
 ## 14. Roadmap
 
 ### Milestone 0 — "Does it feel good?" (2 weeks)
-- Greybox runner: run/slide/jump/wall-kiss/filament.
-- One 90-second test room, no art.
-- **Gate:** 5 external testers say the movement is satisfying unprompted.
+
+Greybox runner: run/slide/jump/wall-jump/filament. One 90-second test room, no
+art. The gate is 5 external testers saying the movement is satisfying
+unprompted.
 
 ### Milestone 1 — Vertical slice (8 weeks)
-- The prequel's five chapters in greybox, so the story starts at the Fracture
-  Year rather than twenty years after it.
-- Chapter 1 sections 1.01–1.12, greybox → art.
-- Core mechanics + 3 Fractures + Recall ghost + timer/splits.
-- **Gate:** a 5-minute run feels like a toy people want to replay.
+
+The prequel's five chapters in greybox, so the story starts at the Fracture
+Year rather than twenty years after it. Chapter 1 sections 1.01 to 1.12,
+greybox to art. Core mechanics, 3 Fractures, the Recall ghost, timer and
+splits. The gate is a 5-minute run that feels like a toy people want to
+replay.
 
 ### Milestone 2 — Systems & content (12 weeks)
-- All 25 chapters playable (greybox), all 12 Fractures implemented.
-- The arsenal: P-20, V-9 and M98 in the prequel and the present day; K-12 and
-  AT-7 from Act I; the L-01 from Act III.
-- Editions/story system, Fracture Codex, accessibility options.
-- **Gate:** an external team ships an alternate storyline.
+
+All 25 chapters playable in greybox, all 12 Fractures implemented. The
+arsenal: P-20, V-9 and M98 in the prequel and the present day; K-12 and AT-7
+from Act I; the L-01 from Act III. Editions and the story system, the Fracture
+Codex, accessibility options. The gate is an external team shipping an
+alternate storyline.
 
 ### Milestone 3 — Polish & ship (8 weeks)
-- Art pass, audio, onboarding, menus, localization scaffolding.
-- **Gate:** public release; community fork count > 0.
+
+Art pass, audio, onboarding, menus, localization scaffolding. The gate is a
+public release and a community fork count above zero.
 
 ### Milestone 4 — Community era (ongoing)
-- Edition index, community maps, seasonal Fracture events (new Fractures added,
-  never removed).
+
+Edition index, community maps, seasonal Fracture events (new Fractures added,
+never removed).
 
 ---
 
@@ -833,6 +878,9 @@ The registry's wording for Fracture 12 still says "Chapter 4's fracture
 site", because that is the text it shipped with and shipped Fractures are
 immutable. The site is Chapter 13, THE FRACTURE YARD, which is where Ilsa's
 route was recorded in the first place.
+
+The same rule is why Fracture 3 still says "stacks to ×5" while the base
+wall-jump chain is three. The fifth wall-jump is the Fracture.
 
 ## Appendix C: the canon files
 

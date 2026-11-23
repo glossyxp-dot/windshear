@@ -423,8 +423,15 @@ func _test_the_numbers() -> void:
 	ok(String(speed.get("unit", "")) == "m/s", "speed is in metres per second")
 	ok(absf(float(speed.get("max_sprint", 0.0)) - Tuning.MAX_RUN_SPEED) < 0.001,
 		"the sprint speed matches the tuning file")
-	ok(absf(float(speed.get("wall_kiss_ceiling", 0.0)) - Tuning.WALL_KISS_SPEED_CEILING) < 0.001,
-		"the wall-kiss ceiling matches the tuning file")
+	ok(int(speed.get("wall_jump_cap", 0)) == Tuning.WALL_KISS_CAP,
+		"the wall-jump cap matches the tuning file")
+	ok(absf(float(speed.get("wall_jump_ceiling", 0.0)) - Tuning.WALL_KISS_SPEED_CEILING) < 0.001,
+		"the wall-jump ceiling matches the tuning file")
+	ok(int(speed.get("wall_jump_fracture_cap", 0)) == Tuning.WALL_KISS_FRACTURE_CAP,
+		"the Fracture wall-jump cap matches the tuning file")
+	ok(absf(float(speed.get("wall_jump_fracture_ceiling", 0.0))
+		- Tuning.WALL_KISS_FRACTURE_SPEED_CEILING) < 0.001,
+		"the Fracture wall-jump ceiling matches the tuning file")
 	ok(absf(float(speed.get("ram_shatter_impact", 0.0)) - 100.0) < 0.001,
 		"a Concord Ram shatters at 100 m/s")
 	ok(absf(float(speed.get("cloak_speed_threshold", 0.0)) - 8.0) < 0.001,

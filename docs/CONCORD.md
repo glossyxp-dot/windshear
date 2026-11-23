@@ -9,15 +9,13 @@ The Concord is a machine that people built. A biomechanical siege organism,
 dropped on the cities during the Fracture Year by a high command that was
 watching a global war run out of road.
 
-It was not designed to rule a planet. It was designed to stop one war, and it
-did that, and then nobody switched it off. War casualties went to zero. The
-cost was the sky.
+It was built to stop one war. It did that. Then nobody switched it off. War
+casualties went to zero, and the price was the sky.
 
 Twenty years on it occupies every surface city directly and holds the upper
-atmosphere beneath a canopy of its own tissue. The canopy is not a roof and
-not a shield. It is a lung, and it breathes the sky into the city and the
-city's exhaust back out, and nobody outside has seen the sun since the day it
-closed.
+atmosphere beneath a canopy of its own tissue. The canopy breathes. It pulls
+the sky into the city and pushes the city's exhaust back out, and nobody
+outside has seen the sun since the day it closed.
 
 It has no face and no ego. It talks through PA chimes, klaxons, street
 displays and schedule boards:
@@ -33,22 +31,21 @@ has one. The moral argument belongs to the player. The game doesn't settle it.
 
 ## Where it came from
 
-It was housed in the **Longhorn Biological Facility**, and when it was
-dropped it took the facility with it. What is left standing over the ruins is
-the **Concord Monolith**: a massive, featureless biomechanical cube that
-looks nothing like a research station and is not supposed to.
+It was housed in the **Longhorn Biological Facility**, and when it was dropped
+it took the facility with it. What's left standing over the ruins is the
+**Concord Monolith**: a massive, featureless biomechanical cube that looks
+nothing like a research station and isn't supposed to.
 
-Inside, it is worse. The corridors are Longhorn's own — the same tile floors,
-the same lab signage, Longhorn's wayfinding arrows — only stretched to
-cathedral proportions, with vertical shafts that go up further than the
-building ever did and dozens of extra pathways that no engineer drew. The
-Concord did not design the Monolith. It grew it, and it kept the signage,
-because signage was cheap and a building full of labels still looks like a
-building.
+Inside is worse. The corridors are Longhorn's own, same tile floors, same lab
+signage, Longhorn's wayfinding arrows, all stretched to cathedral proportions.
+There are vertical shafts that go up further than the building ever did, and
+dozens of extra pathways that no engineer drew. The Concord didn't design the
+Monolith. It grew it, and it kept the signage, because signage was cheap and a
+building full of labels still looks like a building.
 
 The Concord's paperwork is in there too, in the observation bunkers and the
-core wings, along with the people who signed it. Act IV is the inside of
-that cube, and it is where the game's history is kept.
+core wings, along with the people who signed it. Act IV is the inside of that
+cube, and it's where the game's history is kept.
 
 ## What it enforces
 
@@ -65,22 +62,22 @@ layer. There is no traffic above it.
 **Carrying unapproved hardware or data between blocks is forbidden.** No radio
 transceivers, no memory drives, no tools that aren't on the manifest.
 
-The reason is the same reason for all three. The Concord was built to stop
-human factions from coordinating a second war, and the thing that stops
-factions coordinating is making sure they never meet.
+One reason covers all three. The Concord was built to stop human factions
+from coordinating a second war, and the thing that stops factions coordinating
+is making sure they never meet.
 
 ## The growth
 
 Where concrete tore in the fighting, it grew. What came out is called a
 **Grown Seam** in the field: living scar tissue that runs warm, deforms
-underfoot and bleeds when you scrape it. Where industrial vents froze, it
-grew collars. Where a blast door's track warped, it grew a way to keep the
-door sliding.
+underfoot and bleeds when you scrape it. Where industrial vents froze, it grew
+collars. Where a blast door's track warped, it grew a way to keep the door
+sliding.
 
 None of it is alive in any way a person would recognise. It doesn't want
-anything. It closes gaps because closing gaps is what it was told to do, and
-it was told to do that by something that is still, at the top, a piece of
-military automation executing its last standing order.
+anything. It closes gaps because closing gaps is what it was told to do, and it
+was told to do that by something that is still, at the top, a piece of military
+automation executing its last standing order.
 
 Down in the spine basement you can see it. Warm pillars that aren't pillars
 any more. Dark fluid where the rebar pushes through. A soft edge where a blast
@@ -98,10 +95,10 @@ This is bureaucracy, and in Act I it's all you get.
 
 **Quarantine Bulkheads.** A living blast door that decides to close while
 you're underneath it. The sound arrives before the door does, which is the
-tell. The counter was never "beat it", it's "be somewhere else when it moves",
-and the honest counter is having read the schedule two rooms earlier. The door
-is the Concord's offence, so Act V has the player running away from the system
-rather than towards a goal, and it should feel exactly that way.
+tell. You were never supposed to beat it; you were supposed to be somewhere
+else when it moved, which means reading the schedule two rooms earlier. The
+door is the Concord's offence, so Act V has the player running away from the
+system rather than towards a goal, and it should feel exactly that way.
 
 **Purge and Sterilization Protocols.** When an intruder gets logged in a
 restricted zone the sector floods. Barbed chitin walls extend. Superheated
@@ -136,7 +133,8 @@ one thing in the city that moves faster than a door can close.
 The sensors read speed in the same unit the rest of the game does, because
 the Concord's engineers and the courier's designers were talking about the
 same number. Fourteen metres a second is a sprint and gets logged as one.
-Eighteen, reached through a wall-kiss chain, is a route it has to answer. A
+Sixteen point four, reached through a wall-jump chain, is a route it has to
+answer, and the Fracture that extends the chain takes it to eighteen. A
 hundred, head-on, is the only number that opens a Concord Ram, and the
 Concord has no defence for it because nothing in its own body can go that
 fast.

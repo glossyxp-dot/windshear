@@ -73,15 +73,22 @@ const SLIDE_MIN_SPEED := 5.0
 const WALL_KISS_WINDOW_FRAMES := 2
 ## Speed added along the wall by one wall-kiss, in m/s.
 const WALL_KISS_BOOST := 0.8
-## Maximum wall-kisses in one chain.
-const WALL_KISS_CAP := 5
+## Maximum wall-jumps in one chain in the base game. Three of them, and then
+## the chain is done.
+const WALL_KISS_CAP := 3
+## The `wall_kiss_chain` Fracture takes the chain to five. The registry text
+## is immutable, so the fourth and fifth jump belong to the Fracture.
+const WALL_KISS_FRACTURE_CAP := 5
 ## Frames without a wall-kiss after which the chain expires and the counter
 ## starts over. Half a second is long enough to chain a jump-slide-jump
 ## sequence and short enough that an accidental kiss does not stick around.
 const WALL_KISS_CHAIN_FRAMES := 30
-## The fastest speed a wall-kiss chain can produce: the run speed plus the
-## full chain of five boosts. Nothing may go past this.
+## The fastest speed a base chain can produce: the run speed plus three
+## boosts, 14.0 + 3 × 0.8 = 16.4 m/s.
 const WALL_KISS_SPEED_CEILING := MAX_RUN_SPEED + WALL_KISS_CAP * WALL_KISS_BOOST
+## The ceiling with the Fracture active: 14.0 + 5 × 0.8 = 18.0 m/s.
+const WALL_KISS_FRACTURE_SPEED_CEILING := MAX_RUN_SPEED \
+	+ WALL_KISS_FRACTURE_CAP * WALL_KISS_BOOST
 
 # --- Filament -------------------------------------------------------------
 ## Time the aim assist needs to lock onto an anchor, in seconds.

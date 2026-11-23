@@ -36,15 +36,15 @@ Don't rebuild any of this:
 | | |
 | --- | --- |
 | Project settings | 480×270 internal, 960×540 window, `canvas_items` and `keep`, nearest filter, Jolt, 60 Hz |
-| Movement | Run, slide, jump, wall-kiss. Frame exact, locked to `TECH_SPEC.md` §3 |
+| Movement | Run, slide, jump, wall-jump. Frame exact, locked to `TECH_SPEC.md` §3 |
 | Camera | Mouse-look rig parented to Lancer. It never leaves |
 | PSX | The shader plus a 0–100% slider. The player picks the amount |
 | Menu | Main menu, settings panel, PSX slider, affine toggle |
 | Greybox | One test room: floor, platforms, a ramp, a wall to kiss, a help panel |
-| Tests | 458 checks in 14 suites, headless, about ten seconds |
+| Tests | 485 checks in 14 suites, headless, about ten seconds |
 | World data | 25 chapters × 12 sections, 600 gate schedules, 12 Fractures, 19 beats, 73 dialogue lines |
 | Canon data | 10 cast entries, 7 weapons, 5 items, 5 map utilities, 11 enemies |
-| Controls | Keyboard first. The mouse is the camera, and it is optional |
+| Controls | The mouse is the camera and the triggers. The keyboard carries the rest |
 | Speed | Measured in metres per second, shown on the HUD as current and peak |
 | CI | Pinned Godot, SHA-256 checked, import then tests then budget |
 
@@ -55,22 +55,24 @@ The visual work is by hand. The code for this stage is done.
 1. **Play the greybox.** Open `world/greybox/movement_greybox.tscn`, press F6,
    press F1 for the mechanics reference. The HUD in the corner reads your speed
    in m/s, current and peak. If the movement doesn't feel good yet, that's
-   the only thing that matters this week. The camera turns on `Q` and `E` and
-   tilts on Page Up and Page Down, so you don't have to touch the mouse: see
-   `docs/CONTROLS.md`.
-2. **Decide what happens to the `wall_kiss_chain` Fracture.** It duplicates the
-   core wall-kiss verb exactly. Redefine it, drop it, or change the core verb.
-   Dropping it is a design change too, because the third ending's condition
-   needs twelve Fractures. `docs/MOVEMENT_RESEARCH.md` §16.3 has the argument.
-3. **Install the export templates** for 4.7.2. You can't export without them.
-4. **Build Level 2.** The greybox is a rig. `2.01` is the first section that
+   the only thing that matters this week. `A` and `D` run, `Ctrl` slides,
+   `Space` jumps, and the mouse does the camera and the two triggers.
+2. **Install the export templates** for 4.7.2. You can't export without them.
+3. **Build Level 2.** The greybox is a rig. `2.01` is the first section that
    has to be fun.
-5. **Implement the filament.** Last of the five verbs, and the first one that
+4. **Implement the filament.** Last of the five verbs, and the first one that
    touches something other than the ground.
-6. **Do the art**, by hand, in the editor. `docs/AUTHORING.md` covers the
+5. **Do the art**, by hand, in the editor. `docs/AUTHORING.md` covers the
    materials, the theme, the fonts and the resolution.
-7. **Get five external testers** on the movement. That's Milestone 0's gate
+6. **Get five external testers** on the movement. That's Milestone 0's gate
    and it's the only thing between you and Milestone 1.
+
+One design question is still open and it's worth knowing about before you
+build a route around it. The `wall_kiss_chain` Fracture used to be a duplicate
+of the core wall-jump verb, which was silly. It's not any more: the base
+chain is three wall-jumps and the Fracture takes it to five, which is where
+the old 18.0 m/s ceiling went. `docs/MOVEMENT_RESEARCH.md` §16.3 has the
+argument, and the third ending still needs all twelve Fractures.
 
 ## The numbers you'll be held to
 
@@ -82,7 +84,8 @@ The visual work is by hand. The code for this stage is done.
 | Gravity | 60 m/s² (jump apex ≈ 2.0 m) |
 | Jump velocity | 15.5 m/s, variable height, 8-frame coyote, 10-frame buffer |
 | Slide | 0.45 s, friction 6, cancels into a jump |
-| Wall-kiss | 2-frame window, +0.8 m/s, chain of 5, hard ceiling 18.0 m/s |
+| Wall-jump | 2-frame window, +0.8 m/s, chain of 3, hard ceiling 16.4 m/s |
+| Wall-jump, with the Fracture | chain of 5, ceiling 18.0 m/s |
 | Filament lock-on | 0.25 s, 18° half-angle |
 | Health | 100 HP base. Lancer overheals to 150 and decays back down; Ilsa is capped at 100 |
 | Ram shatter | 100 m/s, head-on. The Concord has no defence for it |
@@ -130,7 +133,7 @@ Nothing that breaks the 4 GB ceiling or the Compatibility renderer.
 | `docs/CONCORD.md` | The antagonist in full: threat model, escalation, the people |
 | `docs/ARSENAL.md` | The weapons, the items and the map utilities |
 | `docs/ENEMIES.md` | The Concord roster, with counters and drops |
-| `docs/CONTROLS.md` | The default bindings, and the rule behind them |
+| `docs/CONTROLS.md` | The default bindings, and what the mouse is for |
 | `docs/AUTHORING.md` | Doing the visual work by hand in the editor |
 | `docs/MOVEMENT_RESEARCH.md` | Cited movement sources, evidence confidence, design synthesis |
 | `docs/dev_stage_1.md` | What the movement base is, and the bug the discovery harness found |

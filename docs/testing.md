@@ -1,11 +1,8 @@
 # WindShear: testing
 
-The test suite, how to run it, how to add to it, and what each suite is
-actually for.
+How to run the suite, how to add to it, and what each suite is for.
 
-There's no framework to install and no plugin to enable. The whole suite is
-one Godot scene and a few dozen assertions per file, and it runs headless in
-about ten seconds.
+There's no framework to install and no plugin to enable. The whole thing is one Godot scene and a few dozen assertions per file. It runs headless in about ten seconds.
 
 ---
 
@@ -22,37 +19,21 @@ godot --headless --path . res://tests/run_all.tscn
 godot --headless --path . --script res://tools/cell_budget_checker.gd
 ```
 
-The suite exits with a non-zero status when a check fails, so CI is one
-line and there is nothing to parse.
+A failed check gives the suite a non-zero exit status. CI is one line, and there's nothing to parse.
 
-The current state is **458 checks, 0 failures**, in fourteen suites.
+The current state is **485 checks, 0 failures**, in fourteen suites.
 
 ---
 
 ## 2. Why these tests and not those
 
-A generic test suite for a platformer checks that the player node exists, that
-the camera is a child of the rig, and that the level loads. All three of those
-pass on a game that drops every second jump on a 60 Hz display and has a
-coyote window one frame short.
+A generic platformer test checks that the player node exists, that the camera is a child of the rig, and that the level loads. All of that can pass on a game which drops every second jump on a 60 Hz display and has a coyote window one frame short.
 
-That's no use here. The bugs that ruin a speedrun are frame bugs, and the bugs
-that ruin a release are budget and policy bugs. The suite is built around
-those instead:
+That won't do here. The bugs that ruin a speedrun are frame bugs. The bugs that ruin a release are budget and policy bugs. The suite goes after those.
 
-- **Frame-exact movement.** The coyote window is 8 frames. It is asserted to
-  be exactly 8 frames, on the 8th frame and not on the 9th.
-- **Determinism.** The same input sequence has to produce the same output,
-  every time, on every machine.
-- **The performance budget.** The project settings and the cost of a frame
-  are measured, not assumed.
-- **The code policy.** Four rules from `CONTRIBUTING.md` that a reviewer
-  cannot check by reading a diff.
-- **The canon.** The cast, the arsenal, the roster and the player's numbers
-  are data, and data drifts. The suite checks them against each other and
-  against the design document.
-- **The input map.** The mouse is the camera and it is optional, so every
-  action has to keep a keyboard binding.
+The coyote window has to be exactly 8 frames, accepted on frame 8 and rejected on frame 9. The same input sequence must produce the same output on every machine. Project settings and frame cost get measured instead of assumed. Four rules from `CONTRIBUTING.md` are checked in code because a reviewer can't reliably check them from a diff.
+
+The canon tests keep the cast, arsenal, roster and player's numbers honest. Those are data, and data drifts. The input suite holds the agreed scheme in place: `A`/`D` run, `Ctrl` slides, `Space` jumps, `Q` grabs a ledge, `E` interacts, `F` throws the filament, the mouse handles the camera, and the left and right mouse buttons fire. The remaining camera route is on the arrows and `W`/`S`. The mouse triggers are the only mouse-only actions.
 
 ---
 
@@ -60,37 +41,36 @@ those instead:
 
 | Suite | Checks | Covers |
 | --- | --- | --- |
-| `test_tuning.gd` | 23 | Documented constants in `ws_tuning.gd` against `TECH_SPEC.md` §3 |
-| `test_movement.gd` | 42 | Top speed, acceleration rates, turnarounds, jump height, coyote time, jump buffer, air cap, slide, wall-kiss, plane constraint |
-| `test_movement_characterization.gd` | 77 | Arming and chain boundaries, collision energy, repeated cycles, adversarial input, full-state replay |
-| `test_movement_discovery.gd` | 26 | The discovery report, the invariants, and the bunny-hop promise |
-| `test_camera.gd` | 17 | Pitch clamp, yaw wrap, speed dolly, the camera belonging to the rig |
-| `test_input_map.gd` | 11 | Every action has a keyboard binding, nothing is mouse-only, the camera reads the look keys |
-| `test_determinism.gd` | 8 | Identical inputs give identical outputs; the section seed is stable |
-| `test_speed_meter.gd` | 11 | The speed readout, in metres per second: the reading, the peak, the reset and the units |
-| `test_perf_budget.gd` | 10 | The project settings and the cost of a frame |
-| `test_code_policy.gd` | 10 | Licence headers, no global random numbers, no allocation in the frame loops, the documentation |
-| `test_world_data.gd` | 39 | The 25×12 grid, the prequel, the gate schedule, the Fracture registry, the endings, the beats and the dialogue |
-| `test_canon.gd` | 112 | The cast, the silence, the arsenal, the enemy roster, the health and speed numbers, and the documents that have to agree with all of it |
-| `test_greybox.gd` | 33 | The scene: the player, the camera, the plane, the budget, the materials, the help panel, a 90-second route |
-| `test_psx.gd` | 39 | The amount dial: the globals, the shader, the clamping, the settings round trip, and the slider in the menu |
+| `test_tuning.gd` | 25 | Tuning constants match `TECH_SPEC.md` section 3 |
+| `test_movement.gd` | 48 | Movement is frame-exact |
+| `test_movement_characterization.gd` | 77 | Movement accidents stay characterized |
+| `test_movement_discovery.gd` | 26 | What the movement permits |
+| `test_camera.gd` | 17 | The camera rig behaves |
+| `test_input_map.gd` | 24 | The input map is the scheme we said |
+| `test_determinism.gd` | 8 | The simulation is deterministic |
+| `test_speed_meter.gd` | 11 | The speed is measured in metres per second |
+| `test_perf_budget.gd` | 10 | The performance budget holds |
+| `test_code_policy.gd` | 10 | The code policy holds |
+| `test_world_data.gd` | 39 | The world data holds together |
+| `test_canon.gd` | 115 | The canon holds |
+| `test_greybox.gd` | 36 | The greybox holds together |
+| `test_psx.gd` | 39 | The player picks how much PSX there is |
 
-### The two kinds of suite
+The tuning suite compares the documented constants in `ws_tuning.gd` with `TECH_SPEC.md` §3. The movement suite pins the top speed, acceleration rates, turnarounds, jump height, coyote time, jump buffer, air cap, slide, wall-kiss and plane constraint. Characterization keeps the arming and chain boundaries, collision energy, repeated cycles, adversarial input and full-state replay from drifting.
 
-Most suites are **plain**: they extend `WSTest`, implement `run()`, and touch
-nothing but the simulation. They do not need a scene tree and they run
-first.
+The camera suite checks the pitch clamp, yaw wrap, speed dolly and the camera's ownership by the rig. Determinism checks that identical inputs produce identical outputs and that the section seed stays stable. The speed-meter suite covers the reading, peak, reset and unit string.
 
-Two suites are **scene suites**: `test_greybox.gd` and `test_psx.gd`. They
-implement `run_with_scene(scene)` instead, and the runner gives them a live
-greybox. The PSX suite needs a live tree because it has to put the main menu
-into the tree and move the real slider.
+The world-data suite keeps the 25×12 grid, prequel, gate schedule, Fracture registry, endings, beats and dialogue together. The canon suite covers the cast, silence, arsenal, enemy roster, health and speed numbers, and the documents that have to agree with them. The greybox suite covers the scene, player, camera, plane, budget, materials, help panel and a 90-second route. The PSX suite checks the globals, shader, clamping, settings round trip and the slider in the menu.
+
+Most of these are **plain** suites. They extend `WSTest`, implement `run()`, touch nothing but the simulation, and don't need a scene tree. They run first.
+
+`test_greybox.gd` and `test_psx.gd` are the two **scene suites**. They implement `run_with_scene(scene)` instead, and the runner gives them a live greybox. The PSX suite needs a live tree because it puts the main menu into the tree and moves the real slider.
 
 ---
 
 ## 4. The framework
 
-`tests/ws_test.gd` is the whole framework. It is about eighty lines.
+`tests/ws_test.gd` is the whole framework. It's about eighty lines.
 
 ```gdscript
 extends "res://tests/ws_test.gd"
@@ -108,40 +88,23 @@ func run() -> void:
 	text(actual, expected, "a string comparison")
 ```
 
-`ok`, `near`, `same` and `text` each count a check and collect a failure
-message. The failure messages are sentences, not expressions, because the
-first thing you read at 2am should tell you what broke, not which operator
-disagreed.
+`ok`, `near`, `same` and `text` each count one check and collect a failure message. Messages are sentences rather than expressions. At 2am, the first line should tell you what broke, not which operator disagreed.
 
-Notice the `extends "res://tests/ws_test.gd"`, a path extend rather than the
-global class name. The global class cache lives in `.godot/` and isn't in the
-repository, so a fresh clone has no class names until the project has been
-imported. Path extends work straight away.
+Notice the `extends "res://tests/ws_test.gd"`. It's a path extend, not a global class name. The global class cache lives in `.godot/` and isn't in the repository, so a fresh clone has no class names until the project has been imported. A path extend works straight away.
 
 ### The code-policy test
 
-`test_code_policy.gd` is the odd one out: it reads the source tree rather
-than running anything.
+`test_code_policy.gd` reads the source tree rather than running anything. It checks four things.
 
-It checks four things:
+Every `.gd` file under `res://` must carry the GPL notice. The copyleft depends on that, and a missing header is a legal problem rather than a style problem.
 
-1. **Every `.gd` file under `res://` carries the GPL notice.** The copyleft
-   depends on it, and a missing header is a legal problem, not a style one.
-2. **No global random numbers in gameplay code.** `randf()`, `randi()`,
-   `randf_range()`, `randi_range()`, `randfn()` and `randomize()` are not
-   allowed in `addons/windshear/`, `world/` or `ui/`. Comments are stripped
-   before the scan, so a sentence in a docstring cannot trigger it.
-3. **No allocation in the frame loops.** The scan looks inside the bodies of
-   `_process` and `_physics_process` in `addons/windshear/` for `.new(`,
-   `.instantiate(`, `.duplicate(`, `.append(`, `.filter(`, `.map(`, `= []`,
-   `= {}` and `await `. The GC stutter ruins a run.
-4. **The documentation says the important things.** That the README names
-   both licences, that the LICENSE is the GPL, that the NOTICE credits
-   Godot, and that the spec states the memory ceiling and the run speed.
+Gameplay code can't use global random numbers. `randf()`, `randi()`, `randf_range()`, `randi_range()`, `randfn()` and `randomize()` are forbidden in `addons/windshear/`, `world/` or `ui/`. Comments are stripped before the scan so a docstring can't trigger it.
 
-The rule about allocation is enforced on the shipped runtime code under
-`addons/windshear/`. Developer tools and the greybox HUD are exempt: a
-label that refreshes ten times a second is not a frame loop problem.
+The frame loops can't allocate. The scan looks inside `_process` and `_physics_process` in `addons/windshear/` for `.new(`, `.instantiate(`, `.duplicate(`, `.append(`, `.filter(`, `.map(`, `= []`, `= {}` and `await `. GC stutter ruins a run.
+
+Finally, the documentation has to say the important things. The README must name both licences, the LICENSE must be the GPL, the NOTICE must credit Godot, and the spec must state the memory ceiling and run speed.
+
+That allocation rule applies to shipped runtime code under `addons/windshear/`. Developer tools and the greybox HUD are exempt. A label that refreshes ten times a second isn't a frame-loop problem.
 
 ---
 
@@ -149,17 +112,11 @@ label that refreshes ten times a second is not a frame loop problem.
 
 `tests/run_all.tscn` runs `tests/run_all.gd`, which extends `Node`.
 
-This is not a style choice. A `--script` main loop does **not** register the
-autoload singletons as global identifiers, so `WsGame` fails to compile in a
-script, and every suite that touches the menu (and the menu touches
-`WsGame`) cannot be written at all.
+A `--script` main loop doesn't register the autoload singletons as global identifiers. `WsGame` fails to compile in a script, which means a suite that touches the menu can't be written at all, since the menu touches `WsGame`.
 
-The runner was a `--script` main loop for two days. It worked for every
-suite that did not touch the autoload, which is exactly how a bug like this
-hides.
+The runner was a `--script` main loop for two days. It worked for every suite that didn't touch the autoload. That's exactly how this kind of bug hides.
 
-Running the suite as a scene also means the suite runs the game the way the
-game runs, which is the only way a test proves anything about the game.
+Running the suite as a scene also runs the game the way the game runs. It's the only way a test proves anything about the game.
 
 ```gdscript
 extends Node
@@ -178,9 +135,7 @@ func _run() -> void:
 
 ## 6. The discovery suite
 
-`test_movement_discovery.gd` is different in kind from the others. It does
-not assert a behaviour — it *plays* a set of candidate techniques against
-the controller and reports what came out.
+`test_movement_discovery.gd` works differently from the others. It doesn't assert a behaviour. It *plays* candidate techniques against the controller and reports what came out.
 
 ```
     movement discovery report
@@ -189,44 +144,23 @@ the controller and reports what came out.
     bunny hop           14.27    14.27     19      0      0     2.20
     slide-hop           14.43    14.43     10      1      0     0.53
     air flick           14.00     3.60      8      0      0     2.20
-    wall-kiss chain     18.00    18.00     15      0      1     0.00
+    wall-kiss chain     16.40    16.40     15      0      1     0.00
     turnaround          14.00    14.00      0      0      0     0.00
 ```
 
-The report is printed on every run, so a change in the movement code shows
-up in the output even when every assertion still passes. That is the point:
-the report is the instrument, the assertions are the guard rails.
+The report prints on every run. A movement change shows up in the output even when all the assertions still pass. The report is the instrument; the assertions are the guard rails.
 
-The guard rails are:
+Every technique stays under the speed ceiling and never leaves the XY plane. It respects the air acceleration cap and the wall-kiss chain cap. On top of that, bunny hopping can't beat a plain run by more than 0.5 m/s. That's the promise the project makes. If it ever fails, somebody changed the physics on purpose and has to argue for it.
 
-- Every technique stays under the speed ceiling.
-- Every technique never leaves the XY plane.
-- Every technique respects the air acceleration cap.
-- Every technique respects the wall-kiss chain cap.
-- **Bunny hopping is not a speed exploit.** It may not exceed a plain run by
-  more than 0.5 m/s.
-
-That last one is the promise the project makes. If it ever fails, somebody
-changed the physics on purpose and has to argue for it.
-
-`tests/movement_probe.gd` is the harness underneath: a kinematic rig that
-stands the controller up in an empty world and drives it with a per-frame
-input function. It has no scene and no physics body, so it runs in
-milliseconds.
+`tests/movement_probe.gd` is the harness underneath. It's a kinematic rig that stands the controller up in an empty world and drives it with a per-frame input function. No scene, no physics body, so it runs in milliseconds.
 
 ---
 
 ## 7. Writing a new suite
 
-1. Create `tests/test_<thing>.gd`.
-2. Extend `"res://tests/ws_test.gd"`.
-3. Implement `suite_name()` and `run()`. If it needs a live tree, implement
-   `run_with_scene(scene)` instead and add it to `SCENE_SUITES` in
-   `tests/run_all.gd`.
-4. `preload` your dependencies rather than using global class names.
-5. Write the failure messages as sentences.
-6. Free everything you allocate. The suite runner exits with a leak report
-   if it does not, and a leak in a test is a leak in the game.
+Create `tests/test_<thing>.gd` and extend `"res://tests/ws_test.gd"`. Implement `suite_name()` and `run()`. If it needs a live tree, implement `run_with_scene(scene)` and add it to `SCENE_SUITES` in `tests/run_all.gd`.
+
+Use `preload` for dependencies instead of global class names. Write failure messages as sentences. Free everything you allocate; the suite runner exits with a leak report if you don't, and a leak in a test is a leak in the game.
 
 ```gdscript
 extends "res://tests/ws_test.gd"
@@ -247,63 +181,38 @@ func run() -> void:
 
 ### The leak that was
 
-One suite, `_test_wall_kiss_cap()` in `test_movement.gd`, forgot to free its
-controller. The leak report at exit named a `CharacterBody3D`, two GDScripts
-and a Jolt RID, and it was the only thing in the exit log, so it was easy to
-find. Only because the runner had been started with `--verbose`, though.
+One suite, `_test_wall_kiss_cap()` in `test_movement.gd`, forgot to free its controller. The exit report named a `CharacterBody3D`, two GDScripts and a Jolt RID. It was the only thing in the exit log, so it was easy to find, although only after the runner had been started with `--verbose`.
 
-Nothing in the game was wrong. The test just wasn't tidying up, and a test
-that leaks is a test that hides the next leak.
+Nothing in the game was wrong. The test wasn't tidying up, and a test that leaks hides the next leak.
 
 ---
 
 ## 8. Continuous integration
 
-`.github/workflows/ci.yml` runs on every push and every pull request:
+`.github/workflows/ci.yml` runs on every push and every pull request. It checks out the repository, installs the pinned Godot **4.7.2** build and puts it on the path, then caches both the Godot download and the `.godot/` import cache. After that it imports the project, runs the test suite and runs the cell budget checker.
 
-1. Checkout.
-2. Install the pinned Godot **4.7.2** build and put it on the path.
-3. Cache the Godot download and the `.godot/` import cache.
-4. Import the project.
-5. Run the test suite.
-6. Run the cell budget checker.
+Every step fails the job on a non-zero exit. The engine version is pinned in one place at the top of the workflow and in `TECH_SPEC.md` §9. Both are meant to name the same build, the same table that says which Linux binary the Arch PKGBUILD uses.
 
-Every step fails the job on a non-zero exit. The engine version is pinned in
-one place at the top of the workflow and in `TECH_SPEC.md` §9, and the two
-are supposed to be the same build — the same table that says which Linux
-binary the Arch PKGBUILD uses.
-
-The import step is not optional. Without it there is no `.godot/` directory,
-no global class cache and no imported textures, and the suite fails in
-confusing ways.
+Don't skip the import step. Without it there's no `.godot/` directory, no global class cache and no imported textures. The suite then fails in confusing ways.
 
 ---
 
 ## 9. The budget checker
 
-`tools/cell_budget_checker.gd` walks the project and reports the size of
-each cell against the budget in `TECH_SPEC.md` §2:
+`tools/cell_budget_checker.gd` walks the project and reports the size of each cell against the budget in `TECH_SPEC.md` §2:
 
 ```
 Per-cell budgets: ≤ 45 MB textures, ≤ 20 MB meshes, ≤ 12 MB audio
 ```
 
-It is a gate, not a report. A cell that is over budget fails the check, and
-the check fails CI.
+It's a gate, not a report. A cell over budget fails the check, and the check fails CI.
 
 ---
 
 ## 10. What is not tested yet
 
-Worth knowing before anyone goes looking for a bug that isn't there.
+The headless runner uses the dummy renderer, so it can't tell whether the PSX shader actually *looks* right. It only checks that the shader compiles and that the dial reaches it. The visual work is done by hand and verified by hand.
 
-- **The renderer.** The headless runner uses the dummy renderer, so nothing
-  checks that the PSX shader actually *looks* right, only that it compiles
-  and that the dial reaches it. The visual work is done by hand and verified
-  by hand.
-- **The levels.** There are no levels yet.
-- **The Fractures.** None are implemented.
-- **The speedrun systems.** No timer, no ghosts, no splits.
+There are no levels yet. Most Fractures have no gameplay implementation; `wall_kiss_chain` is the exception, with its controller behaviour and stable registry entry in place. The rest of the speedrun stack is still ahead of us: the splits view can be opened with `Tab`, but there's no timer, ghost or leaderboard format yet.
 
-These are listed in `docs/dev_stage_1.md` §7 along with what each stage
-needs.
+These gaps are listed in `docs/dev_stage_1.md` §7 along with what each stage needs.

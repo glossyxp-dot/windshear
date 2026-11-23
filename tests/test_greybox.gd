@@ -150,7 +150,10 @@ func _test_the_mechanics_reference(scene: Node) -> void:
 	ok(text.contains("RUN"), "the reference lists the run verb")
 	ok(text.contains("SLIDE"), "the reference lists the slide verb")
 	ok(text.contains("JUMP"), "the reference lists the jump verb")
-	ok(text.contains("KISS"), "the reference lists the wall-kiss verb")
+	ok(text.contains("WALL"), "the reference lists the wall-jump verb")
+	ok(text.contains("GRAB"), "the reference lists the ledge grab")
+	ok(text.contains("TETHER"), "the reference lists the filament")
+	ok(text.contains("LMB / RMB"), "the reference lists the two triggers")
 
 	# The numbers have to be the real ones, or the reference is a lie.
 	var tuning := preload("res://addons/windshear/core/ws_tuning.gd")

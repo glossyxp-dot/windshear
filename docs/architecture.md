@@ -1,10 +1,8 @@
 # WindShear: architecture
 
-How the codebase is put together and why.
+The codebase, and the reasons behind its shape.
 
-Short version: the game code is a small addon with no dependencies outside
-`addons/windshear/`, everything else is data, and a test enforces the line
-between the two.
+The game code is a small addon with no dependencies outside `addons/windshear/`. Everything else is data, tooling or documentation, and a test keeps code from leaking into the data side.
 
 ---
 
@@ -45,10 +43,7 @@ windshear/
   docs/                  # this directory
 ```
 
-The licence boundary is the part that matters. `addons/windshear/`, `world/`
-and `ui/` are game code and are GPL-2.0-or-later. `data/` and `editions/` are
-content and are CC-BY-SA 4.0. It isn't a convention: the code-policy test
-checks that every `.gd` file under `res://` carries the GPL notice.
+Licensing is enforced rather than left to memory. Runtime code under `addons/windshear/`, `world/` and `ui/` is GPL-2.0-or-later. Content in `data/` and `editions/` is CC-BY-SA 4.0, as is the shared world geometry. The code-policy test checks that every `.gd` file under `res://` carries the GPL notice.
 
 ---
 
@@ -56,92 +51,75 @@ checks that every `.gd` file under `res://` carries the GPL notice.
 
 ### `core/ws_tuning.gd`
 
-Every number that defines how the game feels. One file, no dependencies, no
-scene tree access. It is safe to load from a worker thread.
+Every number that defines how the game feels lives here. There are no dependencies and no scene-tree access, so the file is safe to load from a worker thread.
 
-The rule is that this file and `TECH_SPEC.md` §3 are the same document in two
-forms. `tests/test_tuning.gd` reads the Markdown and asserts that the
-constants match, so they cannot drift apart silently.
+`TECH_SPEC.md` §3 and this file are two forms of the same document. `tests/test_tuning.gd` reads the Markdown and checks the constants against it. If either side changes alone, the build complains.
 
 ### `movement/lancer_controller.gd`
 
-The simulation. It extends `CharacterBody3D` and exposes one method that
-matters:
+This is the simulation. It extends `CharacterBody3D` and has one public method that matters:
 
 ```gdscript
 func simulate(delta: float, input: LancerInput) -> void
 ```
 
-Everything else is private. The controller does not read the clock, does not
-read `Input`, does not allocate, and does not look at the scene tree beyond
-the physics queries it needs.
+Everything else is private. The controller doesn't read the clock or `Input`, doesn't allocate, and doesn't inspect the scene tree apart from the physics queries it needs.
 
-This shape is what makes the game testable at the level the game cares about.
-A speedrunner's complaint is always about a frame ("the coyote time is one
-frame short"), and a frame-accurate test is the only thing that can answer
-it.
+That shape gives us tests at the level the game actually cares about. When a speedrunner says the coyote time is one frame short, only a frame-accurate test can settle the argument.
 
 ### `movement/speed_meter.gd`
 
-Speed, measured in metres per second. It keeps two numbers: the current
-horizontal speed and the peak since the last reset. The unit is metres per
-second everywhere in the project, because a number that only means something
-inside the engine is a number nobody can argue with.
+Speed is measured in metres per second. The meter keeps the current horizontal speed and the peak since the last reset. Every speed number in the project uses the same unit because an engine-local number is impossible to discuss or compare.
 
-The greybox HUD reads it, the mechanics reference quotes it, and
-`tests/test_speed_meter.gd` holds the reading, the peak, the reset and the
-unit string.
+The greybox HUD reads the meter, the mechanics reference quotes it, and `tests/test_speed_meter.gd` checks the reading, peak, reset and unit string.
 
 ### `movement/camera_rig.gd`
 
-The camera is parented to Lancer. It never leaves. It does pitch clamping
-(±80°), yaw wrapping, and a speed dolly that pulls back as the player gets
-faster.
+The camera is parented to Lancer and stays there. It clamps pitch at ±80°, wraps yaw, and dollies back as the player gains speed.
 
-There are three ways to look: the mouse (by pixels), the right stick (by
-rate) and the keyboard (`Q`, `E`, Page Up and Page Down, by rate). The mouse
-is the camera, and a player holding it is not holding a movement key, so the
-keyboard has its own actions and its own rate rather than sharing the
-stick's. The keyboard look actions are separate from the stick ones for
-exactly that reason: the key rate is slower, so a keyboard player can line
-the camera up instead of whipping it past the target.
+The rig reads mouse motion, the right stick and the keyboard look actions. The mouse is the camera, by pixels. The right stick is another route, by rate, and the keyboard has one too: the arrows turn and tilt the camera, while `W` and `S` tilt it. The keyboard is deliberately slower at 2.0 rad/s; the mouse turns at 0.0022 rad per pixel. That gives keyboard players time to line up a shot instead of whipping past the target. The keyboard look actions are separate from the stick actions because their rates differ.
 
-There's no cutscene camera and there never will be. `TECH_SPEC.md` §7 says the
-camera stays on Lancer during a MAJOR beat, and this rig is the only camera in
-the project.
+The mouse also owns the two triggers, since it's already in the hand doing the camera. Everything else is on the keyboard. The gamepad follows the same split: left stick and D-pad move, A jumps, B slides, X grabs a ledge, Y interacts, the right shoulder throws the filament, the right trigger is primary fire, the left trigger is alt fire, and the right stick is the camera.
+
+There's no cutscene camera. `TECH_SPEC.md` §7 keeps the camera on Lancer during a MAJOR beat, and this rig is the only camera in the project.
 
 ### The input map
 
-The `[input]` section of `project.godot` is generated by
-`tools/setup_input_map.gd`. A hand-written input section is a wall of
-`Object(InputEventKey, ...)` lines that nobody reviews, and the generator is
-reviewable in one screen.
+The `[input]` section of `project.godot` is generated by `tools/setup_input_map.gd`. Never hand-edit it. A handwritten input section is a wall of `Object(InputEventKey, ...)` lines that nobody reviews; the generator fits on one screen.
 
-The generator's rule is that **the mouse is optional**: every action has at
-least one keyboard binding, and the mouse bindings are extra routes to the
-same action. `tests/test_input_map.gd` enforces it, and it also checks that
-the camera rig actually reads the keyboard look actions, because an action
-nobody reads is an action that does nothing.
+The current scheme is:
+
+```text
+A / D    run left, run right
+Ctrl     slide
+Space    jump
+Q        ledge grab
+E        interact
+F        filament
+LMB      primary fire
+RMB      alt fire
+W / S    tilt the camera
+arrows   turn and tilt the camera
+mouse    camera
+```
+
+The mouse handles the camera and both triggers because it's already in the hand pointing at the target. The rest stays on the keyboard. The arrows and `W`/`S` preserve a camera route for players who'd rather leave the mouse on the desk.
+
+The generator also deletes retired actions. If an action is renamed, the old name can't linger in `project.godot`. `tests/test_input_map.gd` checks the scheme itself and confirms that the camera rig reads the keyboard look actions; an action nobody reads doesn't do anything.
 
 ### `core/ws_game.gd` — the autoload
 
-Registered in `project.godot` as `WsGame`. It owns the handful of values that
-have to survive a scene change: the game mode, the run clock, and the
-player's settings.
+`project.godot` registers this as `WsGame`. It owns the few values that need to survive a scene change: game mode, run clock and player settings.
 
-It deliberately has **no `class_name`**. The autoload is registered as
-`WsGame`, and a global class with the same name would shadow it. That's the
-sort of small thing that costs an afternoon once.
+It has no `class_name`, on purpose. The autoload is registered as `WsGame`, and a global class with the same name would shadow it. Small thing. It still costs an afternoon once.
 
-Settings are read from `user://settings.cfg` on boot and written back when
-the player leaves the settings panel or quits. Missing keys keep their
-defaults, so a settings file from an older build keeps working.
+Settings are read from `user://settings.cfg` on boot, then written back when the player leaves the settings panel or quits. Missing keys keep their defaults, so a settings file from an older build still works.
 
 ---
 
 ## 3. The data layer
 
-Anything that can be a table is a table.
+I keep tabular data in tables.
 
 | File | What it holds |
 | --- | --- |
@@ -156,74 +134,37 @@ Anything that can be a table is a table.
 | `data/story/beats/*.beat.json` | The story beats, AMBIENT and MAJOR |
 | `data/story/endings.json` | The endings table |
 
-JSON files cannot hold comments, so each one carries a `_meta` block with
-its SPDX identifier and its schema version instead. The schema is documented
-next to the data, in `data/story/README.md` and `data/sections/README.md`.
+JSON can't hold comments, so each file carries a `_meta` block with its SPDX identifier and schema version. The schemas live beside the data in `data/story/README.md` and `data/sections/README.md`.
 
-The rule for the Fractures is in `TECH_SPEC.md` §6, and it's a policy rather
-than an implementation detail: **a shipped Fracture is never removed or
-altered, only added.** Routes recorded against version 1 of a Fracture have to
-keep working, so the Fracture has to keep behaving the same way.
+`TECH_SPEC.md` §6 describes the Fracture policy: **a shipped Fracture is never removed or altered, only added.** That's policy, not an implementation detail. A route recorded against version 1 of a Fracture still has to work, so the Fracture has to keep behaving the same way.
 
-`tests/test_world_data.gd` reads all five files and checks that they still
-describe the same world: 300 sections numbered P1.01 to 20.12, a gate schedule
-that covers every one of them, twelve Fractures, and beats and endings that
-point at ids which exist. It collects every problem into one failure message
-instead of printing a wall of near-identical lines.
+`tests/test_world_data.gd` reads all five files and checks that they still describe the same world: 300 sections numbered P1.01 to 20.12, a gate schedule covering every one, twelve Fractures, and beats and endings that point at ids which exist. It gathers all the problems into one failure message instead of filling the log with near-identical lines.
 
-The prequel chapters are keyed `P1` to `P5` and their sections are `P3.07`
-and friends, so the grid has two kinds of chapter key and the test has to
-cope with both. The chapter key in the JSON is a string for the prequel and a
-number for the present day, and the test normalises before it compares
-anything.
+The prequel chapters are keyed `P1` to `P5`, and their sections look like `P3.07`. The grid therefore has two kinds of chapter key. JSON uses a string for the prequel and a number for the present day; the test normalises both before comparing them.
 
 ### The canon layer
 
-Four more files sit beside the world data, and they are the canon:
-`data/cast.json`, `data/arsenal.json`, `data/enemies.json` and
-`data/player.json`. They hold the characters and their pronouns, the weapons
-and items and map utilities, the enemy roster, and the player's health and
-speed thresholds.
+Four more files sit beside the world data: `data/cast.json`, `data/arsenal.json`, `data/enemies.json` and `data/player.json`. Between them they hold the characters and their pronouns, the weapons, items and map utilities, the enemy roster, and the player's health and speed thresholds.
 
-`tests/test_canon.gd` reads them and the dialogue file and
-`GAME_DESIGN.md`, and checks that they all say the same thing: every speaker
-is in the cast, only Lancer is silent and pronounless, Ilsa says nothing in
-the prequel, every weapon is available in the acts it is supposed to be
-available in, the main-game threat never turns up in a Fracture Year chapter,
-the sprint speed and the wall-kiss ceiling match `ws_tuning.gd`, and every
-weapon, enemy, item and character in the data is named in the design
-document.
+`tests/test_canon.gd` reads those files, the dialogue file and `GAME_DESIGN.md`, then checks that they agree. Every speaker must be in the cast. Lancer is the only pronounless character, and Lancer never speaks. Ilsa Renn says nothing in the prequel. Weapons must be available in the acts where they belong, and the main-game threat must never turn up in a Fracture Year chapter. The sprint speed, base wall-jump ceiling of 16.4 m/s and Fracture ceiling of 18.0 m/s must match `ws_tuning.gd`. Every weapon, enemy, item and character in the data must also be named in the design document.
 
-The rule behind it: **canon is data, and the prose is a copy of it.** If the
-two ever disagree, the build fails rather than the argument.
+Canon is data, and the prose is a copy of it. When the two disagree, the build fails rather than the argument.
 
 ### Editions
 
-An Edition is a directory with an `edition.json` and optional `story/` and
-`assets/` overrides. Data only, no code. The format is in
-`editions/README.md`.
+An Edition is a directory containing an `edition.json`, with optional `story/` and `assets/` overrides. It's data only; no code. The format is documented in `editions/README.md`.
 
-The official index refuses to list an Edition that does not declare an open
-licence and does not point at its source. Locally installed Editions always
-load; the index curates, the game does not block.
+The official index refuses to list an Edition unless it declares an open licence and points at its source. Locally installed Editions always load. The index curates; the game doesn't block.
 
 ---
 
 ## 4. The PSX system
 
-The PSX look is four separate artefacts of the 1990s that happen to sit
-together:
+The PSX look combines four separate pieces of 1990s rendering hardware.
 
-1. **Vertex snapping.** The rasteriser rounded every vertex to the nearest
-   pixel of a 480×270 buffer, and the geometry wobbled as it moved.
-2. **Affine texturing.** The UVs of a triangle were interpolated in screen
-   space instead of in perspective, so flat surfaces visibly swam.
-3. **5-bit colour.** The colour buffer was 15 bits, five per channel, so
-   gradients banded.
-4. **Ordered dithering.** A 4×4 Bayer pattern hid the banding.
+The rasteriser rounded every vertex to the nearest pixel of a 480×270 buffer, which made geometry wobble while it moved. Affine texturing interpolated a triangle's UVs in screen space rather than in perspective, so flat surfaces swam. The colour buffer held 15 bits, five per channel, which made gradients band. A 4×4 Bayer dither pattern hid some of those bands.
 
-`addons/windshear/render/ws_psx.gdshader` implements all four, and the
-player picks how much of it there is.
+`addons/windshear/render/ws_psx.gdshader` implements all four, and the player decides how much of the effect to use.
 
 ### The global uniform trick
 
@@ -242,59 +183,33 @@ psx_affine={
 }
 ```
 
-Every material that uses the shader reads `psx_amount`, so moving the slider
-changes the whole game at once, without touching a single material resource
-and without a per-frame shader parameter push. That matters for the memory
-budget and for the frame cost, and it means a hand-made material only has to
-set its colour and its texture.
+Every material using the shader reads `psx_amount`, so moving the slider changes the game in one step. No material resource has to change, and there's no per-frame shader parameter push. That keeps the memory budget and frame cost down. A hand-made material only needs its colour and texture.
 
-The authoritative copy of the value lives in GDScript (`WsPsx`), not in the
-renderer. The headless test runner uses the dummy renderer, where
-`RenderingServer.global_shader_parameter_get()` returns `null`. The globals
-are registered but they can't be read back, so the tests assert against the
-GDScript value and the renderer is only ever written to.
+The authoritative copy of the value lives in GDScript (`WsPsx`), not in the renderer. The headless test runner uses the dummy renderer, where `RenderingServer.global_shader_parameter_get()` returns `null`. The globals can be registered but can't be read back, so the tests assert against the GDScript value. We only ever write to the renderer.
 
-The affine warping is off by default. Warped textures are hard to read, and
-readability wins until the player asks otherwise.
+Affine warping is off by default. Warped textures are hard to read, and readability wins until the player asks otherwise.
 
 ---
 
 ## 5. Determinism
 
-Three rules, all of them enforced by the test suite:
+Three rules hold the simulation still, and the test suite enforces all of them.
 
-1. **Fixed 60 Hz physics.** `physics_ticks_per_second = 60`,
-   `max_physics_steps_per_frame = 4`.
-2. **`physics_jitter_fix = 0.0`.** Godot's default jitter fix nudges the
-   timestep so that physics lines up with the frame rate. It's a good idea
-   for a smooth game and a bad idea for a game where a run gets compared frame
-   by frame.
-3. **No global random numbers in gameplay.** Section randomness comes from
-   `WsGame.rng_for_section(section_id)`, which seeds a
-   `RandomNumberGenerator` with an FNV-1a hash of the section id. The hash is
-   written out by hand rather than using the engine's string hashing, so it
-   doesn't depend on engine internals and stays identical across builds and
-   platforms.
+Physics runs at a fixed 60 Hz, with `physics_ticks_per_second = 60` and `max_physics_steps_per_frame = 4`. We also set `physics_jitter_fix = 0.0`. Godot's default jitter fix nudges the timestep so physics lines up with the frame rate. That's helpful for a smooth game and wrong for a game whose runs get compared frame by frame.
 
-The code-policy test scans `addons/windshear/`, `world/` and `ui/` for
-`randf()`, `randi()`, `randf_range()`, `randi_range()`, `randfn()` and
-`randomize()`, with comments stripped first so that a sentence in a
-docstring cannot trigger it.
+Gameplay can't use global random numbers. Section randomness comes from `WsGame.rng_for_section(section_id)`, which seeds a `RandomNumberGenerator` with an FNV-1a hash of the section id. The hash is written out by hand rather than using the engine's string hashing. That keeps it independent of engine internals and identical across builds and platforms.
+
+The code-policy test scans `addons/windshear/`, `world/` and `ui/` for `randf()`, `randi()`, `randf_range()`, `randi_range()`, `randfn()` and `randomize()`. It strips comments first, so a sentence in a docstring can't trigger it.
 
 ---
 
 ## 6. The 2.5D plane
 
-The gameplay is on the XY plane. The player's Z velocity is forced to zero
-every frame, and the level geometry is placed on that plane.
+Gameplay happens on the XY plane. The player's Z velocity is forced to zero every frame, and the level geometry is placed on that plane.
 
-The depth is visual, and it's staged: foreground occluders, the play plane,
-mid-ground, the city shell, the skybox. The greybox has a guide wall at
-z = -0.5, a side wall rather than a back wall, because the wall-kiss needs a
-wall whose normal points along Z.
+Depth is visual and staged: foreground occluders, the play plane, mid-ground, the city shell and the skybox. The greybox has a guide wall at z = -0.5 and a side wall rather than a back wall. The wall-kiss needs a wall whose normal points along Z.
 
-This is checked by the greybox suite and by the discovery suite, which
-asserts that no technique ever produces a Z velocity.
+The greybox suite and discovery suite check this. No technique may produce a Z velocity.
 
 ---
 
@@ -305,38 +220,24 @@ asserts that no technique ever produces a Z velocity.
 | `tools/setup_input_map.gd` | Writes the `[input]` section of `project.godot` |
 | `tools/cell_budget_checker.gd` | Walks the project and reports the per-cell size against the budget |
 
-The input map is generated rather than hand-written because the hand-written
-form is a wall of `Object(InputEventKey, ...)` lines that nobody can review.
-The tool preserves every other setting and comment in `project.godot` and
-replaces only the section it owns.
+The input map is generated because the handwritten form is a wall of `Object(InputEventKey, ...)` lines that nobody can review. The tool preserves every other setting and comment in `project.godot` and replaces only the section it owns.
 
 ```bash
 godot --headless --path . --script res://tools/setup_input_map.gd
 ```
 
-It has to call `ProjectSettings.save()` to make Godot serialise the input
-events, and that call rewrites the whole file, dropping any setting that
-happens to equal the engine default. So the tool reads the original text
-first, saves, then splices the new `[input]` section back into the original.
-Run it twice and the file comes out byte-identical.
+It has to call `ProjectSettings.save()` so Godot will serialise the input events. That rewrites the whole file and drops any setting equal to an engine default. So the tool reads the original text first, saves, then splices the new `[input]` section back into the original. Run it twice and the file comes out byte-identical.
 
 ---
 
 ## 8. Things that are deliberate, and look like mistakes
 
-- **The test runner is a scene, not a script.** A `--script` main loop does
-  not register the autoload singletons as global identifiers, so `WsGame`
-  does not compile there. See `docs/testing.md` §5.
-- **The autoload has no `class_name`.** A global class with the same name
-  would shadow it.
-- **Scripts `preload` their dependencies instead of using global class
-  names.** The global class cache lives in `.godot/`, which is not in the
-  repository, so a fresh clone has no class names until the project has been
-  imported once.
-- **The controller's `simulate()` is called explicitly.** The physics
-  callback does not call it, because the tests call it directly and the two
-  paths must be the same path.
-- **The greybox materials are files in `assets/materials/`.** They are
-  `ShaderMaterial` resources using the PSX shader, loaded through
-  `material_override` so the Inspector can find them. A material buried inline
-  in a scene cannot be edited once and reused, so the test suite rejects one.
+The test runner is a scene, not a script. A `--script` main loop doesn't register the autoload singletons as global identifiers, so `WsGame` won't compile there. See `docs/testing.md` §5.
+
+The autoload has no `class_name`; a global class with the same name would shadow it.
+
+Scripts `preload` their dependencies instead of using global class names. The global class cache lives in `.godot/`, which isn't in the repository, so a fresh clone has no class names until the project has been imported once.
+
+The controller's `simulate()` is called explicitly. The physics callback doesn't call it because the tests call it directly, and both paths need to be the same path.
+
+The greybox materials are files in `assets/materials/`. They're `ShaderMaterial` resources using the PSX shader, loaded through `material_override` so the Inspector can find them. A material buried inline in a scene can't be edited once and reused, so the test suite rejects one.

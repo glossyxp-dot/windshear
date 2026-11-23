@@ -49,6 +49,10 @@ route recorded against version 1 of it and that route has to keep working.
 Leaving a weird bit of physics in the game is a much smaller sin than breaking
 everybody's splits.
 
+That rule is why the `wall_kiss_chain` Fracture still says "stacks to ×5" in
+the registry even though the base chain is three wall-jumps. The registry text
+shipped that way. The Fracture is what the fourth and fifth jump belong to.
+
 ## The canon is data, and the data and the docs have to agree
 
 The cast, the arsenal, the enemy roster and the player's numbers live in
@@ -89,10 +93,10 @@ before I do.
 ## Before you open a PR
 
 - [ ] You've read `GAME_DESIGN.md`. It's the spec, not a mood board.
-- [ ] New mechanics fit the existing verbs: run, slide, jump, wall-kiss,
+- [ ] New mechanics fit the existing verbs: run, slide, jump, wall-jump,
       filament, wind. A new core verb is a design conversation before it's a PR.
 - [ ] The camera never leaves Lancer. Major beats freeze the player and the
-      world, and the framing stays composed because the camera is hers.
+      world, and the framing stays composed because the camera is Lancer's.
 - [ ] 60 Hz determinism holds. No `randf()` in gameplay logic; use the
       section-seeded generator so ghosts and replays match.
 - [ ] `godot --headless --path . res://tests/run_all.tscn` passes.
@@ -104,9 +108,9 @@ before I do.
 - [ ] If you touched the cast, the arsenal, the roster or the player's
       numbers, the JSON and `GAME_DESIGN.md` changed together. The canon suite
       reads both.
-- [ ] Every action still has a keyboard binding. The mouse is the camera and
-      it is optional, and `test_input_map.gd` fails the build if an action
-      ends up mouse-only.
+- [ ] Every action except the two triggers still has a keyboard binding, and
+      the triggers are still on the mouse buttons. `test_input_map.gd` fails the
+      build otherwise.
 
 ## How a PR actually lands
 
@@ -114,6 +118,10 @@ Small PRs land fast. One thing per PR, a sentence about why, tests green. If a
 PR touches movement numbers in `ws_tuning.gd`, it also touches `TECH_SPEC.md`
 §3, because `test_tuning.gd` reads the Markdown and compares. Change one
 without the other and the build fails on purpose.
+
+The input map is the same deal. It isn't hand-written; `tools/setup_input_map.gd`
+writes it, and a binding you change in `project.godot` gets undone the next
+time somebody runs the generator. Change the generator.
 
 Not sure whether something is wanted? Open an issue first. I'd rather talk it
 through for ten minutes than review a week of work that went the wrong way.

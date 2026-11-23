@@ -79,14 +79,14 @@ func _build_help_text() -> String:
 	lines.append("LANCER")
 	lines.append("")
 	lines.append("RUN     A / D         %4.1f m/s" % Tuning.MAX_RUN_SPEED)
-	lines.append("SLIDE   S / Ctrl      %4.2f s, friction %d" % [
+	lines.append("SLIDE   CTRL          %4.2f s, friction %d" % [
 		Tuning.SLIDE_DURATION, int(Tuning.SLIDE_FRICTION)
 	])
 	lines.append("JUMP    SPACE        %4.1f m/s, apex %4.1f m" % [
 		Tuning.JUMP_VELOCITY, _jump_apex()
 	])
 	lines.append("AIR     A / D in air  +%4.1f m/s a jump" % Tuning.AIR_ACCEL_MAX_CONTRIB)
-	lines.append("KISS    slide + jump +%4.1f m/s, x%d, max %4.1f" % [
+	lines.append("WALL    slide + jump +%4.1f m/s, x%d, max %4.1f" % [
 		Tuning.WALL_KISS_BOOST, Tuning.WALL_KISS_CAP, Tuning.WALL_KISS_SPEED_CEILING
 	])
 	lines.append("")
@@ -94,16 +94,19 @@ func _build_help_text() -> String:
 		Tuning.COYOTE_FRAMES, Tuning.JUMP_BUFFER_FRAMES, Tuning.WALL_KISS_CHAIN_FRAMES
 	])
 	lines.append("")
-	lines.append("TURN   Q / E       camera left / right")
-	lines.append("TILT   PgUp/PgDn   camera up / down")
-	lines.append("TETHER F           filament")
+	lines.append("GRAB    Q             ledge grab")
+	lines.append("TALK    E             interact")
+	lines.append("TETHER  F             filament")
+	lines.append("TURN    arrows        camera left / right")
+	lines.append("TILT    W / S         camera up / down")
+	lines.append("FIRE    LMB / RMB     primary / alt")
 	lines.append("")
-	lines.append("the mouse is the camera, and it is optional")
+	lines.append("the mouse does the camera and the two triggers")
 	lines.append("")
 	lines.append("the HUD reads speed in m/s, current and peak")
 	lines.append("peak clears when you respawn")
 	lines.append("")
-	lines.append("not built yet: filament, mantle")
+	lines.append("not built yet: filament, ledge grab, interact")
 	lines.append("")
 	lines.append("RESET   R")
 	lines.append("HELP    F1 or H")
@@ -123,6 +126,6 @@ func _jump_apex() -> float:
 func _refresh_hud() -> void:
 	_meter.sample(_player.velocity)
 	var position := _player.global_position
-	_hud.text = "SPEED %6s   PEAK %6s   X %6.1f   Y %5.1f   KISS %d" % [
+	_hud.text = "SPEED %6s   PEAK %6s   X %6.1f   Y %5.1f   WALL %d" % [
 		_meter.current_text(), _meter.peak_text(), position.x, position.y, _player.wall_kiss_count
 	]

@@ -28,9 +28,12 @@
   "speed": {
     "unit": "m/s",
     "max_sprint": 14.0,
-    "wall_kiss_ceiling": 18.0,
+    "wall_jump_cap": 3,
+    "wall_jump_ceiling": 16.4,
+    "wall_jump_fracture_cap": 5,
+    "wall_jump_fracture_ceiling": 18.0,
     "ram_shatter_impact": 100.0,
     "cloak_speed_threshold": 8.0,
-    "notes": "Concord sensors and turrets read these thresholds. The sprint figure is the movement tuning file's MAX_RUN_SPEED and the wall-kiss ceiling is its WALL_KISS_SPEED_CEILING, so this file cannot drift away from the code."
+    "notes": "Concord sensors and turrets read these thresholds. The sprint figure is the movement tuning file's MAX_RUN_SPEED, the base wall-jump ceiling is its WALL_KISS_SPEED_CEILING (three wall-jumps at +0.8 m/s), and the Fracture ceiling is its WALL_KISS_FRACTURE_SPEED_CEILING (five wall-jumps). This file cannot drift away from the code."
   }
 }

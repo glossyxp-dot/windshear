@@ -9,14 +9,14 @@ turns up in a Fracture Year chapter. The short version is in
 
 ---
 
-## The rule
+## What the roster is for
 
-**Area denial, not a shooting gallery.** The Concord doesn't fight Lancer. It
+Area denial, not a shooting gallery. The Concord doesn't fight Lancer. It
 denies the ground, one room at a time. The level closes, the route changes,
 and the run turns into a question of where you were going to be in two
 seconds.
 
-Every enemy below is built to be *readable* before you commit to it: its
+Every enemy below is built to be readable before you commit to it. Its
 patrol, its charge, its arc and its wind-up are all visible before they hurt
 you. The Concord's whole design assumption is that a threat arrives slowly
 enough to be avoided. The trick of the game is that you arrive faster.
@@ -30,30 +30,31 @@ prequel.** The Concord is still arriving in those chapters, and what it has
 brought with it is biology, not soldiers.
 
 ### Concord Dartbug — chaser / swarm
+
 Fast, early-generation bio-construct that rushes in packs and stabs for 10 HP.
 Easily killed with the P-20 "Courier" or the V-9 "Vigil". No drop: they come
 in numbers, and a pack is an aim check and a momentum check at the same time.
 
 ### Concord Ram — chokepoint anchor / juggernaut
+
 A slow, four-legged chitin-armoured bio-construct branched from the original
 organism. It locks exclusively onto the player and is nearly invincible to
 bullets. Almost everything about it is a problem except the one thing that
-isn't: it is heavy, it commits to a line, and it cannot turn quickly.
+isn't: it's heavy, it commits to a line, and it can't turn quickly.
 
-**Counterplay:** avoid it completely, lure it into pits or craters, collapse
-floors under it with an M-44 "Seam-Splitter" as Ilsa, or shatter it head-on
-at 100 m/s as Lancer.
-
-**Drop:** chitin shards, or an overcharge spark. Shattering a Ram at 100 m/s
-grants Lancer 25 points of decaying overheal.
+Avoid it completely, lure it into pits or craters, collapse floors under it
+with an M-44 "Seam-Splitter" as Ilsa, or shatter it head-on at 100 m/s as
+Lancer. It drops chitin shards or an overcharge spark, and shattering it at
+100 m/s grants Lancer 25 points of decaying overheal.
 
 ### Concord Stifler — toxic / hazard
-A bloated containment construct grown out of a ruptured Grown Seam. It is
-slow and it is obvious, and the fight is not the problem.
 
-**Death effect:** a caustic coolant pool, 5 HP a second, on the floor and the
-walls. It kills slide friction, which means the section after the Stifler is
-slower and more precise than the one before it.
+A bloated containment construct grown out of a ruptured Grown Seam. It's slow
+and it's obvious, and the fight is not the problem.
+
+The problem is what it leaves behind: a caustic coolant pool, 5 HP a second,
+on the floor and the walls. It kills slide friction, which means the section
+after the Stifler is slower and more precise than the one before it.
 
 ---
 
@@ -63,55 +64,59 @@ The Concord has had twenty years to hire, to manufacture, and to take notes
 on couriers.
 
 ### Concord Trooper — tactical baseline / infantry
+
 Standard enforcement soldiers patrolling checkpoints and alleys in squads,
 with V-9 "Vigil" SMGs and timed fragmentation grenades.
 
-**Drop:** 9mm magazines, fragmentation grenades, and the occasional Field
-Ration worth 15 HP.
-
-They are the baseline. Expect them, flank them, and do not let a grenade pin
-the route.
+They drop 9mm magazines, fragmentation grenades, and the occasional Field
+Ration worth 15 HP. Expect them, flank them, and don't let a grenade pin the
+route.
 
 ### Napalm Mortar — area denier
-Arcing incendiary artillery crews locking down high ground, rooftops and
-cover lanes with lingering fire. The mortar is not the target; the crew is.
 
-**Drop:** an incendiary fuel canister, which can be thrown or shot as a
-fire-bomb if the crew is killed before it fires.
+Arcing incendiary artillery crews locking down high ground, rooftops and
+cover lanes with lingering fire. The mortar isn't the target; the crew is.
+
+A killed crew drops an incendiary fuel canister, which can be thrown or shot
+back as a fire-bomb.
 
 ### Concord Overwatch — sniper / roof watcher
+
 A high-perch marksman with an M98 "Longhorn" Carbine and a visible cyan
 targeting laser. Forty-five HP a hit, which is most of a health bar, so the
 laser is the warning and the laser is always visible.
 
-**Drop:** 7.62mm marksman clips and EMP / Signal Scrambler Flares.
+It drops 7.62mm marksman clips and EMP / Signal Scrambler Flares.
 
 ### Concord Diver — chaser / rusher
+
 Pneumatic-legged bio-constructs that fire compressed air from their leg vents
 to vault gaps and chase Lancer onto rooftops. Twenty HP a strike, and it
 arrives from above, which breaks the habit of watching the floor.
 
-**Drop:** a pressurised pneumatic cell. It restores 15 points of decaying
+A pressurised pneumatic cell drops from one. It restores 15 points of decaying
 overheal and resets the Filament cooldown.
 
 ### Concord Jammer — disruptor
+
 A heavy spider-legged tripod projecting a static-air sphere that cancels
 thermals and jams Filament lock-ons until its rear pressure core is
 destroyed. The sphere is the problem, so the core is the target: the M98
 handles it from range, the L-01 from close.
 
-**Drop:** a regulator capacitor core, which recharges the L-01 or triggers a
+It drops a regulator capacitor core, which recharges the L-01 or triggers a
 brief updraft.
 
 ### Warp Synth — sniper / armoured anchor
+
 A durable 200 HP post-Concord synth that relocates slowly, digs itself into
 the ground to anchor, charges a readable lock-on and fires hyper-fast
 projectiles. **Immune to bullets.**
 
 It takes explosives: the AT-7 "Goliath" or the L-01 "Arc-Lance". Or a route
-it is not watching, which is cheaper.
+it isn't watching, which is cheaper.
 
-**Drop:** a high-energy core that fully restores 100 HP and 150 max overheal,
+It drops a high-energy core that fully restores 100 HP and 150 max overheal,
 and AT-7 rockets.
 
 ---
@@ -122,20 +127,22 @@ Acts III to VI. The Concord stops policing blocks and starts defending the
 machine.
 
 ### Concord Special Defense Operations Trooper — elite guard / strike coordinator
+
 Heavy elite containment troops stationed in high-security zones like the
 Concord Monolith, once Lancer has planetary significance. They coordinate
 squad tactics and direct air support, so the squad is the target.
 
-**Drop:** a heavy armour med-injector worth 35 HP, 7.62mm marksman clips,
+They drop a heavy armour med-injector worth 35 HP, 7.62mm marksman clips,
 and strike targeter beacons used to jam or redirect air strikes.
 
 ### Concord C-01 "Scatter" — air-to-ground area denier
+
 A low-altitude defence gunship, directed by an SDO Trooper. It saturates
 ground lanes, streets and rooftops with cluster napalm, which forces Lancer
-off the floor and onto the walls: wall-kisses and Filament tethers.
+off the floor and onto the walls: wall-jumps and Filament tethers.
 
-**Drop:** none. It is driven off by eliminating the directing SDO Trooper, or
-by hitting it with the AT-7 "Goliath" or the L-01 "Arc-Lance".
+It drops nothing. You drive it off by eliminating the directing SDO Trooper,
+or by hitting it with the AT-7 "Goliath" or the L-01 "Arc-Lance".
 
 ---
 
@@ -159,8 +166,8 @@ by hitting it with the AT-7 "Goliath" or the L-01 "Arc-Lance".
 
 ## What is not an enemy
 
-The Concord's area denial is not on this list, because it is not a creature:
-it is a **scheduled gate**, a **Quarantine Bulkhead**, a **Purge and
-Sterilization Protocol** and an **Interdiction Node**. Those are in
-`GAME_DESIGN.md` §10 and in `docs/CONCORD.md`, and they are the actual
-antagonist. The creatures are the Concord's hands.
+The Concord's area denial isn't on this list, because it isn't a creature. It's
+a **scheduled gate**, a **Quarantine Bulkhead**, a **Purge and Sterilization
+Protocol** and an **Interdiction Node**. Those are in `GAME_DESIGN.md` §10 and
+in `docs/CONCORD.md`, and they're the actual antagonist. The creatures are the
+Concord's hands.
