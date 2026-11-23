@@ -74,8 +74,16 @@ Open `world/greybox/movement_greybox.tscn` and press **F6**.
 | Slide | S, ↓ or Ctrl |
 | Jump | Space |
 | Wall-kiss | slide into a wall, jump on contact |
+| Turn the camera | Q / E |
+| Tilt the camera | Page Up / Page Down |
+| Filament | F |
 | Reset to the spawn | R |
 | Mechanics reference | F1 or H |
+
+The camera is mouse-look, and the mouse is optional. Click into the window if
+the mouse is captured and Escape lets it go; if you never touch the mouse, Q
+and E turn the camera and Page Up and Page Down tilt it. The full table is in
+`docs/CONTROLS.md`.
 
 The reference panel gets built from the tuning constants when the room opens,
 so it can't drift away from what the controller actually does. It also says
@@ -84,9 +92,6 @@ which verbs aren't built yet. Right now that's the filament and the mantle.
 The small readout in the corner is the speed, in metres per second. It shows
 the current horizontal speed and the peak since the last respawn. It refreshes
 ten times a second rather than every frame, so it costs almost nothing.
-
-The camera is mouse-look. Click into the window if the mouse is captured and
-Escape lets it go.
 
 ## The PSX amount
 

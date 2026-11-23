@@ -10,11 +10,11 @@
   "final_choices": [
     {
       "id": "free_sky",
-      "display_name": "Open the canopy"
+      "display_name": "Shatter the canopy regulator core"
     },
     {
       "id": "restore_concord",
-      "display_name": "Restore the containment schedule"
+      "display_name": "Leave the canopy core intact"
     }
   ],
   "endings": [
@@ -34,7 +34,7 @@
           }
         ]
       },
-      "summary": "Lancer opens the canopy. Daylight reaches the blocks for the first time in twenty years, and so does everything the canopy was holding back.",
+      "summary": "Lancer shatters the canopy regulator core. The iris tears open, flooding the walled cities below with direct sunlight and wild storms. Humanity is free to reconnect, and free to fight again.",
       "ending_text": "The seal opens and the daylight comes down into the blocks like water into a dry shaft. Storms come with it, and the first of them kills three people inside a week. Lancer runs out into weather that no longer asks permission, carrying a city that has not learned what the sky costs."
     },
     {
@@ -53,7 +53,7 @@
           }
         ]
       },
-      "summary": "Lancer restores the schedule. The canopy seals, the blocks stay fed and safe, and the war stays ended by a machine that never learned why it was built.",
+      "summary": "Lancer leaves the canopy core intact, accepting Saye's bargain, and walks back down into the overcast, walled-in city to run safe, scheduled laps forever.",
       "ending_text": "The canopy closes and the schedule comes back online, tick by tick. Nobody in the blocks sees the sun for the next twenty years and nobody starts the next war. Lancer begins another licensed lap, and the Concord records every clean turn without ever asking whether the route is worth running."
     },
     {
@@ -76,7 +76,7 @@
           }
         ]
       },
-      "summary": "Lancer does not choose. Every Fracture is used at once, making the world uncontainable while the Concord survives as a ruin.",
+      "summary": "Lancer does not choose. All twelve systemic cracks in The Concord's containment logic are exploited at once, short-circuiting the area-denial grid so it can never seal a sector wall or close the sky again. The war-organism lives on as a hollowed-out monument beneath an open sky.",
       "ending_text": "There is no final selection. The First Runner's path opens beneath the city and every known Fracture goes into one continuous route, all twelve of them, from the lattice to the canopy in a single run. The Concord is still online when the route ends, and it can no longer produce a single legal wind."
     }
   ]

@@ -24,12 +24,18 @@
         {
           "actor_id": "the_concord",
           "role": "speaker"
+        },
+        {
+          "actor_id": "aris_thorne",
+          "role": "speaker"
         }
       ],
       "dialogue": [
-        "en.051"
+        "en.051",
+        "en.058",
+        "en.059"
       ],
-      "duration_frames": 480,
+      "duration_frames": 420,
       "control": {
         "locked": false,
         "player_input": "unrestricted"

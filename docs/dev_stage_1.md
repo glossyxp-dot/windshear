@@ -9,7 +9,7 @@ What exists now:
 - A Godot 4.7.2 project that boots to a menu and into a movement greybox.
 - A frame-exact movement controller with every number in `TECH_SPEC.md` §3.
 - A camera rig that never leaves Lancer.
-- A test suite of **335 checks** that runs headless in about ten seconds.
+- A test suite of **458 checks** that runs headless in about ten seconds.
 - A discovery harness that plays candidate movement techniques against the
   controller and reports what it finds.
 
@@ -166,7 +166,7 @@ go and look.
 
 ## 5. What the tests actually cover
 
-335 checks, in twelve suites. They are deliberately *not* "does the node
+458 checks, in fourteen suites. They are deliberately *not* "does the node
 exist" tests.
 
 | Suite | Checks | What it is for |
@@ -176,11 +176,13 @@ exist" tests.
 | characterization | 77 | Arming and chain boundaries, collision energy, repeated cycles, adversarial input, full-state replay |
 | discovery | 26 | The report above, the invariants, and the bunny-hop promise |
 | camera | 17 | Pitch clamp, yaw wrap, speed dolly, the camera belonging to the rig |
+| input map | 11 | Every action has a keyboard binding, nothing is mouse-only, the camera reads the look keys |
 | determinism | 8 | The same inputs give the same outputs; the section-seeded generator is stable |
 | speed meter | 11 | The speed readout, in metres per second: current, peak, reset, units |
 | performance | 10 | The project settings and the cost of a frame |
 | code policy | 10 | Licence headers, no global `randf()`, no allocation in the frame loops |
 | world data | 39 | The 25x12 grid, the prequel, the gate schedule, the Fracture registry, the endings, the beats |
+| canon | 112 | The cast, the silence, the arsenal, the enemy roster, the numbers, and the documents that have to agree with them |
 | greybox | 33 | The scene: the player, the camera, the plane, the budget, the materials, the help panel, a 90-second route |
 | PSX | 39 | The amount dial: the globals, the shader, the clamping, the settings round trip, and the slider in the menu |
 

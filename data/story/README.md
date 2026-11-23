@@ -31,11 +31,16 @@ that speaker entry carries `"silent": true`, so a tool can tell the
 difference between a character talking and a character doing something.
 
 Ilsa Renn is the same way in the prequel, where she is the playable
-character. In the present day she talks, and she is the scientist who noticed
-what Lancer could do.
+character: she does not speak in Act 0, and the canon suite fails the build if
+one of her spoken lines turns up in a prequel beat. In the present day she
+talks, and what she says is usually a route.
 
-Every other character speaks. Warden Saye and Ilsa have pronouns; Lancer has
-none, anywhere, in any locale.
+Every other character speaks. Warden Saye, Ilsa and Talia have pronouns;
+Lancer has none, anywhere, in any locale.
+
+The cast itself is a registry, in `data/cast.json`, with each character's
+pronouns, the acts they appear in and whether they are allowed to speak. Every
+speaker id in this directory has to be in that file.
 
 ## Identifiers
 
@@ -102,6 +107,16 @@ The prequel has its own rules and its own tone. There is no Concord for the
 first two chapters, only a war, so the bulletins come from civil defence
 instead. The Concord arrives in P3 and the canopy closes in P4, and by P5 the
 city is walled and quiet and the Concord is reading the courier's telemetry.
+
+That telemetry is the point of P5. Ilsa breaches the wall through an
+uncalibrated vent and a Grown Seam, and does not know that the route she
+just ran has become the FIRST RUNNER baseline, the movement profile the
+Concord has been running as a patrol training model for twenty years.
+
+The prequel has its own arsenal too: the P-20 "Courier", the V-9 "Vigil" and
+the M98 "Longhorn" are shared with the present day, the M-44 "Seam-Splitter"
+and the Pneumatic Grapple Spool are prequel only, and no Concord infantry,
+artillery or synth exists in 20XX.
 
 ## Endings
 

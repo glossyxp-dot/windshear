@@ -31,6 +31,25 @@ displays and schedule boards:
 It never explains itself and never argues its case, because it doesn't know it
 has one. The moral argument belongs to the player. The game doesn't settle it.
 
+## Where it came from
+
+It was housed in the **Longhorn Biological Facility**, and when it was
+dropped it took the facility with it. What is left standing over the ruins is
+the **Concord Monolith**: a massive, featureless biomechanical cube that
+looks nothing like a research station and is not supposed to.
+
+Inside, it is worse. The corridors are Longhorn's own — the same tile floors,
+the same lab signage, Longhorn's wayfinding arrows — only stretched to
+cathedral proportions, with vertical shafts that go up further than the
+building ever did and dozens of extra pathways that no engineer drew. The
+Concord did not design the Monolith. It grew it, and it kept the signage,
+because signage was cheap and a building full of labels still looks like a
+building.
+
+The Concord's paperwork is in there too, in the observation bunkers and the
+core wings, along with the people who signed it. Act IV is the inside of
+that cube, and it is where the game's history is kept.
+
 ## What it enforces
 
 Three rules, and every denial in the game comes from one of them.
@@ -114,6 +133,14 @@ because the route gives them no other choice.
 Wind isn't illegal either. Nobody thought to make it illegal. It's just the
 one thing in the city that moves faster than a door can close.
 
+The sensors read speed in the same unit the rest of the game does, because
+the Concord's engineers and the courier's designers were talking about the
+same number. Fourteen metres a second is a sprint and gets logged as one.
+Eighteen, reached through a wall-kiss chain, is a route it has to answer. A
+hundred, head-on, is the only number that opens a Concord Ram, and the
+Concord has no defence for it because nothing in its own body can go that
+fast.
+
 ## Why it goes after Lancer
 
 Lancer is a courier. Licensed to run approved manifests inside one block, paid
@@ -163,15 +190,38 @@ breaches. Twenty years later she's the administrator who signed the isolation
 accords, exhausted, certain that the cage is the only way humanity survives.
 She's the only one who argues. Lancer doesn't argue back. Lancer runs.
 
-**Ilsa Renn** (she/her). A scientist now, and the original First Runner. She
-was a military dispatch runner during the Fracture Year and she is the courier
-whose breach the Concord built itself around. These days she studies movement
-data, she noticed what Lancer could do, and she brought Lancer to the team.
-She isn't Lancer's teacher. She isn't going to train them either.
+**Ilsa Renn** (she/her). The prequel protagonist, Lancer's mentor, and the
+original First Runner. A veteran smuggler who trained Lancer, and a military
+dispatch runner during the Fracture Year who survived the Concord's drop and
+carved the first illegal routes across the walls. She is silent in the
+prequel, like Lancer. These days she hands Lancer the drives and writes the
+routes down, and she is still the only person who has ever run a line the
+Concord could not predict.
 
 **FIRST RUNNER.** The designation the Concord gives Ilsa's recorded movement
 profile. For twenty years it has been running her route as a patrol training
 model, against every courier it can see, and it still hasn't caught up.
+
+**Dr. Aris Thorne** (he/him). Lead biomechanical containment researcher at
+the Longhorn Biological Facility. He gave Ilsa the master override key during
+the drop, and he signed the paperwork on what the Concord was for. Twenty
+years later he is still alive inside the Monolith, in a sealed observation
+bunker, pointing Lancer at the prototype armory.
+
+**Sergeant Miller** (he/him). An exhausted infantry squad leader holding the
+perimeter around Central Station and the Longhorn Facility while Ilsa runs
+encryption keys through active warzones. Prequel only, and he does not get
+past P3.
+
+**Henrik Solberg** (he/him). A block machinist in Quarantine Block 404 and a
+former Wind Regulator technician. He keeps the Filament restrung, repairs
+salvaged rifles, and builds the L-01 Arc-Lance out of regulator parts. He is
+the reason the present day's hardware works at all, and he never once asks
+Lancer what it is for.
+
+**Talia Korr** (she/her). A signal operator for the Free-Band Network. She
+links shortwave transmitters across the Block Seam and feeds Lancer tactical
+intel over a one-way earpiece, which suits a courier who does not speak.
 
 ## Three rules
 

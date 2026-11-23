@@ -35,6 +35,11 @@ const Tuning := preload("res://addons/windshear/core/ws_tuning.gd")
 @export var mouse_sensitivity := 0.0022
 ## Radians of rotation per second at full stick deflection.
 @export var controller_sensitivity := 3.0
+## Radians of rotation per second while a look key is held. A key turns the
+## camera at a fixed rate, the mouse turns it by pixels, and the two want
+## different numbers: the key rate is slower, so a keyboard player can line
+## the camera up instead of whipping it past the target.
+@export var key_sensitivity := 2.0
 ## Maximum pitch in either direction, in degrees.
 @export var pitch_limit_deg := 80.0
 ## Field of view at a standstill, in degrees.
@@ -84,16 +89,34 @@ func _unhandled_input(event: InputEvent) -> void:
 		apply_look(-motion.relative.x * mouse_sensitivity, -vertical * mouse_sensitivity)
 
 
+## The look axes.
+##
+## The mouse is the camera, so the mouse is not the only way to look. The
+## keyboard gets its own actions and its own rate, and the stick keeps the
+## right thumb. The stick's vertical axis is negated: in Godot a stick pushed
+## down is a positive value, and pushing the stick down has to tilt the
+## camera down, the same way the mouse does.
 func _process(delta: float) -> void:
 	var stick_x := Input.get_axis("look_left", "look_right")
 	var stick_y := Input.get_axis("look_up", "look_down")
 	if absf(stick_x) > 0.001:
 		apply_look(-stick_x * controller_sensitivity * delta, 0.0)
 	if absf(stick_y) > 0.001:
-		var vertical := stick_y * controller_sensitivity * delta
+		var vertical := -stick_y * controller_sensitivity * delta
 		if invert_y:
 			vertical = -vertical
 		apply_look(0.0, vertical)
+
+	var key_x := Input.get_axis("look_key_left", "look_key_right")
+	var key_y := Input.get_axis("look_key_up", "look_key_down")
+	if absf(key_x) > 0.001:
+		apply_look(-key_x * key_sensitivity * delta, 0.0)
+	if absf(key_y) > 0.001:
+		var vertical := -key_y * key_sensitivity * delta
+		if invert_y:
+			vertical = -vertical
+		apply_look(0.0, vertical)
+
 	_update_speed_framing()
 
 

@@ -49,6 +49,28 @@ route recorded against version 1 of it and that route has to keep working.
 Leaving a weird bit of physics in the game is a much smaller sin than breaking
 everybody's splits.
 
+## The canon is data, and the data and the docs have to agree
+
+The cast, the arsenal, the enemy roster and the player's numbers live in
+`data/cast.json`, `data/arsenal.json`, `data/enemies.json` and
+`data/player.json`. `GAME_DESIGN.md` is the prose version of the same thing.
+
+`tests/test_canon.gd` reads both and compares them. If you add a weapon, a
+character or an enemy, it goes in the JSON **and** it gets named in the
+design document, and the same for a change to a number. Two rules come out of
+that:
+
+- **Lancer is the only character with no pronouns.** Saye, Ilsa, Talia,
+  Thorne, Miller and Solberg have them. Lancer has none, anywhere, in any
+  locale, and Lancer never speaks.
+- **Ilsa is silent in the prequel.** The five Fracture Year chapters are
+  played as her and she does not speak in them, the same way Lancer does not.
+  She starts talking again in the present day.
+
+The prequel also has its own roster. Concord military infantry, artillery and
+synths do not exist in 20XX, only the early bio-constructs, and the test
+fails if a main-game enemy is named in a prequel chapter.
+
 ## The performance rules are hard
 
 This isn't "we'd like it to be fast". The game has to run on a 4 GB machine
@@ -79,6 +101,12 @@ before I do.
       Saye and Ilsa have pronouns; Lancer has none. No pronouns in Lancer's
       dialogue, no gendered voice direction, no gendered framing. This one
       isn't negotiable and it's easy to break by accident.
+- [ ] If you touched the cast, the arsenal, the roster or the player's
+      numbers, the JSON and `GAME_DESIGN.md` changed together. The canon suite
+      reads both.
+- [ ] Every action still has a keyboard binding. The mouse is the camera and
+      it is optional, and `test_input_map.gd` fails the build if an action
+      ends up mouse-only.
 
 ## How a PR actually lands
 

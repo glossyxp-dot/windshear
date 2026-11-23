@@ -1,0 +1,171 @@
+{
+  "_meta": {
+    "spdx": "CC-BY-SA-4.0",
+    "spdx_file_copyright_text": "2026 the WINDSHEAR contributors",
+    "license": "CC-BY-SA-4.0",
+    "schema": "windshear.arsenal.v1",
+    "description": "Weapons, usable items and map-built utilities, with the chapters and characters that can reach them."
+  },
+  "version": 1,
+  "availability": {
+    "prequel": "Act 0, the five-chapter Fracture Year. Played as Ilsa Renn.",
+    "main": "The present day, Acts I to VI. Played as Lancer Ivanov.",
+    "second_half_main": "Acts III to VI. The Arc-Lance and the heavy Concord threat arrive together."
+  },
+  "weapons": [
+    {
+      "id": "p20_courier",
+      "name": "P-20 \"Courier\"",
+      "kind": "service_pistol",
+      "calibre": "9mm",
+      "acts": ["prequel", "main"],
+      "users": ["ilsa_renn", "lancer"],
+      "effective_against": ["concord_dartbug", "switch", "valve", "unarmoured"],
+      "notes": "The standard-issue 20XX dispatch runner sidearm. Lightweight, accurate, and no use against anything wearing chitin."
+    },
+    {
+      "id": "v9_vigil",
+      "name": "V-9 \"Vigil\"",
+      "kind": "containment_smg",
+      "calibre": "9mm",
+      "acts": ["prequel", "main"],
+      "users": ["ilsa_renn", "lancer"],
+      "effective_against": ["concord_trooper", "concord_dartbug", "unarmoured"],
+      "notes": "Named after the Concord's Vigilance Protocols. Shares 9mm ammunition with the P-20, so the two guns never compete for the same belt. It is a close-quarters gun and it is loud."
+    },
+    {
+      "id": "m98_longhorn",
+      "name": "M98 \"Longhorn\"",
+      "kind": "designated_marksman_carbine",
+      "calibre": "7.62mm",
+      "acts": ["prequel", "main"],
+      "users": ["ilsa_renn", "lancer"],
+      "effective_against": ["napalm_mortar", "concord_jammer", "concord_overwatch"],
+      "notes": "Semi-automatic, developed by the pre-war defence contractor attached to the Longhorn Biological Facility. It is for long sightlines: mortar crews on a roof, and the rear core of a Jammer that is looking the other way."
+    },
+    {
+      "id": "m44_seam_splitter",
+      "name": "M-44 \"Seam-Splitter\"",
+      "kind": "breaching_charge",
+      "calibre": null,
+      "acts": ["prequel"],
+      "users": ["ilsa_renn"],
+      "effective_against": ["rubble", "welded_airlock", "weakened_floor", "concord_ram"],
+      "notes": "A magnetic 20XX demolition brick. It opens collapsed concrete, opens welded airlocks, and drops a weakened floor out from under a charging Concord Ram. It is a prequel weapon: the modern Concord grew past demolition charges."
+    },
+    {
+      "id": "k12_key",
+      "name": "K-12 \"Key\"",
+      "kind": "flechette_shotgun",
+      "calibre": "12-gauge",
+      "acts": ["main"],
+      "users": ["lancer"],
+      "effective_against": ["concord_diver", "chitin_armour", "concord_trooper"],
+      "notes": "A sawed-off pump-action breach shotgun loaded with hardened steel flechettes. It shreds chitin armour and Concord Divers at point-blank range, under eight metres. Outside eight metres it is a very loud stick."
+    },
+    {
+      "id": "at7_goliath",
+      "name": "AT-7 \"Goliath\"",
+      "kind": "anti_tank_launcher",
+      "calibre": null,
+      "acts": ["main"],
+      "users": ["lancer"],
+      "effective_against": ["warp_synth", "reinforced_barricade", "concord_c01_scatter"],
+      "notes": "A heavy 20XX rocket launcher. The only thing in the ordinary arsenal that cracks a 200 HP Warp Synth or a reinforced barricade. It is also the loudest thing Lancer can carry, and the Concord logs the noise."
+    },
+    {
+      "id": "l01_arc_lance",
+      "name": "L-01 \"Arc-Lance\"",
+      "kind": "rail_emitter",
+      "calibre": null,
+      "acts": ["second_half_main"],
+      "users": ["lancer"],
+      "effective_against": ["concord_jammer", "warp_synth", "concord_c01_scatter"],
+      "notes": "A prototype electromagnetic tungsten-slug accelerator, salvaged from the Concord Monolith and assembled by Henrik Solberg. It pierces a Jammer's static sphere and damages a Warp Synth, and it is the reason the second half of the campaign sounds different."
+    }
+  ],
+  "items": [
+    {
+      "id": "field_ration_trauma_kit",
+      "name": "Field Ration / Trauma Kit",
+      "acts": ["prequel", "main"],
+      "users": ["ilsa_renn", "lancer"],
+      "effect": "Restores 25 HP, capped at the 100 HP base",
+      "notes": "The Concord Med-Dispenser drops these on the wall, and a Trauma Kit is the same thing by hand."
+    },
+    {
+      "id": "adrenaline_stim_pen",
+      "name": "Adrenaline Stim-Pen",
+      "acts": ["main"],
+      "users": ["lancer"],
+      "effect": "Clears movement slow effects and triggers 25 points of decaying overheal for 10 seconds",
+      "notes": "The only clean answer to a Concord Stifler's coolant drag. The overheal it grants decays, like all overheal."
+    },
+    {
+      "id": "emp_scrambler_flare",
+      "name": "EMP / Signal Scrambler Flare",
+      "acts": ["main"],
+      "users": ["lancer"],
+      "effect": "Blinds sensor pylons, scrambles Warp Synth lock-on charges for 3 seconds, and delays Quarantine Bulkhead timers",
+      "notes": "Thrown, not aimed. Three seconds is enough to cross a sensor arc and not enough to fight in it."
+    },
+    {
+      "id": "thermal_foil_cloak",
+      "name": "Thermal-Foil Cloak",
+      "acts": ["prequel", "main"],
+      "users": ["ilsa_renn", "lancer"],
+      "effect": "Masks body heat from automated scanners while crouched or moving below 8 m/s",
+      "notes": "It breaks the moment Lancer sprints, slides or fires. Eight metres a second is the line, and the cloak does not care why you crossed it."
+    },
+    {
+      "id": "pneumatic_grapple_spool",
+      "name": "Pneumatic Grapple Spool",
+      "acts": ["prequel"],
+      "users": ["ilsa_renn"],
+      "effect": "Slow vertical climbs and rappels",
+      "notes": "A heavy 20XX military rescue line, from before the Filament tether existed. It gets Ilsa up the Spire and down it again, and it is the reason the prequel climbs feel different from the present day."
+    }
+  ],
+  "utilities": [
+    {
+      "id": "pneumatic_parcel_chutes",
+      "name": "Pneumatic Parcel Chutes",
+      "acts": ["main"],
+      "users": ["lancer"],
+      "effect": "Dead-drop tubes for smuggled drives and relays",
+      "notes": "Built into alleys and stations. A parcel in a chute is a parcel in another block, and the chute decides how fast."
+    },
+    {
+      "id": "concord_med_dispenser",
+      "name": "Concord Med-Dispenser",
+      "acts": ["prequel", "main"],
+      "users": ["ilsa_renn", "lancer"],
+      "effect": "Dispenses a Field Ration worth 25 HP",
+      "notes": "Unlocked in 20XX. In the present day it has to be cracked open with a cipher key or with gunfire, and gunfire sets off a local patrol chime."
+    },
+    {
+      "id": "pressure_valves",
+      "name": "Pressure Valves",
+      "acts": ["main"],
+      "users": ["lancer"],
+      "effect": "Vent scalding steam onto patrols, or open a high-velocity thermal",
+      "notes": "Heavy industrial wheel-valves on Wind Regulators and Ventworks pipes. A valve is a weapon that nobody thinks to shoot back."
+    },
+    {
+      "id": "coolant_fuel_barrels",
+      "name": "Coolant & Fuel Barrels",
+      "acts": ["prequel", "main"],
+      "users": ["ilsa_renn", "lancer"],
+      "effect": "Detonate when shot or kicked into a hazard",
+      "notes": "Pressurised steel drums. A barrel under a Warp Synth is a Warp Synth problem, and a barrel under a collapsing walkway is a route."
+    },
+    {
+      "id": "hardline_terminals",
+      "name": "Hardline Terminals",
+      "acts": ["main"],
+      "users": ["lancer"],
+      "effect": "Override local area denial for 15 seconds when keyed",
+      "notes": "Exposed junction boxes wired into Quarantine Bulkheads and Interdiction Nodes. Fifteen seconds of the Concord not enforcing its own rules."
+    }
+  ]
+}

@@ -3,9 +3,9 @@
 > A cinematic 2.5D speed-and-precision platformer. Free and open source, built so
 > the community can tell its own stories inside the same world.
 
-**One-line pitch:** *A war machine sealed humanity under a canopy to save them
-from themselves, and Lancer is going to break through and set the sky free
-anyway.*
+**One-line pitch:** *Twenty years ago, a desperate military deployment walled
+off every city on Earth to stop an extinction war. Today, Lancer Ivanov is
+going to punch through the sky-canopy and set the wind free anyway.*
 
 ---
 
@@ -41,15 +41,32 @@ years ago, to stop a war that was very nearly the end of everything.
 ### The Fracture Year
 
 A modern global war escalated toward total human extinction. High command
-dropped an autonomous biomechanical siege organism and called it **The
-Concord**. It took the cities in weeks. War casualties hit zero, and the
-price was the sky.
+dropped an autonomous biomechanical siege organism out of the **Longhorn
+Biological Facility** and called it **The Concord**. It took the cities in
+weeks. War casualties hit zero, and the price was the sky.
 
 The Concord occupies every surface city directly now and holds the upper
 atmosphere beneath a sun-choking canopy. Under that canopy humanity survives
 in **Quarantine Blocks**: sealed districts on the surface, rations delivered,
 streets patrolled, the central Spire looming over the fog. People live
 there. They are fed, kept safe, and not asked what they think about it.
+
+### The Concord Monolith
+
+The Concord was housed in the Longhorn Biological Facility, and it swallowed
+the place. What is left standing over the ruins is the **Concord Monolith**: a
+massive, featureless biomechanical cube. Inside, the corridors are eerily
+familiar — same tile floors, same lab signage, Longhorn's own wayfinding —
+only stretched to cathedral proportions, with vertical shafts that go up
+further than the building ever did and dozens of extra pathways that no
+engineer drew. The Concord did not design it. It grew it, and it kept the
+signage, because signage was cheap and a building full of labels still looks
+like a building.
+
+Act IV is the inside of that cube, and it is the place the game's history is
+kept: Dr. Aris Thorne is still alive in the observation bunker, twenty years
+after he handed a dispatch runner a master override key on the worst day of
+the war.
 
 ### What it enforces
 
@@ -59,7 +76,7 @@ are how a second war would start.
 
 It enforces those rules the only way it can, by denying ground. **Quarantine
 Bulkheads** slam shut across a street. **Purge and Sterilization Protocols**
-flood a sector with hazards. **Interdiction nodes** sit over the bridges and
+flood a sector with hazards. **Interdiction Nodes** sit over the bridges and
 the shafts and hold their arc.
 
 ### The blind spot
@@ -72,12 +89,17 @@ metres a second because the route gives them no other choice.
 Wind isn't illegal either. Nobody thought to make it illegal. It's just the
 one thing in the city that moves faster than a door can close.
 
+The Concord's sensors read speed in the same unit the rest of the game does.
+Fourteen metres a second is a sprint and gets logged as one. Eighteen, reached
+through a wall-kiss chain, is a route it has to answer. A hundred, head-on,
+is the only number that opens a Concord Ram.
+
 ### Why it hunts Lancer
 
-Lancer is a courier. Licensed to run approved manifests inside one block, paid
-to carry what the schedule lists. Lancer carries what the schedule doesn't:
-messages, radio transceivers, memory drives, whatever one block needs to hear
-from another.
+Lancer Ivanov is a courier. Licensed to run approved manifests inside one
+block, paid to carry what the schedule lists. Lancer carries what the schedule
+doesn't: messages, radio transceivers, memory drives, whatever one block needs
+to hear from another.
 
 To a siege organism built to stop factions coordinating, a courier
 reconnecting isolated populations looks exactly like a command network
@@ -105,39 +127,62 @@ both sides have killed people.
 
 ### Cast
 
-- **Lancer.** Courier, 20s–30s, androgynous on screen and in text. No gender
-  is specified anywhere: no pronouns in dialogue, no gendered voice direction,
-  and the character creator lets players set a name and body without a gender
-  field. Lancer never speaks. Everything Lancer communicates is a line they
-  run, a parcel they hand over, or a parcel they don't.
-- **THE CONCORD.** The siege organism itself. It speaks in containment logs
-  and schedule bulletins. It is never a face.
+The full roster, with pronouns and acts, lives in `data/cast.json`. The
+canon test checks that every speaker in the dialogue file is on that list and
+that only Lancer is silent and pronounless.
+
+- **Lancer Ivanov** (no pronouns). A surface courier in their twenties or
+  thirties. Lancer never speaks. Everything Lancer communicates is a line
+  they run, a parcel they hand over, or a parcel they don't. No pronouns in
+  dialogue, no gendered voice direction, no gendered framing, anywhere in any
+  locale.
+- **Ilsa Renn** (she/her). The prequel protagonist, Lancer's mentor, and the
+  Concord's FIRST RUNNER. A veteran smuggler who trained Lancer, and a
+  military dispatch runner during the Fracture Year who survived the Concord's
+  drop and carved the first illegal routes across the walls. She is silent in
+  the prequel, like Lancer. In the present day she talks, and what she says is
+  usually a route.
 - **Warden Saye** (she/her). Human containment enforcement. In the prequel
   she's a young logistics officer watching the war spiral; twenty years later
   she's the exhausted administrator who signed the isolation accords and
   believes the walled blocks are the only way humanity survives. She talks at
   Lancer across checkpoints and security glass, and never gets an answer back.
-- **Ilsa Renn** (she/her). A scientist now, twenty years after the Fracture
-  Year. Back then she was a military dispatch runner, and she is the original
-  courier the Concord filed as FIRST RUNNER. The prequel is played as her.
-  These days she notices what Lancer can do and brings Lancer to the team. She
-  is not Lancer's teacher and doesn't train them. She is the one who noticed,
-  and the one who writes the routes down.
+- **THE CONCORD.** The siege organism itself. It speaks in containment logs
+  and schedule bulletins. It is never a face.
 - **FIRST RUNNER.** The designation the Concord gives Ilsa's recorded movement
   profile. It has been running her route as a patrol training model for twenty
   years, against every courier it can see.
+- **Dr. Aris Thorne** (he/him). Lead biomechanical containment researcher at
+  the Longhorn Biological Facility. In the Fracture Year he gives Ilsa the
+  facility's master override key during the drop. Twenty years later Lancer
+  finds his audio logs, and a frail, surviving Thorne inside the expanded
+  Concord Monolith.
+- **Sergeant Miller** (he/him). An exhausted infantry squad leader holding the
+  perimeter around Central Station and the Longhorn Facility while Ilsa runs
+  encryption keys through active warzones. Prequel only, chapters P1 to P3.
+- **Henrik Solberg** (he/him). An underground block machinist in Quarantine
+  Block 404 and a former Wind Regulator technician. He maintains Lancer's
+  Filament tether, repairs salvaged rifles, and assembles the L-01 Arc-Lance
+  out of regulator parts.
+- **Talia Korr** (she/her). A signal operator for the Free-Band Network. She
+  links shortwave transmitters across the Block Seam and feeds Lancer tactical
+  intel over a one-way earpiece while Lancer stays silent.
+- **CIVIL DEFENSE.** The civil-defence broadcasts of the Fracture Year. A
+  channel with a voice on it and nobody behind it, and the last thing anybody
+  hears before the Concord takes the sky.
 
 ### Endings (3)
-- **OPEN WEATHER.** Lancer opens the canopy. Daylight reaches the blocks for
-  the first time in twenty years, and so does everything the canopy was
-  holding back. Free, and dangerous.
-- **UNDER REGULATION.** Lancer restores the schedule. The canopy seals, the
-  blocks stay fed and safe, and the war stays ended by a machine that never
-  learned why it was built.
+- **OPEN WEATHER.** Lancer shatters the canopy regulator core. The iris tears
+  open, flooding the walled cities below with direct sunlight and wild
+  storms. Humanity is free to reconnect, and free to fight again.
+- **UNDER REGULATION.** Lancer leaves the canopy core intact, accepting Saye's
+  bargain, and walks back down into the overcast, walled-in city to run safe,
+  scheduled laps forever.
 - **THE SECOND FRACTURE.** Hidden, and it needs the Fracture routes. Lancer
   doesn't choose; they make the world *uncontainable* by exploiting every
-  Fracture at once, and the Concord survives as a ruin. All 12 Fractures
-  required.
+  Fracture at once, short-circuiting the area-denial grid so the Concord can
+  never seal a sector wall or close the sky again. The war-organism lives on
+  as a hollowed-out monument beneath an open sky. All 12 Fractures required.
 
 ---
 
@@ -155,7 +200,7 @@ layers. Speed reads off the X axis, precision off Y.
 | Wall contact | into wall | Slide along, preserves speed; **wall-kiss** chain (re-tap = speed boost) |
 | Ledge grab / mantle | ↑ at ledge | 0.15 s snap, generous corner correction |
 | Air control | ←/→ in air | Strong but not total; air-strafe mini-accel (precision tech) |
-| Filament (tether) | RMB | 3 anchor types, 0.25 s lock-on, *not* a grapple hook |
+| Filament (tether) | F | 3 anchor types, 0.25 s lock-on, *not* a grapple hook |
 
 ### The tech vocabulary (why this is learnable, not soup)
 Every boost comes from a specific, nameable input sequence. The speedrun scene
@@ -323,11 +368,11 @@ Renn, twenty years before the first chapter of the present day.
 | --- | --- | --- | --- |
 | **0 — THE FRACTURE YEAR** | P1–P5 | Twenty years ago, in daylight | Arrival. The drop, the war, the canopy |
 | **I — THE BLOCK** | 1–4 | One quarantine block, morning to dusk | Bureaucracy. Schedules, manifests, a warden |
-| **II — THE UNDER-CITY** | 5–8 | Below the regulation boundary | Machinery. Regulators, heat, exhaust |
-| **III — THE SPINE** | 9–12 | Freight corridors between blocks | Distance. Freight, seams, walls |
-| **IV — THE YARD** | 13–16 | Where the Fracture Year happened | A scar. Growth, records, the First Runner |
-| **V — THE CORE** | 17–19 | Inside the Concord itself | A person. Saye, and what she signed |
-| **VI — OPEN WEATHER** | 20 | Above the last regulation layer | The choice |
+| **II — THE UNDER-CITY** (Infrastructure & The Patched Organism) | 5–8 | Below the regulation boundary | Machinery. Regulators, heat, exhaust |
+| **III — THE SPINE** (Crossing the Dead Zones) | 9–12 | Freight corridors between blocks | Distance. Freight, seams, walls, and the second half's threat |
+| **IV — THE YARD & THE MONOLITH** (Origin of the Siege Organism) | 13–16 | Where the Fracture Year happened | A scar. Growth, records, the First Runner |
+| **V — THE CORE** (The Canopy Anchors) | 17–19 | Inside the Concord itself | A person. Saye, and what she signed |
+| **VI — OPEN WEATHER** (Breaking the Sky) | 20 | Above the last regulation layer | The choice |
 
 ### The chapter roster
 
@@ -337,36 +382,37 @@ loose. The full start and play notes for each one live in
 
 | Ch | Title | Act | What happens | Signature mechanics |
 | --- | --- | --- | --- | --- |
-| **P1** | **OPEN SKY** | 0 | A commuter rail over a sunlit city, fighter jets, civil-defence tickers, and artillery over the harbour | Core verbs, rooftop access, stalled trains |
-| **P2** | **REDLINE** | 0 | Pinned under a highway overpass with armour rolling past; young Saye waves you through a sandbag breach | Urban combat, cover, collapse puzzles |
-| **P3** | **CONTAINMENT PROTOCOL** | 0 | The seed-cores land and the city starts growing walls in the street | Shifting geometry, escaping bulkheads |
-| **P4** | **THE SKY CLOSES** | 0 | The canopy closes like an iris while Saye signs the override below | Exterior climb, sealing airlocks |
+| **P1** | **OPEN SKY** | 0 | A commuter rail over a sunlit city, fighter jets, civil-defence tickers, and artillery over the harbour | Core verbs, rooftop access, stalled trains; Sergeant Miller's perimeter |
+| **P2** | **REDLINE** | 0 | Pinned under a highway overpass with armour rolling past; young Saye waves you through a sandbag breach | Urban combat, cover, M-44 breaching charges, collapse puzzles |
+| **P3** | **CONTAINMENT PROTOCOL** | 0 | The seed-cores land and the city starts growing walls in the street; Dr. Aris Thorne throws you the master override key | Shifting geometry, escaping bulkheads, the first Rams |
+| **P4** | **THE SKY CLOSES** | 0 | The canopy closes like an iris while Saye signs the override below | Exterior climb on the Pneumatic Grapple Spool, sealing airlocks |
 | **P5** | **ZERO CASUALTIES** | 0 | Silence, a walled neighbourhood, and a PA saying the war is over | Stealth, route-finding, the First Runner baseline |
-| **1** | **THE LATTICE** | I | A ration tram through Block 404, and Ilsa putting an off-manifest drive in your bag | Traversal, patrol rhythms; Wall-Kiss Chain (F3), Gate Timing (F5) |
-| **2** | **CUSTOMS ROW** | I | Saye lectures you through ballistic glass while a scanner arm sweeps your bag | Checkpoint infiltration, pressure plates |
-| **3** | **NIGHT SEAL** | I | Dusk. Floodlights go out sector by sector and the bulkheads come down | Alley ambushes, slipping under doors |
-| **4** | **THE LOOP** | I | Midnight. Three neighbourhood reps around a shortwave set, and a sensor pylon turning your way | Multi-route navigation, drone combat, escapes |
-| **5** | **VENTWORKS** | II | A storm grate, fifty feet, and house-sized turbines pulling air down from the scrubbers | Vertical platforming, valve puzzles; Wind Pocket (F2), Regulator Overdraw (F6) |
-| **6** | **HOT PLENUM** | II | Heat exchangers boiling under the grid, steam on timers | Hazard timing, overpressure gates; Grav-Lift Double (F7), The Long Fall (F9) |
-| **7** | **THE REGULATOR BELT** | II | Six regulators in a row and a PA announcing a sweep | Turbine sabotage, riding exhaust; Cascade (F10) |
-| **8** | **SPINE BASEMENT** | II | Ankle-deep water under the Spire, where the pillars are warm and no longer concrete | Organic terrain, tendrils; Frame Skip (F8) |
-| **9** | **THE QUIET LINE** | III | A trestle over the Dead Zone, capsules gliding on high-tension cables | Filament zips, turret nests; Seam Skip (F1), Zip Transfer (F4) |
-| **10** | **CARGO SPINE** | III | Cranes loading sealed containers and a relay crate too heavy to pocket | Cargo slings, physics escort |
-| **11** | **THE LONG FREIGHT** | III | The roof of an accelerating armoured train, into a canyon of interdiction nodes | Moving-train combat; Sound Skip (F11) |
-| **12** | **BLOCK SEAM** | III | A thousand-foot living sea-wall, and every siren on it going off at once | Bulkhead puzzles, delivering the relay across the divide |
-| **13** | **THE FRACTURE YARD** | IV | The cratered rail-yard from the prequel, frozen in time and overgrown | Ruin exploration, dormant pods; the site of The First Runner's Path (F12) |
-| **14** | **THE FRACTURE YEAR** | IV | The tilted overpass from the prequel, under a tear in the regulators | Crosswinds, collapsing interiors |
+| **1** | **THE LATTICE** | I | A ration tram through Block 404, and Ilsa putting an off-manifest drive in your bag | Traversal, patrol rhythms, Parcel Chutes; Wall-Kiss Chain (F3), Gate Timing (F5) |
+| **2** | **CUSTOMS ROW** | I | Saye lectures you through ballistic glass while a scanner arm sweeps your bag | Checkpoint infiltration, pressure plates, Hardline Terminals |
+| **3** | **NIGHT SEAL** | I | Dusk. Floodlights go out sector by sector and the bulkheads come down | Alley ambushes with the K-12, slipping under doors |
+| **4** | **THE LOOP** | I | Midnight in the Lower Tier, three neighbourhood reps around a shortwave set in Solberg's workshop | Multi-route navigation, Overwatch evasion, escapes |
+| **5** | **VENTWORKS** | II | A storm grate, fifty feet, and house-sized turbines pulling air down from the scrubbers | Vertical platforming, Pressure Valve puzzles; Wind Pocket (F2), Regulator Overdraw (F6) |
+| **6** | **HOT PLENUM** | II | Heat exchangers boiling under the grid, steam on timers | Hazard timing, overpressure gates, Stiflers; Grav-Lift Double (F7), The Long Fall (F9) |
+| **7** | **THE REGULATOR BELT** | II | Six regulators in a row and a PA announcing a sweep | Turbine sabotage, Jammers, riding exhaust; Cascade (F10) |
+| **8** | **SPINE BASEMENT** | II | Ankle-deep water under the Spire, where the pillars are warm and no longer concrete | Organic terrain, tendrils, Dartbug nests; Frame Skip (F8) |
+| **9** | **THE QUIET LINE** | III | A trestle over the Dead Zone, capsules gliding on high-tension cables | Filament zips, Overwatch nests; Seam Skip (F1), Zip Transfer (F4) |
+| **10** | **CARGO SPINE** | III | Cranes loading sealed containers and a relay crate too heavy to pocket | Cargo slings, physics escort, the first C-01 Scatter strike |
+| **11** | **THE LONG FREIGHT** | III | The roof of an accelerating armoured train, into a canyon of interdiction nodes | Moving-train combat, Warp Synths, AT-7 rockets; Sound Skip (F11) |
+| **12** | **BLOCK SEAM** | III | A thousand-foot living sea-wall, and every siren on it going off at once | Bulkhead puzzles, SDO Troopers, delivering the relay across the divide |
+| **13** | **THE FRACTURE YARD** | IV | The rail-yard from the prequel, frozen in time, with the Monolith cube standing over it | Ruin exploration, Rams at 100 m/s; the site of The First Runner's Path (F12) |
+| **14** | **THE MONOLITH** | IV | Inside the swallowed Longhorn facility, and an elderly Thorne tapping on the glass of an observation bunker | Lab labyrinth, SDO Troopers, Jammers, Warp Synths, the Arc-Lance |
 | **15** | **THE PATCHED THING** | IV | Twenty years of "repair" grown into chitin, and a purge protocol starting | Organic mazes, escaping sterilisation |
-| **16** | **THE FIRST RUNNER** | IV | A telemetry chamber, a cyan ghost, and a model that predicts you | Using the model's blind spots |
-| **17** | **HOLLOW SPIRE** | V | A shaft miles high, with the lockdown floor closing upward behind you | Vertical climb, lift turbines |
+| **16** | **THE FIRST RUNNER** | IV | A telemetry chamber at the apex, a cyan ghost, and a model that predicts you | Using Ilsa's recorded route knowledge |
+| **17** | **HOLLOW SPIRE** | V | A shaft miles high, with the lockdown floor closing upward behind you | Vertical climb, lift turbines, SDO platforms |
 | **18** | **THE INNER RING** | V | Saye alone at the console in a glass gallery above the clouds | Infiltration, the argument, the airlock |
-| **19** | **CANOPY LADDER** | V | The Spire's outside, tendons everywhere, hurricane-force updrafts | Exposed assault, wind shear |
+| **19** | **CANOPY LADDER** | V | The Spire's outside, tendons everywhere, hurricane-force updrafts | Exposed assault, wind shear, C-01 gunships |
 | **20** | **OPEN WEATHER** | VI | The crown of the Spire, under a mile-wide iris, with sunlight coming down | Final guardians, three endings |
 
 ### Section taxonomy
 Each chapter's 12 sections mix these roles (typical spread, 12 total):
 - **3–4 traversal** (the core speed/precision content)
-- **2–3 combat** (short, positional, never a shooting gallery)
+- **2–3 combat** (short and positional, or a firefight that has to be broken
+  open with a route)
 - **1 story beat** (ambient or major-freeze)
 - **1 challenge** (optional, high-skill: a Fracture route or a precision line)
 - **1–2 connective** (short, low-stakes, used as rest beats and splits)
@@ -381,7 +427,8 @@ WindShear copies that feeling without the sprawl.
 
 **How:**
 - **Landmarks.** The Spire is visible from Chapter 1, standing over the fog
-  under the canopy. Every chapter has 3–4 permanent anchors you can see from
+  under the canopy, and the Concord Monolith is visible from the yard in
+  Chapter 13. Every chapter has 3–4 permanent anchors you can see from
   other chapters.
 - **Continuous chapters.** No loading screens between sections. A section is a
   streaming cell inside a live chapter.
@@ -422,22 +469,62 @@ The brief said velocity is only part of it. Full roster:
 - **Wind regulators.** The Concord's machines. Kill one to kill the wind in a
   zone, or ride the exhaust (F6 Overdraw).
 
-### Combat (close quarters, no guns)
-- **Close-quarters only.** Filament slaps, grapples, shoves and the occasional
-  dropped object. There is no ranged weapon and no aiming reticle. If a
-  section is a firefight, it is a fight you have to get into.
-- **Position over damage.** A drone on a fixed line can be reversed, slid
-  under, or pulled off its line with the Filament. The answer is always a
-  route, not a bigger number.
-- **The drone is a puzzle with a fan.** Its patrol, its spin and its arc are
-  all readable before you commit.
+### Combat
+The game has guns, and they are not the point. They are the second verb, the
+one that stops the movement verbs from carrying every section on their own.
+The full table is in `docs/ARSENAL.md`; the roster of what you can shoot is in
+`docs/ENEMIES.md`.
+
+- **Seven weapons, two characters.** Ilsa and Lancer share the P-20 "Courier",
+  the V-9 "Vigil" and the M98 "Longhorn". The M-44 "Seam-Splitter" is prequel
+  only. The K-12 "Key", the AT-7 "Goliath" and the L-01 "Arc-Lance" are Lancer's.
+- **Position over damage.** A Concord Ram is nearly invincible to bullets and
+  locks onto the player. The answer is always a route: lure it into a pit, drop
+  a floor under it, or hit it head-on at 100 m/s.
+- **Some things need the right tool.** The Warp Synth has 200 HP and is immune
+  to bullets. It takes the AT-7 or the L-01. The K-12 shreds chitin inside
+  eight metres and is a loud stick outside it.
+- **The Filament is still a weapon.** Grapples, slaps and shoves work on
+  anything that isn't armoured, and the world is full of barrels, valves and
+  bulkhead timers that do not care what you are holding.
+
+### Health and decaying overheal
+| | Lancer Ivanov | Ilsa Renn |
+| --- | --- | --- |
+| Base health | 100 HP | 100 HP |
+| Ceiling | 150 HP | 100 HP, all through the prequel |
+| How the ceiling is reached | Momentum chains, style moves, and shattering Concord Rams or Warp Synths | It isn't |
+| What happens after | The overheal decays steadily back down to 100 | Nothing, because there is nothing to decay |
+
+The overheal is the game's second risk curve. A Ram shattered at 100 m/s is
+worth 25 HP of overheal that you will lose in about twenty seconds of not
+running into anything, and the Fight-or-burn decision at the top of a wall is
+a decision about timing rather than about damage.
+
+### Usable items
+| Item | When | What it does |
+| --- | --- | --- |
+| **Field Ration / Trauma Kit** | Both halves | Restores 25 HP, capped at the 100 HP base |
+| **Adrenaline Stim-Pen** | Main game | Clears movement slow effects such as Concord Stifler coolant drag, and triggers 25 points of decaying overheal for 10 seconds |
+| **EMP / Signal Scrambler Flare** | Main game | Blinds sensor pylons, scrambles Warp Synth lock-on charges for 3 seconds, and delays Quarantine Bulkhead timers |
+| **Thermal-Foil Cloak** | Both halves | Masks body heat from automated scanners while crouched or moving below 8 m/s, and breaks the instant you sprint, slide or fire |
+| **Pneumatic Grapple Spool** | Prequel only | Slow vertical climbs and rappels, before the Filament tether existed |
+
+### Map-built utilities
+| Utility | When | What it does |
+| --- | --- | --- |
+| **Pneumatic Parcel Chutes** | Main game | Dead-drop tubes for smuggled drives and relays, built into alleys and stations |
+| **Concord Med-Dispenser** | Both halves | Dispenses a Field Ration worth 25 HP. Unlocked in 20XX; cracked open with a cipher key or gunfire in the present day, and gunfire sets off a local patrol chime |
+| **Pressure Valves** | Main game | Heavy wheel-valves on Wind Regulators and Ventworks pipes that vent scalding steam onto patrols or open a high-velocity thermal |
+| **Coolant & Fuel Barrels** | Both halves | Pressurised steel drums that detonate when shot or kicked into a hazard, damaging Warp Synths or collapsing walkways |
+| **Hardline Terminals** | Main game | Exposed junction boxes that override local area denial for 15 seconds when keyed |
 
 ### Other systems
 | System | Function | Why it's not movement |
 | --- | --- | --- |
 | **Filament** | Precision aiming + traversal | Pure geometry, no air |
 | **Time gates / regulation schedule** | Sections open/close on a timer | Rhythm, not air |
-| **Regulator drones** | Patrolling hazards with rotating fans | Combat pressure |
+| **Bio-constructs** | Patrols, chases, anchors and projectors | Combat pressure |
 | **Cargo / parcels** | Optional carry objectives; weight slows you | Risk/reward vs. speed |
 | **Cargo slings** | Throw parcels to hit distant switches | Precision puzzle |
 | **Recall** | Replay the last 12 seconds of your own run as a ghost | The visual core |
@@ -453,6 +540,10 @@ current horizontal speed and the peak since the last respawn, because a
 speedrunner wants the second number and everybody else can ignore it. There
 are no pixels per second anywhere in the project. A number that only means
 something inside the engine is a number nobody can argue with.
+
+The Concord's sensors and turrets read the same unit. Fourteen metres a
+second is a sprint. Eighteen is a wall-kiss chain, and a hundred, head-on, is
+the only speed that opens a Concord Ram.
 
 ### Recall (the signature visual)
 The world remembers your last 12 seconds and renders it as a translucent
@@ -478,27 +569,55 @@ view with the full depth of a 3D scene behind it.
 - **Time-stop beats.** The camera *locks* to Lancer's last position. The world
   stops but the framing stays composed, because the camera is Lancer's and not
   the director's.
+- **The mouse is optional.** The mouse is the camera, and a player holding it
+  is not holding a movement key, so the camera also turns on Q and E, tilts on
+  Page Up and Page Down, and every gameplay action has a keyboard binding.
+  The defaults are in `docs/CONTROLS.md`, and `tests/test_input_map.gd` fails
+  the build if an action ever loses its key.
 
 ---
 
 ## 10. Enemies and hazards
 
-The Concord doesn't fight Lancer. It denies her the ground, one room at a
-time. Everything in the table below is area denial. The level closes, the
-route changes, and the run turns into a question of where you were going to be
-in two seconds.
+The Concord doesn't fight Lancer. It denies the ground, one room at a time.
+Everything in the first table below is area denial. The level closes, the
+route changes, and the run turns into a question of where you were going to
+be in two seconds.
 
 | Threat | Behaviour | Counter | Rule |
 | --- | --- | --- | --- |
 | **Concord gate** | Opens on a schedule | Timing, speed, or Fracture | Schedules are learnable and displayed |
-| **Quarantine bulkhead** | A living blast door slams shut across the route | Be through the gap when it closes | The door is the antagonist's offence, so the player runs *away* from the system |
+| **Quarantine Bulkhead** | A living blast door slams shut across the route | Be through the gap when it closes | The door is the antagonist's offence, so the player runs *away* from the system |
 | **Purge and Sterilization Protocol** | A sector floods with hazards once an intruder is logged | Leave the sector, or find the shaft it doesn't reach | Announced before it starts; never a surprise |
 | **Interdiction node** | Stationary turret or snare-tendril guarding a bridge or shaft | Time the sweep, or go around | Always a route it doesn't watch |
-| **Bio-construct** | Patrols a fixed line, rotating fan, contact damage | Filament-slap to reverse it, or slide under | Contact = brief stun, not death |
 | **Wind regulator** | Large, anchored, emits a gust cone | Hit the valve; or exploit exhaust for speed | It blocks the route; there is always a speed line through it |
 | **Pressure plate** | Triggers gates, alarms, collapse | Parcel sling; or overshoot via Fracture | Always two solutions |
 | **Gap / updraft** | Environmental | Timing | Never a blind jump, always readable |
 | **Grown seam** | The Concord's own scar tissue. Soft, warm, bleeds when scraped | It deforms, so it slows you differently | Acts like a hazard, reads like a wound |
+
+### The bio-constructs
+| Enemy | Role | Damage | Counter |
+| --- | --- | --- | --- |
+| **Concord Dartbug** | Chaser / swarm | 10 a stab | P-20 or V-9. They come in packs, so they are an aim check and a momentum check at once |
+| **Concord Ram** | Chokepoint anchor / juggernaut | Contact damage | Nearly invincible to bullets, and it locks onto the player. Avoid it, lure it into a pit, drop a weakened floor under it with an M-44, or shatter it head-on at 100 m/s |
+| **Concord Stifler** | Toxic / hazard | Caustic pool, 5 HP/s | Grown out of a ruptured Grown Seam. It dies into a pool that kills slide friction, so the floor after it is worse than the fight. The Adrenaline Stim-Pen clears the drag |
+
+### The present day's threat
+| Enemy | Role | Damage | Counter |
+| --- | --- | --- | --- |
+| **Concord Trooper** | Tactical infantry | Squad fire, timed grenades | The baseline. Expect them, flank them, don't let a grenade pin the route |
+| **Napalm Mortar** | Area denier | Lingering fire | Kill the crew before it fires and the canister can be thrown back as a fire-bomb |
+| **Concord Overwatch** | Sniper / roof watcher | 45 a hit | The cyan targeting laser is the warning. Forty-five HP a hit means one mistake is most of a health bar |
+| **Concord Diver** | Chaser / rusher | 20 a strike | Pneumatic-legged, vaults gaps, closes from above. The K-12 shreds them inside eight metres |
+| **Concord Jammer** | Disruptor | Static field | Its static-air sphere cancels thermals and jams Filament lock-ons. The sphere is the problem, so hit the rear pressure core |
+| **Warp Synth** | Sniper / armoured anchor | Hyper-fast projectiles | 200 HP and immune to bullets. It takes the AT-7 or the L-01, or a route it is not watching |
+| **Concord Special Defense Operations Trooper** | Elite guard / strike coordinator | Squad coordination | Heavy elite troops who coordinate rather than hold. The squad is the target |
+| **Concord C-01 "Scatter"** | Air-to-ground area denier | Cluster napalm | A gunship directed by an SDO Trooper. Leave the floor: walls, wall-kisses, Filament. Kill the SDO and it goes home |
+
+**Concord military infantry, artillery and synths do not exist in the Fracture
+Year prequel.** Only the early bio-constructs do. The roster is data, in
+`data/enemies.json`, and the canon test checks that the main-game threat never
+turns up in a prequel chapter.
 
 The escalation runs with the acts. Act I gives you one scheduled gate per
 section and nothing else. By Act VI a section carries four, spread across three
@@ -621,6 +740,9 @@ vertex-snapped geometry, dithered gradients.
   Anything Lancer has to say is said by running, handing over a parcel, or
   refusing to hand one over. Other characters talk at Lancer across glass and
   across checkpoints, and Lancer answers with movement.
+- **Ilsa is silent in the prequel.** The five Fracture Year chapters are played
+  as her, and she does not speak in them, the same way Lancer does not. She
+  starts talking again in the present day, and what she says is a route.
 - **Ambient scenes.** Real time, and the player is free to leave. Most of the
   story is ambient.
 - **Major beats.** Lancer freezes, world time stops, the scene plays in-frame
@@ -649,6 +771,8 @@ vertex-snapped geometry, dithered gradients.
 
 ### Milestone 2 — Systems & content (12 weeks)
 - All 25 chapters playable (greybox), all 12 Fractures implemented.
+- The arsenal: P-20, V-9 and M98 in the prequel and the present day; K-12 and
+  AT-7 from Act I; the L-01 from Act III.
 - Editions/story system, Fracture Codex, accessibility options.
 - **Gate:** an external team ships an alternate storyline.
 
@@ -667,10 +791,13 @@ vertex-snapped geometry, dithered gradients.
 1. **The Concord's endgame.** Does Lancer destroy it, reform it or outrun it?
    The three endings cover the range of it, but the middle-act reveal still
    needs locking.
-2. **Combat depth.** Close quarters only, no guns, movement first. Is that
-   enough for a section that has to be a firefight? Revisit after Milestone 1.
-3. **The team.** Lancer runs for people now. What is the team called, who is
-   on it, and what happens to it when Saye starts asking questions?
+2. **The team.** Lancer runs for people now: Ilsa, Solberg, Talia and the
+   Free-Band Network. What is the network called in the fiction, and what
+   happens to it when Saye starts asking questions?
+3. **Solberg and the Arc-Lance.** He assembles the L-01 out of regulator
+   parts, and the prototype itself is in the Monolith in Act IV. Does he meet
+   Lancer again between the yard and the Monolith, or does Lancer carry the
+   prototype alone?
 4. **Fracture disclosure.** Ship with nothing documented, so it's a pure hunt,
    or seed one per chapter? I'd seed 3 and let the other 9 be found.
 5. **Edition scope.** How much of the 25×12 grid can an Edition rewrite before
@@ -680,6 +807,9 @@ vertex-snapped geometry, dithered gradients.
 7. **The prequel's length.** Five chapters is twenty-four hours of game time
    before the present day starts. Is that the right size for a prologue, or
    should the prequel be a cut-down version of the same chapters?
+8. **How much of Ilsa's silence survives.** She is silent in the prequel and
+   talks in the present day. Does she talk more than she does now, or is the
+   mentor's job mostly written routes?
 
 ---
 
@@ -698,3 +828,27 @@ version, a trigger description, an effect, a category (speed, precision or
 routing) and `speedrun_legal`, which is true in Time runs and false in
 Precision runs. A Fracture is **never removed** once it has shipped, only
 added. Removing one is a breaking change to the community's routes.
+
+The registry's wording for Fracture 12 still says "Chapter 4's fracture
+site", because that is the text it shipped with and shipped Fractures are
+immutable. The site is Chapter 13, THE FRACTURE YARD, which is where Ilsa's
+route was recorded in the first place.
+
+## Appendix C: the canon files
+
+| File | What it holds |
+| --- | --- |
+| `data/cast.json` | Every character, their pronouns, their acts and who may speak |
+| `data/arsenal.json` | Weapons, usable items and map-built utilities |
+| `data/enemies.json` | The Concord roster, with health, damage and drops |
+| `data/player.json` | Health, overheal and the speed thresholds the sensors read |
+| `data/sections/index.json` | The 25×12 grid, with the opening and the play of every chapter |
+| `data/schedule.json` | 600 gate windows |
+| `data/fractures.json` | The twelve Fractures, versioned and immutable |
+| `data/story/dialogue/en.json` | Every spoken line, and the brackets that stand in for Lancer |
+| `data/story/beats/` | The beat scripts, one file per section |
+| `data/story/endings.json` | The three endings and their conditions |
+
+`tests/test_canon.gd` reads those files and checks them against each other
+and against this document. If the roster and the design doc disagree, the
+build fails.

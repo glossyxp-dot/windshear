@@ -1,0 +1,36 @@
+{
+  "_meta": {
+    "spdx": "CC-BY-SA-4.0",
+    "spdx_file_copyright_text": "2026 the WINDSHEAR contributors",
+    "license": "CC-BY-SA-4.0",
+    "schema": "windshear.player.v1",
+    "description": "Health, overheal and the speed thresholds the Concord's sensors and turrets read."
+  },
+  "version": 1,
+  "health": {
+    "base_max": 100,
+    "overheal_max": 150,
+    "prequel_max": 100,
+    "overheal_decays_to": 100,
+    "overheal_sources": [
+      "momentum_chain",
+      "style_move",
+      "concord_ram_shatter",
+      "warp_synth_shatter"
+    ],
+    "stim_pen_overheal": 25,
+    "stim_pen_seconds": 10,
+    "diver_cell_overheal": 15,
+    "high_energy_core_restore": 100,
+    "high_energy_core_max_overheal": 150,
+    "notes": "Both playable characters have 100 base health. Lancer Ivanov can push to 150 with decaying overheal, earned through momentum and through breaking Concord hardware; Ilsa Renn is capped at 100 for the whole prequel."
+  },
+  "speed": {
+    "unit": "m/s",
+    "max_sprint": 14.0,
+    "wall_kiss_ceiling": 18.0,
+    "ram_shatter_impact": 100.0,
+    "cloak_speed_threshold": 8.0,
+    "notes": "Concord sensors and turrets read these thresholds. The sprint figure is the movement tuning file's MAX_RUN_SPEED and the wall-kiss ceiling is its WALL_KISS_SPEED_CEILING, so this file cannot drift away from the code."
+  }
+}

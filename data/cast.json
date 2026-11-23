@@ -1,0 +1,114 @@
+{
+  "_meta": {
+    "spdx": "CC-BY-SA-4.0",
+    "spdx_file_copyright_text": "2026 the WINDSHEAR contributors",
+    "license": "CC-BY-SA-4.0",
+    "schema": "windshear.cast.v1",
+    "description": "The cast of the twenty-five-chapter campaign, with pronouns, acts and the speaking rules."
+  },
+  "version": 1,
+  "pronoun_policy": "Lancer is the only character with no pronouns. Every other named character has them, and they are written down here so nobody has to guess.",
+  "characters": [
+    {
+      "id": "lancer",
+      "display_name": "Lancer Ivanov",
+      "surname": "Ivanov",
+      "role": "protagonist",
+      "pronouns": null,
+      "silent": true,
+      "acts": ["I", "II", "III", "IV", "V", "VI"],
+      "note": "A surface courier in their twenties or thirties. Lancer never speaks, so every line of theirs in the dialogue file is a bracketed action direction. No pronouns, no gendered voice direction, no gendered framing, anywhere in any locale."
+    },
+    {
+      "id": "ilsa_renn",
+      "display_name": "Ilsa Renn",
+      "surname": "Renn",
+      "role": "prequel_protagonist",
+      "pronouns": "she/her",
+      "silent": false,
+      "silent_in_prequel": true,
+      "acts": ["0", "I", "II", "III", "IV", "V", "VI"],
+      "note": "The prequel protagonist and the Concord's FIRST RUNNER. A veteran smuggler who trained Lancer, and a military dispatch runner during the Fracture Year who survived the Concord's drop and carved the first illegal routes across the walls. She is silent in the prequel, like Lancer. In the present day she talks, and what she says is usually a route."
+    },
+    {
+      "id": "warden_saye",
+      "display_name": "Warden Saye",
+      "surname": "Saye",
+      "role": "antagonist",
+      "pronouns": "she/her",
+      "silent": false,
+      "acts": ["0", "I", "II", "III", "IV", "V"],
+      "note": "Human containment enforcement. A young logistics officer watching the war spiral in the prequel, and twenty years later the exhausted administrator who signed the isolation accords. She talks at Lancer across checkpoints and security glass and never gets a verbal answer back."
+    },
+    {
+      "id": "the_concord",
+      "display_name": "THE CONCORD",
+      "surname": null,
+      "role": "antagonist",
+      "pronouns": "it",
+      "silent": false,
+      "acts": ["0", "I", "II", "III", "IV", "V", "VI"],
+      "note": "The siege organism itself. It speaks through street displays, PA chimes and containment logs. It has no face and no ego."
+    },
+    {
+      "id": "first_runner",
+      "display_name": "FIRST RUNNER",
+      "surname": null,
+      "role": "designation",
+      "pronouns": null,
+      "silent": false,
+      "acts": ["IV"],
+      "note": "The tag the Concord gives Ilsa Renn's recorded movement profile from the Fracture Year. The Concord has been running simulations of her route data ever since, to hunt modern couriers. It is a recording of her, not a separate person."
+    },
+    {
+      "id": "aris_thorne",
+      "display_name": "Dr. Aris Thorne",
+      "surname": "Thorne",
+      "role": "ally",
+      "pronouns": "he/him",
+      "silent": false,
+      "acts": ["0", "IV"],
+      "note": "Lead biomechanical containment researcher at the Longhorn Biological Facility. In the Fracture Year he gives Ilsa Renn the facility's master override key during the drop. Twenty years later Lancer finds his audio logs, and a frail, surviving Thorne inside the expanded Concord Monolith."
+    },
+    {
+      "id": "sergeant_miller",
+      "display_name": "Sergeant Miller",
+      "surname": "Miller",
+      "role": "ally",
+      "pronouns": "he/him",
+      "silent": false,
+      "acts": ["0"],
+      "note": "An exhausted infantry squad leader holding the perimeter around Central Station and the Longhorn Facility while Ilsa runs encryption keys through active warzones. Prequel only, chapters P1 to P3."
+    },
+    {
+      "id": "henrik_solberg",
+      "display_name": "Henrik Solberg",
+      "surname": "Solberg",
+      "role": "ally",
+      "pronouns": "he/him",
+      "silent": false,
+      "acts": ["I", "III"],
+      "note": "An underground block machinist in Quarantine Block 404 and a former Wind Regulator technician. He maintains Lancer's Filament tether, repairs salvaged rifles, and assembles the L-01 Arc-Lance out of regulator parts."
+    },
+    {
+      "id": "talia_korr",
+      "display_name": "Talia Korr",
+      "surname": "Korr",
+      "role": "ally",
+      "pronouns": "she/her",
+      "silent": false,
+      "acts": ["I", "III", "V"],
+      "note": "A signal operator for the Free-Band Network. She links shortwave transmitters across the Block Seam and feeds Lancer tactical intel over a one-way earpiece while Lancer stays silent."
+    },
+    {
+      "id": "civil_defense",
+      "display_name": "CIVIL DEFENSE",
+      "surname": null,
+      "role": "broadcast",
+      "pronouns": null,
+      "silent": false,
+      "acts": ["0"],
+      "note": "The civil-defence broadcasts of the Fracture Year. A channel with a voice on it and nobody behind it, and the last thing Lancer hears before the Concord takes the sky."
+    }
+  ]
+}

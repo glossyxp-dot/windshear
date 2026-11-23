@@ -1,7 +1,8 @@
 # WINDSHEAR
 
-A 2.5D speed-and-precision platformer. You play Lancer, a courier in a city
-that a war machine sealed under a canopy, and the sealing is the problem.
+A 2.5D speed-and-precision platformer. You play Lancer Ivanov, a courier in
+a city that a war machine sealed under a canopy, and the sealing is the
+problem.
 
 Twenty years ago the sky came apart in a global war. High command dropped
 something to stop it, a biomechanical siege organism called the Concord. It
@@ -10,6 +11,10 @@ the parcels you carry now are not the ones the schedule approved.
 
 Lancer never speaks. Everything Lancer has to say is a line they run.
 
+The mouse is the camera, and the mouse is optional. Every action in the game
+has a keyboard binding, and there is a test that fails the build if that
+stops being true.
+
 Everything is open source, code and content both. If you want to tell a
 different story in the same city, that's what an Edition is: a folder of JSON,
 no code required. Nobody has to ask me first, and nobody has to ask you to
@@ -17,9 +22,12 @@ change the game you already downloaded.
 
 ## The documents
 
-- [Game design](GAME_DESIGN.md) — pillars, the cast, the 20-chapter structure
+- [Game design](GAME_DESIGN.md) — pillars, the cast, the 25-chapter structure
 - [Technical spec](TECH_SPEC.md) — renderer, budgets, every movement number
 - [The Concord](docs/CONCORD.md) — what the antagonist actually is, in full
+- [The arsenal](docs/ARSENAL.md) — seven weapons, five items, five map utilities
+- [The enemy roster](docs/ENEMIES.md) — what the Concord puts between you and the sky
+- [Controls](docs/CONTROLS.md) — the defaults, and why the mouse is optional
 - [Movement research](docs/MOVEMENT_RESEARCH.md) — the sources behind the movement numbers
 - [Dev Stage 1](docs/dev_stage_1.md) — how far the movement base got, and the bug the discovery harness found
 - [Authoring by hand](docs/AUTHORING.md) — opening the project and decorating it without touching code
@@ -31,12 +39,17 @@ change the game you already downloaded.
 
 Dev Stage 1. The project boots, the menu works, Lancer moves.
 
-There are 335 headless checks and they all pass. The movement is frame exact
+There are 458 headless checks and they all pass. The movement is frame exact
 at 60 Hz and the HUD reads your speed in metres per second. The PSX slider
 goes from 0 to 100, so the amount of PSX is the player's call and not mine.
 The world grid exists as data: 25 chapters, 12 sections each, 300 sections in
 total, gate schedules and all. Five of those chapters are a prequel, played as
 Ilsa Renn twenty years before the first present-day chapter.
+
+The canon is data too, and the tests hold it to itself. The cast, the
+arsenal, the enemy roster and the player's numbers live in `data/`, and
+`tests/test_canon.gd` checks them against each other and against the design
+document. If the roster and the design doc disagree, the build fails.
 
 None of it is a game yet. The greybox is a measuring rig, one room with a floor
 and a wall to kiss. There's no art. The story layer is JSON that nothing in the
@@ -48,12 +61,14 @@ engine reads yet. `docs/dev_stage_1.md` §7 has the honest version of that list.
 | --- | --- |
 | Speed and precision | Momentum routes, frame tight execution, separate Time and Precision leaderboards |
 | The pacing | Movement, combat, puzzles and stealth, all sharing the same route |
+| The arsenal | Seven real weapons, and a route for everything that a bullet won't do |
 | The antagonist | Human made, systemic, and right about the danger |
 | Camera | Never leaves Lancer. Cutscenes happen in the world |
 | Look | PSX era low poly 3D at 480×270, parallax, nearest neighbour upscale |
 | Fractures | 12 deliberate, stable, nameable bugs. Mastery content |
 | Structure | 25 chapters × 12 sections in seven acts. The first act is a prequel |
-| Lancer | No gender specified anywhere, and Lancer never speaks |
+| Lancer | Lancer Ivanov. No pronouns anywhere, and Lancer never speaks |
+| Controls | Keyboard first. The mouse is the camera, and it is optional |
 | Speed | Measured in metres per second, on the HUD and in every document |
 | Memory | 2.5 GB typical, 4 GB hard ceiling |
 | Licence | Code GPL-2.0-or-later, content CC-BY-SA 4.0. Editions have to be open source |

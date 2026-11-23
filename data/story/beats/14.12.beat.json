@@ -10,12 +10,12 @@
   "section_id": "14.12",
   "beats": [
     {
-      "id": "14.12.YEAR_ZERO",
+      "id": "14.12.THE_ARMORY",
       "mode": "MAJOR",
       "trigger": {
         "type": "actor_marker",
         "actor_id": "lancer",
-        "marker_id": "year_zero_marker"
+        "marker_id": "bunker_marker"
       },
       "actors": [
         {
@@ -23,23 +23,18 @@
           "role": "player"
         },
         {
+          "actor_id": "aris_thorne",
+          "role": "speaker"
+        },
+        {
           "actor_id": "the_concord",
-          "role": "speaker"
-        },
-        {
-          "actor_id": "concord_signal",
-          "role": "speaker"
-        },
-        {
-          "actor_id": "first_runner",
           "role": "speaker"
         }
       ],
       "dialogue": [
-        "en.023",
-        "en.024",
-        "en.025",
-        "en.026"
+        "en.073",
+        "en.066",
+        "en.072"
       ],
       "duration_frames": 420,
       "control": {
@@ -54,10 +49,12 @@
       "camera": {
         "mode": "lancer_rig_locked",
         "detachable": false,
-        "push_in": 0.1
+        "push_in": 0.12
       },
       "exit": {
         "type": "script_end",
+        "allow_player_exit": false,
+        "penalty_frames": 0,
         "resume_count_frames": 2
       }
     }

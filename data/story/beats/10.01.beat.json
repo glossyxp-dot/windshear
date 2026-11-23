@@ -1,0 +1,61 @@
+{
+  "_meta": {
+    "spdx": "CC-BY-SA-4.0",
+    "spdx_file_copyright_text": "2026 the WINDSHEAR contributors",
+    "license": "CC-BY-SA-4.0",
+    "schema": "windshear.story.beat.v1",
+    "mode": "AMBIENT"
+  },
+  "version": 1,
+  "section_id": "10.01",
+  "beats": [
+    {
+      "id": "10.01.THE_RELAY",
+      "mode": "AMBIENT",
+      "trigger": {
+        "type": "section_entry",
+        "frame": 0
+      },
+      "actors": [
+        {
+          "actor_id": "lancer",
+          "role": "player"
+        },
+        {
+          "actor_id": "talia_korr",
+          "role": "speaker"
+        },
+        {
+          "actor_id": "henrik_solberg",
+          "role": "speaker"
+        }
+      ],
+      "dialogue": [
+        "en.065",
+        "en.064",
+        "en.071"
+      ],
+      "duration_frames": 480,
+      "control": {
+        "locked": false,
+        "player_input": "unrestricted"
+      },
+      "world_time": {
+        "mode": "normal",
+        "time_scale": 1.0,
+        "scripted_actor_time": "unscaled"
+      },
+      "camera": {
+        "mode": "lancer_rig",
+        "detachable": false,
+        "push_in": 0.1
+      },
+      "exit": {
+        "type": "player_exit_or_end",
+        "allow_player_exit": true,
+        "penalty_frames": 0,
+        "resume_count_frames": 2
+      }
+    }
+  ]
+}

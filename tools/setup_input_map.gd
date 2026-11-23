@@ -61,21 +61,54 @@ func _joy_axis(axis: JoyAxis, value: float) -> InputEventJoypadMotion:
 
 
 ## The key bindings: action name -> list of InputEvent objects.
+##
+## The rule the whole map is built around: **the mouse is optional**. The
+## mouse is the camera, and a player holding it is not holding a movement
+## key. Every action a player needs in order to move, fight and look around
+## therefore has at least one keyboard binding, and the mouse bindings are
+## extra routes to the same action rather than the only route.
+##
+## The keyboard and the right thumb split the work:
+##
+## [codeblock]
+## left hand   A / D  move        SPACE  jump       S  slide
+##             W      mantle      CTRL   slide (alt)
+## right hand  Q / E  turn        F      filament
+##             X      aim         Z      fire
+##             C      reload      B      use item
+##             V      next weapon PgUp / PgDn  tilt
+## [/codeblock]
+##
+## `look_left` and friends stay on the right stick, because the left stick
+## moves the player. The keyboard gets its own `look_key_*` actions so the
+## key turn rate can be slower than the stick rate, which is what a keyboard
+## player wants: a key turns the camera at a fixed rate, the mouse turns it
+## by pixels.
 func _bindings() -> Dictionary:
 	return {
-		"move_left": [_key(KEY_A), _key(KEY_LEFT)],
-		"move_right": [_key(KEY_D), _key(KEY_RIGHT)],
-		"jump": [_key(KEY_SPACE)],
-		"slip": [_key(KEY_S), _key(KEY_DOWN), _key(KEY_CTRL)],
-		"mantle": [_key(KEY_W), _key(KEY_UP)],
-		"filament": [_mouse(MOUSE_BUTTON_RIGHT), _joy_button(JOY_BUTTON_RIGHT_SHOULDER)],
-		"look_left": [_joy_axis(JOY_AXIS_LEFT_X, -1.0)],
-		"look_right": [_joy_axis(JOY_AXIS_LEFT_X, 1.0)],
-		"look_up": [_joy_axis(JOY_AXIS_LEFT_Y, -1.0)],
-		"look_down": [_joy_axis(JOY_AXIS_LEFT_Y, 1.0)],
-		"reset_to_checkpoint": [_key(KEY_R)],
-		"toggle_splits": [_key(KEY_TAB)],
-		"toggle_help": [_key(KEY_F1), _key(KEY_H)],
+		"move_left": [_key(KEY_A), _key(KEY_LEFT), _joy_button(JOY_BUTTON_DPAD_LEFT)],
+		"move_right": [_key(KEY_D), _key(KEY_RIGHT), _joy_button(JOY_BUTTON_DPAD_RIGHT)],
+		"jump": [_key(KEY_SPACE), _joy_button(JOY_BUTTON_A)],
+		"slip": [_key(KEY_S), _key(KEY_DOWN), _key(KEY_CTRL), _joy_button(JOY_BUTTON_B)],
+		"mantle": [_key(KEY_W), _key(KEY_UP), _joy_button(JOY_BUTTON_X)],
+		"filament": [_key(KEY_F), _joy_button(JOY_BUTTON_RIGHT_SHOULDER)],
+		"fire": [_key(KEY_Z), _mouse(MOUSE_BUTTON_LEFT), _joy_axis(JOY_AXIS_TRIGGER_RIGHT, 1.0)],
+		"aim": [_key(KEY_X), _mouse(MOUSE_BUTTON_RIGHT), _joy_axis(JOY_AXIS_TRIGGER_LEFT, 1.0)],
+		"reload": [_key(KEY_C), _joy_button(JOY_BUTTON_Y)],
+		"use_item": [_key(KEY_B), _joy_button(JOY_BUTTON_DPAD_UP)],
+		"cycle_weapon": [_key(KEY_V), _mouse(MOUSE_BUTTON_WHEEL_UP), _mouse(MOUSE_BUTTON_WHEEL_DOWN),
+			_joy_button(JOY_BUTTON_RIGHT_STICK)],
+		"look_left": [_joy_axis(JOY_AXIS_RIGHT_X, -1.0)],
+		"look_right": [_joy_axis(JOY_AXIS_RIGHT_X, 1.0)],
+		"look_up": [_joy_axis(JOY_AXIS_RIGHT_Y, -1.0)],
+		"look_down": [_joy_axis(JOY_AXIS_RIGHT_Y, 1.0)],
+		"look_key_left": [_key(KEY_Q)],
+		"look_key_right": [_key(KEY_E)],
+		"look_key_up": [_key(KEY_PAGEUP)],
+		"look_key_down": [_key(KEY_PAGEDOWN)],
+		"reset_to_checkpoint": [_key(KEY_R), _joy_button(JOY_BUTTON_BACK)],
+		"toggle_splits": [_key(KEY_TAB), _joy_button(JOY_BUTTON_START)],
+		"toggle_help": [_key(KEY_F1), _key(KEY_H), _joy_button(JOY_BUTTON_GUIDE)],
 	}
 
 

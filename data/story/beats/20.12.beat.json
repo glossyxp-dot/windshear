@@ -35,7 +35,9 @@
         "en.040",
         "en.041",
         "en.042",
-        "en.043"
+        "en.043",
+        "en.069",
+        "en.070"
       ],
       "duration_frames": 600,
       "control": {

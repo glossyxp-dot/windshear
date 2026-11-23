@@ -25,7 +25,7 @@ godot --headless --path . --script res://tools/cell_budget_checker.gd
 The suite exits with a non-zero status when a check fails, so CI is one
 line and there is nothing to parse.
 
-The current state is **335 checks, 0 failures**.
+The current state is **458 checks, 0 failures**, in fourteen suites.
 
 ---
 
@@ -48,6 +48,11 @@ those instead:
   are measured, not assumed.
 - **The code policy.** Four rules from `CONTRIBUTING.md` that a reviewer
   cannot check by reading a diff.
+- **The canon.** The cast, the arsenal, the roster and the player's numbers
+  are data, and data drifts. The suite checks them against each other and
+  against the design document.
+- **The input map.** The mouse is the camera and it is optional, so every
+  action has to keep a keyboard binding.
 
 ---
 
@@ -60,11 +65,13 @@ those instead:
 | `test_movement_characterization.gd` | 77 | Arming and chain boundaries, collision energy, repeated cycles, adversarial input, full-state replay |
 | `test_movement_discovery.gd` | 26 | The discovery report, the invariants, and the bunny-hop promise |
 | `test_camera.gd` | 17 | Pitch clamp, yaw wrap, speed dolly, the camera belonging to the rig |
+| `test_input_map.gd` | 11 | Every action has a keyboard binding, nothing is mouse-only, the camera reads the look keys |
 | `test_determinism.gd` | 8 | Identical inputs give identical outputs; the section seed is stable |
 | `test_speed_meter.gd` | 11 | The speed readout, in metres per second: the reading, the peak, the reset and the units |
 | `test_perf_budget.gd` | 10 | The project settings and the cost of a frame |
 | `test_code_policy.gd` | 10 | Licence headers, no global random numbers, no allocation in the frame loops, the documentation |
 | `test_world_data.gd` | 39 | The 25×12 grid, the prequel, the gate schedule, the Fracture registry, the endings, the beats and the dialogue |
+| `test_canon.gd` | 112 | The cast, the silence, the arsenal, the enemy roster, the health and speed numbers, and the documents that have to agree with all of it |
 | `test_greybox.gd` | 33 | The scene: the player, the camera, the plane, the budget, the materials, the help panel, a 90-second route |
 | `test_psx.gd` | 39 | The amount dial: the globals, the shader, the clamping, the settings round trip, and the slider in the menu |
 

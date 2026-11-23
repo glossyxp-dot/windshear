@@ -169,6 +169,10 @@ res://
       c1/s1_01.beat.json
       dialogue/en.json
       endings.json
+    cast.json            # the cast, their pronouns and their acts
+    arsenal.json         # weapons, usable items, map utilities
+    enemies.json         # the Concord roster
+    player.json          # health, overheal, the speed thresholds
     fractures.json
     schedule.json        # Concord gate/regulation schedules
   world/                 # shared world geometry + rules

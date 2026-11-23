@@ -14,34 +14,61 @@
       "display_name": "Lancer",
       "color": "#82CFFF",
       "silent": true,
-      "note": "Lancer never speaks. Lines attached to this speaker are bracketed action directions."
+      "note": "Lancer Ivanov. Lancer never speaks. Lines attached to this speaker are bracketed action directions, and there are no pronouns for Lancer anywhere in any locale."
     },
     {
       "id": "the_concord",
       "display_name": "THE CONCORD",
-      "color": "#F2C879"
+      "color": "#F2C879",
+      "note": "The siege organism itself. It speaks through street displays, PA chimes and containment logs."
     },
     {
       "id": "ilsa_renn",
       "display_name": "Ilsa Renn",
       "color": "#86D69A",
-      "note": "The scientist who noticed what Lancer could do and brought Lancer to the team. In the prequel she is the original courier, and the Concord's FIRST RUNNER."
+      "note": "The prequel protagonist, Lancer's mentor, and the Concord's FIRST RUNNER. A veteran smuggler who trained Lancer, and a military dispatch runner during the Fracture Year who carved the first illegal routes across the walls. She is silent in the prequel, like Lancer."
     },
     {
       "id": "warden_saye",
       "display_name": "Warden Saye",
-      "color": "#F08A8A"
+      "color": "#F08A8A",
+      "note": "Human containment enforcement. A young logistics officer in the prequel, and twenty years later the exhausted administrator who signed the isolation accords."
     },
     {
       "id": "first_runner",
       "display_name": "FIRST RUNNER",
       "color": "#C4A7FF",
-      "note": "The Concord's designation for Ilsa Renn's recorded movement profile. The prequel is played as her."
+      "note": "The Concord's designation for Ilsa Renn's recorded movement profile from the Fracture Year. It is a recording of her, not a separate person."
     },
     {
       "id": "civil_defense",
       "display_name": "CIVIL DEFENSE",
-      "color": "#D8D2B8"
+      "color": "#D8D2B8",
+      "note": "The civil-defence broadcasts of the Fracture Year. The Concord has not taken the channel over yet."
+    },
+    {
+      "id": "aris_thorne",
+      "display_name": "Dr. Aris Thorne",
+      "color": "#C9B79A",
+      "note": "Lead biomechanical containment researcher at the Longhorn Biological Facility. He gives Ilsa the master override key during the drop, and he is still alive inside the Monolith twenty years later."
+    },
+    {
+      "id": "sergeant_miller",
+      "display_name": "Sergeant Miller",
+      "color": "#B7B79A",
+      "note": "An infantry squad leader holding the perimeter around Central Station and the Longhorn Facility during the Fracture Year."
+    },
+    {
+      "id": "henrik_solberg",
+      "display_name": "Henrik Solberg",
+      "color": "#9AC8D6",
+      "note": "A block machinist in Quarantine Block 404 and a former Wind Regulator technician. He keeps the Filament restrung and the rifles alive."
+    },
+    {
+      "id": "talia_korr",
+      "display_name": "Talia Korr",
+      "color": "#D6A9C8",
+      "note": "A signal operator for the Free-Band Network. She talks into Lancer's earpiece one way, because Lancer never answers."
     }
   ],
   "lines": [
@@ -319,6 +346,96 @@
       "id": "en.055",
       "speaker_id": "the_concord",
       "text": "New growth in sector 4-C is within tolerance. No further comment."
+    },
+    {
+      "id": "en.056",
+      "speaker_id": "sergeant_miller",
+      "text": "Central Station is holding. The rail yard is not. Get your drive south, runner, and do not stop for the wounded."
+    },
+    {
+      "id": "en.057",
+      "speaker_id": "sergeant_miller",
+      "text": "Longhorn is burning from the inside out. Whatever they dropped on us, it is still in there."
+    },
+    {
+      "id": "en.058",
+      "speaker_id": "aris_thorne",
+      "text": "Master override. Longhorn does not get one of these. Do not waste it on a door I cannot reopen."
+    },
+    {
+      "id": "en.059",
+      "speaker_id": "aris_thorne",
+      "text": "They called it a containment organism. I signed the paperwork. It does not contain anything, it grows."
+    },
+    {
+      "id": "en.060",
+      "speaker_id": "ilsa_renn",
+      "text": "Take the drive. Do not tell me what is in it, and do not come back to the Depot tonight."
+    },
+    {
+      "id": "en.061",
+      "speaker_id": "ilsa_renn",
+      "text": "Two blocks say the sky is fake. Three say it is a ceiling. Either way, somebody has to carry the question over."
+    },
+    {
+      "id": "en.062",
+      "speaker_id": "talia_korr",
+      "text": "Four reps, one shortwave, and your memory drive. Two of them have not heard another block answer in nineteen years."
+    },
+    {
+      "id": "en.063",
+      "speaker_id": "henrik_solberg",
+      "text": "Filament is restrung. If it snags on you, it is not the filament, it is your line."
+    },
+    {
+      "id": "en.064",
+      "speaker_id": "henrik_solberg",
+      "text": "I can build the Arc-Lance out of regulator parts, but not out of nothing. Find me a rail first."
+    },
+    {
+      "id": "en.065",
+      "speaker_id": "talia_korr",
+      "text": "The relay crate is lead-lined and heavy. It goes across on your back, not in your pocket, and the crate is not the hard part."
+    },
+    {
+      "id": "en.066",
+      "speaker_id": "aris_thorne",
+      "text": "You are standing in the room where we decided a city would die. I voted. I am still alive, which is not the same as being right."
+    },
+    {
+      "id": "en.067",
+      "speaker_id": "the_concord",
+      "text": "SUBJECT: ILSA RENN // CLASSIFICATION: FIRST RUNNER // 20-YEAR PATROL TRAINING MODEL // CONFIDENCE 0.94"
+    },
+    {
+      "id": "en.068",
+      "speaker_id": "warden_saye",
+      "text": "You think you're freeing them, runner. Look down. Twenty years of zero war. Break that canopy, and they'll burn the sky down all over again."
+    },
+    {
+      "id": "en.069",
+      "speaker_id": "the_concord",
+      "text": "Atmospheric Sphincter at full containment. Direct sunlight is not scheduled above the last regulation layer."
+    },
+    {
+      "id": "en.070",
+      "speaker_id": "lancer",
+      "text": "[Lancer looks at the membrane, and then at the long way down.]"
+    },
+    {
+      "id": "en.071",
+      "speaker_id": "lancer",
+      "text": "[Lancer shifts the relay crate onto their shoulder. It is heavier than the manifest says.]"
+    },
+    {
+      "id": "en.072",
+      "speaker_id": "the_concord",
+      "text": "PROTOTYPE ARMORY SEALED. HULK MATERIAL IS NOT ON THE MANIFEST."
+    },
+    {
+      "id": "en.073",
+      "speaker_id": "lancer",
+      "text": "[Lancer reads the Longhorn signage twice. The arrows still point where they pointed twenty years ago.]"
     }
   ]
 }

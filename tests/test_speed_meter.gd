@@ -27,6 +27,9 @@ const SpeedMeter := preload("res://addons/windshear/movement/speed_meter.gd")
 const Tuning := preload("res://addons/windshear/core/ws_tuning.gd")
 
 
+## The meter is a RefCounted, so it is released by its own reference count.
+## Calling free() on one is an engine error, and a suite that prints engine
+## errors is a suite nobody reads.
 func suite_name() -> String:
 	return "the speed is measured in metres per second"
 
@@ -53,7 +56,6 @@ func _test_the_reading() -> void:
 	# XY plane and the Z axis is always zero.
 	meter.sample(Vector3(3.0, 9.0, 0.0))
 	near(meter.current, 3.0, 0.001, "the meter reads the horizontal axis only")
-	meter.free()
 
 
 ## The peak holds the fastest reading until it is reset.
@@ -69,7 +71,6 @@ func _test_the_peak() -> void:
 	# A slower reading never lowers the peak.
 	meter.sample(Vector3(1.0, 0.0, 0.0))
 	near(meter.peak, 18.0, 0.001, "a slow reading does not lower the peak")
-	meter.free()
 
 
 ## A respawn clears the peak, so it is the peak of the attempt.
@@ -80,7 +81,6 @@ func _test_the_reset() -> void:
 	meter.reset()
 	near(meter.current, 0.0, 0.001, "the reset clears the reading")
 	near(meter.peak, 0.0, 0.001, "the reset clears the peak")
-	meter.free()
 
 
 ## The text says metres per second, because that is the whole point.
@@ -92,4 +92,3 @@ func _test_the_units() -> void:
 	ok(meter.peak_text().contains("m/s"), "the peak says m/s")
 	ok(meter.current_text().contains("%.1f" % Tuning.MAX_RUN_SPEED),
 		"the reading quotes the run speed to one decimal")
-	meter.free()

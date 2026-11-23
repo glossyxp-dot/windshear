@@ -5,8 +5,9 @@ SPDX-License-Identifier: CC-BY-SA-4.0
 
 # Section scenes
 
-The world is twenty chapters of twelve sections. One section is one streaming
-cell and one `PackedScene`.
+The world is twenty-five chapters of twelve sections, and the first five of
+them are the Fracture Year prequel. One section is one streaming cell and one
+`PackedScene`.
 
 ## Naming
 
@@ -26,8 +27,10 @@ res://data/sections/c20/s20_12.tscn
 ```
 
 `index.json` is the machine-readable index of the whole grid. It holds the id,
-the display name, the scene path, the difficulty and the par time for all 240
-sections. A scene path in the index has to match the pattern exactly. The
+the display name, the scene path, the difficulty and the par time for all 300
+sections, plus the opening and the play of every chapter. The prequel
+chapters are keyed `P1` to `P5`, so their scenes are
+`res://data/sections/cP1/sP1_01.tscn`. A scene path in the index has to match the pattern exactly. The
 world data test checks it, and so does anything that loads a section by id.
 
 The id is stable. Splits, saves, leaderboards and community route files all

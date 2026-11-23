@@ -94,6 +94,12 @@ func _build_help_text() -> String:
 		Tuning.COYOTE_FRAMES, Tuning.JUMP_BUFFER_FRAMES, Tuning.WALL_KISS_CHAIN_FRAMES
 	])
 	lines.append("")
+	lines.append("TURN   Q / E       camera left / right")
+	lines.append("TILT   PgUp/PgDn   camera up / down")
+	lines.append("TETHER F           filament")
+	lines.append("")
+	lines.append("the mouse is the camera, and it is optional")
+	lines.append("")
 	lines.append("the HUD reads speed in m/s, current and peak")
 	lines.append("peak clears when you respawn")
 	lines.append("")

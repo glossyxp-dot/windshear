@@ -1,0 +1,146 @@
+{
+  "_meta": {
+    "spdx": "CC-BY-SA-4.0",
+    "spdx_file_copyright_text": "2026 the WINDSHEAR contributors",
+    "license": "CC-BY-SA-4.0",
+    "schema": "windshear.enemies.v1",
+    "description": "The Concord's bio-construct and infantry roster, with health, damage, drops and the counter to each one."
+  },
+  "version": 1,
+  "roster_policy": "Concord military infantry, artillery and synths do not exist in the Fracture Year prequel. Only the early bio-constructs do.",
+  "enemies": [
+    {
+      "id": "concord_dartbug",
+      "name": "Concord Dartbug",
+      "role": "chaser",
+      "family": "bio_construct",
+      "health": null,
+      "damage": 10,
+      "acts": ["prequel", "main"],
+      "bullet_effective": true,
+      "drops": [],
+      "counter": "P-20 or V-9. They come in packs, so they are an aim check and a momentum check at once."
+    },
+    {
+      "id": "concord_ram",
+      "name": "Concord Ram",
+      "role": "chokepoint_anchor",
+      "family": "bio_construct",
+      "health": null,
+      "damage": null,
+      "acts": ["prequel", "main"],
+      "bullet_effective": false,
+      "drops": ["chitin_shards", "overcharge_spark"],
+      "counter": "Almost invincible to bullets, and it locks onto the player and never lets go. Avoid it, lure it into a pit or a crater, drop a weakened floor under it with an M-44, or shatter it head-on at 100 m/s. A Ram shattered at speed gives Lancer 25 points of decaying overheal."
+    },
+    {
+      "id": "concord_stifler",
+      "name": "Concord Stifler",
+      "role": "toxic_hazard",
+      "family": "bio_construct",
+      "health": null,
+      "damage": null,
+      "acts": ["prequel", "main"],
+      "bullet_effective": true,
+      "drops": ["caustic_coolant_pool"],
+      "counter": "A bloated containment construct grown out of a ruptured Grown Seam. It dies into a caustic pool that burns for 5 HP a second and kills slide friction, so the floor after it is worse than the fight. An Adrenaline Stim-Pen clears the drag."
+    },
+    {
+      "id": "concord_trooper",
+      "name": "Concord Trooper",
+      "role": "tactical_infantry",
+      "family": "infantry",
+      "health": null,
+      "damage": null,
+      "acts": ["main"],
+      "bullet_effective": true,
+      "drops": ["9mm_magazine", "fragmentation_grenade", "field_ration"],
+      "counter": "Patrols checkpoints and alleys in squads with V-9 SMGs and timed fragmentation grenades. They are the baseline: expect them, flank them, and do not let a grenade pin the route."
+    },
+    {
+      "id": "napalm_mortar",
+      "name": "Napalm Mortar",
+      "role": "area_denier",
+      "family": "artillery",
+      "health": null,
+      "damage": null,
+      "acts": ["main"],
+      "bullet_effective": true,
+      "drops": ["incendiary_fuel_canister"],
+      "counter": "An arcing incendiary crew locking down high ground, rooftops and cover lanes with lingering fire. Kill the crew before it fires and the canister can be thrown back as a fire-bomb. The M98 handles them from a long sightline."
+    },
+    {
+      "id": "concord_overwatch",
+      "name": "Concord Overwatch",
+      "role": "sniper",
+      "family": "infantry",
+      "health": null,
+      "damage": 45,
+      "acts": ["main"],
+      "bullet_effective": true,
+      "drops": ["7.62mm_marksman_clip", "emp_scrambler_flare"],
+      "counter": "A marksman on a high perch with an M98 and a visible cyan targeting laser. The laser is the warning. Forty-five HP a hit means one mistake is most of a health bar."
+    },
+    {
+      "id": "concord_diver",
+      "name": "Concord Diver",
+      "role": "chaser",
+      "family": "bio_construct",
+      "health": null,
+      "damage": 20,
+      "acts": ["main"],
+      "bullet_effective": true,
+      "drops": ["pressurised_pneumatic_cell"],
+      "counter": "Pneumatic-legged and it vaults gaps to reach the roofs. A twenty HP strike, and it closes from above. The K-12 shreds them inside eight metres."
+    },
+    {
+      "id": "concord_jammer",
+      "name": "Concord Jammer",
+      "role": "disruptor",
+      "family": "bio_construct",
+      "health": null,
+      "damage": null,
+      "acts": ["main"],
+      "bullet_effective": true,
+      "drops": ["regulator_capacitor_core"],
+      "counter": "A heavy spider-legged tripod projecting a static-air sphere that cancels thermals and jams Filament lock-ons. The sphere is the problem, so hit the rear pressure core. The M98 is the answer from range, the L-01 from close."
+    },
+    {
+      "id": "warp_synth",
+      "name": "Warp Synth",
+      "role": "sniper",
+      "family": "synth",
+      "health": 200,
+      "damage": null,
+      "acts": ["main"],
+      "bullet_effective": false,
+      "drops": ["high_energy_core", "at7_rocket"],
+      "counter": "A post-Concord synth that relocates slowly, digs itself into the ground to anchor, charges a readable lock-on and fires hyper-fast projectiles. It is immune to bullets. It takes the AT-7, or the L-01, or a route it is not watching."
+    },
+    {
+      "id": "concord_sdo_trooper",
+      "name": "Concord Special Defense Operations Trooper",
+      "short_name": "SDO Trooper",
+      "role": "elite_guard",
+      "family": "infantry",
+      "health": null,
+      "damage": null,
+      "acts": ["second_half_main"],
+      "bullet_effective": true,
+      "drops": ["heavy_armor_med_injector", "7.62mm_marksman_clip", "strike_targeter_beacon"],
+      "counter": "Heavy elite containment troops in the high-security zones, and the ones who direct air support. They coordinate a squad instead of holding a corner, so the squad is the target."
+    },
+    {
+      "id": "concord_c01_scatter",
+      "name": "Concord C-01 \"Scatter\"",
+      "role": "air_to_ground_area_denier",
+      "family": "aircraft",
+      "health": null,
+      "damage": null,
+      "acts": ["second_half_main"],
+      "bullet_effective": false,
+      "drops": [],
+      "counter": "A low-altitude defence gunship, directed by an SDO Trooper. It saturates ground lanes, streets and rooftops with cluster napalm, and the answer is to leave the floor: walls, wall-kisses and Filament tethers. Kill the SDO and it goes home, or hit it with the AT-7 or the L-01."
+    }
+  ]
+}

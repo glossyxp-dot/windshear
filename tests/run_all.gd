@@ -45,11 +45,13 @@ const SUITES := [
 	preload("res://tests/test_movement_characterization.gd"),
 	preload("res://tests/test_movement_discovery.gd"),
 	preload("res://tests/test_camera.gd"),
+	preload("res://tests/test_input_map.gd"),
 	preload("res://tests/test_determinism.gd"),
 	preload("res://tests/test_speed_meter.gd"),
 	preload("res://tests/test_perf_budget.gd"),
 	preload("res://tests/test_code_policy.gd"),
 	preload("res://tests/test_world_data.gd"),
+	preload("res://tests/test_canon.gd"),
 ]
 
 ## Suites that need a live scene tree.
