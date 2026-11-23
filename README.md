@@ -64,7 +64,7 @@ version of that list.
 | The pacing | Movement, combat, puzzles and stealth, all sharing the same route |
 | The arsenal | Seven real weapons, and a route for everything that a bullet won't do |
 | The antagonist | Human made, systemic, and right about the danger |
-| Camera | Never leaves Lancer. Cutscenes happen in the world |
+| Camera | Never leaves Lancer, Cutscenes happen in real time|
 | Look | PSX era low poly 3D at 480×270, parallax, nearest neighbour upscale |
 | Fractures | 12 deliberate, stable, nameable bugs. Mastery content |
 | Structure | 25 chapters × 12 sections in seven acts. The first act is a prequel |
