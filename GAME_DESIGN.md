@@ -198,7 +198,7 @@ layers. Speed reads off the X axis, precision off Y.
 
 | Verb | Input | Feel |
 | --- | --- | --- |
-| Run / accel | `A` `D` | Top speed ~14 m/s; quick, snappy accel; momentum *not* preserved on turnaround |
+| Move | W, A, S,D| Top speed ~14 m/s; quick, snappy accel; momentum *not* preserved on turnaround |
 | Slide | `Ctrl` while running | Lowers profile, preserves speed, cancellable; friction ramp |
 | Jump / double jump | `Space` | Variable height, 8-frame coyote time, 10-frame input buffer |
 | Wall contact | into a wall | Slide along, preserves speed; **wall-jump chain**, three jumps long |
