@@ -211,7 +211,7 @@ everything else. `W` and `S` tilt the camera rather than move Lancer, because
 the gameplay plane has no forward axis. The full scheme is in
 `docs/CONTROLS.md`.
 
-### The tech vocabulary (why this is learnable, not soup)
+### Possible Techniques (why this is learnable, not soup)
 
 Every boost comes from a specific, nameable input sequence. The speedrun scene
 calls these **moves**:
