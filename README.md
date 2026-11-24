@@ -39,7 +39,7 @@ change the game you already downloaded.
 
 Dev Stage 1. The project boots, the menu works, Lancer moves.
 
-There are 485 headless checks and they all pass. The movement is frame exact
+There are 489 headless checks and they all pass. The movement is frame exact
 at 60 Hz and the HUD reads your speed in metres per second. The PSX slider
 goes from 0 to 100, so the amount of PSX is the player's call and not mine.
 The world grid exists as data: 25 chapters, 12 sections each, 300 sections in
@@ -49,7 +49,9 @@ Ilsa Renn twenty years before the first present-day chapter.
 The canon is data too, and the tests hold it to itself. The cast, the
 arsenal, the enemy roster and the player's numbers live in `data/`, and
 `tests/test_canon.gd` checks them against each other and against the design
-document. If the roster and the design doc disagree, the build fails.
+document. If the roster and the design doc disagree, the build fails. I
+would rather it failed than have the two drift apart quietly, which is
+exactly what they did twice before I wrote the test.
 
 None of it is a game yet. The greybox is a measuring rig, one room with a
 floor and a wall to kiss. There's no art. The story layer is JSON that
@@ -84,8 +86,8 @@ godot --headless --path . res://tests/run_all.tscn # the suite
 
 The suite runs as a scene, not as a `--script` main loop. A script main loop
 doesn't register the autoload singletons as global identifiers, so any test
-that touches `WsGame` won't even compile. Running the game the way the game
-runs is the only way a test proves anything about it.
+that touches `WsGame` won't even compile. A test only proves anything about
+the game if it runs the way the game runs.
 
 If the editor came up empty the first time you opened it, that's the import
 cache and it takes a minute to build. [Authoring by hand](docs/AUTHORING.md)

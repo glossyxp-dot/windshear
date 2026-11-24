@@ -4,6 +4,11 @@ Everything in here is done in the Godot editor with the mouse. No code, no comma
 
 Read this one if the editor came up empty and you closed it.
 
+Nothing here is a generated asset. The icon, the theme and the menu are all
+files you open and edit, and the only thing in the repository you must not
+regenerate is `assets/icon.png`. If you run `tools/make_icon.py` you'll
+overwrite the one icon that everybody already has.
+
 ## The editor looks empty because it hasn't imported yet
 
 `.godot/` isn't in the repository. It's a cache. Godot builds it on import, and there's nothing in there that belongs in git. A fresh clone gives you a `project.godot` with no imported assets, no class cache and no thumbnails.

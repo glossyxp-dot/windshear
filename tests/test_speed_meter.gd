@@ -16,8 +16,8 @@
 ##
 ## The speed readout is in metres per second, and it has to stay in metres
 ## per second. A unit that changes between the tuning file, the HUD and the
-## discovery report is a unit nobody can compare, and the whole point of
-## quoting 14.0 m/s is that a player can check it.
+## discovery report is a unit nobody can compare. Quoting 14.0 m/s is only
+## useful if a player can check it.
 extends "res://tests/ws_test.gd"
 
 ## The speed meter.
@@ -27,13 +27,14 @@ const SpeedMeter := preload("res://addons/windshear/movement/speed_meter.gd")
 const Tuning := preload("res://addons/windshear/core/ws_tuning.gd")
 
 
-## The meter is a RefCounted, so it is released by its own reference count.
-## Calling free() on one is an engine error, and a suite that prints engine
-## errors is a suite nobody reads.
+## Name shown in the suite output.
 func suite_name() -> String:
 	return "the speed is measured in metres per second"
 
 
+## Exercises the speed meter. The meter is a RefCounted, so the suite leaves
+## release to its own reference count. Calling free() on one is an engine
+## error, and a suite that prints engine errors is a suite nobody reads.
 func run() -> void:
 	_test_the_reading()
 	_test_the_peak()
@@ -48,12 +49,12 @@ func _test_the_reading() -> void:
 	meter.sample(Vector3(12.5, 0.0, 0.0))
 	near(meter.current, 12.5, 0.001, "the meter reads 12.5 m/s")
 
-	# Left is left. The sign of the velocity does not change the speed.
+	# Left is left. Velocity direction does not change speed.
 	meter.sample(Vector3(-8.0, 0.0, 0.0))
 	near(meter.current, 8.0, 0.001, "the meter ignores the direction of travel")
 
-	# Vertical speed is not part of the number, because the game plays on the
-	# XY plane and the Z axis is always zero.
+	# Vertical speed is not part of the number. The game plays on the XY plane,
+	# and the Z axis is always zero.
 	meter.sample(Vector3(3.0, 9.0, 0.0))
 	near(meter.current, 3.0, 0.001, "the meter reads the horizontal axis only")
 
@@ -68,7 +69,7 @@ func _test_the_peak() -> void:
 	near(meter.peak, 18.0, 0.001, "the peak keeps the fastest reading")
 	near(meter.current, 4.0, 0.001, "the current reading keeps moving")
 
-	# A slower reading never lowers the peak.
+	# A slower reading does not lower the peak.
 	meter.sample(Vector3(1.0, 0.0, 0.0))
 	near(meter.peak, 18.0, 0.001, "a slow reading does not lower the peak")
 
@@ -83,7 +84,7 @@ func _test_the_reset() -> void:
 	near(meter.peak, 0.0, 0.001, "the reset clears the peak")
 
 
-## The text says metres per second, because that is the whole point.
+## The readout says metres per second. That is the whole point.
 func _test_the_units() -> void:
 	heading("the units")
 	var meter := SpeedMeter.new()

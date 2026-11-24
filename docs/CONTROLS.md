@@ -52,6 +52,11 @@ at 2.0 rad/s is slow enough to line the camera up on something before you
 commit to the shot. A mouse is faster and finer, which is what you want once
 you are actually aiming.
 
+I've been asked for a keyboard fire binding more than once. I don't have one
+in the defaults, because the mouse is doing the camera and a second job on
+the same hand is the whole point of the layout. If you need it, the input
+map is editable and `tools/setup_input_map.gd` is the file to edit.
+
 ## The rest of the keyboard
 
 | | |
@@ -65,7 +70,8 @@ you are actually aiming.
 
 Reload, use item and weapon cycling weren't part of the original scheme. The
 arsenal grew seven guns and five items after that scheme was written, and
-those three need somewhere to live.
+those three need somewhere to live. They're on the keyboard because they're
+secondary verbs and the primary ones are already busy.
 
 ## The gamepad
 
@@ -105,6 +111,10 @@ the two triggers has a key, that the triggers are on the mouse buttons they
 are supposed to be on, that `A` is `A`, and that the camera rig actually reads
 the keyboard look actions. An action that nobody reads is an action that does
 nothing, so that last one is worth a test.
+
+It also checks that nothing new turns up in the map without a keyboard
+binding. I added that one after a new action landed in `project.godot` with
+a gamepad binding and nothing else, and nobody noticed for a month.
 
 ## The greybox
 

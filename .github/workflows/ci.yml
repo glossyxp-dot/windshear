@@ -1,5 +1,5 @@
-# WindShear CI workflow.
-# Engine pin: Godot 4.7.2, Compatibility renderer.
+# WindShear CI.
+# Godot is pinned to 4.7.2 and the Compatibility renderer.
 
 name: CI
 
@@ -22,6 +22,8 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      # The cache follows the engine version and the files that can change an
+      # import.
       - name: Cache Godot archive and project imports
         uses: actions/cache@v4
         with:
@@ -30,6 +32,7 @@ jobs:
             .godot
           key: godot-${{ env.GODOT_VERSION }}-${{ hashFiles('project.godot', 'tools/**', 'assets/**', 'tests/**') }}
 
+      # Check the archive hash before running anything from the archive.
       - name: Install Godot ${{ env.GODOT_VERSION }}
         shell: bash
         env:
@@ -58,18 +61,21 @@ jobs:
           export PATH="${bin_dir}:${PATH}"
           godot --version
 
+      # Import once so the headless runs do not pay for first-use imports.
       - name: Import project
         shell: bash
         run: |
           set -euo pipefail
           godot --headless --editor --quit-after 20 --path .
 
+      # The test suite is the main gate.
       - name: Run test suite
         shell: bash
         run: |
           set -euo pipefail
           godot --headless --path . res://tests/run_all.tscn
 
+      # Content budgets are a separate gate.
       - name: Check per-cell memory budget
         shell: bash
         run: |

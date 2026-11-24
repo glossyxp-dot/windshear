@@ -17,17 +17,15 @@
 ## The discovery suite.
 ##
 ## Every movement game has techniques that nobody designed: bunny hopping,
-## the strafe flick, the slide-hop, the wall-kiss chain. The rule in this
-## project is that those techniques are *found*, not *built*. The game code
-## implements the verbs — run, slide, jump, wall-kiss — with the numbers in
-## `TECH_SPEC.md` §3, and this suite plays the candidate techniques against
-## that code and reports what happens.
+## the strafe flick, the slide-hop, the wall-jump chain. The rule here is that
+## those techniques are *found*, not *built*. The game code implements the
+## verbs — run, slide, jump, wall-jump — with the numbers in `TECH_SPEC.md`
+## §3. This suite plays candidate techniques against that code and reports
+## what happens.
 ##
 ## Nothing here is a feature list. The suite asserts three kinds of thing:
-## [br]- the invariants (the speed is bounded, the plane holds, the air
-##   contribution cap holds, the chain cap holds);
-## [br]- the honesty of the report (every probe is printed, so a change in
-##   the movement code shows up in the output);
+## [br]- the invariants: speed is bounded, the plane holds, the air contribution cap holds, and the chain cap holds;
+## [br]- an honest report: every probe is printed, so a change in movement code shows up in the output;
 ## [br]- one promise: bunny hopping is not a speed exploit in WindShear.
 ##   If that assertion ever fails, somebody changed the physics on purpose
 ##   and has to decide what the change means.
@@ -38,8 +36,9 @@ const Probe := preload("res://tests/movement_probe.gd")
 ## Movement tuning constants.
 const Tuning := preload("res://addons/windshear/core/ws_tuning.gd")
 
-## The fastest speed the design can produce: the run speed, plus one full
-## air acceleration contribution, plus a full wall-kiss chain.
+## The widest design ceiling includes the Fracture chain: 14.0 m/s of run
+## speed, four 0.8 m/s wall-jump boosts and one 2.2 m/s air contribution.
+## That is 20.2 m/s.
 const SPEED_CEILING := 20.2
 ## How much faster than a plain run a technique may be before it counts as
 ## an exploit rather than a technique.
@@ -64,7 +63,7 @@ func run() -> void:
 	_assert_invariants()
 
 
-## Just running.
+## Plain run. Hold the run direction and nothing else.
 func _probe_plain_run() -> void:
 	var probe: Object = Probe.new(Vector3(-24.0, 0.9, 0.0))
 	probe.run(300, func(_frame, input, _controller, _probe):
@@ -74,7 +73,7 @@ func _probe_plain_run() -> void:
 	probe.release()
 
 
-## Jumping on every landing. The classic bunny hop.
+## Jump on every landing. This is the classic bunny hop.
 func _probe_bunny_hop() -> void:
 	var probe: Object = Probe.new(Vector3(-24.0, 0.9, 0.0))
 	probe.run(600, func(_frame, input, _controller, _probe):
@@ -85,7 +84,7 @@ func _probe_bunny_hop() -> void:
 	probe.release()
 
 
-## Sliding into the jump: the slide-hop.
+## Slide into the jump. This is the slide-hop.
 func _probe_slide_hop() -> void:
 	var probe: Object = Probe.new(Vector3(-24.0, 0.9, 0.0))
 	probe.run(420, func(frame, input, _controller, _probe):
@@ -99,7 +98,7 @@ func _probe_slide_hop() -> void:
 	probe.release()
 
 
-## Running one way and pulling the other way in the air.
+## Run one way, then pull the other way in the air.
 func _probe_air_flick() -> void:
 	var probe: Object = Probe.new(Vector3(-24.0, 0.9, 0.0))
 	probe.run(300, func(frame, input, _controller, _probe):
@@ -115,7 +114,7 @@ func _probe_air_flick() -> void:
 	probe.release()
 
 
-## The wall-kiss chain: slide into a side wall and jump on the contact frame.
+## The wall-jump chain: slide into a side wall and jump on the contact frame.
 func _probe_wall_kiss_chain() -> void:
 	var probe: Object = Probe.new(Vector3(-24.0, 0.9, 0.0))
 	probe.run(600, func(frame, input, _controller, _probe):
@@ -130,7 +129,7 @@ func _probe_wall_kiss_chain() -> void:
 	probe.release()
 
 
-## Turning around on the ground.
+## Turn around on the ground.
 func _probe_turnaround() -> void:
 	var probe: Object = Probe.new(Vector3(-24.0, 0.9, 0.0))
 	probe.run(300, func(frame, input, _controller, _probe):
@@ -170,7 +169,7 @@ func _print_report() -> void:
 	print("")
 
 
-## Checks the invariants that must hold whatever the techniques turn out to be.
+## The invariants hold whatever the techniques turn out to be.
 func _assert_invariants() -> void:
 	heading("the invariants")
 	for entry in _report:
@@ -181,7 +180,7 @@ func _assert_invariants() -> void:
 		ok(entry["air"] <= Tuning.AIR_ACCEL_MAX_CONTRIB + 0.0001,
 			"%s respects the air acceleration cap" % name)
 		ok(entry["kisses"] <= Tuning.WALL_KISS_CAP,
-			"%s respects the wall-kiss chain cap" % name)
+			"%s respects the wall-jump chain cap." % name)
 
 	heading("the promise")
 	var plain := _entry("plain run")

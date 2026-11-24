@@ -1,4 +1,4 @@
-# WindShear — movement tuning constants (the single source of truth)
+# WindShear — movement tuning constants (one source of truth)
 # Copyright (C) 2026 the WindShear contributors
 #
 # This program is free software; you can redistribute it and/or modify it
@@ -14,12 +14,12 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
-## Every number in this file is locked by `TECH_SPEC.md` §3. The test suite
-## asserts them, so changing one here without changing the document (or the
-## other way round) breaks the build.
+## Movement numbers live here. `TECH_SPEC.md` §3 locks them, and the test suite
+## asserts the same values. Change one side and the build breaks until the other
+## catches up.
 ##
-## Nothing in here allocates or touches the scene tree: the file is safe to
-## load from a worker thread and from the headless test runner.
+## I keep this file free of allocations and scene-tree access, so it loads
+## safely from a worker thread and from the headless test runner.
 extends RefCounted
 class_name WSTuning
 
@@ -30,7 +30,7 @@ const PHYSICS_TICK := 60
 const FRAME_DELTA := 1.0 / 60.0
 
 # --- Ground movement -----------------------------------------------------
-## Top running speed, in metres per second.
+## Top running speed, in m/s.
 const MAX_RUN_SPEED := 14.0
 ## Acceleration towards the target speed while grounded, in m/s².
 const GROUND_ACCEL := 90.0
@@ -68,23 +68,23 @@ const SLIDE_FRICTION := 6.0
 ## Minimum horizontal speed required to start a slide, in m/s.
 const SLIDE_MIN_SPEED := 5.0
 
-# --- Wall-kiss ------------------------------------------------------------
-## Frames after a slide starts during which a wall contact arms a wall-kiss.
+# --- Wall-jump chain ------------------------------------------------------
+## Frames after a slide starts during which a wall contact arms a wall-jump.
 const WALL_KISS_WINDOW_FRAMES := 2
-## Speed added along the wall by one wall-kiss, in m/s.
+## Speed added along the route by one wall-jump, in m/s.
 const WALL_KISS_BOOST := 0.8
-## Maximum wall-jumps in one chain in the base game. Three of them, and then
-## the chain is done.
+## Wall-jumps allowed in one chain in the base game. Three. Then the chain is
+## done.
 const WALL_KISS_CAP := 3
-## The `wall_kiss_chain` Fracture takes the chain to five. The registry text
-## is immutable, so the fourth and fifth jump belong to the Fracture.
+## The shipped `wall_kiss_chain` Fracture takes the chain to five. Its registry
+## text is immutable, so the fourth and fifth jump belong to the Fracture.
 const WALL_KISS_FRACTURE_CAP := 5
-## Frames without a wall-kiss after which the chain expires and the counter
-## starts over. Half a second is long enough to chain a jump-slide-jump
-## sequence and short enough that an accidental kiss does not stick around.
+## Frames without a wall-jump after which the chain expires and the counter
+## starts over. Half a second is enough for a jump-slide-jump sequence and
+## short enough that an accidental wall-jump doesn't stick around.
 const WALL_KISS_CHAIN_FRAMES := 30
-## The fastest speed a base chain can produce: the run speed plus three
-## boosts, 14.0 + 3 × 0.8 = 16.4 m/s.
+## The horizontal ceiling for a base chain: the run speed plus three boosts,
+## 14.0 + 3 × 0.8 = 16.4 m/s.
 const WALL_KISS_SPEED_CEILING := MAX_RUN_SPEED + WALL_KISS_CAP * WALL_KISS_BOOST
 ## The ceiling with the Fracture active: 14.0 + 5 × 0.8 = 18.0 m/s.
 const WALL_KISS_FRACTURE_SPEED_CEILING := MAX_RUN_SPEED \

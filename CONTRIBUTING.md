@@ -47,7 +47,8 @@ it's accepted it goes into `data/fractures.json` and into the game.
 **A shipped Fracture is never removed or altered. Only added.** Somebody has a
 route recorded against version 1 of it and that route has to keep working.
 Leaving a weird bit of physics in the game is a much smaller sin than breaking
-everybody's splits.
+everybody's splits. I've had this argument twice and I lose both times, which
+is the correct outcome.
 
 That rule is why the `wall_kiss_chain` Fracture still says "stacks to ×5" in
 the registry even though the base chain is three wall-jumps. The registry text
@@ -73,7 +74,8 @@ that:
 
 The prequel also has its own roster. Concord military infantry, artillery and
 synths do not exist in 20XX, only the early bio-constructs, and the test
-fails if a main-game enemy is named in a prequel chapter.
+fails if a main-game enemy is named in a prequel chapter. This one catches
+people every time, because the present-day roster is the one you have open.
 
 ## The performance rules are hard
 
@@ -88,7 +90,8 @@ with no swap, holding the whole city in memory.
 
 The per-cell numbers are checked by `tools/cell_budget_checker.gd` and the
 frame-loop rules by the code-policy suite. Both run in CI, so you'll find out
-before I do.
+before I do. That's deliberate. I would much rather a build fail than find
+out on somebody else's machine.
 
 ## Before you open a PR
 

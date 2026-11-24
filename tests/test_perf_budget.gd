@@ -15,11 +15,10 @@
 # with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
 ## The budgets from `TECH_SPEC.md` §9 and §12, checked against the project
-## settings and against the real cost of a frame of movement.
+## settings and the real cost of a frame of movement.
 ##
-## A speed game that drops frames is a speed game nobody can speedrun, so
-## the frame budget is a correctness requirement and not an optimisation
-## goal.
+## A speed game that drops frames is a speed game nobody can speedrun. The
+## frame budget is a correctness requirement, not an optimisation goal.
 extends "res://tests/ws_test.gd"
 
 ## The player controller.
@@ -79,7 +78,7 @@ func _test_simulation_cost() -> void:
 	input.on_floor = true
 	input.move_axis = 1.0
 
-	# warm up so the first call does not pay for the lazy initialisation
+	# Warm up first so the measured call does not pay for lazy initialisation.
 	for _frame in 120:
 		controller.simulate(DT, input)
 

@@ -117,7 +117,9 @@ frame-exact control:
 
 The numbers above are duplicated in `addons/windshear/core/ws_tuning.gd`, and
 `tests/test_tuning.gd` asserts the two against each other. They are the
-same document in two forms.
+same document in two forms. If you find yourself editing one and not the
+other, the test will tell you, which is the whole point of writing it that
+way.
 
 **Wall-jump definition.** A slide opens a 2-frame window. Touching a **side
 wall** — a wall whose normal points mostly along Z — inside that window arms
@@ -139,6 +141,11 @@ changes once it has shipped, so the Fracture raises the cap to five and the
 ceiling to 18.0 m/s (14.0 + 5 × 0.8). The controller exposes
 `enable_wall_kiss_chain_fracture()` for it. The base game is three
 wall-jumps and 16.4 m/s; the Fracture is the fifth wall-jump.
+
+I want to be clear about why the base number moved down rather than the
+Fracture moving up. The cap was three all along in the design, and the
+shipped registry text was the only place saying five. Reconciling it the
+other way would have taken a explicit product decision, and nobody made one.
 
 ### Input map
 
@@ -417,3 +424,8 @@ No accounts, no DRM, no mandatory network.
 | GPL blocks a commercial closed-source game people want | Accepted deliberately — the copyleft is the point. A closed-source alternative is allowed if it borrows no code or assets |
 | RAM creep from community content | Per-cell budgets + CI gate + a "mod content must respect budget" rule in the contribution guide |
 | Time-stop cutscenes feel cheap | Keep them rare (8–12 per game), in-frame, and let the world visibly freeze |
+| The input scheme drifts away from what was agreed | `tests/test_input_map.gd` reads the map and fails the build on any action without a keyboard binding |
+| A wall-jump chain gets farmed for a bigger number | The hard ceiling of 16.4 m/s, plus the characterisation suite that plays the technique against the controller |
+
+The last two are the ones that actually happened. Everything else in this
+table is a guess.

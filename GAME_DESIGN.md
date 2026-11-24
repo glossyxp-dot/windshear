@@ -31,6 +31,10 @@ going to punch through the sky-canopy and set the world free.*
 7. **Free, open, forkable.** Code, assets and level format are all open, and an
    alternative storyline counts as content rather than as a mod of an SDK.
 
+Seven of them, and they argue with each other in places. A game about speed
+that forgets about combat is a toy. A game about combat that forgets about
+speed is a shooter. I want the argument in the middle.
+
 ---
 
 ## 1. The world: the Concord
@@ -115,6 +119,10 @@ and it talks through PA chimes, klaxons and schedule boards.
 
 The seams aren't alive in any way a person would recognise. They close gaps
 because closing gaps is what they were told to do.
+
+The Concord's own bulletins call new growth "within tolerance", which is
+true from where it sits. The gap is closed and the job is done. It's own
+arithmetic.
 
 ### The dilemma
 
@@ -568,6 +576,11 @@ current horizontal speed and the peak since the last respawn, because a
 speedrunner wants the second number and everybody else can ignore it. There
 are no pixels per second anywhere in the project. A number that only means
 something inside the engine is a number nobody can argue with.
+
+I switched the whole project over to m/s partway through, and it was worth
+the churn. Once every speed in every document meant the same thing, the
+tuning constants and the design numbers stopped being two sets of numbers
+that happened to look alike.
 
 The Concord's sensors and turrets read the same unit. Fourteen metres a
 second is a sprint. Sixteen point four is a wall-jump chain, and a hundred,

@@ -4,17 +4,17 @@
     "spdx_file_copyright_text": "2026 the WINDSHEAR contributors",
     "license": "CC-BY-SA-4.0",
     "schema": "windshear.fractures.v1",
-    "description": "Stable registry of deliberate Fractures used by gameplay modules and the Fracture Codex."
+    "description": "Registry of the twelve shipped Fractures. This text is a compatibility contract, not a place to improve the prose."
   },
   "version": 1,
   "policy": {
     "immutable": true,
-    "statement": "A shipped Fracture is never removed or altered; only new Fractures may be added.",
-    "versioning": "Each Fracture has an independent version. A shipped id, trigger, and effect are version-stable for community routes.",
-    "speedrun_legal_semantics": "speedrun_legal=true means the Fracture is legal on the Time ladder. Fractures are disabled on the Precision ladder.",
+    "statement": "A shipped Fracture stays as it is. New Fractures may be added, but shipped ids, triggers and effects are not edited.",
+    "versioning": "Each Fracture has its own version. A shipped id, trigger and effect are version-stable because community routes depend on them.",
+    "speedrun_legal_semantics": "On the Time ladder, speedrun_legal=true means the Fracture is legal. The Precision ladder bans every Fracture.",
     "ladder_rules": {
-      "time": "Fractures are allowed.",
-      "precision": "Fractures are banned."
+      "time": "Fractures are legal on this ladder.",
+      "precision": "Fractures are banned on this ladder."
     }
   },
   "fractures": [

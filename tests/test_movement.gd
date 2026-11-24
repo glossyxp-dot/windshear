@@ -14,12 +14,12 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
-## These are the tests that matter for a speed game: they count frames.
+## These are the tests that matter for a speed game. They count frames.
 ##
-## A controller that is one frame late with the coyote window, one frame
-## early with the jump buffer, or off by a fraction on the acceleration feels
-## wrong to a player and shatters every recorded route. The numbers here come
-## straight from `TECH_SPEC.md` §3.
+## A controller that is one frame late with the coyote window, one frame early
+## with the jump buffer, or a fraction off on acceleration feels wrong to a
+## player and shatters every recorded route. The numbers come straight from
+## `TECH_SPEC.md` §3. Speed is always in metres per second.
 extends "res://tests/ws_test.gd"
 
 ## The player controller.
@@ -71,7 +71,7 @@ func _test_top_speed() -> void:
 	var controller: Object = pair[0]
 	near(controller.velocity.x, Tuning.MAX_RUN_SPEED, 0.0001, "the top speed is 14 m/s")
 
-	# and it never runs past it
+	# It never runs past the cap.
 	var input: Object = pair[1]
 	for _frame in 120:
 		controller.simulate(DT, input)
@@ -144,14 +144,14 @@ func _test_coyote_time() -> void:
 	controller.simulate(DT, input)
 	input.on_floor = false
 
-	# a jump on the eighth frame after leaving the ground still works
+	# A jump on the eighth frame after leaving the ground still works.
 	for frame in range(8):
 		input.jump_pressed = frame == 7
 		controller.simulate(DT, input)
 	near(controller.velocity.y, Tuning.JUMP_VELOCITY - Tuning.GRAVITY * DT, 0.0001,
 		"coyote time lasts 8 frames after leaving the ground")
 
-	# a jump on the ninth frame does not
+	# A jump on the ninth frame does not.
 	var late := Controller.new()
 	var late_input := InputState.new()
 	late_input.on_floor = true
@@ -180,7 +180,7 @@ func _test_jump_buffer() -> void:
 	near(controller.velocity.y, Tuning.JUMP_VELOCITY, 0.0001,
 		"a jump pressed 5 frames early fires on the landing frame")
 
-	# and the buffer runs out after 10 frames
+	# The buffer runs out after 10 frames.
 	var stale := Controller.new()
 	var stale_input := InputState.new()
 	stale_input.on_floor = false
@@ -216,7 +216,7 @@ func _test_slide() -> void:
 	var controller: Object = pair[0]
 	var input: Object = pair[1]
 
-	# a slide needs some speed in the first place
+	# A slide needs some speed in the first place.
 	var slow := Controller.new()
 	var slow_input := InputState.new()
 	slow_input.on_floor = true
@@ -260,17 +260,17 @@ func _test_slide_cancels_into_jump() -> void:
 	pair[0].free()
 
 func _test_wall_kiss() -> void:
-	heading("wall-kiss")
+	heading("wall-jump")
 	var pair := _at_top_speed()
 	var controller: Object = pair[0]
 	var input: Object = pair[1]
 
-	# a wall that blocks the route cannot be kissed
+	# a wall that blocks the route cannot arm a wall-jump
 	input.wall_contact = true
 	input.wall_normal = Vector3(-1.0, 0.0, 0.0)
 	input.slip_pressed = true
 	controller.simulate(DT, input)
-	ok(not controller.wall_kiss_armed, "a wall straight ahead cannot be kissed")
+	ok(not controller.wall_kiss_armed, "a wall straight ahead cannot arm a wall-jump")
 
 	# a wall that runs alongside the route can
 	var side := _at_top_speed()
@@ -280,7 +280,7 @@ func _test_wall_kiss() -> void:
 	side_input.wall_normal = Vector3(0.0, 0.0, 1.0)
 	side_input.slip_pressed = true
 	side_controller.simulate(DT, side_input)
-	ok(side_controller.wall_kiss_armed, "a side wall arms the wall-kiss")
+	ok(side_controller.wall_kiss_armed, "a side wall arms the wall-jump")
 
 	# jumping on the contact frame adds the boost
 	var before: float = side_controller.velocity.x
@@ -288,15 +288,15 @@ func _test_wall_kiss() -> void:
 	side_input.jump_pressed = true
 	side_controller.simulate(DT, side_input)
 	near(side_controller.velocity.x - before, Tuning.WALL_KISS_BOOST, 0.0001,
-		"the wall-kiss adds 0.8 m/s")
+		"the wall-jump adds 0.8 m/s")
 	near(side_controller.velocity.y, Tuning.JUMP_VELOCITY, 0.0001,
-		"the wall-kiss launches Lancer")
+		"the wall-jump launches Lancer")
 	same(side_controller.wall_kiss_count, 1, "the chain counter went up")
 	pair[0].free()
 	side[0].free()
 
 func _test_wall_kiss_cap() -> void:
-	heading("wall-kiss chain cap")
+	heading("wall-jump chain cap")
 	var pair := _at_top_speed()
 	var controller: Object = pair[0]
 	var input: Object = pair[1]
@@ -314,10 +314,10 @@ func _test_wall_kiss_cap() -> void:
 		input.jump_pressed = false
 		if kiss < Tuning.WALL_KISS_CAP:
 			near(controller.velocity.x - before, Tuning.WALL_KISS_BOOST, 0.0001,
-				"kiss %d adds the boost" % (kiss + 1))
+				"Wall-jump %d adds the boost." % (kiss + 1))
 		else:
 			near(controller.velocity.x - before, 0.0, 0.0001,
-				"kiss %d adds nothing: the chain is capped at %d" % [
+				"Wall-jump %d adds nothing because the chain is capped at %d." % [
 					kiss + 1, Tuning.WALL_KISS_CAP])
 
 	same(controller.wall_kiss_count, Tuning.WALL_KISS_CAP,
@@ -325,10 +325,10 @@ func _test_wall_kiss_cap() -> void:
 	pair[0].free()
 
 
-## The Fracture takes the chain from three wall-jumps to five, and the speed
-## ceiling goes up with it.
+## The shipped [code]wall_kiss_chain[/code] Fracture takes the chain from three
+## wall-jumps to five. The ceiling goes from 16.4 m/s to 18.0 m/s.
 func _test_wall_kiss_fracture() -> void:
-	heading("the wall-kiss Fracture")
+	heading("the wall-jump Fracture")
 	var pair := _at_top_speed()
 	var controller: Object = pair[0]
 	var input: Object = pair[1]
@@ -343,7 +343,7 @@ func _test_wall_kiss_fracture() -> void:
 	near(controller.wall_kiss_speed_ceiling, Tuning.WALL_KISS_FRACTURE_SPEED_CEILING,
 		0.0001, "the Fracture raises the speed ceiling")
 
-	# A full Fracture chain, from a standing start at the run speed.
+	# A full Fracture chain from the run speed.
 	for _kiss in range(Tuning.WALL_KISS_FRACTURE_CAP):
 		input.slip_pressed = true
 		input.jump_pressed = true
@@ -362,14 +362,14 @@ func _test_wall_kiss_fracture() -> void:
 
 
 func _test_wall_kiss_speed_ceiling() -> void:
-	heading("the wall-kiss speed ceiling")
+	heading("the wall-jump speed ceiling")
 	var pair := _at_top_speed()
 	var controller: Object = pair[0]
 	var input: Object = pair[1]
 	input.wall_contact = true
 	input.wall_normal = Vector3(0.0, 0.0, 1.0)
 
-	# Kiss over and over, with enough frames between the chains for the
+	# Wall-jump over and over, with enough frames between the chains for the
 	# counter to expire. The speed must still stop at the ceiling.
 	for chain in range(6):
 		for _frame in 40:
@@ -387,7 +387,7 @@ func _test_wall_kiss_speed_ceiling() -> void:
 		input.on_floor = true
 
 	ok(absf(controller.velocity.x) <= Tuning.WALL_KISS_SPEED_CEILING + 0.0001,
-		"the speed never passes the wall-kiss ceiling of %.1f m/s (%.2f)" % [
+		"the speed never passes the wall-jump ceiling of %.1f m/s (%.2f)" % [
 			Tuning.WALL_KISS_SPEED_CEILING, absf(controller.velocity.x)])
 	pair[0].free()
 

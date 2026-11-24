@@ -14,22 +14,25 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
-## The cast, the arsenal, the enemy roster and the player's numbers are
-## canon, and canon is the kind of thing that quietly drifts: somebody adds
-## a prequel enemy, somebody moves a weapon into the wrong act, somebody
-## gives Lancer a pronoun in a line of dialogue, and six months later the
-## design document and the data disagree about what the game is.
+## The cast, arsenal, enemy roster and player's numbers are canon. Canon is
+## the kind of thing that quietly drifts. Somebody adds a prequel enemy, moves
+## a weapon into the wrong act, or gives Lancer a pronoun in a line of
+## dialogue. Six months later, the design document and the data disagree about
+## who's game it is.
 ##
-## So the canon lives in JSON, and this suite checks it against itself and
-## against the design document:
+## The campaign is 25 chapters of 12 sections in seven acts. Act 0 is the
+## five-chapter Fracture Year prequel, P1 through P5.
 ##
-## [br]- every speaker in the dialogue file is in the cast, and only Lancer
-##   is silent and pronounless;
-## [br]- Ilsa is silent in the prequel;
-## [br]- the enemy roster and the arsenal agree with each other;
+## The canon lives in JSON. This suite checks it against itself and against
+## the design document:
+##
+## [br]- every dialogue speaker is in the cast;
+## [br]- Lancer has no pronouns and never speaks;
+## [br]- Ilsa is she/her and says nothing in the five Fracture Year prequel chapters;
+## [br]- the enemy roster and arsenal agree with each other;
 ## [br]- the main-game threat does not turn up in the Fracture Year;
-## [br]- the health and speed numbers match the movement tuning file;
-## [br]- every weapon and every enemy is named in the design document.
+## [br]- health and speed numbers match the movement tuning file;
+## [br]- every weapon and enemy is named in the design document.
 extends "res://tests/ws_test.gd"
 
 ## The movement tuning constants.
@@ -178,20 +181,20 @@ func _test_the_cast() -> void:
 	ok(missing.is_empty(), "the cast holds everyone (%s)" % ", ".join(missing))
 
 	var lancer := _character("lancer")
-	ok(lancer.get("silent", false) == true, "Lancer is silent")
-	ok(lancer.get("pronouns", "set") == null, "Lancer has no pronouns")
-	ok(String(lancer.get("display_name", "")).contains("Ivanov"), "Lancer is Lancer Ivanov")
+	ok(lancer.get("silent", false) == true, "lancer is silent")
+	ok(lancer.get("pronouns", "set") == null, "lancer has no pronouns")
+	ok(String(lancer.get("display_name", "")).contains("Ivanov"), "lancer is Lancer Ivanov")
 
 	var ilsa := _character("ilsa_renn")
-	ok(ilsa.get("pronouns", "") == "she/her", "Ilsa is she/her")
-	ok(ilsa.get("silent_in_prequel", false) == true, "Ilsa is silent in the prequel")
-	ok(String(ilsa.get("note", "")).contains("trained Lancer"), "Ilsa trained Lancer")
+	ok(ilsa.get("pronouns", "") == "she/her", "ilsa is she/her")
+	ok(ilsa.get("silent_in_prequel", false) == true, "ilsa is silent in the prequel")
+	ok(String(ilsa.get("note", "")).contains("trained Lancer"), "ilsa trained Lancer")
 
-	ok(_character("warden_saye").get("pronouns", "") == "she/her", "Saye is she/her")
-	ok(_character("talia_korr").get("pronouns", "") == "she/her", "Talia is she/her")
-	ok(_character("aris_thorne").get("pronouns", "") == "he/him", "Thorne is he/him")
-	ok(_character("sergeant_miller").get("pronouns", "") == "he/him", "Miller is he/him")
-	ok(_character("henrik_solberg").get("pronouns", "") == "he/him", "Solberg is he/him")
+	ok(_character("warden_saye").get("pronouns", "") == "she/her", "saye is she/her")
+	ok(_character("talia_korr").get("pronouns", "") == "she/her", "talia is she/her")
+	ok(_character("aris_thorne").get("pronouns", "") == "he/him", "thorne is he/him")
+	ok(_character("sergeant_miller").get("pronouns", "") == "he/him", "miller is he/him")
+	ok(_character("henrik_solberg").get("pronouns", "") == "he/him", "solberg is he/him")
 
 
 ## Lancer never speaks, and nobody gives Lancer a pronoun.
@@ -205,8 +208,8 @@ func _test_the_silence() -> void:
 	for speaker in _array(_dialogue, "speakers"):
 		if not _character(String(speaker.id)).is_empty():
 			continue
-		# The civil-defence channel is a broadcast, not a person, and it is
-		# still in the cast file.
+		# The civil-defence channel is a broadcast, not a person. It is still
+		# in the cast file, so it is allowed here.
 		unknown.append(String(speaker.id))
 	ok(unknown.is_empty(), "every speaker is in the cast (%s)" % ", ".join(unknown))
 
@@ -225,8 +228,8 @@ func _test_the_silence() -> void:
 		"every Lancer line is an action direction (%s)" % ", ".join(not_actions))
 	ok(gendered.is_empty(), "no Lancer line has a pronoun (%s)" % ", ".join(gendered))
 
-	# Ilsa does not speak in the prequel. The prequel is the five P chapters
-	# and a prequel beat may not use one of her spoken lines.
+	# Ilsa does not speak in the prequel. The prequel is P1 through P5, and
+	# a prequel beat may not use one of her spoken lines.
 	var prequel_speakers: Array = []
 	for chapter in _array(_index, "chapters"):
 		var key := _chapter_key(chapter.get("id", chapter.number))
@@ -244,7 +247,7 @@ func _test_the_silence() -> void:
 					if String(line.get("speaker_id", "")) == "ilsa_renn":
 						prequel_speakers.append("%s uses %s" % [section_id, String(line_id)])
 	ok(prequel_speakers.is_empty(),
-		"Ilsa says nothing in the prequel (%s)" % ", ".join(prequel_speakers))
+		"ilsa says nothing in the prequel (%s)" % ", ".join(prequel_speakers))
 
 
 ## The dialogue line with this id.
@@ -405,7 +408,8 @@ func _has_act(enemy: Dictionary, act: String) -> bool:
 	return false
 
 
-## Health and speed, checked against the movement tuning file.
+## Health and speed, checked against the movement tuning file. Speed is in
+## metres per second.
 func _test_the_numbers() -> void:
 	heading("the numbers")
 	var health: Dictionary = _player.get("health", {})
@@ -413,7 +417,7 @@ func _test_the_numbers() -> void:
 
 	ok(int(health.get("base_max", 0)) == 100, "base health is 100")
 	ok(int(health.get("overheal_max", 0)) == 150, "overheal caps at 150")
-	ok(int(health.get("prequel_max", 0)) == 100, "Ilsa is capped at 100 in the prequel")
+	ok(int(health.get("prequel_max", 0)) == 100, "ilsa is capped at 100 in the prequel")
 	ok(int(health.get("stim_pen_overheal", 0)) == 25, "the stim-pen grants 25 overheal")
 	ok(int(health.get("stim_pen_seconds", 0)) == 10, "the stim-pen lasts 10 seconds")
 	ok(int(health.get("diver_cell_overheal", 0)) == 15, "the pneumatic cell grants 15 overheal")
@@ -481,7 +485,7 @@ func _test_the_documents() -> void:
 		titles[_chapter_key(chapter.get("id", chapter.number))] = String(chapter.title)
 	ok(titles.get("14", "") == "THE MONOLITH", "chapter 14 is THE MONOLITH")
 	ok(titles.get("13", "") == "THE FRACTURE YARD", "chapter 13 is THE FRACTURE YARD")
-	ok(titles.get("P5", "") == "ZERO CASUALTIES", "P5 is ZERO CASUALTIES")
+	ok(titles.get("P5", "") == "ZERO CASUALTIES", "p5 is ZERO CASUALTIES")
 
 	# Every chapter has an opening and a reason to exist.
 	var thin: Array = []

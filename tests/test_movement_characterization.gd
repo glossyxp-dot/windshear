@@ -18,13 +18,18 @@
 ##
 ## The named movement mechanics have their own exact tests in
 ## `test_movement.gd`. This suite covers the boundaries around them: the
-## wall-kiss timing window, side-wall classification, chain expiry, repeated
+## wall-jump timing window, side-wall classification, chain expiry, repeated
 ## cycles, collision projection, the air budget's direction semantics, and
 ## deterministic adversarial input sequences.
 ##
+## The base wall-jump chain stops at three. Its horizontal ceiling is
+## 16.4 m/s: 14.0 m/s plus three boosts of 0.8 m/s. The shipped
+## [code]wall_kiss_chain[/code] Fracture raises the cap to five and the
+## ceiling to 18.0 m/s.
+##
 ## A probe that crosses a hard bound fails the build. A probe that changes
-## without crossing a bound is a signal to review the change, not permission
-## to turn the result into a hidden mechanic.
+## without crossing a bound asks for review. It does not make the result a
+## hidden mechanic.
 extends "res://tests/ws_test.gd"
 
 ## The player controller.
@@ -36,11 +41,11 @@ const Tuning := preload("res://addons/windshear/core/ws_tuning.gd")
 
 ## One physics frame.
 const DT := 1.0 / 60.0
-## The designed maximum horizontal speed across the current movement model.
+## The base wall-jump ceiling: 14.0 m/s plus three boosts of 0.8 m/s.
 const DESIGNED_SPEED_CEILING := 16.4
-## The wider discovery envelope used to make unexpected speed visible.
+## The wider envelope that keeps unexpected speed visible.
 const DISCOVERY_SPEED_ENVELOPE := 20.2
-## Legal horizontal input choices used by the deterministic fuzz probe.
+## Legal horizontal input choices for the deterministic adversarial probe.
 const INPUT_AXES := [-1.0, 0.0, 1.0]
 
 
@@ -109,13 +114,13 @@ func _wall_kiss_contact_result(contact_frame: int, jump_on_contact: bool) -> Dic
 	return result
 
 
-## Checks that only the first two post-slide frames can arm a wall-kiss.
+## Checks that only the first two post-slide frames can arm a wall-jump.
 func _test_wall_kiss_arming_boundary() -> void:
-	heading("the two-frame wall-kiss arming window")
+	heading("the two-frame wall-jump arming window")
 	for contact_frame in range(3):
 		var armed := _wall_kiss_contact_result(contact_frame, false)
 		ok(bool(armed["armed"]) == (contact_frame < 2),
-			"contact on post-slide frame %d %s the kiss" % [
+			"contact on post-slide frame %d %s the wall-jump" % [
 				contact_frame + 1,
 				"arms" if contact_frame < 2 else "does not arm",
 			])
@@ -125,10 +130,10 @@ func _test_wall_kiss_arming_boundary() -> void:
 		near(float(jumped["delta"]), expected_boost, 0.0001,
 			"a jump on post-slide frame %d gives the expected boost" % (contact_frame + 1))
 		same(int(jumped["count"]), 1 if contact_frame < 2 else 0,
-			"a jump on post-slide frame %d registers the expected kiss" % (contact_frame + 1))
+			"A jump on post-slide frame %d registers the expected wall-jump." % (contact_frame + 1))
 
 
-## Returns whether a wall with [param normal] arms a wall-kiss.
+## Returns whether a wall with [param normal] arms a wall-jump.
 func _arms_with_normal(normal: Vector3) -> bool:
 	var pair := _at_top_speed()
 	var controller: Object = pair[0]
@@ -155,12 +160,12 @@ func _test_side_wall_normal_boundary() -> void:
 	ok(_arms_with_normal(Vector3(sqrt(1.0 - 0.500001 * 0.500001), 0.0, 0.500001)),
 		"a normal just above z=0.5 is a side wall")
 	ok(not _arms_with_normal(Vector3(-1.0, 0.0, 0.0)),
-		"a wall straight ahead cannot arm a wall-kiss")
+		"a wall straight ahead cannot arm a wall-jump")
 
 
-## Checks that the chain expires after exactly 30 kiss-free frames.
+## Checks that the chain expires after exactly 30 frames without a wall-jump.
 func _test_chain_expiry_boundary() -> void:
-	heading("the wall-kiss chain expiry boundary")
+	heading("the wall-jump chain expiry boundary")
 	var pair := _at_top_speed()
 	var controller: Object = pair[0]
 	var input: Object = pair[1]
@@ -171,28 +176,28 @@ func _test_chain_expiry_boundary() -> void:
 	controller.simulate(DT, input)
 	input.slip_pressed = false
 	input.jump_pressed = false
-	same(controller.wall_kiss_count, 1, "the first kiss starts a chain")
+	same(controller.wall_kiss_count, 1, "the first wall-jump starts a chain")
 
 	input.wall_contact = false
 	for _frame in range(Tuning.WALL_KISS_CHAIN_FRAMES - 1):
 		controller.simulate(DT, input)
 	same(controller.wall_kiss_count, 1,
-		"the chain survives 29 kiss-free frames")
+		"the chain survives 29 frames without a wall-jump")
 
 	controller.simulate(DT, input)
 	same(controller.wall_kiss_count, 0,
-		"the chain expires on the 30th kiss-free frame")
+		"the chain expires on the 30th frame without a wall-jump")
 
 	input.wall_contact = true
 	input.slip_pressed = true
 	input.jump_pressed = true
 	controller.simulate(DT, input)
 	same(controller.wall_kiss_count, 1,
-		"a legal kiss after expiry starts a fresh chain")
+		"a legal wall-jump after expiry starts a fresh chain")
 	controller.free()
 
 
-## Checks that repeated slide-and-land cycles do not accumulate momentum.
+## Repeated slide-and-land cycles must not accumulate momentum.
 func _test_repeated_landing_slide_cycles() -> void:
 	heading("repeated landing and slide cycles")
 	var pair := _at_top_speed()
@@ -226,13 +231,13 @@ func _test_repeated_landing_slide_cycles() -> void:
 	ok(max_air <= Tuning.AIR_ACCEL_MAX_CONTRIB + 0.0001,
 		"100 slide-and-land cycles keep each air budget bounded")
 	same(controller.wall_kiss_count, 0,
-		"landing and sliding without a wall never registers a wall-kiss")
+		"landing and sliding without a wall never registers a wall-jump")
 	controller.free()
 
 
-## Checks that repeated kiss chains cannot farm speed or hide a stale count.
+## Checks that repeated wall-jump chains cannot farm speed or hide a stale count.
 func _test_repeated_wall_kiss_cycles() -> void:
-	heading("repeated wall-kiss cycles")
+	heading("repeated wall-jump cycles")
 	var pair := _at_top_speed()
 	var controller: Object = pair[0]
 	var input: Object = pair[1]
@@ -240,7 +245,7 @@ func _test_repeated_wall_kiss_cycles() -> void:
 	input.wall_normal = Vector3(0.0, 0.0, 1.0)
 	var peak := 0.0
 
-	# A full quick chain of legal kisses reaches the designed speed.
+	# A full quick chain of legal wall-jumps reaches the designed speed.
 	for _kiss in range(Tuning.WALL_KISS_CAP):
 		input.slip_pressed = true
 		input.jump_pressed = true
@@ -253,7 +258,7 @@ func _test_repeated_wall_kiss_cycles() -> void:
 	near(peak, Tuning.WALL_KISS_SPEED_CEILING, 0.0001,
 		"the quick chain reaches the designed speed ceiling")
 
-	# Every later chain must expire before it can add another boost.
+	# Every later chain expires before it can add another boost.
 	for cycle in range(20):
 		input.wall_contact = false
 		for _frame in range(Tuning.WALL_KISS_CHAIN_FRAMES + 10):
@@ -269,7 +274,7 @@ func _test_repeated_wall_kiss_cycles() -> void:
 			"repeated cycle %d starts from an expired chain" % (cycle + 1))
 
 	ok(peak <= Tuning.WALL_KISS_SPEED_CEILING + 0.0001,
-		"repeated kiss cycles never farm above the designed ceiling (%.2f m/s)" % peak)
+		"repeated wall-jump cycles never farm above the designed ceiling (%.2f m/s)" % peak)
 	controller.free()
 
 
@@ -436,7 +441,7 @@ func _adversarial_sequence(seed_value: int, frames: int) -> Dictionary:
 	return result
 
 
-## Checks that legal but adversarial input sequences remain bounded.
+## Legal but adversarial input sequences must remain bounded.
 func _test_adversarial_input_fuzz() -> void:
 	heading("adversarial input sequences")
 	var seeds := [0x13579BDF, 0x2468ACE0]
@@ -453,9 +458,9 @@ func _test_adversarial_input_fuzz() -> void:
 			"fuzz seed %d stays inside the 20.2 m/s discovery envelope" % seed_value)
 		ok(float(result["air"]) <= Tuning.AIR_ACCEL_MAX_CONTRIB + 0.0001,
 			"fuzz seed %d respects the air budget" % seed_value)
-		ok(int(result["kisses"]) >= 0, "fuzz seed %d reports a non-negative kiss count" % seed_value)
+		ok(int(result["kisses"]) >= 0, "fuzz seed %d reports a non-negative wall-jump count" % seed_value)
 		ok(int(result["kisses"]) <= Tuning.WALL_KISS_CAP,
-			"fuzz seed %d respects the wall-kiss chain cap" % seed_value)
+			"fuzz seed %d respects the wall-jump chain cap" % seed_value)
 		near(float(result["z"]), 0.0, 0.0, "fuzz seed %d never leaves the XY plane" % seed_value)
 
 
@@ -495,7 +500,7 @@ func _full_state_trace() -> PackedFloat64Array:
 	return trace
 
 
-## Checks that a full movement-state replay has the same checksum twice.
+## Two full movement-state replays must have the same checksum.
 func _test_full_state_replay_hash() -> void:
 	heading("the full-state replay hash")
 	var first := _full_state_trace()

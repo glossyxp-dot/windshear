@@ -14,9 +14,12 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
-## The camera is the other half of an FPS game. Two rules are non-negotiable
-## here: the pitch never flips over the top, and the rig never leaves Lancer.
-## The speed dolly is the tool that makes 14 m/s read as fast.
+## The camera is the other half of an FPS game. Two rules are non-negotiable:
+## the pitch never flips over the top, and the rig never leaves Lancer.
+##
+## Mouse movement controls the camera. W and S tilt it, while the arrow keys
+## turn and tilt it. Lancer still runs only along A and D because the gameplay
+## plane has no forward axis. The speed dolly makes 14 m/s read as fast.
 extends "res://tests/ws_test.gd"
 
 ## The camera rig.

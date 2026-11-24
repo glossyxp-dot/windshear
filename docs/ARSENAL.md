@@ -23,6 +23,10 @@ solves a room by itself. The V-9 "Vigil" is loud enough to be a liability.
 The M98 "Longhorn" is a rifle that wants a sightline, which is the opposite
 of a speedrunner's route.
 
+Seven weapons took a long time to land and I don't expect to add an eighth.
+The arcade is already two full rooms of noise, and a corridor where the
+answer is a rocket is a corridor where the answer is a route.
+
 ## Who carries what
 
 | | Ilsa Renn (prequel) | Lancer Ivanov (present day) |

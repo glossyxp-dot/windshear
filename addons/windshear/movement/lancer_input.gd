@@ -1,4 +1,4 @@
-# WindShear — one frame of controller input
+# WindShear — one frame of controller input (the movement input record)
 # Copyright (C) 2026 the WindShear contributors
 #
 # This program is free software; you can redistribute it and/or modify it
@@ -14,12 +14,11 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
-## A plain data holder describing what the player did during one frame.
+## One frame of controller input, kept as plain data.
 ##
-## The controller consumes one of these per physics frame. Keeping the input
-## separate from the controller is what makes the movement code testable:
-## the test suite can replay an exact sequence of frames without a window,
-## a mouse or a physics world.
+## The movement controller consumes one record per physics frame. I keep input
+## separate from movement because the test suite can replay an exact sequence
+## of frames without a window, a mouse or a physics world.
 extends RefCounted
 class_name LancerInput
 
@@ -43,8 +42,8 @@ var wall_contact := false
 var wall_normal := Vector3.ZERO
 
 
-## Clears every field. Called once per frame before the live values are
-## written, so the object is reused instead of reallocated.
+## Clears every field. The controller calls this once per frame before it
+## writes the live values, so the object is reused instead of reallocated.
 func reset() -> void:
 	move_axis = 0.0
 	jump_pressed = false

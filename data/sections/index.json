@@ -4,7 +4,7 @@
     "spdx_file_copyright_text": "2026 the WINDSHEAR contributors",
     "license": "CC-BY-SA-4.0",
     "schema": "windshear.section-index.v1",
-    "description": "Planned index of the twenty-five-chapter, twelve-section official world grid, including the five-chapter Fracture Year prequel.",
+    "description": "The campaign index: twenty-five chapters of twelve sections, with the five-chapter Fracture Year prequel in Act 0.",
     "status": "planned",
     "tick_rate": 60,
     "chapter_count": 25,
@@ -32,8 +32,8 @@
       "act_name": "THE FRACTURE YEAR",
       "player": "ilsa_renn",
       "prequel": true,
-      "start": "You stand inside an open-air elevated commuter rail car gliding over a sunlit modern city. Glass towers gleam under a clear blue sky while fighter jets streak overhead and civil-defense tickers scroll across station boards. You step onto the Central Station skybridge as a dispatcher slaps an encryption drive into your harness, then artillery thunders across the harbor.",
-      "play": "Crossing a panicking city in broad daylight alongside Sergeant Miller's perimeter squad. Rooftop access puzzles, stalled commuter trains, and core movement (run, slide, jump, wall-kiss) with the P-20 \"Courier\" before the first bombs land.",
+      "start": "You stand in an open-air elevated commuter rail car, gliding over a sunlit modern city. Glass towers catch the clear blue sky while fighter jets cross overhead and civil-defence tickers scroll across the station boards. You step onto the Central Station skybridge. A dispatcher slaps an encryption drive into your harness, then artillery thunders across the harbour.",
+      "play": "Cross a panicking city in broad daylight with Sergeant Miller's perimeter squad. Rooftop access puzzles, stalled commuter trains and the core movement set: run, slide, jump and wall-jump. You carry the P-20 \"Courier\" when the first bombs land.",
       "fractures": [],
       "id": "P1"
     },
@@ -44,8 +44,8 @@
       "act_name": "THE FRACTURE YEAR",
       "player": "ilsa_renn",
       "prequel": true,
-      "start": "Smoke blocks the sun. You wake up pinned under a cracked concrete highway overpass while armored columns roll down the avenue below and a nearby high-rise collapses in steel and dust. Young logistics officer Saye leans out of a command APC on the corner, waving you through a sandbag breach with an emergency cease-fire hardline key.",
-      "play": "Active urban combat zone. Taking cover behind wrecked armor, using M-44 \"Seam-Splitter\" breaching charges to clear collapsed buildings, and using bursts of speed to cross sniper-watched avenues.",
+      "start": "Smoke blocks the sun. You wake under a cracked concrete highway overpass while armored columns roll down the avenue below. A nearby high-rise folds into steel and dust. Young logistics officer Saye leans out of a command APC at the corner and waves you through a sandbag breach. She hands over an emergency cease-fire hardline key.",
+      "play": "Active urban combat. Use wrecked armor for cover and M-44 \"Seam-Splitter\" charges to clear collapsed buildings. Then cross sniper-watched avenues in short bursts of speed.",
       "fractures": [],
       "id": "P2"
     },
@@ -56,8 +56,8 @@
       "act_name": "THE FRACTURE YEAR",
       "player": "ilsa_renn",
       "prequel": true,
-      "start": "You slide into the courtyard of the Longhorn Biological Facility just as sonic booms split the sky. Orbital drop-pods carrying The Concord's seed-cores slam into every intersection. Right in front of you, a pod ruptures, extruding wet, gray chitin-and-concrete walls across the asphalt while Dr. Aris Thorne throws you the facility's master override key through a closing blast door.",
-      "play": "Surviving a city physically reshaping itself. Shifting-wall puzzles, evading the first Concord Rams and Dartbugs, and escaping closing Quarantine Bulkheads.",
+      "start": "You slide into the courtyard of the Longhorn Biological Facility as sonic booms split the sky. Orbital drop-pods carrying the Concord's seed-cores slam into every intersection. One pod ruptures in front of you, extruding wet, gray chitin-and-concrete walls across the asphalt. Dr. Aris Thorne throws you the facility's master override key through a blast door as it closes.",
+      "play": "The city is reshaping itself around you. Solve shifting-wall puzzles, evade the first Concord Rams and Dartbugs, and keep ahead of closing Quarantine Bulkheads.",
       "fractures": [],
       "id": "P3"
     },
@@ -68,8 +68,8 @@
       "act_name": "THE FRACTURE YEAR",
       "player": "ilsa_renn",
       "prequel": true,
-      "start": "You step onto the Civic Spire roof to see massive biomechanical tendons rising from the horizon, weaving together across the upper atmosphere like a closing iris. Piece by piece, the sun gets blotted out until the city drops into permanent overcast twilight. Below, young officer Saye stands at a blast-gate console, signing the containment override as the final street airlocks seal shut.",
-      "play": "Rappelling and climbing down the Spire exterior with the Pneumatic Grapple Spool under heavy pressure, fighting early Interdiction Nodes and Concord Stiflers while slipping past sealing street airlocks.",
+      "start": "You step onto the Civic Spire roof and see massive biomechanical tendons rise from the horizon, weaving together across the upper atmosphere like a closing iris. Piece by piece, the sun is blotted out until the city drops into permanent overcast twilight. Below, young officer Saye stands at a blast-gate console and signs the containment override as the final street airlocks seal shut.",
+      "play": "Use the Pneumatic Grapple Spool to climb down the Spire exterior under pressure. Fight early Interdiction Nodes and Concord Stiflers while sealing street airlocks try to close the route.",
       "fractures": [],
       "id": "P4"
     },
@@ -80,8 +80,8 @@
       "act_name": "THE FRACTURE YEAR",
       "player": "ilsa_renn",
       "prequel": true,
-      "start": "Dead silence. The artillery stops. You stand alone in a newly walled-off residential street under cold overcast light while an overhead PA speaker crackles on for the first time: \"CONTAINMENT COMPLETE. ZERO ACTIVE COMBATANTS. REMAIN IN ASSIGNED SECTOR.\" Ahead sits a fresh, pulsing Grown Seam sealing the avenue.",
-      "play": "Stealth and route-finding inside a locked-down neighborhood. Ilsa figures out how to exploit an uncalibrated vent and Grown Seam to breach the wall, unknowingly recording the telemetry The Concord uses as the FIRST RUNNER baseline for twenty years.",
+      "start": "Dead silence. The artillery stops. You stand alone in a newly walled-off residential street under cold overcast light while an overhead PA speaker crackles on for the first time: \"CONTAINMENT COMPLETE. ZERO ACTIVE COMBATANTS. REMAIN IN ASSIGNED SECTOR.\" Ahead, a fresh, pulsing Grown Seam seals the avenue.",
+      "play": "Stealth and route-finding inside a locked-down neighbourhood. Ilsa uses an uncalibrated vent and a Grown Seam to breach the wall. She doesn't know the Concord is recording the telemetry as the FIRST RUNNER baseline, and it keeps running that line for twenty years.",
       "fractures": [],
       "id": "P5"
     },
@@ -91,8 +91,8 @@
       "act": 1,
       "act_name": "THE BLOCK",
       "player": "lancer",
-      "start": "You're riding in the back of a rattling, cage-windowed Concord ration tram moving along an elevated track through Quarantine Block 404. Outside the rain-streaked mesh, brutalist apartment blocks, neon schedule boards, and patrolling bio-drones pass by under the central Spire. The tram stops at the Depot; an older Ilsa Renn leans against a pillar in the crowd, slips an off-manifest memory drive into your courier bag, and disappears into the alley.",
-      "play": "Grounded street and rooftop traversal: learning patrol rhythms, using Pneumatic Parcel Chutes, bypassing locked checkpoints, and making your first illegal crossing across a sector seam. Wall-Kiss and F5, Gate Timing.",
+      "start": "You ride in the back of a rattling Concord ration tram, its cage windows looking onto Quarantine Block 404. Rain streaks the mesh. Brutalist apartment blocks, neon schedule boards and patrolling bio-drones pass beneath the central Spire. At the Depot, an older Ilsa Renn leans against a pillar in the crowd, slips an off-manifest memory drive into your courier bag and disappears into an alley.",
+      "play": "Grounded street and rooftop traversal. Learn patrol rhythms, use Pneumatic Parcel Chutes, bypass locked checkpoints and make your first illegal crossing across a sector seam. The wall-jump chain is F3. F5 is Gate Timing.",
       "fractures": [
         "wall_kiss_chain",
         "gate_timing"
@@ -104,8 +104,8 @@
       "act": 1,
       "act_name": "THE BLOCK",
       "player": "lancer",
-      "start": "You drop off a fire escape into the floodlit bottleneck of Customs Row, a concrete checkpoint bisecting the district. Behind thick ballistic glass, Warden Saye taps her clipboard against the intercom, lecturing you on manifest compliance while a scanner arm sweeps your bag. Before the lockdown bars drop, a pneumatic freight tube bursts beside you, blowing open a maintenance hatch.",
-      "play": "Checkpoint infiltration and spatial puzzles: pressure plates, gate schedules, Hardline Terminals, and flanking patrolling Concord Troopers without saying a word.",
+      "start": "You drop from a fire escape into the floodlit bottleneck of Customs Row, where a concrete checkpoint bisects the district. Behind ballistic glass, Warden Saye taps her clipboard against the intercom and lectures you on manifest compliance while a scanner arm sweeps your bag. Before the lockdown bars fall, a pneumatic freight tube bursts beside you and blows open a maintenance hatch.",
+      "play": "Checkpoint infiltration and spatial puzzles. Work around pressure plates, gate schedules and Hardline Terminals, then flank patrolling Concord Troopers without saying a word.",
       "fractures": []
     },
     {
@@ -114,8 +114,8 @@
       "act": 1,
       "act_name": "THE BLOCK",
       "player": "lancer",
-      "start": "You step onto an elevated skybridge just as dusk sirens wail. Across the skyline, floodlights snap off sector by sector, and heavy Quarantine Bulkheads slam down from the overpasses with hydraulic thuds, trapping you on the wrong side of the block wall.",
-      "play": "Dusk survival: fighting through tight alley ambushes with the K-12 \"Key\" Shotgun and using momentum bursts to slip under closing blast doors before lockdown completes.",
+      "start": "You step onto an elevated skybridge as dusk sirens wail. Across the skyline, floodlights snap off sector by sector. Heavy Quarantine Bulkheads slam down from the overpasses with hydraulic thuds, trapping you on the wrong side of the block wall.",
+      "play": "Dusk survival. Fight through tight alley ambushes with the K-12 \"Key\" Shotgun and use momentum bursts to pass under closing blast doors before lockdown completes.",
       "fractures": []
     },
     {
@@ -124,8 +124,8 @@
       "act": 1,
       "act_name": "THE BLOCK",
       "player": "lancer",
-      "start": "Midnight in the rain-slicked slums of the Lower Tier. You crouch inside Henrik Solberg's hidden workshop where Talia Korr and three isolated neighborhood reps huddle around the memory drive you smuggled in, proving other blocks are still alive. Across the street, a Concord sensor pylon swivels toward the roof and paints you with a red target laser.",
-      "play": "Multi-route urban navigation linking three residential tiers: balancing stealth, rooftop sniper evasion against Concord Overwatch, and fast escapes.",
+      "start": "At midnight in the rain-slicked slums of the Lower Tier, you crouch inside Henrik Solberg's hidden workshop. Talia Korr and three isolated neighborhood reps huddle around the memory drive you smuggled in, proof that other blocks are still alive. Across the street, a Concord sensor pylon turns toward the roof and paints you with a red target laser.",
+      "play": "Multi-route urban navigation across three residential tiers. Balance stealth, avoid rooftop snipers and escape before the patrols close the line.",
       "fractures": []
     },
     {
@@ -134,8 +134,8 @@
       "act": 2,
       "act_name": "THE UNDER-CITY (Infrastructure & The Patched Organism)",
       "player": "lancer",
-      "start": "Cornered on a dead-end plaza by closing chitin-barricades, you pry open a rusted storm grate and drop fifty feet onto a catwalk inside the Ventworks, a cavernous subterranean wind-tunnel where house-sized intake turbines pull air down from the canopy scrubbers.",
-      "play": "Vertical industrial platforming and Pressure Valve puzzles: redirecting Thermals and Wind Regulators to open sealed shafts. F2, Wind Pocket, and F6, Regulator Overdraw.",
+      "start": "Cornered on a dead-end plaza by closing chitin barricades, you pry open a rusted storm grate and drop fifty feet to a catwalk inside the Ventworks. House-sized intake turbines pull air down from the canopy scrubbers in the cavern below.",
+      "play": "Vertical industrial platforming and Pressure Valve puzzles. Redirect Thermals and Wind Regulators to open sealed shafts, then find F2, Wind Pocket, and F6, Regulator Overdraw.",
       "fractures": [
         "wind_pocket",
         "regulator_overdraw"
@@ -147,8 +147,8 @@
       "act": 2,
       "act_name": "THE UNDER-CITY (Infrastructure & The Patched Organism)",
       "player": "lancer",
-      "start": "You exit a maintenance ladder onto a grated steel balcony overlooking an orange abyss, the geothermal heat-exchangers boiling under the city grid. Superheated steam vents blast upward on strict timers, lighting up the soot on your gloves.",
-      "play": "Hazard navigation and heat-shield timing: solving overpressure gate puzzles while fighting Concord Stiflers and Divers. F7, Grav-Lift Double, and F9, The Long Fall.",
+      "start": "You climb out of a maintenance ladder onto a grated steel balcony above an orange abyss. Geothermal heat exchangers boil under the city grid. Superheated steam vents blast upward on strict timers, lighting the soot on your gloves.",
+      "play": "Hazard navigation and heat-shield timing. Read the vent timers, solve overpressure gate puzzles and fight Concord Stiflers and Divers. F7, Grav-Lift Double. F9, The Long Fall.",
       "fractures": [
         "grav_lift_double",
         "the_long_fall"
@@ -160,8 +160,8 @@
       "act": 2,
       "act_name": "THE UNDER-CITY (Infrastructure & The Patched Organism)",
       "player": "lancer",
-      "start": "You step onto the service rail of a massive subterranean aqueduct where six building-sized Wind Regulators sit in a row, humming like jet engines as they balance pressure between quarantine zones. An automated PA voice echoes down the chamber: \"ANOMALOUS MASS DETECTED IN PRESSURE CONDUIT. INITIATING SWEEP.\"",
-      "play": "Sabotaging and riding turbine systems: close-quarters combat on catwalks mixed with destroying Concord Jammers and riding wind exhausts to outrun sensor sweeps. F10, Cascade.",
+      "start": "You step onto the service rail of a massive subterranean aqueduct. Six building-sized Wind Regulators stand in a row, humming like jet engines as they balance pressure between quarantine zones. An automated PA voice echoes down the chamber: \"ANOMALOUS MASS DETECTED IN PRESSURE CONDUIT. INITIATING SWEEP.\"",
+      "play": "Sabotage and ride the turbine systems. Fight on catwalks, destroy Concord Jammers and use wind exhaust to outrun sensor sweeps. F10, Cascade.",
       "fractures": [
         "cascade"
       ]
@@ -172,8 +172,8 @@
       "act": 2,
       "act_name": "THE UNDER-CITY (Infrastructure & The Patched Organism)",
       "player": "lancer",
-      "start": "Your boots splash into ankle-deep condensation in the pitch-black foundation directly under the central Spire. Your headlamp catches the concrete pillars, except they aren't concrete anymore. Thick, warm Grown Seams pulse like slow arteries across the walls, oozing dark fluid where rebar pokes through.",
-      "play": "Exploration deep inside The Concord's roots: deforming organic terrain, Dartbug nests, snare-tendrils, and dark flooded chambers. F8, Frame Skip.",
+      "start": "Your boots splash into ankle-deep condensation in the pitch-black foundation directly under the central Spire. Your headlamp catches the concrete pillars, except they aren't concrete anymore. Thick, warm Grown Seams pulse like slow arteries across the walls, oozing dark fluid where rebar pushes through.",
+      "play": "Explore deep inside The Concord's roots. Deforming organic terrain, Dartbug nests, snare tendrils and dark flooded chambers. F8, Frame Skip.",
       "fractures": [
         "frame_skip"
       ]
@@ -184,8 +184,8 @@
       "act": 3,
       "act_name": "THE SPINE (Crossing the Dead Zones — Second Half Escalation)",
       "player": "lancer",
-      "start": "You climb out of a subterranean hatch onto a wind-whipped monorail trestle suspended hundreds of feet above a cratered wasteland, the Dead Zone between two walled cities. Ahead, automated cargo capsules glide silently along high-tension steel cables into the fog.",
-      "play": "High-altitude traversal and Filament tether puzzles: leaping between suspended capsules and clearing Concord Overwatch sniper nests across lethal drops. F1, Seam Skip, and F4, Zip Transfer.",
+      "start": "You climb out of a subterranean hatch onto a wind-whipped monorail trestle, hundreds of feet above a cratered wasteland. This is the Dead Zone between two walled cities. Ahead, automated cargo capsules glide silently along high-tension steel cables into the fog.",
+      "play": "High-altitude traversal and Filament tether puzzles. Leap between suspended capsules and clear Concord Overwatch sniper nests across lethal drops. F1, Seam Skip. F4, Zip Transfer.",
       "fractures": [
         "seam_skip",
         "zip_transfer"
@@ -197,8 +197,8 @@
       "act": 3,
       "act_name": "THE SPINE (Crossing the Dead Zones — Second Half Escalation)",
       "player": "lancer",
-      "start": "Inside an automated freight depot, robotic cranes load sealed military containers onto outbound spine-trams. Talia Korr's contact drops a heavy, lead-lined shortwave relay crate at your feet, too bulky to pocket and heavy enough to weigh you down.",
-      "play": "Physics escort and puzzle traversal: using Cargo Slings to hurl the relay into distant switches, surviving the first Concord C-01 \"Scatter\" napalm strike on the depot roof, and ferrying the hardware across sector gates.",
+      "start": "Inside an automated freight depot, robotic cranes load sealed military containers onto outbound spine-trams. Talia Korr's contact drops a heavy, lead-lined shortwave relay crate at your feet. It is too bulky to pocket and heavy enough to weigh you down.",
+      "play": "Physics escort and puzzle traversal. Hurl the relay into distant switches with Cargo Slings, survive the first Concord C-01 \"Scatter\" napalm strike on the depot roof, and carry the hardware across sector gates.",
       "fractures": []
     },
     {
@@ -207,8 +207,8 @@
       "act": 3,
       "act_name": "THE SPINE (Crossing the Dead Zones — Second Half Escalation)",
       "player": "lancer",
-      "start": "You leap from a loading gantry onto the roof of an armored freight train accelerating out of the depot into the fog. Ahead, the tracks enter a fortified canyon bristling with stationary Interdiction Nodes and anchored Warp Synths tracking your silhouette.",
-      "play": "Moving-train combat and obstacle gauntlet: fighting through railcar interiors, scavenging AT-7 \"Goliath\" rockets to destroy Warp Synths, and ducking low canyon gantries. F11, Sound Skip.",
+      "start": "You leap from a loading gantry onto the roof of an armored freight train accelerating out of the depot and into the fog. The tracks ahead enter a fortified canyon bristling with stationary Interdiction Nodes and anchored Warp Synths tracking your silhouette.",
+      "play": "Moving-train combat and an obstacle gauntlet. Fight through railcar interiors, scavenge AT-7 \"Goliath\" rockets to destroy Warp Synths, and duck under low canyon gantries. F11, Sound Skip.",
       "fractures": [
         "sound_skip"
       ]
@@ -219,8 +219,8 @@
       "act": 3,
       "act_name": "THE SPINE (Crossing the Dead Zones — Second Half Escalation)",
       "player": "lancer",
-      "start": "The freight train slams into an emergency buffer at the base of the Block Seam, a thousand-foot-tall living sea-wall of fused concrete and chitin separating two populations that haven't spoken in twenty years. As you step onto the catwalk, every siren on the wall goes off at once: \"COMMAND-AND-CONTROL BREACH. ESCALATING TO PLANETARY LOCKDOWN.\"",
-      "play": "Full-scale assault on the border wall: battling SDO Troopers, Napalm Mortars, and C-01 \"Scatter\" runs while solving multi-lock bulkhead puzzles to deliver the radio relay across the divide.",
+      "start": "The freight train slams into an emergency buffer at the base of the Block Seam, a thousand-foot-tall living sea-wall of fused concrete and chitin. Two populations separated by it haven't spoken in twenty years. As you step onto the catwalk, every siren on the wall goes off at once: \"COMMAND-AND-CONTROL BREACH. ESCALATING TO PLANETARY LOCKDOWN.\"",
+      "play": "Full-scale assault on the border wall. Battle SDO Troopers, Napalm Mortars and C-01 \"Scatter\" runs while solving multi-lock bulkhead puzzles to deliver the radio relay across the divide.",
       "fractures": []
     },
     {
@@ -229,8 +229,8 @@
       "act": 4,
       "act_name": "THE YARD & THE MONOLITH (Origin of the Siege Organism)",
       "player": "lancer",
-      "start": "You push open a rusted blast door into a quiet expanse: the exact cratered rail-yard outside the Longhorn Biological Facility from Chapter P3, frozen in time. Looming over the center of the yard is the Concord Monolith, a massive, featureless biomechanical cube that swallowed the original facility whole.",
-      "play": "Ruin exploration and combat: navigating shattered war-machines, shattering charging Concord Rams at 100 m/s and over, and breaching the outer wall of the Monolith. Site of F12, The First Runner's Path.",
+      "start": "You push open a rusted blast door and step into the quiet. This is the cratered rail yard outside the Longhorn Biological Facility from Chapter P3, frozen in time. At its center, the Concord Monolith looms: a massive, featureless biomechanical cube that swallowed the original facility whole.",
+      "play": "Ruin exploration and combat. Cross shattered war machines, shatter charging Concord Rams head-on at 100 m/s, and breach the outer wall of the Monolith. F12, The First Runner's Path, is here.",
       "fractures": [
         "the_first_runners_path"
       ]
@@ -241,8 +241,8 @@
       "act": 4,
       "act_name": "THE YARD & THE MONOLITH (Origin of the Siege Organism)",
       "player": "lancer",
-      "start": "You step inside the Concord Monolith. The interior corridors are eerily identical to the 20XX Longhorn Biological Facility, same tile floors, same lab signage, only stretched to cathedral proportions with towering vertical shafts and dozens of extra pathways. Inside a sealed observation bunker, an elderly Dr. Aris Thorne taps on the glass, pointing you toward the prototype armory housing the L-01 \"Arc-Lance\".",
-      "play": "Navigating the expanded, labyrinthine Longhorn interior: battling SDO Troopers, Concord Jammers, and Warp Synths across multi-tiered lab pathways.",
+      "start": "You step inside the Concord Monolith. The corridors match the 20XX Longhorn Biological Facility exactly: same tile floors, same lab signage, stretched to cathedral proportions. Towering vertical shafts divide dozens of extra pathways. Inside a sealed observation bunker, an elderly Dr. Aris Thorne taps on the glass and points toward the prototype armory housing the L-01 \"Arc-Lance\".",
+      "play": "Navigate the expanded Longhorn interior. Fight SDO Troopers, Concord Jammers and Warp Synths across multi-tier lab pathways.",
       "fractures": []
     },
     {
@@ -251,8 +251,8 @@
       "act": 4,
       "act_name": "THE YARD & THE MONOLITH (Origin of the Siege Organism)",
       "player": "lancer",
-      "start": "The deep lower wing of the Monolith disappears into a suffocating mass of overlapping chitin plates and fibrous scar tissue, the spot where The Concord spent twenty years endlessly \"repairing\" a tear in its containment core. As you step inside, the walls shudder and a deep bio-alarm vibrates in your chest: Purge and Sterilization Protocol initiated.",
-      "play": "Claustrophobic survival tension and escape: navigating shifting organic mazes while barbed chitin-walls, Concord Stiflers, and sterilization vents close in behind you.",
+      "start": "The Monolith's deep lower wing disappears into a suffocating mass of overlapping chitin plates and fibrous scar tissue. This is where The Concord spent twenty years endlessly \"repairing\" a tear in its containment core. As you step inside, the walls shudder and a deep bio-alarm vibrates in your chest: Purge and Sterilization Protocol initiated.",
+      "play": "Claustrophobic survival and escape. Navigate shifting organic mazes while barbed chitin walls, Concord Stiflers and sterilization vents close in behind you.",
       "fractures": []
     },
     {
@@ -261,8 +261,8 @@
       "act": 4,
       "act_name": "THE YARD & THE MONOLITH (Origin of the Siege Organism)",
       "player": "lancer",
-      "start": "You enter a circular holographic telemetry chamber at the Monolith's apex. Across the room, a translucent cyan Recall Ghost materializes and runs the obstacles ahead, replaying the exact route you played twenty years ago in Chapter P5. On the wall monitor, a log stamps the ghost's ID: SUBJECT: ILSA RENN // CLASSIFICATION: FIRST RUNNER // 20-YEAR PATROL TRAINING MODEL.",
-      "play": "Outsmarting The Concord's predictive AI: using Ilsa's recorded route knowledge to counter traps built to catch couriers and breach the Spire's core shaft.",
+      "start": "You enter a circular holographic telemetry chamber at the Monolith's apex. A translucent cyan Recall Ghost materializes across the room and runs the obstacles ahead, replaying the exact route you played twenty years ago in Chapter P5. A wall monitor stamps the ghost's ID: SUBJECT: ILSA RENN // CLASSIFICATION: FIRST RUNNER // 20-YEAR PATROL TRAINING MODEL.",
+      "play": "Outsmart The Concord's predictive AI. Use Ilsa's recorded route knowledge to counter traps built for couriers and breach the Spire's core shaft.",
       "fractures": []
     },
     {
@@ -271,8 +271,8 @@
       "act": 5,
       "act_name": "THE CORE (The Canopy Anchors)",
       "player": "lancer",
-      "start": "You step onto a narrow maintenance ring inside the Hollow Spire, a vertical shaft stretching miles straight up into the clouds, lined with glowing status relays and wind-intake baffles. Far below, massive circular Quarantine Bulkheads slam shut upward, floor by floor, turning the tower into a rising piston.",
-      "play": "Multi-tiered vertical climb: fighting through SDO security platforms, activating lift turbines, and staying ahead of the rising lockdown floor.",
+      "start": "You step onto a narrow maintenance ring inside the Hollow Spire. The vertical shaft stretches miles straight up into the clouds, lined with glowing status relays and wind-intake baffles. Far below, massive circular Quarantine Bulkheads slam shut upward, floor by floor, turning the tower into a rising piston.",
+      "play": "Multi-tiered vertical climb. Fight through SDO security platforms, activate lift turbines and stay ahead of the rising lockdown floor.",
       "fractures": []
     },
     {
@@ -281,8 +281,8 @@
       "act": 5,
       "act_name": "THE CORE (The Canopy Anchors)",
       "player": "lancer",
-      "start": "You burst out of the shaft into the Inner Ring, a quiet, glass-walled command gallery suspended high above the cloud layer, surrounded by pulsing biomechanical nerve-bundles. Warden Saye stands alone at the central console, exhausted and unarmed. Time freezes as she speaks to you without expecting a word back: \"You think you're freeing them, runner. Look down. Twenty years of zero war. Break that canopy, and they'll burn the sky down all over again.\" Time resumes; she steps aside from the airlock.",
-      "play": "High-stakes infiltration and combat through the Spire's nervous nexus: bypassing layered security gates, Warp Synths, and heavy bio-guards.",
+      "start": "You burst out of the shaft into the Inner Ring, a quiet, glass-walled command gallery high above the cloud layer. Pulsing biomechanical nerve bundles surround the room. Warden Saye stands alone at the central console, exhausted and unarmed. Time freezes as she speaks to you without expecting an answer: \"You think you're freeing them, runner. Look down. Twenty years of zero war. Break that canopy, and they'll burn the sky down all over again.\" When time resumes, she steps aside from the airlock.",
+      "play": "High-stakes infiltration and combat through the Spire's nervous nexus. Bypass layered security gates, Warp Synths and heavy bio-guards.",
       "fractures": []
     },
     {
@@ -291,8 +291,8 @@
       "act": 5,
       "act_name": "THE CORE (The Canopy Anchors)",
       "player": "lancer",
-      "start": "You open the exterior hatch onto the Canopy Ladder, the upper exterior of the Spire where massive biomechanical tendons fan outward across the horizon, holding down the planet-wide sky canopy. Hurricane-force updrafts roar past your ears while dense Interdiction Nodes and C-01 \"Scatter\" gunships lock onto your position.",
-      "play": "Exposed exterior assault: fighting across swaying canopy anchors against maximum-strength wind shear and heavy turret defenses.",
+      "start": "You open the exterior hatch onto the Canopy Ladder, the upper exterior of the Spire where massive biomechanical tendons fan across the horizon and hold down the planet-wide sky canopy. Hurricane-force updrafts roar past your ears while dense Interdiction Nodes and C-01 \"Scatter\" gunships lock onto your position.",
+      "play": "Exposed exterior assault. Fight across swaying canopy anchors against maximum-strength wind shear and heavy turret defences.",
       "fractures": []
     },
     {
@@ -302,7 +302,7 @@
       "act_name": "OPEN WEATHER (Breaking the Sky)",
       "player": "lancer",
       "start": "You pull yourself onto the crown of the Spire, directly beneath the central Atmospheric Sphincter, a mile-wide biomechanical iris holding back the upper sky. Through the translucent membrane, blinding golden sunlight, the exact sunlight from Chapter P1, beams down onto your visor for the first time in twenty years.",
-      "play": "Defeating the final containment guardians and breaching the regulator core, leading to three endings decided strictly by Lancer's actions: OPEN WEATHER, UNDER REGULATION, and THE SECOND FRACTURE, which requires all 12 Fractures.",
+      "play": "Defeat the final containment guardians and breach the regulator core. Three endings follow Lancer's actions: OPEN WEATHER, UNDER REGULATION and THE SECOND FRACTURE. The last requires all 12 Fractures.",
       "fractures": []
     }
   ],

@@ -82,3 +82,8 @@ though: a distribution list, not a lock. An Edition somebody has installed
 locally always loads, and being turned down by the index never stops anyone
 from running it. There's no activation step to bypass, because there isn't
 one.
+
+I get asked about this more than any other rule in the repository, so the
+short version is: the index curates, it doesn't gate. If your Edition is
+open and its licence matches what it reuses, it goes in. If it isn't, it
+still runs on your machine and nobody has to approve that either.

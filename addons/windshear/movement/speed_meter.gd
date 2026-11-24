@@ -1,4 +1,4 @@
-# WindShear — speed measurement
+# WindShear — speed measurement (m/s)
 # Copyright (C) 2026 the WindShear contributors
 #
 # This program is free software; you can redistribute it and/or modify it
@@ -14,26 +14,25 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
-## Measures Lancer's speed in metres per second.
+## Measures Lancer's horizontal speed in m/s.
 ##
-## The unit is metres per second everywhere in this project: the tuning
-## constants, the mechanics reference, the discovery report and the speed
-## readout on the HUD all use it. There is no pixels-per-second anywhere,
-## because a number that means nothing outside the engine is a number nobody
-## can check.
+## The unit is m/s throughout the project: tuning constants, the
+## mechanics reference, the discovery report and the HUD readout all use it.
+## Engine pixels don't have a stable scale outside the renderer, so a speed
+## number based on them can't be checked against a route.
 ##
 ## The meter keeps two numbers:
 ##
 ## - `current`, the horizontal speed right now
 ## - `peak`, the fastest horizontal speed since the last reset
 ##
-## Horizontal only, because the game plays on the XY plane and the Z axis is
-## always zero. A vertical number would be noise.
+## Horizontal only. The game plays on the XY plane and the Z axis is always
+## zero. A vertical number would be noise.
 extends RefCounted
 
-## The current horizontal speed, in metres per second.
+## The current horizontal speed, in m/s.
 var current := 0.0
-## The fastest horizontal speed since the last reset, in metres per second.
+## The fastest horizontal speed since the last reset, in m/s.
 var peak := 0.0
 
 
@@ -46,8 +45,8 @@ func sample(velocity: Vector3) -> void:
 		peak = current
 
 
-## Clears both numbers. The game calls this on a respawn, so the peak is the
-## peak of the current attempt and not of the whole session.
+## Clears both numbers. The game calls this on a respawn, so the peak belongs
+## to the current attempt rather than the whole session.
 func reset() -> void:
 	current = 0.0
 	peak = 0.0

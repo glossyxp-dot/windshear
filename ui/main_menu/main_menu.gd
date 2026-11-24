@@ -1,4 +1,4 @@
-# WindShear — main menu
+# WindShear — main menu (start, settings and quit)
 # Copyright (C) 2026 the WindShear contributors
 #
 # This program is free software; you can redistribute it and/or modify it
@@ -14,12 +14,12 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
-## The first screen. It is deliberately plain: the milestone that ships this
-## is the movement prototype, and the menu exists to get the player into the
-## greybox as fast as possible.
+## The first screen. It's deliberately plain: the milestone that ships this is
+## the movement prototype, and the menu's job is to get the player into the
+## greybox quickly.
 ##
-## The art direction of this project is hand-made — the icon and the layout
-## here are placeholders that the author replaces by hand.
+## The art direction of this project is hand-made, the icon and layout here are
+## placeholders for the author to replace.
 extends Control
 
 ## The movement greybox, loaded when a run starts.
@@ -73,7 +73,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 ## Starts a run in the movement greybox.
 func _on_new_run() -> void:
-	WsGame.start_run("0.01")
+	WsGame.start_run("P1.01")
 	get_tree().change_scene_to_packed(GreyboxScene)
 
 

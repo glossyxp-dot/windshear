@@ -1,4 +1,4 @@
-# WindShear — the PSX amount tests
+# WindShear — PSX look tests
 # Copyright (C) 2026 the WindShear contributors
 #
 # This program is free software; you can redistribute it and/or modify it
@@ -14,10 +14,10 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
-## The PSX look is the one setting in the game that is entirely the
-## player's business. Half of this file checks that the dial exists, is
-## registered, compiles and survives a trip through the settings file; the
-## other half checks that the slider in the menu actually turns it.
+## The PSX look is the one setting in the game that belongs entirely to the
+## player. Half this file checks that the dial exists, is registered, compiles
+## and survives a trip through the settings file, the other half checks that
+## the slider in the menu actually turns it.
 extends "res://tests/ws_test.gd"
 
 ## The PSX helper.
@@ -58,7 +58,7 @@ func _test_the_globals_are_registered() -> void:
 		"project.godot declares the psx_affine global")
 
 
-## The shader has to compile, and it has to expose the four knobs.
+## The shader has to compile and expose its uniforms.
 func _test_the_shader_compiles() -> void:
 	heading("the shader")
 	var material := ShaderMaterial.new()
@@ -69,8 +69,8 @@ func _test_the_shader_compiles() -> void:
 	for uniform in PsxShader.get_shader_uniform_list():
 		names.append(String(uniform["name"]))
 
-	# A shader that failed to compile comes back with an empty list, so the
-	# list itself is the compile check.
+	# A shader that failed to compile comes back with an empty list. The list
+	# is the compile check.
 	ok(names.size() >= 8, "the shader compiled and exposes its uniforms")
 	ok(names.has("albedo_color"), "the shader takes an albedo colour")
 	ok(names.has("albedo_texture"), "the shader takes an albedo texture")
@@ -80,8 +80,8 @@ func _test_the_shader_compiles() -> void:
 	ok(names.has("color_depth"), "the shader has a colour depth")
 	ok(names.has("psx_grid"), "the shader knows the internal resolution")
 
-	# The two globals live outside the uniform list, because they are
-	# global. They have to be named in the source.
+	# The two globals live outside the uniform list because they are global.
+	# The shader source still has to name them.
 	ok(PsxShader.code.contains("global uniform float psx_amount"),
 		"the shader reads the amount global")
 	ok(PsxShader.code.contains("global uniform float psx_affine"),
@@ -93,8 +93,8 @@ func _test_the_shader_compiles() -> void:
 	near(colour.r, 0.5, 0.001, "the made material keeps its colour")
 
 
-## A broken settings file must not be able to put the game in a state the
-## shader was not written for.
+## A broken settings file must not put the game in a state the shader was not
+## written for.
 func _test_the_amount_is_clamped() -> void:
 	heading("the dial")
 	Psx.set_amount(-0.5)
@@ -126,7 +126,7 @@ func _test_the_settings_round_trip() -> void:
 	near(float(values["amount"]), 0.35, 0.0001, "the amount survives the round trip")
 	ok(bool(values["affine"]), "the affine switch survives the round trip")
 
-	# A file from an older build must not wipe the current settings.
+	# An old settings file must not wipe the current settings.
 	var empty := ConfigFile.new()
 	var missing := Psx.read_config(empty)
 	near(float(missing["amount"]), Psx.amount(), 0.0001,
@@ -168,7 +168,7 @@ func _test_the_picker_is_wired() -> void:
 		toggle.button_pressed = false
 		ok(not Psx.affine(), "the switch turns the warping off again")
 
-	# Put the game back the way it was found.
+	# Put the game back the way we found it.
 	WsGame.psx_amount = Psx.DEFAULT_AMOUNT
 	WsGame.psx_affine = Psx.DEFAULT_AFFINE
 	Psx.set_amount(Psx.DEFAULT_AMOUNT)

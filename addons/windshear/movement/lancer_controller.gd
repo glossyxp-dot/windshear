@@ -1,4 +1,4 @@
-# WindShear — Lancer's movement controller (the FPS/platformer core)
+# WindShear — Lancer's movement controller (the FPS and platformer core)
 # Copyright (C) 2026 the WindShear contributors
 #
 # This program is free software; you can redistribute it and/or modify it
@@ -14,29 +14,31 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
-## A plain [CharacterBody3D] with frame-exact control.
+## Lancer is a plain [CharacterBody3D] with frame-exact control.
 ##
-## Every number comes from [constant Tuning] (which mirrors `TECH_SPEC.md`
-## §3) and every behaviour is driven through [method simulate], a pure
-## function of the input state. That is what lets the test suite replay exact
-## frames without a window, a mouse or a physics world — and it is also what
-## makes two runs of the same route produce byte-identical velocities.
+## Every number comes from [constant Tuning], which mirrors `TECH_SPEC.md`
+## §3. Behaviour goes through [method simulate], a deterministic function of
+## the input state and frame length. That lets the test suite replay exact
+## frames without a window, a mouse or a physics world. Two runs of the same
+## route produce byte-identical velocities.
 ##
-## Rules that are easy to break by accident:
-## [br]1. The player never leaves the XY plane. [code]velocity.z[/code] is
-##    zeroed every frame.
-## [br]2. Nothing is allocated in the frame loop. The input object is
-##    created once and reused.
-## [br]3. No random numbers. Wind, gates and hazards are driven by the
-##    section-seeded generator in [code]WsGame.rng_for_section()[/code].
+## Three rules are easy to break by accident:
+## [br]- the player never leaves the XY plane. [code]velocity.z[/code] is
+##   zeroed every frame.
+## [br]- nothing is allocated in the frame loop. The input object is
+##   created once and reused.
+## [br]- no random numbers. Wind, gates and hazards use the section-seeded
+##   generator in [code]WsGame.rng_for_section()[/code].
 ##
-## The wall-kiss in one paragraph: a slide opens a two-frame window; touching
-## a side wall (a wall that runs alongside the route) inside that window arms
-## a kiss; pressing jump while armed adds 0.8 m/s to the running speed and
-## launches Lancer. The bonus survives the ground acceleration because the
-## jump happens on the same frame, so the boost is carried through the air.
-## A chain is three wall-jumps long in the base game. The `wall_kiss_chain`
-## Fracture takes it to five.
+## A wall-jump works like this. A slide opens a two-frame window. Touching a
+## side wall inside that window arms the jump, and pressing Space adds
+## 0.8 m/s to Lancer's running speed while launching Lancer. The bonus
+## survives ground acceleration because the jump happens on the same frame,
+## so the boost carries through the air.
+##
+## The base chain holds three wall-jumps and stops at 16.4 m/s.
+## The shipped `wall_kiss_chain` Fracture takes it to five and 18.0 m/s.
+## Changing that split would require a explicit product decision.
 extends CharacterBody3D
 class_name LancerController
 
@@ -45,9 +47,9 @@ const Tuning := preload("res://addons/windshear/core/ws_tuning.gd")
 ## The per-frame input record.
 const LancerInputState := preload("res://addons/windshear/movement/lancer_input.gd")
 
-## Emitted when a wall-kiss connects. [param count] is the chain length.
+## Emitted when a wall-jump connects. [param count] is the chain length.
 signal wall_kiss_registered(count: int)
-## Emitted on every jump, including wall-kiss assisted ones.
+## Emitted on every jump, including wall-jump assisted ones.
 signal jump_performed()
 
 ## When false the controller ignores the keyboard and only uses the state
@@ -64,13 +66,13 @@ var coyote_frames := 0
 var jump_buffer_frames := 0
 ## Frames the current slide still has left.
 var slide_frames := 0
-## Frames left in the wall-kiss contact window.
+## Frames left in the wall-jump contact window.
 var wall_kiss_frames := 0
-## True when a side wall was touched inside the window and a jump would kiss it.
+## True when a side wall was touched inside the window and a jump can use it.
 var wall_kiss_armed := false
-## Wall-kisses in the current chain.
+## Wall-jumps in the current chain.
 var wall_kiss_count := 0
-## Frames since the last wall-kiss. The chain expires when this runs out.
+## Frames since the last wall-jump. The chain expires when this runs out.
 var frames_since_kiss := 0
 ## Speed contributed by air acceleration during the current airborne stretch.
 var air_bonus := 0.0
@@ -174,7 +176,7 @@ func simulate(delta: float, inp: LancerInputState) -> void:
 	# --- horizontal movement ---------------------------------------------
 	if jumped:
 		# Lancer left the ground this frame: no ground acceleration, so a
-		# wall-kiss boost is not eaten by the speed cap in the same frame.
+		# wall-jump boost is not eaten by the speed cap in the same frame.
 		pass
 	elif inp.on_floor:
 		if slide_frames > 0:
@@ -216,8 +218,8 @@ func simulate(delta: float, inp: LancerInputState) -> void:
 	_was_on_floor = inp.on_floor
 
 
-## Air control: accelerate towards the wish direction, but the total amount
-## the air acceleration may add over one airborne stretch is capped.
+## Air control accelerates towards the input direction. The total speed it may
+## add over one airborne stretch is capped.
 func _air_control(delta: float, inp: LancerInputState) -> void:
 	if absf(inp.move_axis) <= 0.0:
 		return
@@ -235,19 +237,19 @@ func _air_control(delta: float, inp: LancerInputState) -> void:
 ## True when the wall runs alongside the route instead of blocking it.
 ##
 ## A side wall has a normal that points mostly along Z; a wall straight ahead
-## has a normal along X. Only side walls can be kissed.
+## has a normal along X. Only side walls can arm a wall-jump.
 func _is_side_wall(normal: Vector3) -> bool:
 	return absf(normal.z) >= 0.5
 
 
-## Adds one wall-kiss boost to the running speed.
+## Adds one wall-jump boost to Lancer's running speed.
 ##
-## The boost is capped, and the cap belongs to the controller rather than to
-## the tuning file, because the Fracture moves it. Three kisses take the
-## running speed to 16.4 m/s and not a metre further; five take it to 18.0.
-## Without a cap a long route could stack kisses until the player was faster
-## than the level designer expected — the discovery suite
-## (`tests/test_movement_discovery.gd`) is what found it.
+## The boost is capped, and the cap belongs to the controller rather than the
+## tuning file because the Fracture moves it. Three wall-jumps take the running
+## speed to 16.4 m/s and not a metre further; five take it to
+## 18.0. Without a cap, a long route could stack boosts until Lancer was faster
+## than the level designer expected. The discovery suite
+## (`tests/test_movement_discovery.gd`) found it.
 func _apply_wall_kiss() -> void:
 	var direction := signf(velocity.x)
 	if direction == 0.0:
@@ -263,18 +265,19 @@ func _apply_wall_kiss() -> void:
 	wall_kiss_registered.emit(wall_kiss_count)
 
 
-## Turns the `wall_kiss_chain` Fracture on.
+## Turns on the shipped `wall_kiss_chain` Fracture.
 ##
 ## The registry says the chain stacks to five, and registry text does not
-## change once it has shipped, so the fourth and fifth wall-jump live here.
-## The speed ceiling goes up with the count, because five boosts of 0.8 m/s
-## need more room above the run speed than three of them do.
+## change once it has shipped. The fourth and fifth wall-jump live here. The
+## speed ceiling rises with the count because five boosts of 0.8 metres per
+## second need more room above the run speed than three do.
 func enable_wall_kiss_chain_fracture() -> void:
 	wall_kiss_cap = Tuning.WALL_KISS_FRACTURE_CAP
 	wall_kiss_speed_ceiling = Tuning.WALL_KISS_FRACTURE_SPEED_CEILING
 
 
-## Puts the chain back to the base game's three.
+## Puts the chain back to the base game's three wall-jumps and 16.4 metres per
+## second.
 func disable_wall_kiss_chain_fracture() -> void:
 	wall_kiss_cap = Tuning.WALL_KISS_CAP
 	wall_kiss_speed_ceiling = Tuning.WALL_KISS_SPEED_CEILING

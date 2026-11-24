@@ -23,7 +23,7 @@
     "diver_cell_overheal": 15,
     "high_energy_core_restore": 100,
     "high_energy_core_max_overheal": 150,
-    "notes": "Both playable characters have 100 base health. Lancer Ivanov can push to 150 with decaying overheal, earned through momentum and through breaking Concord hardware; Ilsa Renn is capped at 100 for the whole prequel."
+    "notes": "Both playable characters have 100 base health. Lancer Ivanov can push to 150 with decaying overheal, earned through momentum and by breaking Concord hardware. Ilsa Renn is capped at 100 through the whole prequel."
   },
   "speed": {
     "unit": "m/s",
@@ -34,6 +34,6 @@
     "wall_jump_fracture_ceiling": 18.0,
     "ram_shatter_impact": 100.0,
     "cloak_speed_threshold": 8.0,
-    "notes": "Concord sensors and turrets read these thresholds. The sprint figure is the movement tuning file's MAX_RUN_SPEED, the base wall-jump ceiling is its WALL_KISS_SPEED_CEILING (three wall-jumps at +0.8 m/s), and the Fracture ceiling is its WALL_KISS_FRACTURE_SPEED_CEILING (five wall-jumps). This file cannot drift away from the code."
+    "notes": "Concord sensors and turrets read these thresholds. MAX_RUN_SPEED is the 14.0 m/s sprint. The base wall-jump chain is three and tops out at 16.4 m/s (14.0 + 3 × 0.8). The wall_kiss_chain Fracture takes the chain to five and the ceiling to 18.0 m/s. The movement file can't drift away from the code."
   }
 }

@@ -41,7 +41,7 @@ Don't rebuild any of this:
 | PSX | The shader plus a 0–100% slider. The player picks the amount |
 | Menu | Main menu, settings panel, PSX slider, affine toggle |
 | Greybox | One test room: floor, platforms, a ramp, a wall to kiss, a help panel |
-| Tests | 485 checks in 14 suites, headless, about ten seconds |
+| Tests | 489 checks in 14 suites, headless, about ten seconds |
 | World data | 25 chapters × 12 sections, 600 gate schedules, 12 Fractures, 19 beats, 73 dialogue lines |
 | Canon data | 10 cast entries, 7 weapons, 5 items, 5 map utilities, 11 enemies |
 | Controls | The mouse is the camera and the triggers. The keyboard carries the rest |
@@ -60,8 +60,8 @@ The visual work is by hand. The code for this stage is done.
 2. **Install the export templates** for 4.7.2. You can't export without them.
 3. **Build Level 2.** The greybox is a rig. `2.01` is the first section that
    has to be fun.
-4. **Implement the filament.** Last of the five verbs, and the first one that
-   touches something other than the ground.
+4. **Implement the filament.** Last of the core movement verbs, and the first
+   one that touches something other than the ground.
 5. **Do the art**, by hand, in the editor. `docs/AUTHORING.md` covers the
    materials, the theme, the fonts and the resolution.
 6. **Get five external testers** on the movement. That's Milestone 0's gate
@@ -97,7 +97,9 @@ argument, and the third ending still needs all twelve Fractures.
 one without the other and the build fails. That's the deal.
 
 Also: no `randf()` in gameplay logic. Section randomness comes from a seeded
-`RandomNumberGenerator` per section, so ghosts and replays match.
+`RandomNumberGenerator` per section, so ghosts and replays match. I know
+it's a small rule to write down. It's also the rule that decides whether a
+leaderboard means anything, so it stays written down.
 
 ## The milestones
 

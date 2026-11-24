@@ -2,7 +2,7 @@
 
 **Level 1** of the development stages. This is where the game stops being documents and starts being something you can move around in, and where the movement gets its numbers.
 
-We have a Godot 4.7.2 project that boots to a menu and into a movement greybox. The movement controller is frame-exact, with every number tied to `TECH_SPEC.md` §3. The camera stays with Lancer. A test suite of **485 checks** runs headless in about ten seconds, and a discovery harness plays candidate movement techniques against the controller so we can see what it finds.
+We have a Godot 4.7.2 project that boots to a menu and into a movement greybox. The movement controller is frame-exact, with every number tied to `TECH_SPEC.md` §3. The camera stays with Lancer. A test suite of **489 checks** runs headless in about ten seconds, and a discovery harness plays candidate movement techniques against the controller so we can see what it finds.
 
 Levels, art, story in the engine, the speedrun systems and the remaining Fractures come later. Level 1 is the floor, and the floor needs to be good before anything gets built on it.
 
@@ -16,7 +16,12 @@ One principle survived the whole process. It's the reason this stage exists:
 
 > **A movement technique is found, not built.**
 
-The base controller implements five verbs: run, slide, jump, wall-kiss and filament. There's no bunny-hop button, no generic "speed boost" move and no hidden state that pays out for a favourite input sequence. Techniques emerge from the physics. This stage found out what they were before a level was designed around them.
+The base controller implements four verbs so far: run, slide, jump and
+wall-jump. The filament is the fifth and it's the one that isn't in the
+controller yet. There's no bunny-hop button, no generic "speed boost" move
+and no hidden state that pays out for a favourite input sequence. Techniques
+emerge from the physics. This stage found out what they were before a level
+was designed around them.
 
 ---
 
@@ -73,9 +78,9 @@ The plain run is the baseline at 14.00 m/s, exactly the run speed. The bunny hop
 
 The slide-hop reaches 14.43 m/s. Sliding into a jump costs a little speed and buys a little height, and the net is a small gain. The air flick runs right and then pulls left in the air; it peaks at 14.00 and ends at 3.60. You can steer, but you can't cheat.
 
-The base wall-kiss chain reaches 16.40 m/s. The chain is capped at three, and each wall-jump adds 0.8 m/s: 14.0 + 3 × 0.8 = 16.4 m/s. A turnaround, which reverses the stick at full speed, comes back to 14.00. The turn costs nothing in the long run, but it costs frames, and frames are the currency of this game.
+The base wall-jump chain reaches 16.40 m/s. The chain is capped at three, and each wall-jump adds 0.8 m/s: 14.0 + 3 × 0.8 = 16.4 m/s. A turnaround, which reverses the stick at full speed, comes back to 14.00. The turn costs nothing in the long run, but it costs frames, and frames are the currency of this game.
 
-After the report, the suite asserts four invariants for every technique. Speed stays under the ceiling, the player never leaves the XY plane, the air cap holds and the wall-kiss chain cap holds. It also checks one promise:
+After the report, the suite asserts four invariants for every technique. Speed stays under the ceiling, the player never leaves the XY plane, the air cap holds and the wall-jump chain cap holds. It also checks one promise:
 
 > bunny hopping is not a speed exploit.
 
@@ -83,11 +88,15 @@ If that assertion ever fails, somebody changed the physics on purpose. The chang
 
 ---
 
-## 4. The wall-kiss ceiling — a bug that was found, not a feature
+## 4. The wall-jump ceiling — a bug that was found, not a feature
 
 This is the part of the stage worth reading twice.
 
-The wall-kiss is a WindShear verb, and the movement research calls the chain a wall-kiss. A slide opens a two-frame window. If you touch a side wall and jump on that frame, you get +0.8 m/s of horizontal speed. In the base game the chain is three wall-jumps long.
+The wall-jump is a WindShear verb. The movement research calls the chain a
+wall-kiss and the code keeps that name, but the player-facing word is
+wall-jump. A slide opens a two-frame window. If you touch a side wall and
+jump on that frame, you get +0.8 m/s of horizontal speed. In the base game
+the chain is three wall-jumps long.
 
 The **first** version of the implementation had a chain cap but no speed ceiling. The discovery harness reported this:
 
@@ -111,7 +120,7 @@ This is why the rule in `docs/MOVEMENT_RESEARCH.md` §16.2 exists. Sometimes the
 
 ## 5. What the tests actually cover
 
-There are 485 checks in fourteen suites. They aren't "does the node exist" tests.
+There are 489 checks in fourteen suites. They aren't "does the node exist" tests.
 
 | Suite | Checks | What it is for |
 | --- | --- | --- |
@@ -120,17 +129,17 @@ There are 485 checks in fourteen suites. They aren't "does the node exist" tests
 | characterization | 77 | Movement accidents stay characterized |
 | discovery | 26 | What the movement permits |
 | camera | 17 | The camera rig behaves |
-| input map | 24 | The input map is the scheme we said |
+| input map | 26 | The input map is the scheme we said |
 | determinism | 8 | The simulation is deterministic |
 | speed meter | 11 | The speed is measured in metres per second |
 | performance | 10 | The performance budget holds |
 | code policy | 10 | The code policy holds |
-| world data | 39 | The world data holds together |
+| world data | 41 | The world data holds together |
 | canon | 115 | The canon holds |
 | greybox | 36 | The greybox holds together |
 | PSX | 39 | The player picks how much PSX there is |
 
-The movement suite pins the top speed, acceleration rates, coyote time, jump buffer, air cap, slide, wall-kiss and plane constraint. Characterization preserves the arming and chain boundaries, collision energy, repeated cycles, adversarial input and full-state replay. The camera suite checks the pitch clamp, yaw wrap, speed dolly and the camera's ownership by the rig.
+The movement suite pins the top speed, acceleration rates, coyote time, jump buffer, air cap, slide, wall-jump and plane constraint. Characterization preserves the arming and chain boundaries, collision energy, repeated cycles, adversarial input and full-state replay. The camera suite checks the pitch clamp, yaw wrap, speed dolly and the camera's ownership by the rig.
 
 The determinism suite checks that the same inputs give the same outputs and that the section-seeded generator is stable. The speed-meter suite covers the current reading, peak, reset and units. Performance checks the project settings and the cost of a frame.
 

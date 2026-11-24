@@ -64,7 +64,8 @@ transceivers, no memory drives, no tools that aren't on the manifest.
 
 One reason covers all three. The Concord was built to stop human factions
 from coordinating a second war, and the thing that stops factions coordinating
-is making sure they never meet.
+is making sure they never meet. Twenty years on, it is still enforcing that
+reason with the methods it was given, and it has never needed a second one.
 
 ## The growth
 
@@ -82,7 +83,7 @@ automation executing its last standing order.
 Down in the spine basement you can see it. Warm pillars that aren't pillars
 any more. Dark fluid where the rebar pushes through. A soft edge where a blast
 door used to meet concrete. It's the ugliest thing in the game and it is still,
-technically, a repair log.
+technically, a repair log. I like that it stays that way.
 
 ## How it fights you
 
@@ -122,7 +123,8 @@ last third of the campaign.
 
 Every defence above was built against a slow infiltrator or a demolition team.
 Chokepoints, blast doors, sensor grids, bio-constructs on fixed lines. All of
-it assumes somebody is going to creep up to a seam and try to cut through it.
+it assumes somebody is going to creep up to a seam and try to cut through it,
+and every one of those assumptions is who's wrong.
 
 Nobody designed it for somebody who crosses at fourteen metres a second
 because the route gives them no other choice.

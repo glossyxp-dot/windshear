@@ -14,10 +14,12 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
-## The greybox is the room the movement prototype lives in, so it has to
-## obey the same rules as the finished game: the player stays on the XY
-## plane, the camera stays with Lancer, and the geometry stays inside the
-## triangle budget.
+## The greybox is the room the movement prototype lives in. It obeys the same
+## rules as the finished game: Lancer stays on the XY plane, the camera stays
+## with Lancer, and the geometry stays inside the triangle budget.
+##
+## The gameplay plane has no forward axis. A and D are the run directions.
+## W and S tilt the camera; they do not move Lancer.
 ##
 ## This suite needs a live scene tree, so the runner instantiates the room
 ## and hands it over.
@@ -27,7 +29,7 @@ extends "res://tests/ws_test.gd"
 const Controller := preload("res://addons/windshear/movement/lancer_controller.gd")
 ## The per-frame input record.
 const InputState := preload("res://addons/windshear/movement/lancer_input.gd")
-## The PSX shader, so the hand-made materials can be checked.
+## The PSX shader, so the hand-authored materials can be checked.
 const PsxShader := preload("res://addons/windshear/render/ws_psx.gdshader")
 
 ## One physics frame.
@@ -91,12 +93,12 @@ func _test_the_player_stays_on_the_plane(scene: Node) -> void:
 	if player == null:
 		return
 	ok(absf(player.global_position.z) < 0.05,
-		"Lancer stays on the play plane (z = %.4f)" % player.global_position.z)
+		"lancer stays on the play plane (z = %.4f)" % player.global_position.z)
 	ok(player.velocity.z == 0.0, "the z velocity is exactly zero")
 	ok(player.global_position.y > 0.5,
-		"Lancer rests on the floor (y = %.3f)" % player.global_position.y)
+		"lancer rests on the floor (y = %.3f)" % player.global_position.y)
 	ok(player.global_position.y < 1.5,
-		"Lancer did not fall through the floor (y = %.3f)" % player.global_position.y)
+		"lancer did not fall through the floor (y = %.3f)" % player.global_position.y)
 
 
 func _test_budget(scene: Node) -> void:
@@ -108,9 +110,8 @@ func _test_budget(scene: Node) -> void:
 		"the greybox has %d triangles, the budget is %d" % [triangles, TRIANGLE_BUDGET])
 
 
-## The surfaces have to use the PSX shader, and they have to be real
-## resources on disk rather than inline blocks, so the art can be edited by
-## hand in the inspector.
+## Surfaces use the PSX shader. They are real resources on disk, not inline
+## blocks, so somebody can edit the art by hand in the inspector.
 func _test_the_materials_are_hand_editable(scene: Node) -> void:
 	heading("the materials")
 	var meshes := _collect_meshes(scene)
@@ -155,12 +156,12 @@ func _test_the_mechanics_reference(scene: Node) -> void:
 	ok(text.contains("TETHER"), "the reference lists the filament")
 	ok(text.contains("LMB / RMB"), "the reference lists the two triggers")
 
-	# The numbers have to be the real ones, or the reference is a lie.
+	# The numbers have to be the real ones. Otherwise the reference is a lie.
 	var tuning := preload("res://addons/windshear/core/ws_tuning.gd")
 	ok(text.contains("%.1f" % tuning.MAX_RUN_SPEED),
 		"the reference quotes the real run speed")
 	ok(text.contains("%.1f" % tuning.WALL_KISS_SPEED_CEILING),
-		"the reference quotes the real wall-kiss ceiling")
+		"the reference quotes the real wall-jump ceiling")
 	ok(text.contains("not built yet"),
 		"the reference says which verbs do not exist yet")
 
@@ -179,9 +180,9 @@ func _test_a_ninety_second_route() -> void:
 	var grounded := true
 
 	# A route that runs the length of the room and back, with a jump and a
-	# slide in every leg. The point is not the route itself but that ninety
-	# seconds of movement never leaves the plane, never leaves the room and
-	# never falls out of the world.
+	# slide in every leg. The route itself does not matter. Ninety seconds of
+	# movement must never leave the plane, leave the room or fall out of the
+	# world.
 	for frame in range(5400):
 		var leg := frame / 180
 		input.move_axis = 1.0 if leg % 2 == 0 else -1.0

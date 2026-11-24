@@ -1,8 +1,8 @@
-// WindShear — the PSX surface shader
+// WindShear — the PSX surface shader (vertex, texture, colour and dither)
 // SPDX-License-Identifier: GPL-2.0-or-later
 //
-// The PSX look is not a filter bolted on top of the picture. It is four
-// separate artefacts of the 1990s that happen to sit together:
+// The PSX look is four separate artefacts of the 1990s that happen to sit
+// together:
 //
 //   1. the framebuffer was small, so the rasteriser rounded every vertex to
 //      the nearest pixel of a 320x240 or 480x270 buffer and the geometry
@@ -14,26 +14,25 @@
 //      banded;
 //   4. the banding was hidden with an ordered dither pattern.
 //
-// Every one of those is a separate knob in this shader, and the global
-// `psx_amount` uniform is the master dial that mixes between "none of it"
-// and "all of it". The player picks that number in the settings panel.
+// Each is a separate knob here. The global `psx_amount` uniform is the master
+// dial between "none of it" and "all of it". The player picks that number in
+// the settings panel.
 //
-// The shader is written to be used as the base of a hand-made material: set
-// `albedo_color`, optionally drop in an `albedo_texture`, and leave the PSX
-// knobs alone unless you have a reason to move them.
+// Use this as the base of a hand-made material: set `albedo_color`, drop in an
+// `albedo_texture` if you need one, and leave the PSX knobs alone unless you
+// have a reason to move them.
 
 shader_type spatial;
 render_mode cull_back, diffuse_burley, specular_disabled;
 
-// The master dial. 0.0 is a clean modern surface, 1.0 is full PSX.
-// It is a *global* uniform, so the settings slider drives every material in
-// the game at once without touching a single material resource.
+// The master dial. 0.0 gives a clean modern surface; 1.0 gives the full look.
+// It is global, so one settings slider reaches every material in the game
+// without changing a material resource.
 global uniform float psx_amount;
 
-// The master switch for the swimming textures. It is a global as well, so
-// the player can turn the warping off everywhere in one go. It is off by
-// default: warped textures are hard to read, and readability wins until the
-// player asks otherwise.
+// The master switch for swimming textures. This one is global too, so the
+// player can turn warping off everywhere. It starts off because warped
+// textures are hard to read.
 global uniform float psx_affine;
 
 uniform vec4 albedo_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
@@ -58,11 +57,11 @@ uniform vec2 psx_grid = vec2(480.0, 270.0);
 varying vec2 v_affine_uv;
 varying float v_clip_w;
 
-// The two smallest ordered dither matrices, folded into one function.
+// The two smallest ordered dither matrices share one bit trick.
 //
-// bayer2 gives the 2x2 matrix, bayer4 the 4x4 one. Both are built from a
-// bit trick rather than a lookup texture so the shader stays self-contained:
-// no extra texture, no extra VRAM, nothing to load.
+// bayer2 gives the 2x2 matrix, bayer4 the 4x4 one. Neither needs a lookup
+// texture, so the shader stays self-contained: no extra texture, no extra
+// VRAM, nothing to load.
 float bayer2(vec2 a) {
 	a = floor(a);
 	return fract(dot(a, vec2(0.5, a.y * 0.75)));
@@ -76,15 +75,15 @@ void vertex() {
 	vec4 view_position = MODELVIEW_MATRIX * vec4(VERTEX, 1.0);
 	vec4 clip = PROJECTION_MATRIX * view_position;
 
-	// The affine trick: hand the fragment stage UVs that have already been
-	// multiplied by the clip-space w. The hardware interpolates them with
-	// perspective correction, and dividing them by the interpolated w again
-	// cancels that correction out. What is left is the straight screen-space
-	// interpolation the PlayStation did, and the texture swims.
+	// The affine trick gives the fragment stage UVs that have already been
+	// multiplied by clip-space w. The hardware interpolates them with
+	// perspective correction. Dividing them by the interpolated w again
+	// cancels that correction, leaving the straight screen-space interpolation
+	// the PlayStation used. The texture swims.
 	v_clip_w = clip.w;
 	v_affine_uv = UV * clip.w;
 
-	// Vertex snapping: round the clip-space position to the nearest pixel of
+	// Vertex snapping rounds the clip-space position to the nearest pixel of
 	// the internal buffer. The wobble is the whole reason the era looks the
 	// way it does.
 	float snap = clamp(psx_amount * vertex_snap, 0.0, 1.0);
@@ -100,8 +99,8 @@ void fragment() {
 	float amount = clamp(psx_amount, 0.0, 1.0);
 
 	// Pick between the perspective-correct UVs and the affine ones.
-	// `affine_warp` is the per-material knob (an art decision: some surfaces
-	// should swim and others should not) and `psx_affine` is the player's
+	// `affine_warp` is the per-material knob. It is an art decision: some
+	// surfaces should swim and others should not. `psx_affine` is the player's
 	// master switch. Both have to be on before anything warps.
 	vec2 uv = UV;
 	float warp = clamp(amount * affine_warp * psx_affine, 0.0, 1.0);
@@ -121,8 +120,8 @@ void fragment() {
 	SPECULAR = 0.0;
 	EMISSION = emission_color.rgb * emission_energy;
 
-	// The dither and the colour depth. The threshold is centred on zero so
-	// that at dither_strength 0.0 nothing moves at all.
+	// The dither and the colour depth. The threshold is centred on zero, so
+	// dither_strength 0.0 changes nothing at all.
 	float dither = clamp(amount * dither_strength, 0.0, 1.0);
 	if (dither > 0.0) {
 		float threshold = (bayer4(mod(floor(FRAGCOORD.xy), 4.0)) - 0.5) * dither;

@@ -38,7 +38,8 @@ Every scene path in the index has to match the pattern exactly. The world data
 test checks it, and so does anything that loads a section by id.
 
 The id is stable. Splits, saves, leaderboards and community route files all
-use it, so renaming a section breaks somebody's splits file.
+use it, so renaming a section breaks somebody's splits file. I've renumbered
+exactly one section in this project and I still think about it.
 
 ## What goes in a section scene
 

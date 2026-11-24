@@ -14,19 +14,18 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
-## A small kinematic harness that plays a technique and reports what the
+## A kinematic harness for playing one technique and measuring what the
 ## movement code actually does with it.
 ##
-## It exists because the interesting mechanics are the ones nobody planned.
-## The rule for WindShear is simple: a technique is discovered with the test
-## harness first, and only afterwards does anybody decide whether it is a
-## feature, a bug or a non-starter. Nothing in the game code is written to
-## make a technique work — it is written to make the *verb* work, and the
-## technique falls out of the numbers.
+## The interesting mechanics are the ones nobody planned. WindShear finds a
+## technique with this harness first. Only afterwards does somebody decide
+## whether it is a feature, a bug or a non-starter. The game code does not
+## make a technique work. It makes the verb work, and the technique falls out
+## of the numbers.
 ##
-## The harness does not use the physics engine. It runs the controller frame
-## by frame and keeps a crude ground model of its own, which is enough for
-## speed questions and keeps the probes deterministic.
+## There is no physics engine here. The controller runs frame by frame and
+## the harness keeps a crude ground model of it's own. That is enough for speed
+## questions in metres per second, and it keeps every probe deterministic.
 extends RefCounted
 class_name MovementProbe
 
@@ -50,7 +49,8 @@ var final_speed := 0.0
 var jumps := 0
 ## The number of slides that started.
 var slides := 0
-## The longest wall-kiss chain that happened.
+## The longest wall-jump chain that happened. The counter keeps the old
+## internal name.
 var kisses := 0
 ## The largest air acceleration contribution that was reached.
 var max_air_bonus := 0.0
@@ -92,7 +92,7 @@ func run(frames: int, script: Callable) -> void:
 	final_speed = absf(_controller.velocity.x)
 
 
-## The keyboard state of the probe, for scripts that want to look at it.
+## Returns the controller so a probe script can inspect its state.
 func controller() -> Object:
 	return _controller
 

@@ -14,8 +14,8 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
-## Checks every section cell against the per-cell budgets from
-## `TECH_SPEC.md` §2 and §12:
+## Checks every section cell against the per-cell budgets in `TECH_SPEC.md`
+## §2 and §12:
 ##
 ## [codeblock]
 ## textures <= 45 MB   meshes <= 20 MB   audio <= 12 MB
@@ -27,7 +27,7 @@
 ## godot --headless --path . --script res://tools/cell_budget_checker.gd
 ## [/codeblock]
 ##
-## The budgets are a hard requirement, not a suggestion: the game has to run
+## These budgets are a hard requirement, not a suggestion. The game has to run
 ## on a 4 GB machine without swapping.
 extends SceneTree
 

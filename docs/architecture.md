@@ -107,6 +107,8 @@ The mouse handles the camera and both triggers because it's already in the hand 
 
 The generator also deletes retired actions. If an action is renamed, the old name can't linger in `project.godot`. `tests/test_input_map.gd` checks the scheme itself and confirms that the camera rig reads the keyboard look actions; an action nobody reads doesn't do anything.
 
+I added the delete step after renaming `mantle` to `ledge_grab` and finding that the old action was still in the file, still bound, and still being read by nothing. It's the kind of thing that lives for a year before somebody notices.
+
 ### `core/ws_game.gd` — the autoload
 
 `project.godot` registers this as `WsGame`. It owns the few values that need to survive a scene change: game mode, run clock and player settings.
@@ -207,7 +209,7 @@ The code-policy test scans `addons/windshear/`, `world/` and `ui/` for `randf()`
 
 Gameplay happens on the XY plane. The player's Z velocity is forced to zero every frame, and the level geometry is placed on that plane.
 
-Depth is visual and staged: foreground occluders, the play plane, mid-ground, the city shell and the skybox. The greybox has a guide wall at z = -0.5 and a side wall rather than a back wall. The wall-kiss needs a wall whose normal points along Z.
+Depth is visual and staged: foreground occluders, the play plane, mid-ground, the city shell and the skybox. The greybox has a guide wall at z = -0.5 and a side wall rather than a back wall. The wall-jump needs a wall whose normal points along Z.
 
 The greybox suite and discovery suite check this. No technique may produce a Z velocity.
 

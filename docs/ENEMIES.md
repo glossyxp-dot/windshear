@@ -21,6 +21,10 @@ patrol, its charge, its arc and its wind-up are all visible before they hurt
 you. The Concord's whole design assumption is that a threat arrives slowly
 enough to be avoided. The trick of the game is that you arrive faster.
 
+Eleven of them, and each one costs a room to build properly. A roster of
+twenty would have gone in the same time and taught the player less, since
+the point is that every silhouette means one thing and only one thing.
+
 ---
 
 ## The Fracture Year
@@ -84,7 +88,7 @@ back as a fire-bomb.
 
 A high-perch marksman with an M98 "Longhorn" Carbine and a visible cyan
 targeting laser. Forty-five HP a hit, which is most of a health bar, so the
-laser is the warning and the laser is always visible.
+laser is the warning and the the laser is always visible.
 
 It drops 7.62mm marksman clips and EMP / Signal Scrambler Flares.
 

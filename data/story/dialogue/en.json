@@ -14,25 +14,25 @@
       "display_name": "Lancer",
       "color": "#82CFFF",
       "silent": true,
-      "note": "Lancer Ivanov. Lancer never speaks. Lines attached to this speaker are bracketed action directions, and there are no pronouns for Lancer anywhere in any locale."
+      "note": "Lancer Ivanov never speaks. Lines attached here are bracketed action directions. I don't use pronouns for Lancer in any locale."
     },
     {
       "id": "the_concord",
       "display_name": "THE CONCORD",
       "color": "#F2C879",
-      "note": "The siege organism itself. It speaks through street displays, PA chimes and containment logs."
+      "note": "The siege organism itself. It speaks through street displays, PA chimes and containment logs. There is no face and no ego behind the voice."
     },
     {
       "id": "ilsa_renn",
       "display_name": "Ilsa Renn",
       "color": "#86D69A",
-      "note": "The prequel protagonist, Lancer's mentor, and the Concord's FIRST RUNNER. A veteran smuggler who trained Lancer, and a military dispatch runner during the Fracture Year who carved the first illegal routes across the walls. She is silent in the prequel, like Lancer."
+      "note": "The prequel protagonist and Lancer's mentor. Ilsa is also the Concord's FIRST RUNNER: a veteran smuggler who trained Lancer, then a military dispatch runner during the Fracture Year. She says nothing in the five prequel chapters. In the present day, she talks."
     },
     {
       "id": "warden_saye",
       "display_name": "Warden Saye",
       "color": "#F08A8A",
-      "note": "Human containment enforcement. A young logistics officer in the prequel, and twenty years later the exhausted administrator who signed the isolation accords."
+      "note": "Human containment enforcement. Saye is a young logistics officer in the prequel, and the exhausted administrator who signed the isolation accords twenty years later. She talks at Lancer across checkpoints and security glass."
     },
     {
       "id": "first_runner",
@@ -44,19 +44,19 @@
       "id": "civil_defense",
       "display_name": "CIVIL DEFENSE",
       "color": "#D8D2B8",
-      "note": "The civil-defence broadcasts of the Fracture Year. The Concord has not taken the channel over yet."
+      "note": "The civil-defence broadcasts of the Fracture Year. A channel with a voice on it and nobody behind it. The Concord has not taken the channel over yet."
     },
     {
       "id": "aris_thorne",
       "display_name": "Dr. Aris Thorne",
       "color": "#C9B79A",
-      "note": "Lead biomechanical containment researcher at the Longhorn Biological Facility. He gives Ilsa the master override key during the drop, and he is still alive inside the Monolith twenty years later."
+      "note": "Lead biomechanical containment researcher at the Longhorn Biological Facility. He gives Ilsa the master override key during the drop. He is still alive inside the Monolith twenty years later."
     },
     {
       "id": "sergeant_miller",
       "display_name": "Sergeant Miller",
       "color": "#B7B79A",
-      "note": "An infantry squad leader holding the perimeter around Central Station and the Longhorn Facility during the Fracture Year."
+      "note": "An infantry squad leader holding the perimeter around Central Station and the Longhorn Facility during the Fracture Year. He appears in the prequel only, chapters P1 to P3."
     },
     {
       "id": "henrik_solberg",
@@ -75,7 +75,7 @@
     {
       "id": "en.001",
       "speaker_id": "lancer",
-      "text": "[Lancer reads the dispatch on the wall panel and starts running. The panel is not answered.]"
+      "text": "[Lancer reads the dispatch on the wall panel, then runs. The panel gets no answer.]"
     },
     {
       "id": "en.002",
@@ -130,7 +130,7 @@
     {
       "id": "en.012",
       "speaker_id": "lancer",
-      "text": "[Lancer steps into the intake shaft and the hatch closes behind them.]"
+      "text": "[Lancer steps into the intake shaft. The hatch closes behind Lancer.]"
     },
     {
       "id": "en.013",
@@ -425,7 +425,7 @@
     {
       "id": "en.071",
       "speaker_id": "lancer",
-      "text": "[Lancer shifts the relay crate onto their shoulder. It is heavier than the manifest says.]"
+      "text": "[Lancer shifts the relay crate onto one shoulder. It is heavier than the manifest says.]"
     },
     {
       "id": "en.072",
@@ -435,7 +435,7 @@
     {
       "id": "en.073",
       "speaker_id": "lancer",
-      "text": "[Lancer reads the Longhorn signage twice. The arrows still point where they pointed twenty years ago.]"
+      "text": "[Lancer reads the Longhorn signage twice. The arrows still point in the same direction as twenty years ago.]"
     }
   ]
 }

@@ -1,4 +1,4 @@
-# WindShear — the PSX look, as a dial
+# WindShear — the PSX look (global shader controls)
 # Copyright (C) 2026 the WindShear contributors
 #
 # This program is free software; you can redistribute it and/or modify it
@@ -14,15 +14,14 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
-## The PSX look is not one effect but four (vertex snapping, affine texture
-## warping, 5-bit colour and ordered dithering), and the player gets to
-## choose how much of it there is.
+## The PSX look is four things: vertex snapping, affine texture warping,
+## 5-bit colour and ordered dithering. The player chooses how much of it to
+## apply.
 ##
-## The trick that makes this cheap is the *global* shader uniform. The
-## amount is registered once in `project.godot` under `shader_globals/`, and
-## every material that uses `ws_psx.gdshader` reads it. Moving the slider
-## therefore changes the whole game at once without touching a single
-## material resource, and without a per-frame shader parameter push.
+## The global shader uniform keeps this cheap. The amount is registered once
+## in `project.godot` under `shader_globals/`, and every material using
+## `ws_psx.gdshader` reads it. Moving the slider changes the whole game at
+## once. No material resource changes, and no per-frame shader parameter push.
 extends RefCounted
 class_name WsPsx
 
@@ -95,9 +94,9 @@ static func write_config(config: ConfigFile, amount: float, affine: bool) -> voi
 
 ## Builds a material that uses the PSX shader.
 ##
-## The art in this project is made by hand, so this helper exists to make
-## the hand-made material easy to write: give it a colour, tweak the result
-## in the inspector, and it behaves like any other material.
+## The art in this project is made by hand, so this helper keeps that material
+## easy to write. Give it a colour, tweak the result in the inspector, and it
+## behaves like any other material.
 static func make_material(albedo: Color) -> ShaderMaterial:
 	var material := ShaderMaterial.new()
 	material.shader = PSX_SHADER
@@ -108,11 +107,11 @@ static func make_material(albedo: Color) -> ShaderMaterial:
 
 ## Sets the affine knob on every PSX material below [param root].
 ##
-## The knob is a per-material number rather than a global one because the
-## amount of swimming is an art decision: some surfaces should swim and
-## others should not. Setting it to 1.0 means "follow the player's master
-## switch", setting it to 0.0 means "never swim". The player's switch lives
-## in the global `psx_affine` uniform and is multiplied in by the shader.
+## Every material keeps it's own local affine knob. The amount of swimming is an
+## art decision: some surfaces should swim and others should not. Setting the
+## knob to 1.0 means "follow the player's master switch"; setting it to 0.0
+## means "never swim". The player's switch lives in the global `psx_affine`
+## uniform and the shader multiplies it in.
 static func apply_affine(root: Node, enabled: bool) -> void:
 	for node in _psx_materials(root):
 		var material := node as ShaderMaterial

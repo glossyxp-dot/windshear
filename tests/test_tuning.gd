@@ -15,8 +15,9 @@
 # with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
 ## The numbers in `TECH_SPEC.md` §3 are a contract. If somebody tunes the
-## controller and forgets to update the document — or the other way round —
-## the speedrun community finds out the hard way. This suite is the alarm.
+## controller and forgets the document, or updates the document and forgets
+## the controller, the speedrun community finds out the hard way. This suite
+## is the alarm.
 extends "res://tests/ws_test.gd"
 
 ## Movement tuning constants.
@@ -54,15 +55,19 @@ func run() -> void:
 	same(Tuning.SLIDE_FRAMES, 27, "slide duration in frames")
 	near(Tuning.SLIDE_FRICTION, 6.0, 0.0001, "slide friction")
 
-	heading("wall-kiss")
-	same(Tuning.WALL_KISS_WINDOW_FRAMES, 2, "wall-kiss window in frames")
-	near(Tuning.WALL_KISS_BOOST, 0.8, 0.0001, "wall-kiss boost")
-	same(Tuning.WALL_KISS_CAP, 3, "wall-jump chain cap")
-	same(Tuning.WALL_KISS_FRACTURE_CAP, 5, "the Fracture chain cap")
-	same(Tuning.WALL_KISS_CHAIN_FRAMES, 30, "wall-kiss chain expiry in frames")
-	near(Tuning.WALL_KISS_SPEED_CEILING, 16.4, 0.0001, "wall-jump horizontal speed ceiling")
+	# The base chain stops at three: 14.0 m/s plus three boosts of 0.8 m/s
+	# gives the hard 16.4 m/s ceiling. The shipped wall_kiss_chain Fracture
+	# takes the chain to five and the ceiling to 18.0 m/s.
+	heading("wall-jump")
+	same(Tuning.WALL_KISS_WINDOW_FRAMES, 2, "the wall-jump window is two frames")
+	near(Tuning.WALL_KISS_BOOST, 0.8, 0.0001, "the wall-jump boost is 0.8 m/s")
+	same(Tuning.WALL_KISS_CAP, 3, "the wall-jump chain cap is three")
+	same(Tuning.WALL_KISS_FRACTURE_CAP, 5, "the shipped Fracture chain cap is five")
+	same(Tuning.WALL_KISS_CHAIN_FRAMES, 30, "the wall-jump chain expires after 30 frames")
+	near(Tuning.WALL_KISS_SPEED_CEILING, 16.4, 0.0001,
+		"the wall-jump horizontal speed ceiling is 16.4 m/s")
 	near(Tuning.WALL_KISS_FRACTURE_SPEED_CEILING, 18.0, 0.0001,
-		"the Fracture horizontal speed ceiling")
+		"the Fracture horizontal speed ceiling is 18.0 m/s")
 
 	heading("filament")
 	near(Tuning.FILAMENT_LOCK_TIME, 0.25, 0.0001, "filament lock-on time")

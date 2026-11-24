@@ -14,28 +14,34 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
-## The section grid, the gate schedule and the story layer are all JSON that
-## the game reads at boot. A typo in an id does not crash anything — it just
-## quietly takes a level out of the campaign, which is the kind of bug that
-## survives to a release. So the grid gets checked here.
+## The section grid, gate schedule and story layer are JSON that the game
+## reads at boot. A typo in an id does not crash anything. It quietly takes a
+## level out of the campaign, which is the kind of bug that survives to a
+## release, so the grid gets checked here.
 ##
-## The shape that is checked:
+## The campaign is 25 chapters of 12 sections in seven acts. Act 0 is the
+## Fracture Year prequel, P1 through P5.
 ##
-## - twenty chapters of twelve sections, numbered 1.01 through 20.12
-## - every section has a gate in the schedule, and every gate has a window
-## - every beat points at a section that exists
-## - every ending points at a section and a Fracture that exist
+## The checks cover:
+## [br]- 25 chapters of 12 sections, numbered P1.01 through P5.12 and 1.01 through 20.12;
+## [br]- every section has a gate in the schedule, and every gate has a window;
+## [br]- every beat points at a section that exists;
+## [br]- every ending points at a section and a Fracture that exist.
 ##
 ## The loops collect everything that is wrong and report it in one failure
-## message, because a suite that prints two hundred identical failures is a
-## suite nobody reads.
+## message. A suite that prints two hundred identical failures is a suite
+## nobody reads.
 extends "res://tests/ws_test.gd"
 
-## The number of chapters in the official world.
+## The campaign has twenty-five chapters.
 const CHAPTER_COUNT := 25
-## The chapters of the present day, numbered 1 to 20.
+## The present day runs from chapter 1 to chapter 20.
 const PRESENT_CHAPTER_COUNT := 20
-## The Fracture Year prequel, played as Ilsa Renn.
+## The campaign runs in seven acts: Act 0 is the prequel, Acts I to VI are
+## the present day.
+const ACT_COUNT := 7
+## Act 0: the five Fracture Year prequel chapters, played as Ilsa Renn.
+## Ilsa says nothing in any of them.
 const PREQUEL_CHAPTERS := ["P1", "P2", "P3", "P4", "P5"]
 ## The number of sections in every chapter.
 const SECTIONS_PER_CHAPTER := 12
@@ -166,6 +172,22 @@ func _test_the_grid_shape() -> void:
 	same(int(_index.get("_meta", {}).get("chapter_count", 0)), CHAPTER_COUNT,
 		"the index metadata agrees")
 
+	# Seven acts, and the act numbers have to be the ones we ship: 0 for the
+	# Fracture Year prequel and 1 to 6 for the present day.
+	same(int(_index.get("_meta", {}).get("act_count", 0)), ACT_COUNT,
+		"the index metadata records seven acts")
+	var act_numbers: Array = []
+	for chapter in chapters:
+		var act := int(chapter.get("act", -1))
+		if not act_numbers.has(act):
+			act_numbers.append(act)
+	act_numbers.sort()
+	var wanted_acts := []
+	for act in range(0, ACT_COUNT):
+		wanted_acts.append(act)
+	text(str(act_numbers), str(wanted_acts),
+		"the chapters cover acts 0 to 6 with none missing")
+
 	# The ids have to run P1.01 to P5.12 and 1.01 to 20.12 with nothing
 	# skipped, and nothing outside that range.
 	var missing: Array = []
@@ -210,8 +232,8 @@ func _test_the_grid_shape() -> void:
 			uneven.append("%s has %d" % [key, int(counts.get(key, 0))])
 	ok(uneven.is_empty(), "every chapter holds twelve sections (%s)" % _list_problems(uneven))
 
-	# The prequel has to be marked as such, and it is played as Ilsa Renn.
-	# The present day is played as Lancer.
+	# The prequel belongs to Act 0 and is played as Ilsa Renn. The present day
+	# is played as Lancer.
 	var bad_players: Array = []
 	var bad_acts: Array = []
 	for chapter in chapters:

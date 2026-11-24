@@ -1,4 +1,4 @@
-# WindShear — the movement greybox (Milestone 0 test room)
+# WindShear — the movement greybox (the Milestone 0 test room)
 # Copyright (C) 2026 the WindShear contributors
 #
 # This program is free software; you can redistribute it and/or modify it
@@ -14,8 +14,8 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
-## A plain room with nothing in it but the things Lancer can touch: a floor,
-## a few platforms, one ramp, one wall to kiss, and a line of wayfinding
+## A plain room with nothing in it but the things Lancer can touch: a floor, a
+## few platforms, one ramp, one wall for wall-jumps, and a line of wayfinding
 ## strips so the route reads at a glance even without any art.
 ##
 ## The art here is deliberately unfinished — charcoal boxes and a thin blue
@@ -27,7 +27,7 @@ class_name MovementGreybox
 const Tuning := preload("res://addons/windshear/core/ws_tuning.gd")
 ## The player controller script.
 const LancerControllerScript := preload("res://addons/windshear/movement/lancer_controller.gd")
-## The speed meter, in metres per second.
+## The speed meter, in m/s.
 const SpeedMeter := preload("res://addons/windshear/movement/speed_meter.gd")
 
 ## Where Lancer starts (and respawns).
@@ -38,7 +38,7 @@ const SpeedMeter := preload("res://addons/windshear/movement/speed_meter.gd")
 @onready var _help_panel: PanelContainer = $HUD/HelpPanel
 @onready var _help_label: Label = $HUD/HelpPanel/Label
 
-## The speed readout, in metres per second.
+## The speed readout, in m/s.
 var _meter := SpeedMeter.new()
 
 var _hud_timer := 0
@@ -70,10 +70,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		_help_panel.visible = not _help_panel.visible
 
 
-## The mechanics reference, read straight off the tuning constants.
+## Builds the mechanics reference from the tuning constants.
 ##
-## It is built once, when the room opens, so it can never drift away from
-## what the controller actually does.
+## The room builds it once, when it opens, so the text can't drift from what the
+## controller actually does.
 func _build_help_text() -> String:
 	var lines := PackedStringArray()
 	lines.append("LANCER")
@@ -120,9 +120,8 @@ func _jump_apex() -> float:
 
 ## Refreshes the speed readout.
 ##
-## The speed is in metres per second. The current number is the horizontal
-## speed right now and the peak is the fastest reading since the last
-## respawn, which is the number a speedrunner actually wants.
+## The speed is in m/s. The current number is the horizontal speed right now.
+## The peak is the fastest reading since the last respawn.
 func _refresh_hud() -> void:
 	_meter.sample(_player.velocity)
 	var position := _player.global_position

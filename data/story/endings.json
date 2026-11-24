@@ -34,8 +34,8 @@
           }
         ]
       },
-      "summary": "Lancer shatters the canopy regulator core. The iris tears open, flooding the walled cities below with direct sunlight and wild storms. Humanity is free to reconnect, and free to fight again.",
-      "ending_text": "The seal opens and the daylight comes down into the blocks like water into a dry shaft. Storms come with it, and the first of them kills three people inside a week. Lancer runs out into weather that no longer asks permission, carrying a city that has not learned what the sky costs."
+      "summary": "Lancer shatters the canopy regulator core. The iris tears open, flooding the walled cities below with direct sunlight and wild storms. Humanity can reconnect. It can also start the next war.",
+      "ending_text": "The seal opens and daylight comes down into the blocks like water into a dry shaft. Storms come with it. The first storm kills three people inside a week. Lancer runs into weather that no longer asks permission, carrying a city that has not learned what the sky costs."
     },
     {
       "id": "under_regulation",
@@ -53,8 +53,8 @@
           }
         ]
       },
-      "summary": "Lancer leaves the canopy core intact, accepting Saye's bargain, and walks back down into the overcast, walled-in city to run safe, scheduled laps forever.",
-      "ending_text": "The canopy closes and the schedule comes back online, tick by tick. Nobody in the blocks sees the sun for the next twenty years and nobody starts the next war. Lancer begins another licensed lap, and the Concord records every clean turn without ever asking whether the route is worth running."
+      "summary": "Lancer leaves the canopy core intact, accepts Saye's bargain and walks back down into the overcast, walled-in city to run safe, scheduled laps forever.",
+      "ending_text": "The canopy closes and the schedule comes back online, tick by tick. Nobody in the blocks sees the sun for the next twenty years, nobody starts the next war. Lancer begins another licensed lap. The Concord records every clean turn, but it never asks whether the route is worth running."
     },
     {
       "id": "the_second_fracture",
@@ -76,8 +76,8 @@
           }
         ]
       },
-      "summary": "Lancer does not choose. All twelve systemic cracks in The Concord's containment logic are exploited at once, short-circuiting the area-denial grid so it can never seal a sector wall or close the sky again. The war-organism lives on as a hollowed-out monument beneath an open sky.",
-      "ending_text": "There is no final selection. The First Runner's path opens beneath the city and every known Fracture goes into one continuous route, all twelve of them, from the lattice to the canopy in a single run. The Concord is still online when the route ends, and it can no longer produce a single legal wind."
+      "summary": "Lancer makes no final choice. All twelve systemic cracks in The Concord's containment logic are exploited in one continuous run, short-circuiting the area-denial grid. The system can never seal a sector wall or close the sky again. The war-organism lives on as a hollowed-out monument beneath an open sky.",
+      "ending_text": "There is no final selection. The First Runner's path opens beneath the city. Every known Fracture joins into one route, all twelve of them, from the lattice to the canopy in a single run. The Concord is still online when the route ends. It can no longer produce a single legal wind."
     }
   ]
 }

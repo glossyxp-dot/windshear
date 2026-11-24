@@ -14,28 +14,28 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
-## The rules from `CONTRIBUTING.md` that a reviewer cannot check by reading
-## a diff:
+## These are the rules from `CONTRIBUTING.md` that a reviewer cannot check by
+## reading a diff:
 ##
-## [br]- every script carries the GPL notice (the copyleft depends on it);
-## [br]- no global random numbers in gameplay code (replays must match);
-## [br]- no allocation in the frame loops (the GC stutter ruins a run);
-## [br]- no `await` in the frame loops (a coroutine frame loop is a bug).
+## [br]- every script carries the GPL notice, because the copyleft depends on it;
+## [br]- gameplay code does not use global random numbers, because replays must match;
+## [br]- frame loops do not allocate, because GC stutter ruins a run;
+## [br]- frame loops do not `await`, because a coroutine frame loop is a bug.
 ##
-## The rule about allocation is enforced on the shipped runtime code under
-## `addons/windshear/`. Developer tools and the greybox HUD are exempt: a
-## label that refreshes ten times a second is not a frame loop problem.
+## Allocation is checked in the shipped runtime code under `addons/windshear/`.
+## Developer tools and the greybox HUD are exempt. A label that refreshes ten
+## times a second is not a frame loop problem.
 extends "res://tests/ws_test.gd"
 
-## Directories that hold gameplay code.
+## Gameplay code lives in these directories.
 const GAMEPLAY_DIRS := ["res://addons/windshear", "res://world", "res://ui"]
-## Directories where the frame loop rule is enforced.
+## The frame-loop rule is enforced only in shipped runtime code.
 const STRICT_DIRS := ["res://addons/windshear"]
 
-## The global random functions that must not appear in gameplay code.
+## Global random functions do not belong in gameplay code.
 const RANDOM_FUNCTIONS := ["randf_range", "randi_range", "randfn", "randf", "randi", "randomize"]
 
-## Patterns that mean "something was allocated" inside a frame loop.
+## Text that means something was allocated inside a frame loop.
 const ALLOCATION_PATTERNS := [
 	".new(", ".instantiate(", ".duplicate(", ".append(", ".filter(", ".map(",
 	"= []", "= {}", "await ",

@@ -15,9 +15,9 @@
 # with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
 ## Replays, ghosts and personal bests only work if the simulation is
-## deterministic. These tests run the same input twice and demand bit-identical
-## results, and they check that the section-seeded generator produces the same
-## sequence every time.
+## deterministic. These tests run the same input twice and demand identical
+## results. They also check that a section seed produces the same sequence
+## every time.
 extends "res://tests/ws_test.gd"
 
 ## The player controller.
@@ -47,7 +47,7 @@ func _replay(frames: int) -> Array:
 	var input := InputState.new()
 	var trace := PackedFloat32Array()
 	for frame in range(frames):
-		# a route with everything in it: running, a jump, a slide, air time
+		# A route with everything in it: running, a jump, a slide and air time.
 		input.on_floor = (frame % 97) < 61
 		input.move_axis = 1.0 if (frame % 31) < 24 else -1.0
 		input.jump_pressed = (frame % 97) == 60

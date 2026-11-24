@@ -1,4 +1,4 @@
-# WindShear — global game state and settings (autoload: WsGame)
+# WindShear — global game state and settings (the WsGame autoload)
 # Copyright (C) 2026 the WindShear contributors
 #
 # This program is free software; you can redistribute it and/or modify it
@@ -14,12 +14,11 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
-## The autoload singleton. It owns the handful of values that have to survive
-## a scene change: the current mode, the run clock, and the player's settings.
+## The autoload singleton. A few values have to survive a scene change: the
+## current mode, the run clock, and the player's settings.
 ##
-## There is deliberately no `class_name` on this file — the autoload singleton
-## is registered under the name `WsGame`, and a global class with the same
-## name would shadow it.
+## There is no `class_name` on this file. The autoload singleton is registered
+## as `WsGame`; a global class with the same name would shadow it.
 extends Node
 
 ## The modes the game can be in.
@@ -48,7 +47,7 @@ const Psx := preload("res://addons/windshear/render/ws_psx.gd")
 var mode: Mode = Mode.BOOT
 ## Frames elapsed in the current run (60 per second).
 var run_frames := 0
-## Section the current run is in, e.g. "1.01".
+## Section identifier for the current run, e.g. "P1.01".
 var current_section := ""
 ## Seconds elapsed in the current run.
 var run_seconds := 0.0
@@ -114,8 +113,8 @@ func finish_run() -> void:
 ##
 ## The seed is an FNV-1a hash of the section id, so it does not depend on the
 ## engine's string hashing and stays identical across builds and platforms.
-## Section-scoped randomness goes through this generator — never through the
-## global `randf()` family, which would break replay determinism.
+## Section-scoped randomness goes through this generator. The global random
+## number functions would break replay determinism.
 func rng_for_section(section_id: String) -> RandomNumberGenerator:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = section_seed(section_id)

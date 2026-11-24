@@ -28,7 +28,7 @@
   body.css-collapsed #app { grid-template-rows: 42px 1fr 0px; }
   body.css-collapsed #css-pane { display: none; }
 
-  /* ---------- top bar ---------- */
+  /* The top bar holds artboard settings, tools and file actions. */
   #topbar {
     display: flex; align-items: center; gap: 8px; padding: 0 10px;
     background: var(--panel); border-bottom: 1px solid var(--line);
@@ -59,7 +59,7 @@
   input[type="checkbox"] { accent-color: var(--accent); }
   .spacer { flex: 1; }
 
-  /* ---------- main ---------- */
+  /* Three panes: layers, canvas and properties. */
   #main { display: grid; grid-template-columns: 190px 1fr 232px; min-height: 0; }
   .pane { background: var(--panel); min-height: 0; overflow: auto; }
   #layers { border-right: 1px solid var(--line); }
@@ -85,7 +85,7 @@
   .layer .nm { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .empty { padding: 14px 10px; color: #5a6068; }
 
-  /* ---------- canvas ---------- */
+  /* The artboard sits on a checkerboard backdrop. */
   #canvas-wrap {
     overflow: auto;
     background:
@@ -135,7 +135,7 @@
     background: rgba(74,163,255,.12); pointer-events: none; display: none; z-index: 10001;
   }
 
-  /* ---------- preview mode ---------- */
+  /* Preview mode uses the same elements as design mode. */
   body.preview .el { cursor: default; }
   body.preview #artboard { box-shadow: 0 0 0 1px #4aa3ff88, 0 18px 50px rgba(0,0,0,.65); }
   button.el {
@@ -165,7 +165,7 @@
     margin-left: -5px;
   }
 
-  /* ---------- properties ---------- */
+  /* Property rows for the selected element. */
   .row { display: grid; grid-template-columns: 78px 1fr; gap: 6px; align-items: center; padding: 3px 10px; }
   .row > label { color: var(--dim); font-size: 10px; text-transform: uppercase; letter-spacing: .05em; }
   .row input[type="text"], .row input[type="number"], .row select { width: 100%; }
@@ -178,7 +178,7 @@
   .hint { padding: 6px 10px; color: #5f666e; font-size: 11px; }
   .warn { color: #e0a33c; }
 
-  /* ---------- css output ---------- */
+  /* Exported CSS. */
   #css-pane { border-top: 1px solid var(--line); background: var(--panel); display: grid; grid-template-rows: 30px 1fr; }
   #css-head { display: flex; align-items: center; gap: 8px; padding: 0 10px; border-bottom: 1px solid var(--line); }
   #css-head h3 { border: 0; padding: 0; position: static; background: none; }
@@ -290,7 +290,7 @@
       <tr><th>Inputs</th><td>Click and type — the text is saved with the element and exported.</td></tr>
       <tr><th>Toggles</th><td>Click to flip on/off (the knob slides and the fill changes).</td></tr>
       <tr><th>Sliders</th><td>Click or drag along the track to move the knob.</td></tr>
-      <tr><th>Status line</th><td>Under the artboard shows the last interaction, so you can confirm every element is wired to something.</td></tr>
+      <tr><th>Status line</th><td>The status line under the artboard records the last interaction. Use it to confirm that an element is wired to something.</td></tr>
     </table>
     <b>What the CSS maps to in Godot</b>
     <table>
@@ -312,7 +312,7 @@
 <script>
 "use strict";
 
-/* ------------------------------------------------------------------ state */
+/* Artboard state, elements and undo history. */
 const KINDS = {
   rect:   { label: "Rect",   def: { w: 120, h: 40,  fill: "#1b1f27", radius: 0, strokeWidth: 0, stroke: "#2b3038" } },
   text:   { label: "Text",   def: { w: 120, h: 16,  fill: "transparent", fontSize: 11, fontColor: "#d7dbe0", text: "TEXT" } },
@@ -351,7 +351,7 @@ const marquee = $("#marquee");
 const propBody = $("#prop-body");
 const cssOut = $("#css");
 
-/* ---------------------------------------------------------------- helpers */
+/* Small shared helpers. */
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 function snapVal(v) {
   if (!state.snap) return Math.round(v * 100) / 100;
@@ -370,7 +370,7 @@ function byId(id) { return state.els.find((e) => e.id === id); }
 function selected() { return state.sel.map(byId).filter(Boolean); }
 function isPreview() { return state.mode === "preview"; }
 
-/* ---------------------------------------------------------------- history */
+/* Undo and redo. */
 function snapshot() {
   return JSON.stringify({ ab: state.ab, grid: state.grid, els: state.els });
 }
@@ -396,7 +396,7 @@ function redo() {
   restore(state.future.pop());
 }
 
-/* -------------------------------------------------------------- elements */
+/* Creating and changing elements. */
 function makeEl(kind, x, y, w, h) {
   const def = KINDS[kind].def;
   return Object.assign({
@@ -461,7 +461,7 @@ function reorder(dir) {
   render();
 }
 
-/* ---------------------------------------------------------------- render */
+/* Repaint the canvas and its side panes. */
 function applyZoom() {
   const sel = $("#zoom");
   const v = sel.value;
@@ -743,7 +743,7 @@ function updateStatus() {
   msg.innerHTML = "<b>Preview</b> — " + bits.map((b) => b.replace(/&/g, "&").replace(/</g, "<")).join(" &nbsp;·&nbsp; ");
 }
 
-/* ------------------------------------------------------------- properties */
+/* Property controls. */
 function renderProps() {
   const s = selected();
   propBody.innerHTML = "";
@@ -882,7 +882,7 @@ function normHex(c) {
   return "#000000";
 }
 
-/* ------------------------------------------------------------------- css */
+/* Turn the element list into CSS. */
 function buildCSS() {
   const taken = new Set();
   const used = new Map();
@@ -902,10 +902,10 @@ function buildCSS() {
   L.push(" * WindShear — UI reference (generated by ui_reference_editor.html)");
   L.push(" * Artboard: " + state.ab.w + " x " + state.ab.h + " px  (game's internal resolution)");
   L.push(" * 1 px here = 1 px in game. Grid: " + state.grid + " px.");
-  L.push(" * Convert to Godot: background/border/radius -> StyleBoxFlat in a Theme;");
-  L.push(" * colour/font/letter-spacing -> Theme Colors / Fonts / Constants;");
-  L.push(" * left/top/width/height -> Control offsets (or anchors) in the .tscn.");
-  L.push(" * Label text is carried in a /* text: \"...\" */ comment on each rule.");
+  L.push(" * Godot translation: background, border and radius become a StyleBoxFlat in a Theme;");
+  L.push(" * colour, font and letter spacing become Theme Colors, Fonts and Constants;");
+  L.push(" * left, top, width and height become Control offsets (or anchors) in the .tscn.");
+  L.push(" * Each label carries its text in a /* text: \"...\" */ comment.");
   L.push(" * ------------------------------------------------------------------ */");
   L.push("");
   L.push(":root {");
@@ -989,7 +989,7 @@ function updateCSS() {
   $("#css-stats").textContent = state.els.length + " element(s) · " + cssOut.value.length + " chars";
 }
 
-/* ------------------------------------------------------------ interaction */
+/* Pointer input. */
 function boardPoint(ev) {
   const r = artboard.getBoundingClientRect();
   return { x: (ev.clientX - r.left) / state.zoom, y: (ev.clientY - r.top) / state.zoom };
@@ -1150,7 +1150,7 @@ artboard.addEventListener("dblclick", (ev) => {
   }
 });
 
-/* ------------------------------------------------------------- shortcuts */
+/* Keyboard shortcuts. */
 function isTextEntryTarget(ev) {
   const t = ev.target;
   if (!t) return false;
@@ -1198,7 +1198,7 @@ window.addEventListener("keydown", (ev) => {
   else if (k === "escape") { state.sel = []; render(); }
 });
 
-/* ------------------------------------------------------------------ io */
+/* File and clipboard actions. */
 function download(name, text, mime) {
   const blob = new Blob([text], { type: mime || "text/plain" });
   const url = URL.createObjectURL(blob);
@@ -1230,7 +1230,7 @@ function flash(sel, msg) {
   setTimeout(() => { b.textContent = old; }, 1200);
 }
 
-/* ---------------------------------------------------------------- wiring */
+/* Connect the controls. */
 function syncInputs() {
   $("#ab-w").value = state.ab.w; $("#ab-h").value = state.ab.h;
   $("#ab-bg").value = normHex(state.ab.bg); $("#grid").value = state.grid;
@@ -1311,7 +1311,7 @@ $("#toggle-css").onclick = () => {
   render();
 };
 
-/* ------------------------------------------------------------- bootstrap */
+/* Seed the editor with a small demo. */
 const DEMO = [
   { kind: "text", name: "Game title", x: 52, y: 18, w: 240, h: 54, text: "WINDSHEAR", fontSize: 34, fontWeight: "700", letterSpacing: 2, fontColor: "#f2f4f6" },
   { kind: "button", name: "Load game", x: 52, y: 112, w: 180, h: 18, text: "LOAD GAME", fontSize: 11, fontWeight: "400", align: "left", fill: "transparent", fontColor: "#d7dbe0", hoverFill: "#d9801e", focusFill: "#8a5214", activeFill: "#f2a03c" },
@@ -1335,7 +1335,7 @@ const DEMO = [
   render();
 })();
 
-/* expose a tiny API for automated smoke checks */
+/* A tiny API for automated smoke checks. */
 window.__uiref = {
   state,
   buildCSS,

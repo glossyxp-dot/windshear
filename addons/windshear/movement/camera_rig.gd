@@ -1,4 +1,4 @@
-# WindShear — the 2.5D camera rig
+# WindShear — the 2.5D camera rig (camera and speed framing)
 # Copyright (C) 2026 the WindShear contributors
 #
 # This program is free software; you can redistribute it and/or modify it
@@ -14,15 +14,14 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
-## The camera rig is parented to Lancer and never leaves. There is no
-## cutscene camera in this game and there never will be — a major beat freezes
-## the world instead (see `GAME_DESIGN.md` §5).
+## The camera rig stays parented to Lancer. There is no separate cutscene
+## camera in this game. A major beat freezes the world instead (see
+## `GAME_DESIGN.md` §5).
 ##
 ## The rig owns three things:
 ## [br]- mouse, key and stick look, with a hard pitch clamp;
 ## [br]- the speed dolly, which pulls back and widens the field of view as
-##   Lancer picks up speed. It is the single most important camera tool for
-##   making speed feel fast;
+##   Lancer picks up speed;
 ## [br]- the vertical framing offset, so Lancer sits below the centre of the
 ##   frame with headroom for the jump arc.
 extends Node3D
@@ -35,10 +34,11 @@ const Tuning := preload("res://addons/windshear/core/ws_tuning.gd")
 @export var mouse_sensitivity := 0.0022
 ## Radians of rotation per second at full stick deflection.
 @export var controller_sensitivity := 3.0
-## Radians of rotation per second while a look key is held. A key turns the
-## camera at a fixed rate, the mouse turns it by pixels, and the two want
-## different numbers: the key rate is slower, so a keyboard player can line
-## the camera up instead of whipping it past the target.
+## Radians of rotation per second while a look key is held. The arrow keys turn
+## and tilt the camera; W and S tilt it only. They don't move Lancer because the
+## gameplay plane has no forward axis. The mouse turns the camera by pixels,
+## while a key uses a fixed rate. The key rate is slower so a keyboard player
+## can line up the camera instead of whipping it past the target.
 @export var key_sensitivity := 2.0
 ## Maximum pitch in either direction, in degrees.
 @export var pitch_limit_deg := 80.0
@@ -91,11 +91,12 @@ func _unhandled_input(event: InputEvent) -> void:
 
 ## The look axes.
 ##
-## The mouse is the camera, but it is not the only way to look. The arrows
-## and W/S turn and tilt it from the keyboard, at their own rate, and the
-## right stick does the same job for a pad. The stick's vertical axis is
-## negated: in Godot a stick pushed down is a positive value, and pushing the
-## stick down has to tilt the camera down, the same way the mouse does.
+## The mouse controls the camera, but it isn't the only way to look. The arrow
+## keys turn and tilt the camera; W and S tilt it. W and S don't move Lancer
+## because the gameplay plane has no forward axis. The right stick follows the
+## same path at a different rate. Its vertical axis is negated: in Godot a
+## stick pushed down is a positive value, and pushing the stick down has to
+## tilt the camera down, the same way the mouse does.
 func _process(delta: float) -> void:
 	var stick_x := Input.get_axis("look_left", "look_right")
 	var stick_y := Input.get_axis("look_up", "look_down")
