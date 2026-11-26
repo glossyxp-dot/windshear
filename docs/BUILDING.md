@@ -183,9 +183,52 @@ dock does the same thing.
 
 ## Phase three: the UI kit
 
-Not built yet. Same idea: a folder of reusable screens and panels — the HUD,
-the objective banner, the pause menu, the item bar — that you place and
-style, with the theme doing the colours and the sizes.
+This is built too. The look lives in one file and the pieces are scenes you
+drag in.
+
+### The styles
+
+`ui/theme/windshear_theme.tres` is where every colour, border and font size
+lives. A control picks a style in the Inspector, under **Theme**, **Type
+Variation**:
+
+| Style | What it is for |
+| --- | --- |
+| `WsTitle` | The big name of a screen |
+| `WsHeading` | The blue heading of a panel |
+| `WsCaption` | The small grey text |
+| `WsValue` | The number on the right of a row |
+| `WsPanel` | A panel with a brighter edge |
+
+If a control carries its own colour instead of a style, the look is in two
+places and changing it means opening every screen. The test suite checks
+that the screens point at the theme.
+
+### The pieces
+
+`ui/kit/` holds the pieces you drag into a screen:
+
+| Piece | What it is |
+| --- | --- |
+| `ws_heading.tscn` | A blue heading |
+| `ws_button.tscn` | A button with the right height |
+| `ws_row.tscn` | A label on the left, a value on the right |
+| `ws_divider.tscn` | A thin rule |
+| `ws_panel.tscn` | A panel with a title and a box to fill |
+
+To add a row to a panel, right-click the instance in the scene tree and
+turn on **Editable Children**, then drop your rows into the **Content** box.
+
+### The rules that keep it sharp
+
+- The buffer is 480 by 270. Nothing may be wider or taller than that.
+- The font sizes are 8, 9, 10, 11, 12 and 30. A new one is a decision, and
+  the suite checks.
+- A button has a focus style, so a controller player can see what is
+  selected. That is why `focus` is in the theme.
+- A pause menu is a `PROCESS_MODE_ALWAYS` canvas layer, and the HUD is
+  `PROCESS_MODE_PAUSABLE`. That is the whole trick to pausing.
+- The theme is yours. Change a colour there and every screen follows.
 
 ## What is yours and what is mine
 

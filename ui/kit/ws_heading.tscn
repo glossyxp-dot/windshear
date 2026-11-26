@@ -1,0 +1,7 @@
+[gd_scene format=3]
+
+[node name="Heading" type="Label"]
+offset_right = 140.0
+offset_bottom = 14.0
+theme_type_variation = &"WsHeading"
+text = "HEADING"

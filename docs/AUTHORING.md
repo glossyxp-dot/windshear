@@ -43,6 +43,7 @@ The main scene is `ui/main_menu/main_menu.tscn`. It lives in *Project Settings â
 ```
 ui/main_menu/main_menu.tscn         the menu, the settings panel, the PSX slider
 ui/theme/windshear_theme.tres       every colour, border and font size the menu uses
+ui/kit/                             the pieces a screen is built from
 world/greybox/movement_greybox.tscn the movement test room
 world/kit/                          the pieces a section is built from
 data/sections/                      the section scenes, one folder per chapter
@@ -161,6 +162,34 @@ a surprise in the game.
 
 The pieces in `world/kit/` are yours. Change `floor.tscn` and every floor in
 the game changes with it.
+
+## The UI kit
+
+The look lives in `ui/theme/windshear_theme.tres`. The pieces live in
+`ui/kit/`.
+
+A control picks a style in the Inspector, under **Theme**, **Type
+Variation**: `WsTitle`, `WsHeading`, `WsCaption`, `WsValue` and `WsPanel`.
+That is how a screen gets the look without carrying its own colours.
+
+Drag a piece from `ui/kit/` into your screen:
+
+| Piece | What it is |
+| --- | --- |
+| `ws_heading.tscn` | A blue heading |
+| `ws_button.tscn` | A button with the right height |
+| `ws_row.tscn` | A label on the left, a value on the right |
+| `ws_divider.tscn` | A thin rule |
+| `ws_panel.tscn` | A panel with a title and a box to fill |
+
+To add a row to a panel, right-click the instance in the scene tree and
+turn on **Editable Children**, then drop your rows into the **Content** box.
+
+The font sizes are 8, 9, 10, 11, 12 and 30. The buffer is 480 by 270, so
+nothing may be wider or taller than that. The suite checks both.
+
+A pause menu is a canvas layer with **Process Mode** set to **Always**, and
+the HUD is **Pausable**. That is the whole trick to pausing.
 
 ## The PSX amount
 

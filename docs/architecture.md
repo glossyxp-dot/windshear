@@ -148,6 +148,16 @@ The **points are sorted by where they sit in the scene**. The order the points c
 
 The game loads the scene. The JSON is the mirror the tests compare against, so a scene that was changed and not exported fails the build instead of shipping data nobody looked at.
 
+### The theme and the UI kit
+
+`ui/theme/windshear_theme.tres` is the one place the look lives. It holds the colours, the borders and the font sizes, and five **theme type variations** that a control picks in the Inspector: `WsTitle`, `WsHeading`, `WsCaption`, `WsValue` and `WsPanel`.
+
+A type variation without a base type is a style that does nothing, so the theme declares the base of each one and `tests/test_ui_contract.gd` checks it.
+
+The pieces in `ui/kit/` are scenes that carry no script and no colour of their own. They are there so the designer has something to drag, not so the look is decided in two places.
+
+`tests/test_ui_contract.gd` is the alarm. It checks that every style a screen asks for is a style the theme has, that every font size is one of the agreed ones, that a button has a focus style so a controller player can see what is selected, and that the kit fits inside 480 by 270.
+
 ---
 
 ## 3. The data layer
