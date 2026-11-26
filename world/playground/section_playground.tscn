@@ -1,0 +1,78 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://world/playground/section_playground.gd" id="1_play"]
+[ext_resource type="Script" path="res://addons/windshear/movement/lancer_controller.gd" id="2_lancer"]
+[ext_resource type="Script" path="res://addons/windshear/movement/camera_rig.gd" id="3_camera"]
+[ext_resource type="Theme" path="res://ui/theme/windshear_theme.tres" id="4_theme"]
+
+[sub_resource type="Environment" id="PlaygroundEnvironment"]
+background_mode = 1
+background_color = Color(0.027, 0.035, 0.047, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.42, 0.45, 0.51, 1)
+ambient_light_energy = 0.55
+fog_enabled = true
+fog_light_color = Color(0.055, 0.071, 0.094, 1)
+fog_density = 0.008
+
+[sub_resource type="CapsuleShape3D" id="PlayerShape"]
+radius = 0.4
+height = 1.8
+
+[node name="SectionPlayground" type="Node3D"]
+script = ExtResource("1_play")
+section_id = "P1.01"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("PlaygroundEnvironment")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-52, -35, 0)
+light_color = Color(0.92, 0.94, 1, 1)
+light_energy = 1.1
+shadow_enabled = false
+
+[node name="Player" type="CharacterBody3D" parent="."]
+position = Vector3(-10, 1, 6)
+script = ExtResource("2_lancer")
+
+[node name="Shape" type="CollisionShape3D" parent="Player"]
+shape = SubResource("PlayerShape")
+
+[node name="CameraRig" type="Node3D" parent="Player"]
+script = ExtResource("3_camera")
+
+[node name="Camera3D" type="Camera3D" parent="Player/CameraRig"]
+fov = 72.0
+far = 220.0
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="HUD"]
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 380.0
+offset_bottom = 18.0
+theme_override_colors/font_color = Color(0.29, 0.64, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.85)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 9
+text = "SECTION"
+
+[node name="HelpPanel" type="PanelContainer" parent="HUD"]
+visible = false
+offset_left = 6.0
+offset_top = 22.0
+offset_right = 244.0
+offset_bottom = 176.0
+theme = ExtResource("4_theme")
+
+[node name="Label" type="Label" parent="HUD/HelpPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.843, 0.859, 0.878, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.85)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 8
+text = "HELP"
+horizontal_alignment = 0
+vertical_alignment = 0

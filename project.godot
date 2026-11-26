@@ -28,6 +28,7 @@ config/icon="res://assets/icon.svg"
 
 WsGame="*res://addons/windshear/core/ws_game.gd"
 WsTweak="*res://addons/windshear/core/ws_tweak.gd"
+WsSections="*res://addons/windshear/world/ws_section_manager.gd"
 
 [editor_plugins]
 

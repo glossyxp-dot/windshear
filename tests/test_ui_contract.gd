@@ -166,7 +166,10 @@ func _test_the_font_sizes_are_known() -> void:
 func _check_font_sizes(node: Node, bad: PackedStringArray) -> void:
 	for child in node.get_children():
 		if child is Control:
-			var size := int(child.get("theme_override_font_sizes/font_size"))
+			var value: Variant = child.get("theme_override_font_sizes/font_size")
+			var size := 0
+			if value != null:
+				size = int(value)
 			if size > 0 and not ALLOWED_FONT_SIZES.has(size):
 				bad.append("%s uses %d" % [child.name, size])
 		_check_font_sizes(child, bad)

@@ -96,6 +96,21 @@ enum Kind {
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		_update_property_list()
+		return
+	_register_with_the_section_manager()
+
+
+## Hands the section over to the section manager.
+##
+## Only the trigger does this. The manager checks the id and the three
+## markers, and says so when one of them does not resolve.
+func _register_with_the_section_manager() -> void:
+	if kind != Kind.SECTION_TRIGGER:
+		return
+	var manager := get_node_or_null("/root/WsSections")
+	if manager == null:
+		return
+	manager.call("register_section", self)
 
 
 ## Hides the properties that do not belong to this kind.
