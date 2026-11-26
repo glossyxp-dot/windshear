@@ -46,6 +46,7 @@ ui/theme/windshear_theme.tres       every colour, border and font size the menu 
 ui/kit/                             the pieces a screen is built from
 world/greybox/movement_greybox.tscn the movement test room
 world/kit/                          the pieces a section is built from
+world/playground/                   the room where you play your own section
 data/sections/                      the section scenes, one folder per chapter
 assets/materials/                   the four PSX materials the greybox uses
 assets/icon.svg, assets/icon.png    the project icon. Finished. Don't touch.
@@ -162,6 +163,27 @@ a surprise in the game.
 
 The pieces in `world/kit/` are yours. Change `floor.tscn` and every floor in
 the game changes with it.
+
+## Playing your section
+
+Open `world/playground/section_playground.tscn` and press **F6**. The
+section id is a number in the Inspector: change it, press **F6** again, and
+you are in another section.
+
+| | |
+| --- | --- |
+| `W` `A` `S` `D` | walk, camera-relative |
+| `Ctrl` | slide |
+| `Space` | jump |
+| mouse | camera |
+| `R` | back to the start checkpoint |
+| `F1` or `H` | the controls, on screen |
+
+You start at the **start checkpoint**, so that checkpoint is where the feet
+go. Put it where you want the player to begin.
+
+The line at the top says the section, the speed in m/s, the peak speed and
+where you are.
 
 ## The UI kit
 

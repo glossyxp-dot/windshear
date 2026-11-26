@@ -20,7 +20,7 @@
 ## godot --headless --path . res://tests/run_all.tscn
 ## [/codeblock]
 ##
-## The current run is 625 checks in 17 suites, with no failures:
+## The current run is 653 checks in 18 suites, with no failures:
 ## [br]- tuning 25
 ## [br]- movement 54
 ## [br]- characterization 77
@@ -38,6 +38,7 @@
 ## [br]- workbench 13
 ## [br]- level tools 77
 ## [br]- theme 40
+## [br]- section runtime 28
 ##
 ## These suites cover the things that break an FPS game: frame-exact movement,
 ## camera behaviour, determinism, the performance budget and the code policy.
@@ -79,6 +80,7 @@ const SCENE_SUITES := [
 	preload("res://tests/test_workbench.gd"),
 	preload("res://tests/test_level_tools.gd"),
 	preload("res://tests/test_ui_contract.gd"),
+	preload("res://tests/test_section_runtime.gd"),
 ]
 
 

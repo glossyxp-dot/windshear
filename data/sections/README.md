@@ -122,6 +122,21 @@ section that loads but can't be finished.
 The exporter checks the same rules before it writes anything, and the build
 fails when it finds one of them broken.
 
+### How the game loads a section
+
+`WsSections` is an autoload. It reads `index.json` once and knows where every
+section lives. A screen asks it for a section by id, it loads the scene and
+holds it, and the trigger registers itself with the manager as it enters the
+tree. The manager checks the id and the three markers, and refuses the
+section if one of them points at nothing.
+
+The start checkpoint is where the player's feet go. The manager hands its
+world position to whoever asked for the section, and the player is put half
+its height above it, because the origin of a capsule is its middle.
+
+`world/playground/section_playground.tscn` is the room where a section is
+played by hand: open it, press F6, and you are in the section you built.
+
 `RegulationGate` names its `gate_id`, for example `13.03.gate_01`.
 `BeatDirector` names the same `section_id` as the trigger, which is how the
 story service finds `data/story/beats/<section-id>.beat.json`.

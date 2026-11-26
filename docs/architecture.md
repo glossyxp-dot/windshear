@@ -20,12 +20,16 @@ windshear/
       lancer_controller.gd # the movement simulation
       camera_rig.gd      # the camera that never leaves Lancer
       speed_meter.gd     # speed in metres per second, current and peak
+    world/
+      ws_section_manager.gd # loads the section that is running
     render/
       ws_psx.gd          # the PSX dial
       ws_psx.gdshader    # the PSX shader
   world/                 # shared world geometry — CC-BY-SA 4.0
     greybox/             # the movement test rig
-  ui/                    # the menu and the theme
+    kit/                 # the pieces a section is built from
+    playground/          # the room where a section is played by hand
+  ui/                    # the menu, the theme and the UI kit
   data/                  # the content that Editions may swap
     cast.json             # the cast, their pronouns and their acts
     arsenal.json          # weapons, usable items, map utilities
@@ -157,6 +161,22 @@ A type variation without a base type is a style that does nothing, so the theme 
 The pieces in `ui/kit/` are scenes that carry no script and no colour of their own. They are there so the designer has something to drag, not so the look is decided in two places.
 
 `tests/test_ui_contract.gd` is the alarm. It checks that every style a screen asks for is a style the theme has, that every font size is one of the agreed ones, that a button has a focus style so a controller player can see what is selected, and that the kit fits inside 480 by 270.
+
+### `world/ws_section_manager.gd` — the third autoload
+
+`project.godot` registers this as `WsSections`. It is the other half of the level tools: the exporter writes the data, and the manager loads the scene the designer laid out.
+
+It does two things. It reads `data/sections/index.json` once and knows where every section lives, and it holds the section that is running together with the three marker ids the trigger handed over: where the player starts, where the player ends and where the speedrun split goes.
+
+The handshake is one line. `world/kit/ws_kit_point.gd` registers itself with the manager when it enters the tree, but only if it is the section trigger. The manager then checks that the id is in the index and that the three markers point at points that exist in the same section. A section that loads but cannot be finished is refused, and it says which marker is the one that points at nothing.
+
+The check is deliberately the same one the exporter makes. The exporter refuses to write the data; the manager refuses to run it. Two doors, one rule.
+
+The manager is a plain `Node` and it holds the section as a child. The section is therefore in the same world as the player, so the collision works and the checkpoints are in world space.
+
+`world/playground/section_playground.tscn` is the room where a section is played by hand. It is the same manager the game uses, the same controller and the same camera rig as the greybox, and it puts the player at the start checkpoint of the section, so a checkpoint in the wrong place is obvious straight away.
+
+`tests/test_section_runtime.gd` checks the seam: that the manager is there, that the section loads, that the trigger registers, that the geometry grew a body the player can stand on, that a section the index does not know about is refused, that a marker pointing at nothing is refused, and that the playground puts the player where the checkpoint says.
 
 ---
 

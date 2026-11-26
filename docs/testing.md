@@ -21,7 +21,7 @@ godot --headless --path . --script res://tools/cell_budget_checker.gd
 
 A failed check gives the suite a non-zero exit status. CI is one line, and there's nothing to parse.
 
-The current state is **625 checks, 0 failures**, in seventeen suites.
+The current state is **653 checks, 0 failures**, in eighteen suites.
 
 ---
 
@@ -60,6 +60,7 @@ I spent a long time convinced that a good test suite was about coverage. It isn'
 | `test_workbench.gd` | 13 | The workbench tunes the movement |
 | `test_level_tools.gd` | 77 | The level tools make sections |
 | `test_ui_contract.gd` | 40 | The theme holds the look |
+| `test_section_runtime.gd` | 28 | The sections run |
 
 The tuning suite compares the documented constants in `ws_tuning.gd` with `TECH_SPEC.md` §3. The movement suite pins the top speed, acceleration rates, turnarounds, jump height, coyote time, jump buffer, air cap, slide, wall-jump and camera-relative direction. Characterization keeps the arming and chain boundaries, collision energy, repeated cycles, adversarial input and full-state replay from drifting.
 

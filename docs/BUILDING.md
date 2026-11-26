@@ -230,6 +230,51 @@ turn on **Editable Children**, then drop your rows into the **Content** box.
   `PROCESS_MODE_PAUSABLE`. That is the whole trick to pausing.
 - The theme is yours. Change a colour there and every screen follows.
 
+## Phase four: playing your own section
+
+This is built too. The section you made in the editor is a scene the game
+loads, so you can stand in it without anybody writing a line of code.
+
+Open `world/playground/section_playground.tscn` and press **F6**.
+
+The section id is a number in the Inspector. Change it, press **F6** again,
+and you are in another section. It is the same loop as the movement room:
+change one thing, run it, look at it.
+
+| | |
+| --- | --- |
+| `W` `A` `S` `D` | walk, camera-relative |
+| `Ctrl` | slide |
+| `Space` | jump |
+| mouse | camera |
+| `R` | back to the start checkpoint |
+| `F1` or `H` | the controls, on screen |
+
+The player starts at the **start checkpoint** of the section. That checkpoint
+is where the feet go, so put it where you want the player to begin. If it is
+in the wrong place, you see it immediately.
+
+The line at the top says the section, the speed in m/s, the peak speed, and
+where the player is. It refreshes ten times a second, not every frame.
+
+### How the section gets there
+
+`WsSections` is an autoload. It reads `data/sections/index.json`, finds the
+scene the id belongs to, loads it and holds it. The **section trigger** in
+the scene registers itself with the manager when it enters the tree, and the
+manager checks that the three markers point at points that exist. If one of
+them does not, the manager says so in the output.
+
+That check is the same one the exporter makes. A section that cannot be
+finished never reaches the screen.
+
+### What is not here yet
+
+The gates open and close on the schedule, the hazards are volumes, the
+filament throws, the story beats play, and the HUD shows the objective. The
+sections are made and loaded and the player stands in them. The rest is the
+next phase.
+
 ## What is yours and what is mine
 
 **Yours:** everything in `ui/`, `world/` and `assets/`, the movement feel, the
