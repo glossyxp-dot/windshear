@@ -36,12 +36,12 @@ Don't rebuild any of this:
 | | |
 | --- | --- |
 | Project settings | 480×270 internal, 960×540 window, `canvas_items` and `keep`, nearest filter, Jolt, 60 Hz |
-| Movement | Run, slide, jump, wall-jump. Frame exact, locked to `TECH_SPEC.md` §3 |
-| Camera | Mouse-look rig parented to Lancer. It never leaves |
+| Movement | Walk, slide, jump, wall-jump. Camera-relative, frame exact, locked to `TECH_SPEC.md` §3 |
+| Camera | Mouse-look orbit rig parented to Lancer. It never leaves |
 | PSX | The shader plus a 0–100% slider. The player picks the amount |
 | Menu | Main menu, settings panel, PSX slider, affine toggle |
-| Greybox | One test room: floor, platforms, a ramp, a wall to kiss, a help panel |
-| Tests | 487 checks in 14 suites, headless, about ten seconds |
+| Greybox | One test room: floor, platforms, a ramp, a wall on every side to kiss, a help panel |
+| Tests | 495 checks in 14 suites, headless, about ten seconds |
 | World data | 25 chapters × 12 sections, 600 gate schedules, 12 Fractures, 19 beats, 73 dialogue lines |
 | Canon data | 10 cast entries, 7 weapons, 5 items, 5 map utilities, 11 enemies |
 | Controls | The mouse is the camera and the triggers. The keyboard carries the rest |
@@ -55,9 +55,9 @@ The visual work is by hand. The code for this stage is done.
 1. **Play the greybox.** Open `world/greybox/movement_greybox.tscn`, press F6,
    press F1 for the mechanics reference. The HUD in the corner reads your speed
    in m/s, current and peak. If the movement doesn't feel good yet, that's
-   the only thing that matters this week. `A` and `D` run, `Ctrl` or `S`
-   slides, `Space` or `W` jumps, and the mouse does the camera and the two
-   triggers.
+   the only thing that matters this week. `W` and `S` walk forward and back,
+   `A` and `D` strafe, `Ctrl` slides, `Space` jumps, and the mouse does the
+   camera and the two triggers.
 2. **Install the export templates** for 4.7.2. You can't export without them.
 3. **Build Level 2.** The greybox is a rig. `2.01` is the first section that
    has to be fun.
@@ -92,7 +92,7 @@ argument, and the third ending still needs all twelve Fractures.
 | Ram shatter | 100 m/s, head-on. The Concord has no defence for it |
 | Thermal cloak | Breaks above 8 m/s, and on any sprint, slide or shot |
 | Tick | 60 Hz fixed, `max_physics_steps_per_frame` 4 |
-| Plane | Gameplay on XY, `velocity.z = 0`, walls on the plane |
+| Ground plane | Gameplay on X/Z, Y for height. Movement is camera-relative; `W`/`S` walk, `A`/`D` strafe |
 
 `tests/test_tuning.gd` asserts all of that against `TECH_SPEC.md` §3. Change
 one without the other and the build fails. That's the deal.

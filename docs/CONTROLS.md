@@ -8,9 +8,10 @@ The defaults, and why they are what they are.
 
 | | |
 | --- | --- |
-| Run | `A` `D` |
-| Slide | `Ctrl`, or `S` |
-| Jump | `Space`, or `W` |
+| Walk forward / back | `W` / `S` |
+| Strafe left / right | `A` / `D` |
+| Slide | `Ctrl` |
+| Jump | `Space` |
 | Wall-jump | jump while sliding against a wall |
 | Ledge grab | `Q` |
 | Interact | `E` |
@@ -38,12 +39,17 @@ and they spent the whole run arguing. If you are on the mouse, the mouse
 should be the entire camera. If you are on a pad, the right stick should be
 the entire camera. So the keyboard route is gone.
 
-That leaves `W` and `S` with nothing to do, and they are good keys sitting
-right next to `A` and `D`. The game plays on a single plane, so there is no
-forward and there is no back to give them. Instead they join the movement
-cluster: `W` is a second jump and `S` is a second slide. WASD is now a
-complete set — `A` and `D` run, `W` jumps, `S` slides — and every key in it
-is a movement verb.
+That leaves WASD as a normal walk-around cluster, which is what it always
+wanted to be. `W` and `S` walk forward and back along the camera's facing, and
+`A` and `D` strafe across it. Turning the mouse turns the camera, and the walk
+follows the camera, so the controls stay relative to what you can see. There
+is no fixed forward axis any more. Forward is wherever you are looking.
+
+I changed my mind about this one. The game started as a side-on 2.5D thing,
+and side-on has no forward and no back, so `W` and `S` were sitting on jump
+and slide. That was a clever answer to a problem I made for myself. Full 3D
+walk-around is the honest answer, and it means the whole keyboard can do the
+obvious thing.
 
 If you would rather keep both hands on the arrows, that is what remapping is
 for. The defaults just don't ask you to.
@@ -88,7 +94,8 @@ secondary verbs and the primary ones are already busy.
 | Back / splits / reference | back, start, guide |
 
 The left stick moves and the right stick looks, so the two never fight over
-the same axis.
+the same axis. The left stick walks the same way the keyboard does: push it
+forward and Lancer walks away from the camera.
 
 ## Remapping
 
@@ -104,10 +111,11 @@ game is reading.
 
 `tests/test_input_map.gd` checks the scheme itself: that every action except
 the two triggers and the stick look has a key, that the triggers are on the
-mouse buttons they are supposed to be on, that `A` is `A`, that `W` jumps and
-`S` slides, and that the camera rig reads the mouse and the stick and no key
-at all. It also checks that nothing claims the arrow keys, because a stray
-arrow binding is exactly how the old keyboard camera would come back. An
+mouse buttons they are supposed to be on, that `A` is `A`, that `W` walks
+forward, that `S` walks back, and that neither of them is still hiding on jump
+or slide. It also checks that the camera rig reads the mouse and the stick and
+no key at all. It also checks that nothing claims the arrow keys, because a
+stray arrow binding is exactly how the old keyboard camera would come back. An
 action that nobody reads is an action that does nothing, so those last two
 are worth a test.
 

@@ -15,12 +15,11 @@
 # with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
 ## The greybox is the room the movement prototype lives in. It obeys the same
-## rules as the finished game: Lancer stays on the XY plane, the camera stays
-## with Lancer, and the geometry stays inside the triangle budget.
+## rules as the finished game: Lancer walks on the floor, the camera orbits
+## Lancer, and the geometry stays inside the triangle budget.
 ##
-## The gameplay plane has no forward axis. A and D are the run directions, and
-## W and S are movement keys too: jump and slide. The mouse alone turns the
-## camera.
+## Movement is camera-relative on X/Z. W and S walk forward and back, A and D
+## strafe, and the mouse alone turns the camera.
 ##
 ## This suite needs a live scene tree, so the runner instantiates the room
 ## and hands it over.
@@ -48,7 +47,7 @@ func suite_name() -> String:
 func run_with_scene(scene: Node) -> void:
 	_test_the_player_is_there(scene)
 	_test_the_camera_stays_with_lancer(scene)
-	_test_the_player_stays_on_the_plane(scene)
+	_test_the_player_stands_on_the_floor(scene)
 	_test_budget(scene)
 	_test_the_materials_are_hand_editable(scene)
 	_test_the_mechanics_reference(scene)
@@ -79,7 +78,7 @@ func _test_the_camera_stays_with_lancer(scene: Node) -> void:
 	near(rig.global_position.y, player.global_position.y, 0.001,
 		"the rig sits exactly on Lancer")
 	near(rig.global_position.z, player.global_position.z, 0.001,
-		"the rig shares Lancer's plane")
+		"the rig follows Lancer in depth")
 
 	var camera := rig.get_node_or_null("Camera3D")
 	ok(camera != null, "the rig drives a camera")
@@ -88,14 +87,14 @@ func _test_the_camera_stays_with_lancer(scene: Node) -> void:
 		ok(distance < 12.0, "the camera stays close to Lancer (%.2f m)" % distance)
 
 
-func _test_the_player_stays_on_the_plane(scene: Node) -> void:
-	heading("the 2.5D plane")
+func _test_the_player_stands_on_the_floor(scene: Node) -> void:
+	heading("the floor")
 	var player := scene.get_node_or_null("Player")
 	if player == null:
 		return
 	ok(absf(player.global_position.z) < 0.05,
-		"lancer stays on the play plane (z = %.4f)" % player.global_position.z)
-	ok(player.velocity.z == 0.0, "the z velocity is exactly zero")
+		"lancer starts at the centre of the room (z = %.4f)" % player.global_position.z)
+	ok(player.velocity.z == 0.0, "lancer starts at rest")
 	ok(player.global_position.y > 0.5,
 		"lancer rests on the floor (y = %.3f)" % player.global_position.y)
 	ok(player.global_position.y < 1.5,
@@ -176,17 +175,15 @@ func _test_a_ninety_second_route() -> void:
 	var input := InputState.new()
 	var position := Vector3(-24.0, 0.9, 0.0)
 	var left_the_room := false
-	var left_the_plane := false
 	var fell_out := false
 	var grounded := true
 
 	# A route that runs the length of the room and back, with a jump and a
 	# slide in every leg. The route itself does not matter. Ninety seconds of
-	# movement must never leave the plane, leave the room or fall out of the
-	# world.
+	# movement must never leave the room or fall out of the world.
 	for frame in range(5400):
 		var leg := frame / 180
-		input.move_axis = 1.0 if leg % 2 == 0 else -1.0
+		input.move = Vector2(1.0 if leg % 2 == 0 else -1.0, 0.0)
 		input.jump_pressed = (frame % 97) == 60
 		input.jump_released = (frame % 97) == 66
 		input.slip_pressed = (frame % 97) == 20
@@ -201,20 +198,19 @@ func _test_a_ninety_second_route() -> void:
 			position.y = 0.9
 			controller.velocity.y = 0.0
 			position.x += controller.velocity.x * DT
+			position.z += controller.velocity.z * DT
 		else:
 			position += controller.velocity * DT
 			if position.y <= 0.9 and controller.velocity.y <= 0.0:
 				grounded = true
 				position.y = 0.9
 				controller.velocity.y = 0.0
-		if absf(position.z) > 0.001:
-			left_the_plane = true
-		if position.x < -31.0 or position.x > 31.0:
+		if absf(position.x) > 31.0 or absf(position.z) > 31.0:
 			left_the_room = true
 		if position.y < -1.0:
 			fell_out = true
 
-	ok(not left_the_plane, "the route never leaves the XY plane")
+	ok(absf(position.z) <= 31.0, "the route stays inside the room's depth")
 	ok(not left_the_room, "the route stays inside the room")
 	ok(not fell_out, "the route never falls out of the world")
 	controller.free()

@@ -2,7 +2,7 @@
 
 **Level 1** of the development stages. This is where the game stops being documents and starts being something you can move around in, and where the movement gets its numbers.
 
-We have a Godot 4.7.2 project that boots to a menu and into a movement greybox. The movement controller is frame-exact, with every number tied to `TECH_SPEC.md` §3. The camera stays with Lancer. A test suite of **487 checks** runs headless in about ten seconds, and a discovery harness plays candidate movement techniques against the controller so we can see what it finds.
+We have a Godot 4.7.2 project that boots to a menu and into a movement greybox. The movement controller is frame-exact, with every number tied to `TECH_SPEC.md` §3. The camera orbits Lancer and never leaves. A test suite of **495 checks** runs headless in about ten seconds, and a discovery harness plays candidate movement techniques against the controller so we can see what it finds.
 
 Levels, art, story in the engine, the speedrun systems and the remaining Fractures come later. Level 1 is the floor, and the floor needs to be good before anything gets built on it.
 
@@ -40,9 +40,10 @@ All the numbers live in `addons/windshear/core/ws_tuning.gd`. `tests/test_tuning
 The controls around that controller are:
 
 ```text
-A / D    run left, run right
-Ctrl / S slide
-Space / W jump
+W / S    walk forward, walk back
+A / D    strafe left, strafe right
+Ctrl     slide
+Space    jump
 Q        ledge grab
 E        interact
 F        filament
@@ -51,7 +52,7 @@ LMB      primary fire
 RMB      alt fire
 ```
 
-The mouse handles the camera and both triggers because it's already in the hand pointing at the target. Everything else is on the keyboard, and the keyboard leaves the camera alone. `W` and `S` are movement keys: jump and slide. `R` resets to the spawn, `Tab` shows splits, `F1` or `H` opens the mechanics reference, `C` reloads, `B` uses an item, and `V` or the mouse wheel cycles weapons.
+The mouse handles the camera and both triggers because it's already in the hand pointing at the target. Everything else is on the keyboard, and the keyboard leaves the camera alone. WASD is a normal walk-around cluster, and the walk follows the camera. `R` resets to the spawn, `Tab` shows splits, `F1` or `H` opens the mechanics reference, `C` reloads, `B` uses an item, and `V` or the mouse wheel cycles weapons.
 
 ---
 
@@ -78,7 +79,7 @@ The slide-hop reaches 14.43 m/s. Sliding into a jump costs a little speed and bu
 
 The base wall-jump chain reaches 16.40 m/s. The chain is capped at three, and each wall-jump adds 0.8 m/s: 14.0 + 3 × 0.8 = 16.4 m/s. A turnaround, which reverses the stick at full speed, comes back to 14.00. The turn costs nothing in the long run, but it costs frames, and frames are the currency of this game.
 
-After the report, the suite asserts four invariants for every technique. Speed stays under the ceiling, the player never leaves the XY plane, the air cap holds and the wall-jump chain cap holds. It also checks one promise:
+After the report, the suite asserts four invariants for every technique. Speed stays under the ceiling, depth stays finite, the air cap holds and the wall-jump chain cap holds. It also checks one promise:
 
 > bunny hopping is not a speed exploit.
 
@@ -92,7 +93,7 @@ This is the part of the stage worth reading twice.
 
 The wall-jump is a WindShear verb. The movement research calls the chain a
 wall-kiss and the code keeps that name, but the player-facing word is
-wall-jump. A slide opens a two-frame window. If you touch a side wall and
+wall-jump. A slide opens a two-frame window. If you touch a wall and
 jump on that frame, you get +0.8 m/s of horizontal speed. In the base game
 the chain is three wall-jumps long.
 
@@ -118,16 +119,16 @@ This is why the rule in `docs/MOVEMENT_RESEARCH.md` §16.2 exists. Sometimes the
 
 ## 5. What the tests actually cover
 
-There are 487 checks in fourteen suites. They aren't "does the node exist" tests.
+There are 495 checks in fourteen suites. They aren't "does the node exist" tests.
 
 | Suite | Checks | What it is for |
 | --- | --- | --- |
 | tuning | 25 | Tuning constants match `TECH_SPEC.md` section 3 |
-| movement | 48 | Movement is frame-exact |
+| movement | 54 | Movement is frame-exact |
 | characterization | 77 | Movement accidents stay characterized |
 | discovery | 26 | What the movement permits |
 | camera | 17 | The camera rig behaves |
-| input map | 24 | The input map is the scheme we said |
+| input map | 26 | The input map is the scheme we said |
 | determinism | 8 | The simulation is deterministic |
 | speed meter | 11 | The speed is measured in metres per second |
 | performance | 10 | The performance budget holds |
@@ -137,11 +138,11 @@ There are 487 checks in fourteen suites. They aren't "does the node exist" tests
 | greybox | 36 | The greybox holds together |
 | PSX | 39 | The player picks how much PSX there is |
 
-The movement suite pins the top speed, acceleration rates, coyote time, jump buffer, air cap, slide, wall-jump and plane constraint. Characterization preserves the arming and chain boundaries, collision energy, repeated cycles, adversarial input and full-state replay. The camera suite checks the pitch clamp, yaw wrap, speed dolly and the camera's ownership by the rig.
+The movement suite pins the top speed, acceleration rates, coyote time, jump buffer, air cap, slide, wall-jump and camera-relative direction. Characterization preserves the arming and chain boundaries, collision energy, repeated cycles, adversarial input and full-state replay. The camera suite checks the pitch clamp, yaw wrap, speed dolly and the camera's ownership by the rig.
 
 The determinism suite checks that the same inputs give the same outputs and that the section-seeded generator is stable. The speed-meter suite covers the current reading, peak, reset and units. Performance checks the project settings and the cost of a frame.
 
-The world-data suite keeps the 25×12 grid, prequel, gate schedule, Fracture registry, endings and beats together. The canon suite covers the cast, silence, arsenal, enemy roster, numbers and the documents that have to agree with them. The greybox suite covers the scene, player, camera, plane, budget, materials, help panel and a 90-second route. The PSX suite checks the globals, shader, clamping, settings round trip and the slider in the menu.
+The world-data suite keeps the 25×12 grid, prequel, gate schedule, Fracture registry, endings and beats together. The canon suite covers the cast, silence, arsenal, enemy roster, numbers and the documents that have to agree with them. The greybox suite covers the scene, player, camera, floor, budget, materials, help panel and a 90-second route. The PSX suite checks the globals, shader, clamping, settings round trip and the slider in the menu.
 
 The camera, movement and determinism suites matter most to the game. A one-frame error in the coyote window is invisible in a screenshot and ruins every recorded route, so it's asserted to the frame.
 

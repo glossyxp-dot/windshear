@@ -49,7 +49,7 @@ func _replay(frames: int) -> Array:
 	for frame in range(frames):
 		# A route with everything in it: running, a jump, a slide and air time.
 		input.on_floor = (frame % 97) < 61
-		input.move_axis = 1.0 if (frame % 31) < 24 else -1.0
+		input.move = Vector2(1.0 if (frame % 31) < 24 else -1.0, 0.0)
 		input.jump_pressed = (frame % 97) == 60
 		input.jump_released = (frame % 97) == 66
 		input.slip_pressed = (frame % 97) == 20

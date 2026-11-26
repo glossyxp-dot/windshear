@@ -1,4 +1,4 @@
-# WindShear — the 2.5D camera rig (camera and speed framing)
+# WindShear — the camera rig (camera and speed framing)
 # Copyright (C) 2026 the WindShear contributors
 #
 # This program is free software; you can redistribute it and/or modify it
@@ -19,7 +19,8 @@
 ## `GAME_DESIGN.md` §5).
 ##
 ## The rig owns three things:
-## [br]- mouse and stick look, with a hard pitch clamp;
+## [br]- mouse and stick look, which orbits the camera around Lancer, with a
+##   hard pitch clamp;
 ## [br]- the speed dolly, which pulls back and widens the field of view as
 ##   Lancer picks up speed;
 ## [br]- the vertical framing offset, so Lancer sits below the centre of the
@@ -85,12 +86,12 @@ func _unhandled_input(event: InputEvent) -> void:
 
 ## The look axes.
 ##
-## The mouse controls the camera and nothing on the keyboard does. A side-on
-## route has no forward and no back, so there was never a sensible pair of
-## keys to turn it with anyway, and the old arrows just fought the mouse. The
-## right stick is the other route, for a pad. Its vertical axis is negated: in
-## Godot a stick pushed down is a positive value, and pushing the stick down
-## has to tilt the camera down, the same way the mouse does.
+## The mouse controls the camera and nothing on the keyboard does. The rig
+## rotates around Lancer, so a mouse turn walks the camera around the body and
+## the controller reads that yaw to decide which way "forward" is. The right
+## stick is the other route, for a pad. Its vertical axis is negated: in Godot
+## a stick pushed down is a positive value, and pushing the stick down has to
+## tilt the camera down, the same way the mouse does.
 func _process(delta: float) -> void:
 	var stick_x := Input.get_axis("look_left", "look_right")
 	var stick_y := Input.get_axis("look_up", "look_down")
@@ -143,5 +144,5 @@ func _update_speed_framing() -> void:
 	var body := get_parent() as CharacterBody3D
 	var ratio := 0.0
 	if body != null:
-		ratio = absf(body.velocity.x) / Tuning.MAX_RUN_SPEED
+		ratio = Vector2(body.velocity.x, body.velocity.z).length() / Tuning.MAX_RUN_SPEED
 	update_speed_framing(ratio)

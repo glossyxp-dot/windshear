@@ -53,8 +53,8 @@ func _test_the_reading() -> void:
 	meter.sample(Vector3(-8.0, 0.0, 0.0))
 	near(meter.current, 8.0, 0.001, "the meter ignores the direction of travel")
 
-	# Vertical speed is not part of the number. The game plays on the XY plane,
-	# and the Z axis is always zero.
+	# Vertical speed is not part of the number. The game moves on the X/Z
+	# ground plane.
 	meter.sample(Vector3(3.0, 9.0, 0.0))
 	near(meter.current, 3.0, 0.001, "the meter reads the horizontal axis only")
 

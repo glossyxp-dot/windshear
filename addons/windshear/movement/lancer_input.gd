@@ -22,8 +22,12 @@
 extends RefCounted
 class_name LancerInput
 
-## Horizontal movement axis, -1.0 (left) to 1.0 (right).
-var move_axis := 0.0
+## Movement input on the ground plane. [code]x[/code] is strafe (A/D),
+## [code]y[/code] is forward/back (W/S), both in [-1.0, 1.0].
+var move := Vector2.ZERO
+## The camera's yaw in radians. Movement is relative to where the camera looks,
+## so the controller needs the angle without reaching into the scene tree.
+var camera_yaw := 0.0
 ## True on the frame the jump button went down.
 var jump_pressed := false
 ## True while the jump button is held.
@@ -45,7 +49,8 @@ var wall_normal := Vector3.ZERO
 ## Clears every field. The controller calls this once per frame before it
 ## writes the live values, so the object is reused instead of reallocated.
 func reset() -> void:
-	move_axis = 0.0
+	move = Vector2.ZERO
+	camera_yaw = 0.0
 	jump_pressed = false
 	jump_held = false
 	jump_released = false

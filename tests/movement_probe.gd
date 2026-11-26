@@ -87,9 +87,10 @@ func run(frames: int, script: Callable) -> void:
 		kisses = maxi(kisses, _controller.wall_kiss_count)
 		max_air_bonus = maxf(max_air_bonus, _controller.air_bonus)
 		max_z_velocity = maxf(max_z_velocity, absf(_controller.velocity.z))
-		peak_speed = maxf(peak_speed, absf(_controller.velocity.x))
+		peak_speed = maxf(peak_speed,
+			Vector2(_controller.velocity.x, _controller.velocity.z).length())
 		_update_ground()
-	final_speed = absf(_controller.velocity.x)
+	final_speed = Vector2(_controller.velocity.x, _controller.velocity.z).length()
 
 
 ## Returns the controller so a probe script can inspect its state.
@@ -110,6 +111,7 @@ func _update_ground() -> void:
 	if grounded:
 		_controller.velocity.y = 0.0
 		position.x += _controller.velocity.x * DT
+		position.z += _controller.velocity.z * DT
 	else:
 		position += _controller.velocity * DT
 		if position.y <= FLOOR_Y and _controller.velocity.y <= 0.0:

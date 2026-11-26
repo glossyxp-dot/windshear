@@ -26,8 +26,8 @@
 ## - `current`, the horizontal speed right now
 ## - `peak`, the fastest horizontal speed since the last reset
 ##
-## Horizontal only. The game plays on the XY plane and the Z axis is always
-## zero. A vertical number would be noise.
+## Horizontal only. The game moves on the X/Z ground plane, and a vertical
+## number would be noise.
 extends RefCounted
 
 ## The current horizontal speed, in m/s.

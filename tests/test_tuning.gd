@@ -54,6 +54,7 @@ func run() -> void:
 	near(Tuning.SLIDE_DURATION, 0.45, 0.0001, "slide duration")
 	same(Tuning.SLIDE_FRAMES, 27, "slide duration in frames")
 	near(Tuning.SLIDE_FRICTION, 6.0, 0.0001, "slide friction")
+	near(Tuning.SLIDE_MIN_SPEED, 5.0, 0.0001, "the slide needs 5 m/s to start")
 
 	# The base chain stops at three: 14.0 m/s plus three boosts of 0.8 m/s
 	# gives the hard 16.4 m/s ceiling. The shipped wall_kiss_chain Fracture
@@ -72,6 +73,3 @@ func run() -> void:
 	heading("filament")
 	near(Tuning.FILAMENT_LOCK_TIME, 0.25, 0.0001, "filament lock-on time")
 	near(Tuning.FILAMENT_CONE_DEGREES, 18.0, 0.0001, "filament cone half-angle")
-
-	heading("the 2.5D plane")
-	near(Tuning.PLAY_PLANE_Z, 0.0, 0.000001, "the play plane is at z = 0")

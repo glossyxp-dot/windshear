@@ -66,9 +66,10 @@ func _joy_axis(axis: JoyAxis, value: float) -> InputEventJoypadMotion:
 ## The scheme, so you don't have to read the table:
 ##
 ## [codeblock]
-## A / D    run left, run right
-## Ctrl / S slide
-## Space / W jump
+## W / S    walk forward, walk back
+## A / D    strafe left, strafe right
+## Ctrl     slide
+## Space    jump
 ## Q        ledge grab
 ## E        interact
 ## F        filament
@@ -79,22 +80,22 @@ func _joy_axis(axis: JoyAxis, value: float) -> InputEventJoypadMotion:
 ##
 ## The mouse has the camera and the two triggers, because the mouse is
 ## already in the hand that is doing the camera. Everything else sits on the
-## keyboard, and the keyboard never touches the camera. That was the whole
-## point of the change: the mouse is free to look wherever it wants, and
-## nothing on the keyboard fights it for the view.
+## keyboard, and the keyboard never touches the camera.
 ##
-## A side-on route has no forward and no back, so W and S can't be a second
-## run axis. They sit on the movement cluster instead: W jumps and S slides,
-## alongside Space and Ctrl. WASD is then a complete set — A and D run, W
-## jumps, S slides — and every key in it is a movement verb.
+## The game walks on the ground plane in three dimensions. WASD is the usual
+## walk-around cluster: W and S walk along the camera's facing, A and D strafe
+## across it. Turning the mouse turns the camera, and the walk follows the
+## camera, so the controls stay relative to what the player can see.
 func _bindings() -> Dictionary:
 	return {
+		"move_forward": [_key(KEY_W), _joy_axis(JOY_AXIS_LEFT_Y, -1.0)],
+		"move_back": [_key(KEY_S), _joy_axis(JOY_AXIS_LEFT_Y, 1.0)],
 		"move_left": [_key(KEY_A), _joy_axis(JOY_AXIS_LEFT_X, -1.0),
 			_joy_button(JOY_BUTTON_DPAD_LEFT)],
 		"move_right": [_key(KEY_D), _joy_axis(JOY_AXIS_LEFT_X, 1.0),
 			_joy_button(JOY_BUTTON_DPAD_RIGHT)],
-		"jump": [_key(KEY_SPACE), _key(KEY_W), _joy_button(JOY_BUTTON_A)],
-		"slip": [_key(KEY_CTRL), _key(KEY_S), _joy_button(JOY_BUTTON_B)],
+		"jump": [_key(KEY_SPACE), _joy_button(JOY_BUTTON_A)],
+		"slip": [_key(KEY_CTRL), _joy_button(JOY_BUTTON_B)],
 		"ledge_grab": [_key(KEY_Q), _joy_button(JOY_BUTTON_X)],
 		"interact": [_key(KEY_E), _joy_button(JOY_BUTTON_Y)],
 		"filament": [_key(KEY_F), _joy_button(JOY_BUTTON_RIGHT_SHOULDER)],

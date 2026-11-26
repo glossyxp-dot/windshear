@@ -76,7 +76,7 @@ func _test_simulation_cost() -> void:
 	var controller := Controller.new()
 	var input := InputState.new()
 	input.on_floor = true
-	input.move_axis = 1.0
+	input.move = Vector2(1.0, 0.0)
 
 	# Warm up first so the measured call does not pay for lazy initialisation.
 	for _frame in 120:

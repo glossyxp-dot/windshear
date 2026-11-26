@@ -53,9 +53,8 @@ defines the boundary, while `RegulationGate` names a gate id from
 A scene can also contain `RegulatorDrone`, `WindRegulator` and
 `HazardVolume` nodes. `BeatDirector` resolves the section's story file.
 
-Geometry is authored for the play plane, with the staged depth layers behind
-it. Node counts stay under the draw-call and memory budgets in `TECH_SPEC.md`
-§2.
+Geometry is authored at full depth. Node counts stay under the draw-call and
+memory budgets in `TECH_SPEC.md` §2.
 
 ## SectionTrigger
 

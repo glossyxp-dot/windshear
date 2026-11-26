@@ -52,7 +52,7 @@ func run() -> void:
 	_test_wall_kiss_cap()
 	_test_wall_kiss_fracture()
 	_test_wall_kiss_speed_ceiling()
-	_test_plane_constraint()
+	_test_camera_relative_movement()
 
 
 ## Brings a controller up to the top speed and returns it with its input.
@@ -60,7 +60,7 @@ func _at_top_speed() -> Array:
 	var controller := Controller.new()
 	var input := InputState.new()
 	input.on_floor = true
-	input.move_axis = 1.0
+	input.move = Vector2(1.0, 0.0)
 	for _frame in 120:
 		controller.simulate(DT, input)
 	return [controller, input]
@@ -83,14 +83,14 @@ func _test_acceleration_rates() -> void:
 	var controller := Controller.new()
 	var input := InputState.new()
 	input.on_floor = true
-	input.move_axis = 1.0
+	input.move = Vector2(1.0, 0.0)
 	controller.simulate(DT, input)
 	near(controller.velocity.x, Tuning.GROUND_ACCEL * DT, 0.0001,
 		"the first frame accelerates at 90 m/s^2")
 
 	for _frame in 120:
 		controller.simulate(DT, input)
-	input.move_axis = 0.0
+	input.move = Vector2(0.0, 0.0)
 	controller.simulate(DT, input)
 	near(controller.velocity.x, Tuning.MAX_RUN_SPEED - Tuning.GROUND_DECEL * DT, 0.0001,
 		"releasing the stick decelerates at 60 m/s^2")
@@ -101,7 +101,7 @@ func _test_turnaround_keeps_acceleration() -> void:
 	var pair := _at_top_speed()
 	var controller: Object = pair[0]
 	var input: Object = pair[1]
-	input.move_axis = -1.0
+	input.move = Vector2(-1.0, 0.0)
 	controller.simulate(DT, input)
 	near(controller.velocity.x, Tuning.MAX_RUN_SPEED - Tuning.GROUND_ACCEL * DT, 0.0001,
 		"a turnaround uses the acceleration rate, not the deceleration rate")
@@ -201,7 +201,7 @@ func _test_air_acceleration_cap() -> void:
 	var controller := Controller.new()
 	var input := InputState.new()
 	input.on_floor = false
-	input.move_axis = 1.0
+	input.move = Vector2(1.0, 0.0)
 	for _frame in 300:
 		controller.simulate(DT, input)
 	near(controller.velocity.x, Tuning.AIR_ACCEL_MAX_CONTRIB, 0.001,
@@ -220,13 +220,13 @@ func _test_slide() -> void:
 	var slow := Controller.new()
 	var slow_input := InputState.new()
 	slow_input.on_floor = true
-	slow_input.move_axis = 1.0
+	slow_input.move = Vector2(1.0, 0.0)
 	slow.simulate(DT, slow_input)
 	slow_input.slip_pressed = true
 	slow.simulate(DT, slow_input)
 	same(slow.slide_frames, 0, "a slide does not start below the minimum speed")
 
-	input.move_axis = 0.0
+	input.move = Vector2(0.0, 0.0)
 	input.slip_pressed = true
 	controller.simulate(DT, input)
 	near(controller.velocity.x, Tuning.MAX_RUN_SPEED - Tuning.SLIDE_FRICTION * DT, 0.0001,
@@ -248,7 +248,7 @@ func _test_slide_cancels_into_jump() -> void:
 	var pair := _at_top_speed()
 	var controller: Object = pair[0]
 	var input: Object = pair[1]
-	input.move_axis = 0.0
+	input.move = Vector2(0.0, 0.0)
 	input.slip_pressed = true
 	controller.simulate(DT, input)
 	ok(controller.sliding, "the slide started")
@@ -265,14 +265,14 @@ func _test_wall_kiss() -> void:
 	var controller: Object = pair[0]
 	var input: Object = pair[1]
 
-	# a wall that blocks the route cannot arm a wall-jump
+	# any wall can arm a wall-jump now that the route has depth
 	input.wall_contact = true
 	input.wall_normal = Vector3(-1.0, 0.0, 0.0)
 	input.slip_pressed = true
 	controller.simulate(DT, input)
-	ok(not controller.wall_kiss_armed, "a wall straight ahead cannot arm a wall-jump")
+	ok(controller.wall_kiss_armed, "a wall straight ahead arms a wall-jump")
 
-	# a wall that runs alongside the route can
+	# a wall alongside the route can too
 	var side := _at_top_speed()
 	var side_controller: Object = side[0]
 	var side_input: Object = side[1]
@@ -280,7 +280,7 @@ func _test_wall_kiss() -> void:
 	side_input.wall_normal = Vector3(0.0, 0.0, 1.0)
 	side_input.slip_pressed = true
 	side_controller.simulate(DT, side_input)
-	ok(side_controller.wall_kiss_armed, "a side wall arms the wall-jump")
+	ok(side_controller.wall_kiss_armed, "a wall alongside the route arms a wall-jump")
 
 	# jumping on the contact frame adds the boost
 	var before: float = side_controller.velocity.x
@@ -373,7 +373,7 @@ func _test_wall_kiss_speed_ceiling() -> void:
 	# counter to expire. The speed must still stop at the ceiling.
 	for chain in range(6):
 		for _frame in 40:
-			input.move_axis = 1.0
+			input.move = Vector2(1.0, 0.0)
 			controller.simulate(DT, input)
 		input.slip_pressed = true
 		controller.simulate(DT, input)
@@ -391,15 +391,72 @@ func _test_wall_kiss_speed_ceiling() -> void:
 			Tuning.WALL_KISS_SPEED_CEILING, absf(controller.velocity.x)])
 	pair[0].free()
 
-func _test_plane_constraint() -> void:
-	heading("the 2.5D plane")
+func _test_camera_relative_movement() -> void:
+	heading("camera-relative movement")
 	var controller := Controller.new()
 	var input := InputState.new()
 	input.on_floor = true
-	input.move_axis = 1.0
-	controller.velocity.z = 5.0
-	controller.simulate(DT, input)
-	near(controller.velocity.z, 0.0, 0.0, "the z velocity is zeroed every frame")
-	near(controller.velocity.x, Tuning.GROUND_ACCEL * DT, 0.0001,
-		"the z clamp does not disturb the horizontal movement")
+	input.move = Vector2(0.0, 1.0)
+	input.camera_yaw = 0.0
+	for _frame in 60:
+		controller.simulate(DT, input)
+	near(controller.velocity.z, -Tuning.MAX_RUN_SPEED, 0.001,
+		"w walks away from the camera")
+	near(controller.velocity.x, 0.0, 0.001,
+		"w does not drift sideways")
 	controller.free()
+
+	var turned := Controller.new()
+	var turned_input := InputState.new()
+	turned_input.on_floor = true
+	turned_input.move = Vector2(0.0, 1.0)
+	turned_input.camera_yaw = PI * 0.5
+	for _frame in 60:
+		turned.simulate(DT, turned_input)
+	near(turned.velocity.x, -Tuning.MAX_RUN_SPEED, 0.001,
+		"a quarter turn sends w along the new forward")
+	turned.free()
+
+	var strafe := Controller.new()
+	var strafe_input := InputState.new()
+	strafe_input.on_floor = true
+	strafe_input.move = Vector2(1.0, 0.0)
+	for _frame in 60:
+		strafe.simulate(DT, strafe_input)
+	near(strafe.velocity.x, Tuning.MAX_RUN_SPEED, 0.001,
+		"d strafes across the camera")
+	near(strafe.velocity.z, 0.0, 0.001,
+		"a pure strafe does not drift forward")
+	strafe.free()
+
+	var diagonal := Controller.new()
+	var diagonal_input := InputState.new()
+	diagonal_input.on_floor = true
+	diagonal_input.move = Vector2(1.0, 1.0)
+	for _frame in 60:
+		diagonal.simulate(DT, diagonal_input)
+	near(Vector2(diagonal.velocity.x, diagonal.velocity.z).length(),
+		Tuning.MAX_RUN_SPEED, 0.001,
+		"a diagonal walks at the same top speed, not faster")
+	diagonal.free()
+
+	# Depth is real movement now, so it is not clamped away.
+	var depth := Controller.new()
+	var depth_input := InputState.new()
+	depth_input.on_floor = true
+	depth.velocity = Vector3(0.0, 0.0, 5.0)
+	depth.simulate(DT, depth_input)
+	ok(depth.velocity.z > 0.0, "depth is no longer forced to zero")
+	depth.free()
+
+	# A partly pushed stick walks slower, the same way the old axis did.
+	var analog := Controller.new()
+	var analog_input := InputState.new()
+	analog_input.on_floor = true
+	analog_input.move = Vector2(0.0, 0.5)
+	for _frame in 120:
+		analog.simulate(DT, analog_input)
+	near(Vector2(analog.velocity.x, analog.velocity.z).length(),
+		Tuning.MAX_RUN_SPEED * 0.5, 0.01,
+		"a half-pushed stick walks at half speed")
+	analog.free()

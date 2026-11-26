@@ -1,6 +1,6 @@
 # WINDSHEAR
 
-A 2.5D speed-and-precision platformer. You play Lancer Ivanov, a courier in a
+A 3D speed-and-precision platformer. You play Lancer Ivanov, a courier in a
 city that a war machine sealed under a canopy, and the sealing is the problem.
 
 Twenty years ago the sky came apart in a global war. High command dropped
@@ -12,9 +12,10 @@ Lancer never speaks. Everything Lancer has to say is a line they run.
 
 The mouse is the camera and the mouse does the two triggers, because the
 mouse is already in the hand that is pointing at the thing you want to shoot.
-Everything else is on the keyboard. `A` and `D` run, `Ctrl` or `S` slides,
-`Space` or `W` jumps, `Q` grabs a ledge, `E` interacts, `F` throws the
-filament.
+Everything else is on the keyboard. `W` and `S` walk forward and back, `A` and
+`D` strafe, `Ctrl` slides, `Space` jumps, `Q` grabs a ledge, `E` interacts, `F`
+throws the filament. Movement is camera-relative, so forward is wherever you
+are looking.
 
 Everything is open source, code and content both. If you want to tell a
 different story in the same city, that's what an Edition is: a folder of JSON,
@@ -40,7 +41,7 @@ change the game you already downloaded.
 
 Dev Stage 1. The project boots, the menu works, Lancer moves.
 
-There are 487 headless checks and they all pass. The movement is frame exact
+There are 495 headless checks and they all pass. The movement is frame exact
 at 60 Hz and the HUD reads your speed in metres per second. The PSX slider
 goes from 0 to 100, so the amount of PSX is the player's call and not mine.
 The world grid exists as data: 25 chapters, 12 sections each, 300 sections in
@@ -55,9 +56,9 @@ would rather it failed than have the two drift apart quietly, which is
 exactly what they did twice before I wrote the test.
 
 None of it is a game yet. The greybox is a measuring rig, one room with a
-floor and a wall to kiss. There's no art. The story layer is JSON that
-nothing in the engine reads yet. `docs/dev_stage_1.md` §7 has the honest
-version of that list.
+floor and a wall on every side to kiss. There's no art. The story layer is
+JSON that nothing in the engine reads yet. `docs/dev_stage_1.md` §7 has the
+honest version of that list.
 
 ## The short version of the design
 
@@ -68,7 +69,7 @@ version of that list.
 | The arsenal | Seven real weapons, and a route for everything that a bullet won't do |
 | The antagonist | Human made, systemic, and right about the danger |
 | Camera | Never leaves Lancer, Cutscenes happen in real time|
-| Look | PSX era low poly 3D at 480×270, parallax, nearest neighbour upscale |
+| Look | PSX era low poly 3D at 480×270, layered depth, nearest neighbour upscale |
 | Fractures | 12 deliberate, stable, nameable bugs. Mastery content |
 | Structure | 25 chapters × 12 sections in seven acts. The first act is a prequel |
 | Lancer | Lancer Ivanov. No pronouns anywhere, and Lancer never speaks |

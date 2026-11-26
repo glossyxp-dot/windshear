@@ -19,16 +19,22 @@ fog_light_color = Color(0.055, 0.071, 0.094, 1)
 fog_density = 0.008
 
 [sub_resource type="BoxShape3D" id="FloorShape"]
-size = Vector3(60, 1, 8)
+size = Vector3(60, 1, 40)
 
 [sub_resource type="BoxMesh" id="FloorMesh"]
-size = Vector3(60, 1, 8)
+size = Vector3(60, 1, 40)
 
 [sub_resource type="BoxShape3D" id="BackWallShape"]
 size = Vector3(60, 12, 0.2)
 
 [sub_resource type="BoxMesh" id="BackWallMesh"]
 size = Vector3(60, 12, 0.2)
+
+[sub_resource type="BoxShape3D" id="SideWallShape"]
+size = Vector3(0.2, 12, 40)
+
+[sub_resource type="BoxMesh" id="SideWallMesh"]
+size = Vector3(0.2, 12, 40)
 
 [sub_resource type="BoxShape3D" id="PlatformAShape"]
 size = Vector3(5, 0.5, 5)
@@ -113,7 +119,7 @@ material_override = ExtResource("4_charcoal")
 shape = SubResource("FloorShape")
 
 [node name="BackWall" type="StaticBody3D" parent="Geometry"]
-position = Vector3(0, 4, -4.1)
+position = Vector3(0, 4, -20.1)
 
 [node name="Mesh" type="MeshInstance3D" parent="Geometry/BackWall"]
 mesh = SubResource("BackWallMesh")
@@ -121,6 +127,36 @@ material_override = ExtResource("5_deep")
 
 [node name="Shape" type="CollisionShape3D" parent="Geometry/BackWall"]
 shape = SubResource("BackWallShape")
+
+[node name="FrontWall" type="StaticBody3D" parent="Geometry"]
+position = Vector3(0, 4, 20.1)
+
+[node name="Mesh" type="MeshInstance3D" parent="Geometry/FrontWall"]
+mesh = SubResource("BackWallMesh")
+material_override = ExtResource("5_deep")
+
+[node name="Shape" type="CollisionShape3D" parent="Geometry/FrontWall"]
+shape = SubResource("BackWallShape")
+
+[node name="LeftWall" type="StaticBody3D" parent="Geometry"]
+position = Vector3(-30.1, 4, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Geometry/LeftWall"]
+mesh = SubResource("SideWallMesh")
+material_override = ExtResource("5_deep")
+
+[node name="Shape" type="CollisionShape3D" parent="Geometry/LeftWall"]
+shape = SubResource("SideWallShape")
+
+[node name="RightWall" type="StaticBody3D" parent="Geometry"]
+position = Vector3(30.1, 4, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Geometry/RightWall"]
+mesh = SubResource("SideWallMesh")
+material_override = ExtResource("5_deep")
+
+[node name="Shape" type="CollisionShape3D" parent="Geometry/RightWall"]
+shape = SubResource("SideWallShape")
 
 [node name="PlatformA" type="StaticBody3D" parent="Geometry"]
 position = Vector3(-16, 1, 0)
@@ -194,7 +230,7 @@ material_override = ExtResource("5_deep")
 shape = SubResource("WallShape")
 
 [node name="GuideWall" type="StaticBody3D" parent="Geometry"]
-position = Vector3(0, 1.5, -0.5)
+position = Vector3(0, 1.5, -10)
 
 [node name="Mesh" type="MeshInstance3D" parent="Geometry/GuideWall"]
 mesh = SubResource("GuideWallMesh")

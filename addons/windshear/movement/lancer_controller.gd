@@ -23,18 +23,19 @@
 ## route produce byte-identical velocities.
 ##
 ## Three rules are easy to break by accident:
-## [br]- the player never leaves the XY plane. [code]velocity.z[/code] is
-##   zeroed every frame.
+## [br]- movement is camera-relative on the ground plane. [code]W[/code] walks
+##   along the camera's facing and [code]A[/code]/[code]D[/code] strafe across
+##   it. There is no fixed forward axis.
 ## [br]- nothing is allocated in the frame loop. The input object is
 ##   created once and reused.
 ## [br]- no random numbers. Wind, gates and hazards use the section-seeded
 ##   generator in [code]WsGame.rng_for_section()[/code].
 ##
 ## A wall-jump works like this. A slide opens a two-frame window. Touching a
-## side wall inside that window arms the jump, and pressing Space adds
-## 0.8 m/s to Lancer's running speed while launching Lancer. The bonus
-## survives ground acceleration because the jump happens on the same frame,
-## so the boost carries through the air.
+## wall inside that window arms the jump, and pressing Space adds 0.8 m/s to
+## Lancer's speed along the direction of travel while launching Lancer. The
+## bonus survives ground acceleration because the jump happens on the same
+## frame, so the boost carries through the air.
 ##
 ## The base chain holds three wall-jumps and stops at 16.4 m/s.
 ## The shipped `wall_kiss_chain` Fracture takes it to five and 18.0 m/s.
@@ -68,7 +69,7 @@ var jump_buffer_frames := 0
 var slide_frames := 0
 ## Frames left in the wall-jump contact window.
 var wall_kiss_frames := 0
-## True when a side wall was touched inside the window and a jump can use it.
+## True when a wall was touched inside the window and a jump can use it.
 var wall_kiss_armed := false
 ## Wall-jumps in the current chain.
 var wall_kiss_count := 0
@@ -106,12 +107,17 @@ func _physics_process(delta: float) -> void:
 func _gather_input() -> void:
 	_input.reset()
 	if live_input:
-		_input.move_axis = Input.get_axis("move_left", "move_right")
+		_input.move = Vector2(
+			Input.get_axis("move_left", "move_right"),
+			Input.get_axis("move_back", "move_forward"))
 		_input.jump_pressed = Input.is_action_just_pressed("jump")
 		_input.jump_held = Input.is_action_pressed("jump")
 		_input.jump_released = Input.is_action_just_released("jump")
 		_input.slip_pressed = Input.is_action_just_pressed("slip")
 		_input.slip_held = Input.is_action_pressed("slip")
+		var rig := get_node_or_null("CameraRig") as CameraRig
+		if rig != null:
+			_input.camera_yaw = rig.yaw
 	_input.on_floor = is_on_floor()
 	_input.wall_contact = is_on_wall()
 	if _input.wall_contact:
@@ -141,8 +147,9 @@ func simulate(delta: float, inp: LancerInputState) -> void:
 		airborne_frames += 1
 
 	# --- slide ----------------------------------------------------------
+	var ground_speed := Vector2(velocity.x, velocity.z).length()
 	if inp.slip_pressed and inp.on_floor and slide_frames <= 0 \
-			and absf(velocity.x) >= Tuning.SLIDE_MIN_SPEED:
+			and ground_speed >= Tuning.SLIDE_MIN_SPEED:
 		slide_frames = Tuning.SLIDE_FRAMES
 		wall_kiss_frames = Tuning.WALL_KISS_WINDOW_FRAMES
 		wall_kiss_armed = false
@@ -154,7 +161,7 @@ func simulate(delta: float, inp: LancerInputState) -> void:
 		var into_wall := velocity.dot(inp.wall_normal)
 		if into_wall < 0.0:
 			velocity -= inp.wall_normal * into_wall
-		if slide_frames > 0 and wall_kiss_frames > 0 and _is_side_wall(inp.wall_normal):
+		if slide_frames > 0 and wall_kiss_frames > 0:
 			wall_kiss_armed = true
 	else:
 		wall_kiss_armed = false
@@ -169,7 +176,7 @@ func simulate(delta: float, inp: LancerInputState) -> void:
 		jumped = true
 		jump_performed.emit()
 		if wall_kiss_armed and wall_kiss_count < wall_kiss_cap:
-			_apply_wall_kiss()
+			_apply_wall_kiss(inp)
 	elif jump_buffer_frames > 0:
 		jump_buffer_frames -= 1
 
@@ -179,14 +186,20 @@ func simulate(delta: float, inp: LancerInputState) -> void:
 		# wall-jump boost is not eaten by the speed cap in the same frame.
 		pass
 	elif inp.on_floor:
+		var horizontal := Vector3(velocity.x, 0.0, velocity.z)
 		if slide_frames > 0:
-			velocity.x = move_toward(velocity.x, 0.0, Tuning.SLIDE_FRICTION * delta)
+			horizontal = horizontal.move_toward(Vector3.ZERO,
+				Tuning.SLIDE_FRICTION * delta)
 		else:
-			var target := inp.move_axis * Tuning.MAX_RUN_SPEED
-			if absf(inp.move_axis) > 0.0:
-				velocity.x = move_toward(velocity.x, target, Tuning.GROUND_ACCEL * delta)
+			var wish := _wish_direction(inp)
+			if wish != Vector3.ZERO:
+				horizontal = horizontal.move_toward(wish * Tuning.MAX_RUN_SPEED,
+					Tuning.GROUND_ACCEL * delta)
 			else:
-				velocity.x = move_toward(velocity.x, 0.0, Tuning.GROUND_DECEL * delta)
+				horizontal = horizontal.move_toward(Vector3.ZERO,
+					Tuning.GROUND_DECEL * delta)
+		velocity.x = horizontal.x
+		velocity.z = horizontal.z
 	else:
 		_air_control(delta, inp)
 
@@ -196,11 +209,22 @@ func simulate(delta: float, inp: LancerInputState) -> void:
 	if not inp.on_floor:
 		velocity.y -= Tuning.GRAVITY * delta
 
-	# --- plane and facing -------------------------------------------------
-	velocity.z = 0.0
-	if absf(inp.move_axis) > 0.0:
-		facing = signf(inp.move_axis)
-	speed_ratio = absf(velocity.x) / Tuning.MAX_RUN_SPEED
+	# --- speed ceiling ---------------------------------------------------
+	# The wall-jump ceiling is a speed limit, not just an X limit. Without
+	# this, a player could steer perpendicular to a maxed chain and let air
+	# control add on top of it.
+	var horizontal := Vector3(velocity.x, 0.0, velocity.z)
+	var horizontal_speed := horizontal.length()
+	if horizontal_speed > wall_kiss_speed_ceiling:
+		horizontal *= wall_kiss_speed_ceiling / horizontal_speed
+		velocity.x = horizontal.x
+		velocity.z = horizontal.z
+
+	# --- facing and speed readout -----------------------------------------
+	var wish := _wish_direction(inp)
+	if absf(wish.x) > 0.0:
+		facing = signf(wish.x)
+	speed_ratio = Vector2(velocity.x, velocity.z).length() / Tuning.MAX_RUN_SPEED
 
 	# --- end of frame counters ---------------------------------------------
 	if slide_frames > 0:
@@ -221,9 +245,9 @@ func simulate(delta: float, inp: LancerInputState) -> void:
 ## Air control accelerates towards the input direction. The total speed it may
 ## add over one airborne stretch is capped.
 func _air_control(delta: float, inp: LancerInputState) -> void:
-	if absf(inp.move_axis) <= 0.0:
+	var direction := _wish_direction(inp)
+	if direction == Vector3.ZERO:
 		return
-	var direction := Vector3(signf(inp.move_axis), 0.0, 0.0)
 	var current := velocity.dot(direction)
 	if Tuning.MAX_RUN_SPEED - current <= 0.0:
 		return
@@ -234,15 +258,25 @@ func _air_control(delta: float, inp: LancerInputState) -> void:
 	air_bonus += add
 
 
-## True when the wall runs alongside the route instead of blocking it.
+## Turns the stick or WASD into a world-space direction on the ground plane.
 ##
-## A side wall has a normal that points mostly along Z; a wall straight ahead
-## has a normal along X. Only side walls can arm a wall-jump.
-func _is_side_wall(normal: Vector3) -> bool:
-	return absf(normal.z) >= 0.5
+## Movement is relative to the camera, so "forward" is wherever the camera is
+## looking. The yaw travels on the input record because [method simulate] has
+## to stay a pure function for the replay and discovery harnesses.
+func _wish_direction(inp: LancerInputState) -> Vector3:
+	var move := inp.move
+	if move.length_squared() <= 0.0:
+		return Vector3.ZERO
+	# A keyboard diagonal is longer than one; a partly pushed stick is not.
+	# Clamp the first and keep the second, so the stick still walks slower.
+	if move.length() > 1.0:
+		move = move.normalized()
+	var forward := Vector3(-sin(inp.camera_yaw), 0.0, -cos(inp.camera_yaw))
+	var right := Vector3(cos(inp.camera_yaw), 0.0, -sin(inp.camera_yaw))
+	return forward * move.y + right * move.x
 
 
-## Adds one wall-jump boost to Lancer's running speed.
+## Adds one wall-jump boost along the direction of travel.
 ##
 ## The boost is capped, and the cap belongs to the controller rather than the
 ## tuning file because the Fracture moves it. Three wall-jumps take the running
@@ -250,16 +284,21 @@ func _is_side_wall(normal: Vector3) -> bool:
 ## 18.0. Without a cap, a long route could stack boosts until Lancer was faster
 ## than the level designer expected. The discovery suite
 ## (`tests/test_movement_discovery.gd`) found it.
-func _apply_wall_kiss() -> void:
-	var direction := signf(velocity.x)
-	if direction == 0.0:
-		direction = facing
+func _apply_wall_kiss(inp: LancerInputState) -> void:
+	var horizontal := Vector3(velocity.x, 0.0, velocity.z)
+	var direction := horizontal.normalized()
+	if direction == Vector3.ZERO:
+		var fallback := _wish_direction(inp)
+		if fallback != Vector3.ZERO:
+			direction = fallback.normalized()
+	if direction == Vector3.ZERO:
+		direction = Vector3(facing, 0.0, 0.0)
 	var boost := minf(Tuning.WALL_KISS_BOOST,
-		wall_kiss_speed_ceiling - absf(velocity.x))
+		wall_kiss_speed_ceiling - horizontal.length())
 	wall_kiss_armed = false
 	if boost <= 0.0:
 		return
-	velocity.x += direction * boost
+	velocity += direction * boost
 	wall_kiss_count += 1
 	frames_since_kiss = 0
 	wall_kiss_registered.emit(wall_kiss_count)

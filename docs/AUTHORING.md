@@ -70,7 +70,7 @@ Open `world/greybox/movement_greybox.tscn` and press **F6**.
 | Alt fire | right mouse button |
 | Camera | mouse |
 
-The mouse does the camera and both triggers because it's already in the hand pointing at the target. Everything else is on the keyboard, and the keyboard leaves the camera alone. `W` and `S` are movement keys: jump and slide. Click into the window if the mouse is captured; Escape lets it go.
+The mouse does the camera and both triggers because it's already in the hand pointing at the target. Everything else is on the keyboard, and the keyboard leaves the camera alone. `W` and `S` walk forward and back, `A` and `D` strafe, and the walk follows the camera. Click into the window if the mouse is captured; Escape lets it go.
 
 There are a few extra bindings too:
 

@@ -21,7 +21,7 @@ godot --headless --path . --script res://tools/cell_budget_checker.gd
 
 A failed check gives the suite a non-zero exit status. CI is one line, and there's nothing to parse.
 
-The current state is **487 checks, 0 failures**, in fourteen suites.
+The current state is **495 checks, 0 failures**, in fourteen suites.
 
 ---
 
@@ -33,7 +33,7 @@ That won't do here. The bugs that ruin a speedrun are frame bugs. The bugs that 
 
 The coyote window has to be exactly 8 frames, accepted on frame 8 and rejected on frame 9. The same input sequence must produce the same output on every machine. Project settings and frame cost get measured instead of assumed. Four rules from `CONTRIBUTING.md` are checked in code because a reviewer can't reliably check them from a diff.
 
-The canon tests keep the cast, arsenal, roster and player's numbers honest. Those are data, and data drifts. The input suite holds the agreed scheme in place: `A`/`D` run, `Ctrl` or `S` slides, `Space` or `W` jumps, `Q` grabs a ledge, `E` interacts, `F` throws the filament, the mouse handles the camera, and the left and right mouse buttons fire. Nothing on the keyboard turns the camera, and the suite checks that no action claims the arrows. The mouse triggers are the only mouse-only actions.
+The canon tests keep the cast, arsenal, roster and player's numbers honest. Those are data, and data drifts. The input suite holds the agreed scheme in place: `W`/`S` walk forward and back, `A`/`D` strafe, `Ctrl` slides, `Space` jumps, `Q` grabs a ledge, `E` interacts, `F` throws the filament, the mouse handles the camera, and the left and right mouse buttons fire. Nothing on the keyboard turns the camera, and the suite checks that no action claims the arrows. The mouse triggers are the only mouse-only actions.
 
 I spent a long time convinced that a good test suite was about coverage. It isn't, for this kind of game. It's about having one test per thing that would be embarrassing to get wrong, and about that test failing with a message somebody can act on without reading the source. Most of the assertions here are checking a number against a number, and that's deliberate.
 
@@ -44,25 +44,25 @@ I spent a long time convinced that a good test suite was about coverage. It isn'
 | Suite | Checks | Covers |
 | --- | --- | --- |
 | `test_tuning.gd` | 25 | Tuning constants match `TECH_SPEC.md` section 3 |
-| `test_movement.gd` | 48 | Movement is frame-exact |
+| `test_movement.gd` | 54 | Movement is frame-exact |
 | `test_movement_characterization.gd` | 77 | Movement accidents stay characterized |
 | `test_movement_discovery.gd` | 26 | What the movement permits |
 | `test_camera.gd` | 17 | The camera rig behaves |
-| `test_input_map.gd` | 24 | The input map is the scheme we said |
+| `test_input_map.gd` | 26 | The input map is the scheme we said |
 | `test_determinism.gd` | 8 | The simulation is deterministic |
 | `test_speed_meter.gd` | 11 | The speed is measured in metres per second |
 | `test_perf_budget.gd` | 10 | The performance budget holds |
 | `test_code_policy.gd` | 10 | The code policy holds |
-| `test_world_data.gd` | 39 | The world data holds together |
+| `test_world_data.gd` | 41 | The world data holds together |
 | `test_canon.gd` | 115 | The canon holds |
 | `test_greybox.gd` | 36 | The greybox holds together |
 | `test_psx.gd` | 39 | The player picks how much PSX there is |
 
-The tuning suite compares the documented constants in `ws_tuning.gd` with `TECH_SPEC.md` §3. The movement suite pins the top speed, acceleration rates, turnarounds, jump height, coyote time, jump buffer, air cap, slide, wall-jump and plane constraint. Characterization keeps the arming and chain boundaries, collision energy, repeated cycles, adversarial input and full-state replay from drifting.
+The tuning suite compares the documented constants in `ws_tuning.gd` with `TECH_SPEC.md` §3. The movement suite pins the top speed, acceleration rates, turnarounds, jump height, coyote time, jump buffer, air cap, slide, wall-jump and camera-relative direction. Characterization keeps the arming and chain boundaries, collision energy, repeated cycles, adversarial input and full-state replay from drifting.
 
 The camera suite checks the pitch clamp, yaw wrap, speed dolly and the camera's ownership by the rig. Determinism checks that identical inputs produce identical outputs and that the section seed stays stable. The speed-meter suite covers the reading, peak, reset and unit string.
 
-The world-data suite keeps the 25×12 grid, prequel, gate schedule, Fracture registry, endings, beats and dialogue together. The canon suite covers the cast, silence, arsenal, enemy roster, health and speed numbers, and the documents that have to agree with them. The greybox suite covers the scene, player, camera, plane, budget, materials, help panel and a 90-second route. The PSX suite checks the globals, shader, clamping, settings round trip and the slider in the menu.
+The world-data suite keeps the 25×12 grid, prequel, gate schedule, Fracture registry, endings, beats and dialogue together. The canon suite covers the cast, silence, arsenal, enemy roster, health and speed numbers, and the documents that have to agree with them. The greybox suite covers the scene, player, camera, floor, budget, materials, help panel and a 90-second route. The PSX suite checks the globals, shader, clamping, settings round trip and the slider in the menu.
 
 Most of these are **plain** suites. They extend `WSTest`, implement `run()`, touch nothing but the simulation, and don't need a scene tree. They run first.
 
@@ -152,7 +152,7 @@ func _run() -> void:
 
 The report prints on every run. A movement change shows up in the output even when all the assertions still pass. The report is the instrument; the assertions are the guard rails.
 
-Every technique stays under the speed ceiling and never leaves the XY plane. It respects the air acceleration cap and the wall-jump chain cap. On top of that, bunny hopping can't beat a plain run by more than 0.5 m/s. That's the promise the project makes. If it ever fails, somebody changed the physics on purpose and has to argue for it.
+Every technique stays under the speed ceiling and keeps its depth finite. It respects the air acceleration cap and the wall-jump chain cap. On top of that, bunny hopping can't beat a plain run by more than 0.5 m/s. That's the promise the project makes. If it ever fails, somebody changed the physics on purpose and has to argue for it.
 
 `tests/movement_probe.gd` is the harness underneath. It's a kinematic rig that stands the controller up in an empty world and drives it with a per-frame input function. No scene, no physics body, so it runs in milliseconds.
 

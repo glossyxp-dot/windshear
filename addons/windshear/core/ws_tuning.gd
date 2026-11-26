@@ -95,9 +95,3 @@ const WALL_KISS_FRACTURE_SPEED_CEILING := MAX_RUN_SPEED \
 const FILAMENT_LOCK_TIME := 0.25
 ## Half-angle of the filament lock-on cone, in degrees.
 const FILAMENT_CONE_DEGREES := 18.0
-
-# --- Plane ----------------------------------------------------------------
-## Z coordinate of the gameplay plane. Gameplay happens on XY.
-const PLAY_PLANE_Z := 0.0
-## Tolerance used by the tests when asserting "the player stayed on the plane".
-const PLANE_EPSILON := 0.0001

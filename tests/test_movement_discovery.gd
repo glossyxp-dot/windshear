@@ -24,7 +24,7 @@
 ## what happens.
 ##
 ## Nothing here is a feature list. The suite asserts three kinds of thing:
-## [br]- the invariants: speed is bounded, the plane holds, the air contribution cap holds, and the chain cap holds;
+## [br]- the invariants: speed is bounded, depth stays finite, the air contribution cap holds, and the chain cap holds;
 ## [br]- an honest report: every probe is printed, so a change in movement code shows up in the output;
 ## [br]- one promise: bunny hopping is not a speed exploit in WindShear.
 ##   If that assertion ever fails, somebody changed the physics on purpose
@@ -67,7 +67,7 @@ func run() -> void:
 func _probe_plain_run() -> void:
 	var probe: Object = Probe.new(Vector3(-24.0, 0.9, 0.0))
 	probe.run(300, func(_frame, input, _controller, _probe):
-		input.move_axis = 1.0
+		input.move = Vector2(1.0, 0.0)
 	)
 	_record("plain run", probe, "the baseline: hold the stick")
 	probe.release()
@@ -77,7 +77,7 @@ func _probe_plain_run() -> void:
 func _probe_bunny_hop() -> void:
 	var probe: Object = Probe.new(Vector3(-24.0, 0.9, 0.0))
 	probe.run(600, func(_frame, input, _controller, _probe):
-		input.move_axis = 1.0
+		input.move = Vector2(1.0, 0.0)
 		input.jump_pressed = _probe.grounded
 	)
 	_record("bunny hop", probe, "jump on every landing")
@@ -88,7 +88,7 @@ func _probe_bunny_hop() -> void:
 func _probe_slide_hop() -> void:
 	var probe: Object = Probe.new(Vector3(-24.0, 0.9, 0.0))
 	probe.run(420, func(frame, input, _controller, _probe):
-		input.move_axis = 1.0
+		input.move = Vector2(1.0, 0.0)
 		if frame == 120:
 			input.slip_pressed = true
 		if frame == 121:
@@ -103,29 +103,29 @@ func _probe_air_flick() -> void:
 	var probe: Object = Probe.new(Vector3(-24.0, 0.9, 0.0))
 	probe.run(300, func(frame, input, _controller, _probe):
 		if frame < 60:
-			input.move_axis = 1.0
+			input.move = Vector2(1.0, 0.0)
 		elif frame == 60:
-			input.move_axis = 1.0
+			input.move = Vector2(1.0, 0.0)
 			input.jump_pressed = true
 		else:
-			input.move_axis = -1.0
+			input.move = Vector2(-1.0, 0.0)
 	)
 	_record("air flick", probe, "run right, pull left in the air")
 	probe.release()
 
 
-## The wall-jump chain: slide into a side wall and jump on the contact frame.
+## The wall-jump chain: slide into a wall and jump on the contact frame.
 func _probe_wall_kiss_chain() -> void:
 	var probe: Object = Probe.new(Vector3(-24.0, 0.9, 0.0))
 	probe.run(600, func(frame, input, _controller, _probe):
-		input.move_axis = 1.0
+		input.move = Vector2(1.0, 0.0)
 		input.wall_contact = true
 		input.wall_normal = Vector3(0.0, 0.0, 1.0)
 		if _probe.grounded and frame > 120:
 			input.slip_pressed = true
 			input.jump_pressed = true
 	)
-	_record("wall-kiss chain", probe, "slide and jump against a side wall")
+	_record("wall-kiss chain", probe, "slide and jump against a wall")
 	probe.release()
 
 
@@ -133,7 +133,7 @@ func _probe_wall_kiss_chain() -> void:
 func _probe_turnaround() -> void:
 	var probe: Object = Probe.new(Vector3(-24.0, 0.9, 0.0))
 	probe.run(300, func(frame, input, _controller, _probe):
-		input.move_axis = 1.0 if frame < 120 else -1.0
+		input.move = Vector2(1.0 if frame < 120 else -1.0, 0.0)
 	)
 	_record("turnaround", probe, "reverse the stick at full speed")
 	probe.release()
@@ -176,7 +176,7 @@ func _assert_invariants() -> void:
 		var name: String = entry["name"]
 		ok(entry["peak"] <= SPEED_CEILING,
 			"%s stays under the %.1f m/s ceiling (%.2f)" % [name, SPEED_CEILING, entry["peak"]])
-		ok(entry["z"] == 0.0, "%s never leaves the XY plane" % name)
+		ok(is_finite(float(entry["z"])), "%s keeps depth finite" % name)
 		ok(entry["air"] <= Tuning.AIR_ACCEL_MAX_CONTRIB + 0.0001,
 			"%s respects the air acceleration cap" % name)
 		ok(entry["kisses"] <= Tuning.WALL_KISS_CAP,

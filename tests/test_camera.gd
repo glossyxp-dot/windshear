@@ -18,9 +18,9 @@
 ## the pitch never flips over the top, and the rig never leaves Lancer.
 ##
 ## Mouse movement controls the camera, and so does the right stick. Nothing on
-## the keyboard does. Lancer runs along A and D because the gameplay plane has
-## no forward axis, and W and S are movement keys: jump and slide. The speed
-## dolly makes 14 m/s read as fast.
+## the keyboard does. The controller reads the rig's yaw and turns WASD into a
+## world direction, so forward follows the camera. The speed dolly makes
+## 14 m/s read as fast.
 extends "res://tests/ws_test.gd"
 
 ## The camera rig.

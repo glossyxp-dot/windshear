@@ -1,7 +1,7 @@
 # WINDSHEAR — Technical Specification
 
 Target: **Godot 4.7.2**, Compatibility renderer, PSX-style low-resolution 3D,
-2.5D gameplay plane, hard RAM ceiling of **4 GB**.
+full 3D gameplay on the ground plane, hard RAM ceiling of **4 GB**.
 
 ---
 
@@ -91,12 +91,16 @@ geometry is merged per cell into a small number of `MultiMeshInstance3D` /
 
 ## 3. Gameplay architecture
 
-### 2.5D constraint
-- Gameplay simulated on the **XY plane** at a fixed Z per cell.
-- Visual depth layers: foreground occluders (Z-), play plane (Z0), mid-ground
-  (Z+), city shell (Z++), skybox.
-- Entities use `PhysicsBody3D` in 3D but the player's movement is constrained:
-  `body.velocity.z = 0` and walls are placed on the plane.
+### Movement space
+- Gameplay is simulated in full 3D on the **X/Z ground plane**, with Y for
+  height. There is no fixed forward axis.
+- The camera is a third-person orbit rig on Lancer. Movement is
+  camera-relative: `W`/`S` walk along the camera's facing, `A`/`D` strafe
+  across it.
+- Architecture is authored at full depth: foreground occluders, walkable
+  ground, mid-ground structures, the city shell and a skybox.
+- Entities use `PhysicsBody3D` in 3D. The player's `CharacterBody3D` keeps
+  horizontal velocity in X/Z and vertical velocity in Y.
 
 ### Player controller
 Custom `CharacterBody3D` (not `SourcePlayer`) — speed platforming needs
@@ -109,7 +113,7 @@ frame-exact control:
 | Air accel | 32 m/s², capped contribution 2.2 m/s (air-strafe) |
 | Gravity | 60 m/s² (jump apex ≈ 2.0 m) |
 | Jump velocity | 15.5 m/s, variable height, 8f coyote, 10f buffer |
-| Slide | 0.45 s, friction 6, cancels into jump |
+| Slide | 0.45 s, friction 6, starts above 5.0 m/s, cancels into jump |
 | Wall-jump | 2-frame window, +0.8 m/s, chain of 3, **hard ceiling 16.4 m/s** |
 | Wall-jump, `wall_kiss_chain` Fracture active | chain of 5, ceiling 18.0 m/s |
 | Filament lock-on | 0.25 s cone assist, 18° half-angle |
@@ -121,12 +125,11 @@ same document in two forms. If you find yourself editing one and not the
 other, the test will tell you, which is the whole point of writing it that
 way.
 
-**Wall-jump definition.** A slide opens a 2-frame window. Touching a **side
-wall** — a wall whose normal points mostly along Z — inside that window arms
-the jump. Jumping on that frame adds +0.8 m/s of horizontal speed, and the
-ground acceleration is skipped on that frame so it cannot eat the boost
-again. A chain is three wall-jumps long, and it expires after 30 frames
-without a kiss.
+**Wall-jump definition.** A slide opens a 2-frame window. Touching **any
+wall** inside that window arms the jump. Jumping on that frame adds +0.8 m/s of
+horizontal speed, and the ground acceleration is skipped on that frame so it
+cannot eat the boost again. A chain is three wall-jumps long, and it expires
+after 30 frames without a kiss.
 
 The **16.4 m/s ceiling** is a hard horizontal speed limit on the boost:
 14.0 (run) + 3 × 0.8 (a full chain) = 16.4. It was not in the original
@@ -169,10 +172,10 @@ The scheme is fixed and `tests/test_input_map.gd` enforces it:
 
 The mouse does the camera and the two triggers, because the mouse is already
 in the hand doing the camera. Everything else is on the keyboard, and the
-keyboard leaves the camera alone. A side-on route has no forward axis, so
-`W` and `S` are movement keys instead: jump and slide. The generator also
-deletes actions that are no longer in its table, so a renamed action cannot
-linger in `project.godot` forever.
+keyboard leaves the camera alone. WASD is a normal walk-around cluster, and
+the walk follows the camera. The generator also deletes actions that are no
+longer in its table, so a renamed action cannot linger in `project.godot`
+forever.
 
 ### Determinism
 - Fixed 60 Hz physics tick, `Engine.physics_ticks_per_second = 60`.

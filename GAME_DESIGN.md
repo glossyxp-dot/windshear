@@ -1,11 +1,11 @@
 # WINDSHEAR: dev directions
 
-> A goldsrc 2.5D speed-and-precision platformer. Free and open source, built so
+> A goldsrc 3D speed-and-precision platformer. Free and open source, built so
 > the community can tell its own stories inside the same world.
 
-**One-line pitch:** *Twenty years ago, Longhorn Science made a hypersmart organism that took over the world
-Today, Lancer Ivanov is
-going to punch through the sky-canopy and set the world free.*
+**One-line pitch:** *Twenty years ago, the Longhorn Biological Facility made a
+hypersmart organism that took over the world. Today, Lancer Ivanov is going to
+punch through the sky-canopy and set the wind free.*
 
 ---
 
@@ -21,10 +21,10 @@ going to punch through the sky-canopy and set the world free.*
 3. **Lancer is the main character, and Lancer never speaks.** Everything
    Lancer says is a line they run. The player frees the world from
    containment, not from an invasion.
-4. **Cinematic 2.5D, with camera discipline.** The camera never leaves Lancer.
-   Cutscenes happen in the world, not in a separate film.
-5. **Shallow depth, deep world.** PSX-era low-poly 3D at 480×270, staged like a
-   diorama: parallax, fog, layered light, big silhouettes.
+4. **Cinematic third-person, with camera discipline.** The camera never leaves
+   Lancer. Cutscenes happen in the world, not in a separate film.
+5. **Deep world, flat pixels.** PSX-era low-poly 3D at 480×270, staged like a
+   diorama: layered architecture, fog, layered light, big silhouettes.
 6. **Fractures are real.** The Concord is old and patched, and some of the
    cracks ship on purpose, so a hyper-competent player can go and find one,
    name it and use it.
@@ -199,27 +199,27 @@ as a hollowed-out monument beneath an open sky. All 12 Fractures required.
 
 ## 2. Movement model (the core)
 
-**Plane:** gameplay on X/Y. Z is for parallax staging, rails and background
-layers. Speed reads off the X axis, precision off Y.
+**Ground plane:** gameplay happens on X/Z, with Y for height. Movement is
+camera-relative: `W` walks away from the camera, `S` walks back, `A` and `D`
+strafe. Speed reads off the horizontal vector, precision off the jump arc.
 
 ### Verbs
 
 | Verb | Input | Feel |
 | --- | --- | --- |
-| Move | `A` `D` | Top speed ~14 m/s; quick, snappy accel; momentum *not* preserved on turnaround |
-| Slide | `Ctrl` or `S` while running | Lowers profile, preserves speed, cancellable; friction ramp |
-| Jump / double jump | `Space` or `W` | Variable height, 8-frame coyote time, 10-frame input buffer |
+| Move | `W` `A` `S` `D` | Camera-relative walk; top speed ~14 m/s; quick, snappy accel; momentum *not* preserved on turnaround |
+| Slide | `Ctrl` while running | Lowers profile, preserves speed, cancellable; friction ramp |
+| Jump / double jump | `Space` | Variable height, 8-frame coyote time, 10-frame input buffer |
 | Wall contact | into a wall | Slide along, preserves speed; **wall-jump chain**, three jumps long |
 | Ledge grab | `Q` at a ledge | 0.15 s snap, generous corner correction |
-| Air control | `A` `D` in air | Strong but not total; air-strafe mini-accel (precision tech) |
+| Air control | `W` `A` `S` `D` in air | Strong but not total; air-strafe mini-accel (precision tech) |
 | Filament (tether) | `F` | 3 anchor types, 0.25 s lock-on, *not* a grapple hook |
 
 The mouse does the camera and the two triggers, and it is the only thing that
 does the camera on a keyboard-and-mouse setup. The keyboard carries movement
-and everything else. The gameplay plane has no forward axis, so `W` and `S`
-can't be a second run direction; they join the movement cluster instead, on
-jump and slide, which makes WASD a complete set. The full scheme is in
-`docs/CONTROLS.md`.
+and everything else. WASD is a normal walk-around cluster, and because the
+walk follows the camera, turning the view turns the route. The full scheme is
+in `docs/CONTROLS.md`.
 
 ### Possible Techniques (why this is learnable, not soup)
 
@@ -333,16 +333,16 @@ find most of them by breaking the game, not by reading a list.
 
 ---
 
-## 5. 2.5D and the camera
+## 5. 3D and the camera
 
 ### Staging
 
-Gameplay is planar, but the world is built in full 3D so there's depth behind
-it. Rendering is low-poly PSX-style models at an internal **480×270**, upscaled
-with nearest-neighbour, with vertex snapping, flat-ish lighting and a lot of
-fog and silhouette. The depth comes from **layered parallax**: foreground
-occluders, the play plane, mid-ground architecture, the distant city shell and
-a skybox, each with its own fog density.
+Gameplay is fully 3D on the ground plane, and the world is built at full depth
+around it. Rendering is low-poly PSX-style models at an internal **480×270**,
+upscaled with nearest-neighbour, with vertex snapping, flat-ish lighting and a
+lot of fog and silhouette. Depth comes from **layered architecture**:
+foreground occluders, the walkable ground, mid-ground structures, the distant
+city shell and a skybox, each with its own fog density.
 
 ### The camera never leaves Lancer. Hard rule.
 
@@ -352,8 +352,8 @@ no letterbox cutaways.
 Cutscenes are **diegetic in the play space**: characters walk into frame,
 conversations happen with the player in control, props animate in view.
 
-Camera behaviour never changes. It's a 2.5D perspective rig locked to Lancer's
-plane, with speed-based FOV and a distance pull-back. It never detaches, never
+Camera behaviour never changes. It's a third-person orbit rig that stays on
+Lancer, with speed-based FOV and a distance pull-back. It never detaches, never
 cuts, never goes first-person.
 
 ### Two kinds of cutscene
@@ -597,10 +597,11 @@ your own ghost and get a few seconds of overlap before you diverge.
 
 ---
 
-## 9. The 2.5D camera in practice
+## 9. The camera in practice
 
-The camera is a **constrained 3D rig locked to the play plane**: a side-on 2.5D
-view with the full depth of a 3D scene behind it.
+The camera is a **third-person orbit rig**: it stays on Lancer, and the mouse
+walks it around the body. Because movement is camera-relative, the orbit is
+also the steering wheel. Turn the view and forward turns with it.
 
 It follows Lancer with **velocity lookahead**, leading in the direction of
 travel. The **speed dolly** pulls back and widens the FOV as speed rises, which
@@ -616,8 +617,8 @@ Lancer, with headroom for the jump arc.
 The mouse is the camera, and it does the two triggers as well. The right
 stick is the camera on a pad. Nothing on the keyboard touches it, which is
 deliberate: a keyboard camera and a mouse camera fight each other, and the
-player only ever wanted one of them. `W` and `S` are movement keys instead,
-on jump and slide. The defaults are in `docs/CONTROLS.md`, and
+player only ever wanted one of them. `W` and `S` walk forward and back, `A` and
+`D` strafe. The defaults are in `docs/CONTROLS.md`, and
 `tests/test_input_map.gd` fails the build if the scheme ever drifts.
 
 ---

@@ -18,9 +18,10 @@
 ## being true.
 ##
 ## [codeblock]
-## A / D    run left, run right
-## Ctrl / S slide
-## Space / W jump
+## W / S    walk forward, walk back
+## A / D    strafe left, strafe right
+## Ctrl     slide
+## Space    jump
 ## Q        ledge grab
 ## E        interact
 ## F        filament
@@ -30,9 +31,8 @@
 ## [/codeblock]
 ##
 ## The mouse does the camera and both triggers, and the keyboard never touches
-## the camera. A side-on route has no forward axis, so W and S can't be a run
-## axis; they join the movement cluster instead, on jump and slide. These
-## tests hold that line:
+## the camera. W and S walk along the camera's facing, A and D strafe across
+## it, so the walk follows the view. These tests hold that line:
 ##
 ## [br]- every action except the two triggers and the stick look has a keyboard binding;
 ## [br]- the two triggers are on the mouse buttons they belong on;
@@ -47,6 +47,8 @@ extends "res://tests/ws_test.gd"
 
 ## The actions a player has to be able to reach from the keyboard.
 const KEYBOARD_REQUIRED := [
+	"move_forward",
+	"move_back",
 	"move_left",
 	"move_right",
 	"jump",
@@ -142,6 +144,8 @@ func _test_every_action_has_a_key() -> void:
 func _test_the_keys_are_the_right_keys() -> void:
 	heading("the keys are the right keys")
 	var expected := {
+		"move_forward": KEY_W,
+		"move_back": KEY_S,
 		"move_left": KEY_A,
 		"move_right": KEY_D,
 		"jump": KEY_SPACE,
@@ -154,10 +158,9 @@ func _test_the_keys_are_the_right_keys() -> void:
 		ok(_has_keycode(action_name, expected[action_name]),
 			"%s is on the key it should be on" % action_name)
 
-	# W and S sit on the movement cluster. A side-on route has no forward
-	# axis, so they can't be a run axis; they jump and slide instead.
-	ok(_has_keycode("jump", KEY_W), "w jumps")
-	ok(_has_keycode("slip", KEY_S), "s slides")
+	# Jump and slide are not on W and S any more. WASD is the walk cluster.
+	ok(not _has_keycode("jump", KEY_W), "w is not jump any more")
+	ok(not _has_keycode("slip", KEY_S), "s is not slide any more")
 
 	# The camera used to have a keyboard route on the arrows. It doesn't any
 	# more, and a stray arrow binding would quietly bring it back.

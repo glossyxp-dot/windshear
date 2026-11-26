@@ -18,7 +18,7 @@
 ##
 ## The named movement mechanics have their own exact tests in
 ## `test_movement.gd`. This suite covers the boundaries around them: the
-## wall-jump timing window, side-wall classification, chain expiry, repeated
+## wall-jump timing window, wall contact classification, chain expiry, repeated
 ## cycles, collision projection, the air budget's direction semantics, and
 ## deterministic adversarial input sequences.
 ##
@@ -55,7 +55,7 @@ func suite_name() -> String:
 
 func run() -> void:
 	_test_wall_kiss_arming_boundary()
-	_test_side_wall_normal_boundary()
+	_test_any_wall_normal()
 	_test_chain_expiry_boundary()
 	_test_repeated_landing_slide_cycles()
 	_test_repeated_wall_kiss_cycles()
@@ -71,13 +71,13 @@ func _at_top_speed() -> Array:
 	var controller := Controller.new()
 	var input := InputState.new()
 	input.on_floor = true
-	input.move_axis = 1.0
+	input.move = Vector2(1.0, 0.0)
 	for _frame in 120:
 		controller.simulate(DT, input)
 	return [controller, input]
 
 
-## Contacts a side wall on a selected frame after the slide starts.
+## Contacts a wall on a selected frame after the slide starts.
 ##
 ## [param contact_frame] is zero-based: zero is the slide-start frame, one
 ## is the next frame, and so on. [param jump_on_contact] decides whether the
@@ -147,20 +147,19 @@ func _arms_with_normal(normal: Vector3) -> bool:
 	return armed
 
 
-## Checks the exact `abs(normal.z) >= 0.5` side-wall boundary.
-func _test_side_wall_normal_boundary() -> void:
-	heading("the side-wall normal boundary")
-	var below := sqrt(1.0 - 0.499999 * 0.499999)
-	ok(not _arms_with_normal(Vector3(below, 0.0, 0.499999)),
-		"a normal just below z=0.5 is not a side wall")
-	ok(_arms_with_normal(Vector3(sqrt(0.75), 0.0, 0.5)),
-		"a normal exactly at z=0.5 is a side wall")
-	ok(_arms_with_normal(Vector3(sqrt(0.75), 0.0, -0.5)),
-		"a normal exactly at z=-0.5 is a side wall")
-	ok(_arms_with_normal(Vector3(sqrt(1.0 - 0.500001 * 0.500001), 0.0, 0.500001)),
-		"a normal just above z=0.5 is a side wall")
-	ok(not _arms_with_normal(Vector3(-1.0, 0.0, 0.0)),
-		"a wall straight ahead cannot arm a wall-jump")
+## Checks that any wall can arm a wall-jump now that movement has depth.
+func _test_any_wall_normal() -> void:
+	heading("any wall can arm a wall-jump")
+	var normals := [
+		Vector3(-1.0, 0.0, 0.0),
+		Vector3(1.0, 0.0, 0.0),
+		Vector3(0.0, 0.0, 1.0),
+		Vector3(0.0, 0.0, -1.0),
+		Vector3(-sqrt(0.5), 0.0, sqrt(0.5)),
+	]
+	for normal in normals:
+		ok(_arms_with_normal(normal),
+			"a wall with normal %s arms a wall-jump" % normal)
 
 
 ## Checks that the chain expires after exactly 30 frames without a wall-jump.
@@ -313,7 +312,7 @@ func _test_air_budget_direction_audit() -> void:
 	var controller: Object = pair[0]
 	var input: Object = pair[1]
 	input.on_floor = false
-	input.move_axis = -1.0
+	input.move = Vector2(-1.0, 0.0)
 	controller.simulate(DT, input)
 	near(controller.velocity.x, Tuning.MAX_RUN_SPEED - Tuning.AIR_ACCEL * DT, 0.0001,
 		"air input against the run direction reduces speed")
@@ -331,7 +330,7 @@ func _test_air_budget_direction_audit() -> void:
 	var same_controller: Object = same_pair[0]
 	var same_input: Object = same_pair[1]
 	same_input.on_floor = false
-	same_input.move_axis = 1.0
+	same_input.move = Vector2(1.0, 0.0)
 	same_controller.simulate(DT, same_input)
 	near(same_controller.velocity.x, Tuning.MAX_RUN_SPEED, 0.0001,
 		"air input at the run speed does not create more speed")
@@ -346,7 +345,7 @@ func _test_air_budget_landing_reset() -> void:
 	var controller := Controller.new()
 	var input := InputState.new()
 	input.on_floor = false
-	input.move_axis = 1.0
+	input.move = Vector2(1.0, 0.0)
 	for _frame in range(10):
 		controller.simulate(DT, input)
 	near(controller.air_bonus, Tuning.AIR_ACCEL_MAX_CONTRIB, 0.0001,
@@ -380,7 +379,9 @@ func _adversarial_sequence(seed_value: int, frames: int) -> Dictionary:
 	var slip_down := false
 
 	for _frame in range(frames):
-		input.move_axis = INPUT_AXES[rng.randi_range(0, INPUT_AXES.size() - 1)]
+		input.move = Vector2(
+			INPUT_AXES[rng.randi_range(0, INPUT_AXES.size() - 1)],
+			INPUT_AXES[rng.randi_range(0, INPUT_AXES.size() - 1)])
 
 		# Button transitions remain physically legal: a second press cannot
 		# occur before a release, and press/release cannot share a frame.
@@ -410,7 +411,7 @@ func _adversarial_sequence(seed_value: int, frames: int) -> Dictionary:
 		input.on_floor = grounded
 
 		controller.simulate(DT, input)
-		var speed := absf(controller.velocity.x)
+		var speed := Vector2(controller.velocity.x, controller.velocity.z).length()
 		if is_nan(speed) or is_inf(speed):
 			finite = false
 		peak = maxf(peak, speed)
@@ -461,7 +462,7 @@ func _test_adversarial_input_fuzz() -> void:
 		ok(int(result["kisses"]) >= 0, "fuzz seed %d reports a non-negative wall-jump count" % seed_value)
 		ok(int(result["kisses"]) <= Tuning.WALL_KISS_CAP,
 			"fuzz seed %d respects the wall-jump chain cap" % seed_value)
-		near(float(result["z"]), 0.0, 0.0, "fuzz seed %d never leaves the XY plane" % seed_value)
+		ok(is_finite(float(result["z"])), "fuzz seed %d keeps depth finite" % seed_value)
 
 
 ## Replays a route while recording the complete movement state.
@@ -471,7 +472,7 @@ func _full_state_trace() -> PackedFloat64Array:
 	var trace := PackedFloat64Array()
 	for frame in range(600):
 		input.on_floor = (frame % 97) < 61
-		input.move_axis = 1.0 if (frame % 31) < 24 else -1.0
+		input.move = Vector2(1.0 if (frame % 31) < 24 else -1.0, 0.0)
 		input.jump_pressed = (frame % 97) == 60
 		input.jump_held = (frame % 97) >= 60 and (frame % 97) <= 66
 		input.jump_released = (frame % 97) == 66

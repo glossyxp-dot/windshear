@@ -78,14 +78,14 @@ func _build_help_text() -> String:
 	var lines := PackedStringArray()
 	lines.append("LANCER")
 	lines.append("")
-	lines.append("RUN     A / D         %4.1f m/s" % Tuning.MAX_RUN_SPEED)
-	lines.append("SLIDE   CTRL / S      %4.2f s, friction %d" % [
+	lines.append("RUN     W A S D       %4.1f m/s" % Tuning.MAX_RUN_SPEED)
+	lines.append("SLIDE   CTRL          %4.2f s, friction %d" % [
 		Tuning.SLIDE_DURATION, int(Tuning.SLIDE_FRICTION)
 	])
-	lines.append("JUMP    SPACE / W     %4.1f m/s, apex %4.1f m" % [
+	lines.append("JUMP    SPACE         %4.1f m/s, apex %4.1f m" % [
 		Tuning.JUMP_VELOCITY, _jump_apex()
 	])
-	lines.append("AIR     A / D in air  +%4.1f m/s a jump" % Tuning.AIR_ACCEL_MAX_CONTRIB)
+	lines.append("AIR     W A S D in air  +%4.1f m/s a jump" % Tuning.AIR_ACCEL_MAX_CONTRIB)
 	lines.append("WALL    slide + jump +%4.1f m/s, x%d, max %4.1f" % [
 		Tuning.WALL_KISS_BOOST, Tuning.WALL_KISS_CAP, Tuning.WALL_KISS_SPEED_CEILING
 	])
