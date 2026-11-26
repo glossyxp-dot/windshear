@@ -41,7 +41,7 @@ Don't rebuild any of this:
 | PSX | The shader plus a 0–100% slider. The player picks the amount |
 | Menu | Main menu, settings panel, PSX slider, affine toggle |
 | Greybox | One test room: floor, platforms, a ramp, a wall on every side to kiss, a help panel |
-| Tests | 495 checks in 14 suites, headless, about ten seconds |
+| Tests | 508 checks in 15 suites, headless, about ten seconds |
 | World data | 25 chapters × 12 sections, 600 gate schedules, 12 Fractures, 19 beats, 73 dialogue lines |
 | Canon data | 10 cast entries, 7 weapons, 5 items, 5 map utilities, 11 enemies |
 | Controls | The mouse is the camera and the triggers. The keyboard carries the rest |
@@ -58,14 +58,18 @@ The visual work is by hand. The code for this stage is done.
    the only thing that matters this week. `W` and `S` walk forward and back,
    `A` and `D` strafe, `Ctrl` slides, `Space` jumps, and the mouse does the
    camera and the two triggers.
-2. **Install the export templates** for 4.7.2. You can't export without them.
-3. **Build Level 2.** The greybox is a rig. `2.01` is the first section that
+2. **Tune the movement in the workbench.** Open `tools/movement_workbench.tscn`
+   and press F6. Every movement number is a slider, and the room changes as
+   you drag it. `docs/BUILDING.md` explains the loop and how a tuned number
+   becomes canon.
+3. **Install the export templates** for 4.7.2. You can't export without them.
+4. **Build Level 2.** The greybox is a rig. `2.01` is the first section that
    has to be fun.
-4. **Implement the filament.** Last of the core movement verbs, and the first
+5. **Implement the filament.** Last of the core movement verbs, and the first
    one that touches something other than the ground.
-5. **Do the art**, by hand, in the editor. `docs/AUTHORING.md` covers the
+6. **Do the art**, by hand, in the editor. `docs/AUTHORING.md` covers the
    materials, the theme, the fonts and the resolution.
-6. **Get five external testers** on the movement. That's Milestone 0's gate
+7. **Get five external testers** on the movement. That's Milestone 0's gate
    and it's the only thing between you and Milestone 1.
 
 One design question is still open and it's worth knowing about before you
@@ -137,6 +141,7 @@ Nothing that breaks the 4 GB ceiling or the Compatibility renderer.
 | `docs/ARSENAL.md` | The weapons, the items and the map utilities |
 | `docs/ENEMIES.md` | The Concord roster, with counters and drops |
 | `docs/CONTROLS.md` | The default bindings, and what the mouse is for |
+| `docs/BUILDING.md` | How the work is split, and the movement workbench |
 | `docs/AUTHORING.md` | Doing the visual work by hand in the editor |
 | `docs/MOVEMENT_RESEARCH.md` | Cited movement sources, evidence confidence, design synthesis |
 | `docs/dev_stage_1.md` | What the movement base is, and the bug the discovery harness found |

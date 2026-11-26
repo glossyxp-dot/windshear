@@ -95,3 +95,17 @@ const WALL_KISS_FRACTURE_SPEED_CEILING := MAX_RUN_SPEED \
 const FILAMENT_LOCK_TIME := 0.25
 ## Half-angle of the filament lock-on cone, in degrees.
 const FILAMENT_CONE_DEGREES := 18.0
+
+# --- Camera ----------------------------------------------------------------
+## Radians of camera rotation per pixel of mouse movement.
+const CAMERA_MOUSE_SENSITIVITY := 0.0022
+## Camera distance at a standstill, in metres.
+const CAMERA_BASE_DISTANCE := 7.0
+## Camera distance at top speed, in metres.
+const CAMERA_FAST_DISTANCE := 8.4
+## Height of the camera above Lancer's feet, in metres.
+const CAMERA_EYE_HEIGHT := 1.7
+## Field of view at a standstill, in degrees.
+const CAMERA_BASE_FOV := 72.0
+## Field of view at top speed, in degrees.
+const CAMERA_FAST_FOV := 82.0

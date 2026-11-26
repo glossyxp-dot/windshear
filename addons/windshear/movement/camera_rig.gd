@@ -32,21 +32,21 @@ class_name CameraRig
 const Tuning := preload("res://addons/windshear/core/ws_tuning.gd")
 
 ## Radians of rotation per pixel of mouse movement.
-@export var mouse_sensitivity := 0.0022
+@export var mouse_sensitivity := Tuning.CAMERA_MOUSE_SENSITIVITY
 ## Radians of rotation per second at full stick deflection.
 @export var controller_sensitivity := 3.0
 ## Maximum pitch in either direction, in degrees.
 @export var pitch_limit_deg := 80.0
 ## Field of view at a standstill, in degrees.
-@export var base_fov := 72.0
+@export var base_fov := Tuning.CAMERA_BASE_FOV
 ## Field of view at top speed, in degrees.
-@export var fast_fov := 82.0
+@export var fast_fov := Tuning.CAMERA_FAST_FOV
 ## Camera distance at a standstill, in metres.
-@export var base_distance := 7.0
+@export var base_distance := Tuning.CAMERA_BASE_DISTANCE
 ## Camera distance at top speed, in metres.
-@export var fast_distance := 8.4
+@export var fast_distance := Tuning.CAMERA_FAST_DISTANCE
 ## Height of the camera above Lancer's feet, in metres.
-@export var eye_height := 1.7
+@export var eye_height := Tuning.CAMERA_EYE_HEIGHT
 
 ## Current yaw, in radians.
 var yaw := 0.0
@@ -54,6 +54,18 @@ var yaw := 0.0
 var pitch := 0.0
 ## Set to true to mirror the vertical look axis.
 var invert_y := false
+## Set to false to stop the camera reading the mouse and the stick. The
+## workbench turns it off while you are dragging a slider, so the room does
+## not spin every time you move the pointer.
+var look_enabled := true
+
+## Live overrides for the camera numbers.
+##
+## The workbench points this at the same dictionary the `WsTweak` autoload
+## holds, so a slider that moves writes straight into the live rig. An empty
+## dictionary means the exported numbers, which is what the test suite always
+## gets.
+var overrides := {}
 
 var _target_yaw := 0.0
 var _target_pitch := 0.0
@@ -76,12 +88,15 @@ func _camera_node() -> Camera3D:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not look_enabled:
+		return
 	if event is InputEventMouseMotion:
 		var motion := event as InputEventMouseMotion
 		var vertical := motion.relative.y
 		if invert_y:
 			vertical = -vertical
-		apply_look(-motion.relative.x * mouse_sensitivity, -vertical * mouse_sensitivity)
+		var sensitivity := _live_value("camera_mouse_sensitivity", mouse_sensitivity)
+		apply_look(-motion.relative.x * sensitivity, -vertical * sensitivity)
 
 
 ## The look axes.
@@ -93,17 +108,29 @@ func _unhandled_input(event: InputEvent) -> void:
 ## a stick pushed down is a positive value, and pushing the stick down has to
 ## tilt the camera down, the same way the mouse does.
 func _process(delta: float) -> void:
-	var stick_x := Input.get_axis("look_left", "look_right")
-	var stick_y := Input.get_axis("look_up", "look_down")
-	if absf(stick_x) > 0.001:
-		apply_look(-stick_x * controller_sensitivity * delta, 0.0)
-	if absf(stick_y) > 0.001:
-		var vertical := -stick_y * controller_sensitivity * delta
-		if invert_y:
-			vertical = -vertical
-		apply_look(0.0, vertical)
+	if look_enabled:
+		var stick_x := Input.get_axis("look_left", "look_right")
+		var stick_y := Input.get_axis("look_up", "look_down")
+		if absf(stick_x) > 0.001:
+			apply_look(-stick_x * controller_sensitivity * delta, 0.0)
+		if absf(stick_y) > 0.001:
+			var vertical := -stick_y * controller_sensitivity * delta
+			if invert_y:
+				vertical = -vertical
+			apply_look(0.0, vertical)
 
 	_update_speed_framing()
+
+
+## The live value of one knob.
+##
+## The export on the node is the base value and a workbench override wins, so
+## a slider beats the Inspector while the room is open. Without an override
+## this is just the exported number.
+func _live_value(key: String, fallback: float) -> float:
+	if overrides.has(key):
+		return float(overrides[key])
+	return fallback
 
 
 ## Applies a look delta in radians and clamps the pitch.
@@ -133,8 +160,13 @@ func update_speed_framing(speed_ratio: float) -> void:
 	if camera == null:
 		return
 	var ratio := clampf(speed_ratio, 0.0, 1.0)
-	camera.fov = lerpf(base_fov, fast_fov, ratio)
-	camera.position = Vector3(0.0, eye_height, lerpf(base_distance, fast_distance, ratio))
+	var fov_from := _live_value("camera_base_fov", base_fov)
+	var fov_to := _live_value("camera_fast_fov", fast_fov)
+	var back_from := _live_value("camera_base_distance", base_distance)
+	var back_to := _live_value("camera_fast_distance", fast_distance)
+	var height := _live_value("camera_eye_height", eye_height)
+	camera.fov = lerpf(fov_from, fov_to, ratio)
+	camera.position = Vector3(0.0, height, lerpf(back_from, back_to, ratio))
 
 
 ## Reads the speed of the body the rig is attached to and frames it.
@@ -144,5 +176,6 @@ func _update_speed_framing() -> void:
 	var body := get_parent() as CharacterBody3D
 	var ratio := 0.0
 	if body != null:
-		ratio = Vector2(body.velocity.x, body.velocity.z).length() / Tuning.MAX_RUN_SPEED
+		var top_speed := _live_value("max_run_speed", Tuning.MAX_RUN_SPEED)
+		ratio = Vector2(body.velocity.x, body.velocity.z).length() / top_speed
 	update_speed_framing(ratio)

@@ -27,6 +27,7 @@ config/icon="res://assets/icon.svg"
 [autoload]
 
 WsGame="*res://addons/windshear/core/ws_game.gd"
+WsTweak="*res://addons/windshear/core/ws_tweak.gd"
 
 [display]
 

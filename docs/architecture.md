@@ -118,6 +118,16 @@ It has no `class_name`, on purpose. The autoload is registered as `WsGame`, and 
 
 Settings are read from `user://settings.cfg` on boot, then written back when the player leaves the settings panel or quits. Missing keys keep their defaults, so a settings file from an older build still works.
 
+### `core/ws_tweak.gd` — the second autoload
+
+`project.godot` registers this as `WsTweak`. It holds the table of movement knobs the workbench shows, the live values you have moved off the documented ones, and the profile file.
+
+The canonical numbers stay in `ws_tuning.gd`, and the test suite pins them. `WsTweak` sits on top: the controller and the camera rig read their numbers through it, so a slider that moves changes the simulation on the next frame.
+
+Two rules keep it honest. Overrides are never loaded automatically, only by the workbench, so the headless suite always runs on the documented numbers even if somebody left a saved profile behind. And the profile lives in the user data folder, outside the repository, because a tuned number is not canon until somebody writes it into the code and the spec.
+
+The workbench itself is `tools/movement_workbench.tscn`. The panel is built in code out of the knob table rather than being a scene file, because then adding a knob is one entry and no scene editing. `tests/test_workbench.gd` checks that every knob still starts on the constant it claims to come from, that a knob reaches the live simulation, and that the suite never writes over the real profile.
+
 ---
 
 ## 3. The data layer

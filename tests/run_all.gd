@@ -20,7 +20,7 @@
 ## godot --headless --path . res://tests/run_all.tscn
 ## [/codeblock]
 ##
-## The current run is 495 checks in 14 suites, with no failures:
+## The current run is 508 checks in 15 suites, with no failures:
 ## [br]- tuning 25
 ## [br]- movement 54
 ## [br]- characterization 77
@@ -35,6 +35,7 @@
 ## [br]- canon 115
 ## [br]- greybox 36
 ## [br]- PSX 39
+## [br]- workbench 13
 ##
 ## These suites cover the things that break an FPS game: frame-exact movement,
 ## camera behaviour, determinism, the performance budget and the code policy.
@@ -73,6 +74,7 @@ const SUITES := [
 const SCENE_SUITES := [
 	preload("res://tests/test_greybox.gd"),
 	preload("res://tests/test_psx.gd"),
+	preload("res://tests/test_workbench.gd"),
 ]
 
 

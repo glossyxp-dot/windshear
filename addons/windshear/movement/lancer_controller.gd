@@ -91,6 +91,17 @@ var wall_kiss_cap := Tuning.WALL_KISS_CAP
 ## because five boosts need more room than three.
 var wall_kiss_speed_ceiling := Tuning.WALL_KISS_SPEED_CEILING
 
+## Live overrides for the movement numbers.
+##
+## The workbench points this at the same dictionary the `WsTweak` autoload
+## holds, so a slider that moves writes straight into the live simulation.
+## An empty dictionary means the documented constants, which is what the test
+## suite always gets.
+var overrides := {}
+
+## True while the shipped `wall_kiss_chain` Fracture is active.
+var wall_kiss_fracture_active := false
+
 # --- Private state --------------------------------------------------------
 
 var _input := LancerInputState.new()
@@ -130,13 +141,14 @@ func _gather_input() -> void:
 ## frame length in seconds. Call this exactly once per physics frame.
 func simulate(delta: float, inp: LancerInputState) -> void:
 	var jumped := false
+	_refresh_wall_kiss_limits()
 
 	# --- frame timers ----------------------------------------------------
 	if inp.on_floor:
-		coyote_frames = Tuning.COYOTE_FRAMES
+		coyote_frames = _frames("coyote_frames", Tuning.COYOTE_FRAMES)
 	var can_jump := inp.on_floor or coyote_frames > 0
 	if inp.jump_pressed:
-		jump_buffer_frames = Tuning.JUMP_BUFFER_FRAMES
+		jump_buffer_frames = _frames("jump_buffer_frames", Tuning.JUMP_BUFFER_FRAMES)
 
 	# --- landing bookkeeping --------------------------------------------
 	if inp.on_floor:
@@ -149,9 +161,9 @@ func simulate(delta: float, inp: LancerInputState) -> void:
 	# --- slide ----------------------------------------------------------
 	var ground_speed := Vector2(velocity.x, velocity.z).length()
 	if inp.slip_pressed and inp.on_floor and slide_frames <= 0 \
-			and ground_speed >= Tuning.SLIDE_MIN_SPEED:
-		slide_frames = Tuning.SLIDE_FRAMES
-		wall_kiss_frames = Tuning.WALL_KISS_WINDOW_FRAMES
+			and ground_speed >= _live_value("slide_min_speed", Tuning.SLIDE_MIN_SPEED):
+		slide_frames = _slide_frames()
+		wall_kiss_frames = _frames("wall_kiss_window_frames", Tuning.WALL_KISS_WINDOW_FRAMES)
 		wall_kiss_armed = false
 
 	# --- wall contact ---------------------------------------------------
@@ -168,7 +180,7 @@ func simulate(delta: float, inp: LancerInputState) -> void:
 
 	# --- jump ------------------------------------------------------------
 	if jump_buffer_frames > 0 and can_jump:
-		velocity.y = Tuning.JUMP_VELOCITY
+		velocity.y = _live_value("jump_velocity", Tuning.JUMP_VELOCITY)
 		jump_buffer_frames = 0
 		coyote_frames = 0
 		slide_frames = 0
@@ -189,15 +201,16 @@ func simulate(delta: float, inp: LancerInputState) -> void:
 		var horizontal := Vector3(velocity.x, 0.0, velocity.z)
 		if slide_frames > 0:
 			horizontal = horizontal.move_toward(Vector3.ZERO,
-				Tuning.SLIDE_FRICTION * delta)
+				_live_value("slide_friction", Tuning.SLIDE_FRICTION) * delta)
 		else:
 			var wish := _wish_direction(inp)
 			if wish != Vector3.ZERO:
-				horizontal = horizontal.move_toward(wish * Tuning.MAX_RUN_SPEED,
-					Tuning.GROUND_ACCEL * delta)
+				horizontal = horizontal.move_toward(
+					wish * _live_value("max_run_speed", Tuning.MAX_RUN_SPEED),
+					_live_value("ground_accel", Tuning.GROUND_ACCEL) * delta)
 			else:
 				horizontal = horizontal.move_toward(Vector3.ZERO,
-					Tuning.GROUND_DECEL * delta)
+					_live_value("ground_decel", Tuning.GROUND_DECEL) * delta)
 		velocity.x = horizontal.x
 		velocity.z = horizontal.z
 	else:
@@ -205,18 +218,19 @@ func simulate(delta: float, inp: LancerInputState) -> void:
 
 	# --- vertical --------------------------------------------------------
 	if inp.jump_released and velocity.y > 0.0:
-		velocity.y *= Tuning.JUMP_CUT
+		velocity.y *= _live_value("jump_cut", Tuning.JUMP_CUT)
 	if not inp.on_floor:
-		velocity.y -= Tuning.GRAVITY * delta
+		velocity.y -= _live_value("gravity", Tuning.GRAVITY) * delta
 
 	# --- speed ceiling ---------------------------------------------------
 	# The wall-jump ceiling is a speed limit, not just an X limit. Without
 	# this, a player could steer perpendicular to a maxed chain and let air
 	# control add on top of it.
+	var limit := _speed_limit()
 	var horizontal := Vector3(velocity.x, 0.0, velocity.z)
 	var horizontal_speed := horizontal.length()
-	if horizontal_speed > wall_kiss_speed_ceiling:
-		horizontal *= wall_kiss_speed_ceiling / horizontal_speed
+	if horizontal_speed > limit:
+		horizontal *= limit / horizontal_speed
 		velocity.x = horizontal.x
 		velocity.z = horizontal.z
 
@@ -224,7 +238,8 @@ func simulate(delta: float, inp: LancerInputState) -> void:
 	var wish := _wish_direction(inp)
 	if absf(wish.x) > 0.0:
 		facing = signf(wish.x)
-	speed_ratio = Vector2(velocity.x, velocity.z).length() / Tuning.MAX_RUN_SPEED
+	speed_ratio = Vector2(velocity.x, velocity.z).length() \
+		/ _live_value("max_run_speed", Tuning.MAX_RUN_SPEED)
 
 	# --- end of frame counters ---------------------------------------------
 	if slide_frames > 0:
@@ -236,7 +251,7 @@ func simulate(delta: float, inp: LancerInputState) -> void:
 		coyote_frames -= 1
 	if wall_kiss_count > 0:
 		frames_since_kiss += 1
-		if frames_since_kiss > Tuning.WALL_KISS_CHAIN_FRAMES:
+		if frames_since_kiss > _frames("wall_kiss_chain_frames", Tuning.WALL_KISS_CHAIN_FRAMES):
 			wall_kiss_count = 0
 			frames_since_kiss = 0
 	_was_on_floor = inp.on_floor
@@ -248,10 +263,13 @@ func _air_control(delta: float, inp: LancerInputState) -> void:
 	var direction := _wish_direction(inp)
 	if direction == Vector3.ZERO:
 		return
+	var top_speed := _live_value("max_run_speed", Tuning.MAX_RUN_SPEED)
 	var current := velocity.dot(direction)
-	if Tuning.MAX_RUN_SPEED - current <= 0.0:
+	if top_speed - current <= 0.0:
 		return
-	var add := minf(Tuning.AIR_ACCEL * delta, Tuning.AIR_ACCEL_MAX_CONTRIB - air_bonus)
+	var add := minf(
+		_live_value("air_accel", Tuning.AIR_ACCEL) * delta,
+		_live_value("air_accel_max_contrib", Tuning.AIR_ACCEL_MAX_CONTRIB) - air_bonus)
 	if add <= 0.0:
 		return
 	velocity += direction * add
@@ -293,8 +311,9 @@ func _apply_wall_kiss(inp: LancerInputState) -> void:
 			direction = fallback.normalized()
 	if direction == Vector3.ZERO:
 		direction = Vector3(facing, 0.0, 0.0)
-	var boost := minf(Tuning.WALL_KISS_BOOST,
-		wall_kiss_speed_ceiling - horizontal.length())
+	var boost := minf(
+		_live_value("wall_kiss_boost", Tuning.WALL_KISS_BOOST),
+		_speed_limit() - horizontal.length())
 	wall_kiss_armed = false
 	if boost <= 0.0:
 		return
@@ -311,15 +330,69 @@ func _apply_wall_kiss(inp: LancerInputState) -> void:
 ## speed ceiling rises with the count because five boosts of 0.8 metres per
 ## second need more room above the run speed than three do.
 func enable_wall_kiss_chain_fracture() -> void:
-	wall_kiss_cap = Tuning.WALL_KISS_FRACTURE_CAP
-	wall_kiss_speed_ceiling = Tuning.WALL_KISS_FRACTURE_SPEED_CEILING
+	wall_kiss_fracture_active = true
+	_refresh_wall_kiss_limits()
 
 
 ## Puts the chain back to the base game's three wall-jumps and 16.4 metres per
 ## second.
 func disable_wall_kiss_chain_fracture() -> void:
-	wall_kiss_cap = Tuning.WALL_KISS_CAP
-	wall_kiss_speed_ceiling = Tuning.WALL_KISS_SPEED_CEILING
+	wall_kiss_fracture_active = false
+	_refresh_wall_kiss_limits()
+
+
+## Works out the chain cap and the speed ceiling in force right now.
+##
+## The Fracture wins over the workbench, because a shipped Fracture is canon
+## and a slider is not. Without the Fracture, the numbers are the live ones,
+## so a slider can move them while the room is open.
+func _refresh_wall_kiss_limits() -> void:
+	if wall_kiss_fracture_active:
+		wall_kiss_cap = Tuning.WALL_KISS_FRACTURE_CAP
+		wall_kiss_speed_ceiling = Tuning.WALL_KISS_FRACTURE_SPEED_CEILING
+		return
+	wall_kiss_cap = _frames("wall_kiss_cap", Tuning.WALL_KISS_CAP)
+	wall_kiss_speed_ceiling = _live_value(
+		"wall_kiss_speed_ceiling", Tuning.WALL_KISS_SPEED_CEILING)
+
+
+## The horizontal speed this chain may not pass.
+##
+## The documented ceiling is the floor, not the whole answer. A workbench
+## that raises the run speed raises the limit with it, so the chain still
+## means something and the technique still cannot be farmed. With the shipped
+## numbers this is exactly 16.4 m/s: 14.0 plus three boosts of 0.8. With the
+## Fracture it is 18.0: 14.0 plus five boosts.
+func _speed_limit() -> float:
+	var run_speed := _live_value("max_run_speed", Tuning.MAX_RUN_SPEED)
+	var boost := _live_value("wall_kiss_boost", Tuning.WALL_KISS_BOOST)
+	var chain := float(wall_kiss_cap) * boost
+	return maxf(wall_kiss_speed_ceiling, run_speed + chain)
+
+
+## The live value of one movement number.
+##
+## Without an override this is the documented constant, which is what the test
+## suite always gets. The workbench fills [member overrides] and the slider
+## wins.
+func _live_value(key: String, fallback: float) -> float:
+	if overrides.has(key):
+		return float(overrides[key])
+	return fallback
+
+
+## The live value of one movement number, in whole frames.
+func _frames(key: String, fallback: int) -> int:
+	return int(round(_live_value(key, float(fallback))))
+
+
+## The live length of a slide, in frames.
+##
+## The slider moves the duration in seconds and the frames follow, so the two
+## numbers can never disagree.
+func _slide_frames() -> int:
+	var seconds := _live_value("slide_duration", Tuning.SLIDE_DURATION)
+	return int(round(seconds * Tuning.PHYSICS_TICK))
 
 
 ## Puts Lancer back at [param spawn_position] with no momentum.
