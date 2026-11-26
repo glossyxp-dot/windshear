@@ -5,9 +5,12 @@ Everything in here is done in the Godot editor with the mouse. No code, no comma
 Read this one if the editor came up empty and you closed it.
 
 Nothing here is a generated asset. The icon, the theme and the menu are all
-files you open and edit, and the only thing in the repository you must not
-regenerate is `assets/icon.png`. If you run `tools/make_icon.py` you'll
-overwrite the one icon that everybody already has.
+files you open and edit.
+
+The icon is **yours**. `assets/icon.png` is your own picture, copied in as
+it is, and it is the one file in the repository nobody regenerates. There is
+no script that writes it. If you want a new icon, make a new picture and
+replace that file yourself.
 
 ## The editor looks empty because it hasn't imported yet
 
@@ -49,7 +52,7 @@ world/kit/                          the pieces a section is built from
 world/playground/                   the room where you play your own section
 data/sections/                      the section scenes, one folder per chapter
 assets/materials/                   the four PSX materials the greybox uses
-assets/icon.svg, assets/icon.png    the project icon. Finished. Don't touch.
+assets/icon.png                     the project icon. Your picture. Don't touch.
 addons/windshear/                   the game code
 addons/level_tools/                 the editor dock that makes and exports sections
 data/                               sections, schedules, story, all plain JSON
@@ -235,7 +238,7 @@ Layout lives in `ui/main_menu/main_menu.tscn`. Drag nodes or edit their offsets 
 
 Fonts are another manual job. There are no font files in the repo yet, so the menu uses Godot's default. Drop a `.ttf` or `.otf` into `assets/fonts/` and Godot imports it on its own. Open `ui/theme/windshear_theme.tres`, add a *Font* entry in the theme editor, and set it as the theme's default font, or assign it to `Button` and `Label` separately. Set the sizes in the same panel. The sizes in use right now are 8, 9, 10, 11 and 30 px.
 
-The icon, `assets/icon.svg` and `assets/icon.png`, is the project icon and the menu's title art. It's done. Leave it alone. The test suite treats those two files as fixed, and so should you.
+The icon, `assets/icon.png`, is the project icon and the menu's title art. It is your picture, copied in as it is. Leave it alone, and nothing regenerates it. If you want a new one, replace that file with a new picture yourself.
 
 ## Making a material by hand
 

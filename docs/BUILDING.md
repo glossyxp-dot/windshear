@@ -292,7 +292,7 @@ The kit scenes under `world/kit/` are yours. Change a default size in
 `floor.tscn` and every floor in the game changes with it. Nothing in the
 build overwrites them.
 
-`assets/icon.svg` and `assets/icon.png` are finished. Do not regenerate them.
+`assets/icon.png` is your picture and it is finished. Nothing regenerates it.
 
 ## If something breaks
 
