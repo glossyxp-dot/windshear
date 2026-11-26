@@ -102,20 +102,84 @@ workbench loads it.
 
 ## Phase two: the map kit
 
-Not built yet. This is the shape it is going to take, so you can tell me
-where it is wrong before I build it.
+This is built. A section is made in the editor, without touching a script.
 
-A **kit** is a folder of reusable pieces: a room shell, a platform, a wall,
-a gate, a checkpoint, a hazard volume. You drag them into a level scene,
-move them around, set their numbers in the Inspector, and save. The pieces
-are scenes, so editing one piece edits it everywhere it is used.
+### The pieces
 
-A level scene holds one **section trigger** with the section id, the
-checkpoints and the split marker on it, written as exported properties. The
-exporter reads those properties off the scene and writes the section JSON
-the game reads, so the data you laid out in the editor is the data the game
-loads. The exporter runs headless too, so CI can check that the committed
-JSON still matches the scenes.
+`world/kit/` holds the pieces you drag into a room. They are scenes, so
+editing one edits it everywhere it is used.
+
+| Piece | What it is |
+| --- | --- |
+| `floor.tscn` | A flat slab. Its size is the number you type. |
+| `wall.tscn` | A wall. Same. |
+| `platform.tscn` | A thin slab to jump on. |
+| `ramp.tscn` | A slab tilted into a slope, with a rise you type. |
+| `room_shell.tscn` | A floor, four walls and optionally a ceiling, all from one size. |
+| `section_point.tscn` | A point in the room: a gate, a checkpoint, a wind volume, a hazard, a filament anchor, a parcel, a spawn, a split marker. |
+
+The geometry is made from the numbers when the piece loads, in the editor and
+in the game. Change the size in the Inspector and the mesh and the collision
+follow. There is no mesh file to open and no modelling tool in the loop.
+
+### The points
+
+A point is a thing the designer places and names. Its **kind** decides which
+properties the Inspector shows, so a gate never asks you about the wind
+strength.
+
+The kinds are: section trigger, regulation gate, checkpoint, wind volume,
+hazard volume, filament anchor, parcel, spawn and split marker.
+
+The **section trigger** is the one that matters. Every section has exactly
+one, named `SectionTrigger`, and it carries the section id and the three
+markers: where the player starts, where the player ends and where the
+speedrun split goes.
+
+### Making a section
+
+1. Open the editor. The **Level Tools** dock is on the right.
+2. Type the section id, `2.01` for example.
+3. Press **create section scene**. The scene is made in the right folder with
+   the right ids, a room, a trigger, the checkpoints, the split marker and
+   the gates the schedule asks for, and it opens in front of you.
+4. Lay the room out. Drag the pieces in, type their sizes, move them.
+5. Place the points. Name each one after the id it has in the data.
+6. Press **export section data** in the Inspector of the section root, or
+   press **export sections** in the dock.
+
+The example section `data/sections/cP1/sP1_01.tscn` is laid out like this.
+
+### What the JSON is for
+
+The game loads the scene. The JSON beside it, `sP1_01.json`, is the mirror:
+the same points and the same gate timings, written down so the tests and the
+outside tools can read them without opening Godot.
+
+The build checks the mirror against the scene. If you move a gate and forget
+to export, the build fails and says so. That is the whole point of it.
+
+### The commands
+
+```bash
+godot --headless --path . --script res://tools/export_sections.gd -- --export
+godot --headless --path . --script res://tools/export_sections.gd -- --check
+```
+
+CI runs the check. You do not have to remember either command, because the
+dock does the same thing.
+
+### What the exporter complains about
+
+- a point with no name
+- two points with the same name
+- a point that says it belongs to another section
+- a section with no trigger, or with two
+- a trigger that is not called `SectionTrigger`
+- a start, an end or a split that points at nothing in the section
+- a gate the schedule does not know about
+- a gate in the schedule that is not in the scene
+- a scene that calls itself something the campaign index does not agree with
 
 ## Phase three: the UI kit
 
@@ -135,6 +199,10 @@ the tests, and every document in `docs/`.
 documented movement number and `tests/test_tuning.gd` pins them against
 `TECH_SPEC.md` §3. The workbench is how you move a number. I am how a number
 becomes canon.
+
+The kit scenes under `world/kit/` are yours. Change a default size in
+`floor.tscn` and every floor in the game changes with it. Nothing in the
+build overwrites them.
 
 `assets/icon.svg` and `assets/icon.png` are finished. Do not regenerate them.
 

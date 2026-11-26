@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://world/kit/ws_kit_room.gd" id="1_xtbpm"]
+
+[node name="RoomShell" type="Node3D" unique_id=1510256102]
+script = ExtResource("1_xtbpm")

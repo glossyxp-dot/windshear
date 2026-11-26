@@ -27,6 +27,9 @@ extends Node3D
 class_name WSKitPoint
 
 ## The kinds of point a section can hold.
+##
+## The order is a file format. Godot writes the kind as a number in the
+## scene, so a new kind goes at the end and an old one never moves.
 enum Kind {
 	SECTION_TRIGGER,
 	REGULATION_GATE,
@@ -36,6 +39,7 @@ enum Kind {
 	FILAMENT_ANCHOR,
 	PARCEL,
 	SPAWN,
+	SPLIT_MARKER,
 }
 
 ## What this point is. Changing it changes which properties the Inspector
@@ -44,7 +48,6 @@ enum Kind {
 	set(value):
 		kind = value
 		_update_property_list()
-		notify_property_list_changed()
 
 ## The id this point carries. The exporter reads it.
 @export var point_id := ""
@@ -100,7 +103,7 @@ func _ready() -> void:
 ## Godot calls this in the editor whenever the Inspector draws, so a point
 ## only ever shows the properties that mean something for it.
 func _validate_property(property: Dictionary) -> void:
-	var name := String(property.get("name", ""))
+	var name := str(property.get("name", ""))
 	if name.begins_with("_"):
 		return
 	var hidden := _properties_for_other_kinds()
@@ -122,13 +125,13 @@ func _properties_for_other_kinds() -> PackedStringArray:
 		if int(other_kind) == int(kind):
 			continue
 		for property_name in groups[other_kind]:
-			hidden.append(String(property_name))
+			hidden.append(str(property_name))
 	return hidden
 
 
 ## Asks the editor for a fresh property list after the kind changed.
 func _update_property_list() -> void:
-	if not Engine.is_editor_hint():
+	if not Engine.is_editor_hint() or not is_inside_tree():
 		return
 	notify_property_list_changed()
 
@@ -137,19 +140,26 @@ func _update_property_list() -> void:
 ##
 ## Only the properties that belong to the kind are written, so the section
 ## data stays small and there is nothing in it that means nothing.
-func to_data() -> Dictionary:
+##
+## The place is relative to the section root, because the section is placed
+## in the world when it loads and the data has to survive that. The root is
+## worked out from the point when it is not given.
+func to_data(root: Node = null) -> Dictionary:
+	var place := _scene_transform(root)
+	var basis := place.basis
 	var data := {
 		"kind": _kind_name(),
 		"id": point_id,
 		"section_id": section_id,
+		"node": _node_path(root),
 		"transform": {
-			"position": [snappedf(global_position.x, 0.001),
-				snappedf(global_position.y, 0.001),
-				snappedf(global_position.z, 0.001)],
-			"rotation_y_degrees": snappedf(rad_to_deg(global_rotation.y), 0.01),
-			"scale": [snappedf(global_scale.x, 0.001),
-				snappedf(global_scale.y, 0.001),
-				snappedf(global_scale.z, 0.001)],
+			"position": [snappedf(place.origin.x, 0.001),
+				snappedf(place.origin.y, 0.001),
+				snappedf(place.origin.z, 0.001)],
+			"rotation_y_degrees": snappedf(rad_to_deg(basis.get_euler().y), 0.01),
+			"scale": [snappedf(basis.get_scale().x, 0.001),
+				snappedf(basis.get_scale().y, 0.001),
+				snappedf(basis.get_scale().z, 0.001)],
 		},
 	}
 	match kind:
@@ -173,6 +183,52 @@ func to_data() -> Dictionary:
 	return data
 
 
+## Where this point sits in the section.
+##
+## The transform is worked out by hand rather than read from
+## `global_transform`, because the exporter reads the points out of scenes
+## that are not in the tree yet. A scene that is in the tree gives the same
+## answer, so the exporter and the editor always agree.
+##
+## The walk stops at the section root, so moving the root does not move the
+## point in the data. The section is placed in the world when it loads and
+## the data has to survive that.
+func _scene_transform(root: Node = null) -> Transform3D:
+	var stop: Node = root if root != null else _scene_root()
+	var place := Transform3D.IDENTITY
+	var node: Node = self
+	while node is Node3D:
+		if node == stop:
+			break
+		place = (node as Node3D).transform * place
+		node = node.get_parent()
+	return place
+
+
+## The top of the section this point is in.
+func _scene_root() -> Node3D:
+	var node: Node3D = self
+	while node.get_parent() is Node3D:
+		node = node.get_parent() as Node3D
+	return node
+
+
+## The path of this point under the section root.
+##
+## `get_path()` cannot be used here, because it complains when the node is
+## not in a scene tree, and the exporter reads the points out of scenes that
+## are not in one.
+func _node_path(root: Node = null) -> String:
+	var stop: Node = root if root != null else _scene_root()
+	var parts := PackedStringArray()
+	var node: Node = self
+	while node != null and node != stop:
+		parts.append(str(node.name))
+		node = node.get_parent()
+	parts.reverse()
+	return "/".join(parts)
+
+
 ## The name of this kind, as the data writes it.
 func _kind_name() -> String:
 	match kind:
@@ -192,4 +248,6 @@ func _kind_name() -> String:
 			return "parcel"
 		Kind.SPAWN:
 			return "spawn"
+		Kind.SPLIT_MARKER:
+			return "split_marker"
 	return "point"

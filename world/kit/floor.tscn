@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://world/kit/ws_kit_block.gd" id="1_yhwih"]
+
+[node name="Floor" type="Node3D" unique_id=94503479]
+script = ExtResource("1_yhwih")

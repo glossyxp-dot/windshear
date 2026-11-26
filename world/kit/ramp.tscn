@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://world/kit/ws_kit_block.gd" id="1_eo15e"]
+
+[node name="Ramp" type="Node3D" unique_id=1337123467]
+script = ExtResource("1_eo15e")
+shape = 3
+size = Vector3(6, 0.5, 8)

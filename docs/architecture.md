@@ -128,6 +128,26 @@ Two rules keep it honest. Overrides are never loaded automatically, only by the 
 
 The workbench itself is `tools/movement_workbench.tscn`. The panel is built in code out of the knob table rather than being a scene file, because then adding a knob is one entry and no scene editing. `tests/test_workbench.gd` checks that every knob still starts on the constant it claims to come from, that a knob reaches the live simulation, and that the suite never writes over the real profile.
 
+### The level tools
+
+`addons/level_tools/` is the editor side of making a section, and `world/kit/` is the kit itself.
+
+The kit pieces are `@tool` scripts that make their mesh and their collision from the numbers in the Inspector. The mesh and the body are **internal children**, so they never appear in the scene tree and never end up in the saved scene. The scene file stays a handful of numbers.
+
+`world/kit/ws_kit_point.gd` is the point entity. Its `kind` decides which properties the Inspector shows, through `_validate_property`. The kind is stored in the scene as a number, so the order of the enum is a file format and a new kind goes at the end. `tests/test_level_tools.gd` pins every number.
+
+`world/kit/ws_section.gd` is the root of a section. It carries the section id and, if it wants to repeat them, the name, the difficulty and the par time the campaign index already says. It has an `@export_tool_button`, so the export is a button in the Inspector of the section root.
+
+`addons/level_tools/ws_section_exporter.gd` reads a section scene and writes the data beside it. It is the same code behind the editor button, the dock and the headless run, so what the designer exports by hand and what CI checks cannot drift apart.
+
+Two decisions in it are worth knowing about.
+
+The **positions are relative to the section root**, not to the world. The section is placed in the world when it loads, so a position in world space would be applied twice. The point walks up its parents by hand, because `global_transform` cannot be read on a scene that is not in the tree and the exporter reads scenes that are not in one.
+
+The **points are sorted by where they sit in the scene**. The order the points come out of the scene tree is not a promise, and a data file that reshuffles itself every export is a file nobody reviews.
+
+The game loads the scene. The JSON is the mirror the tests compare against, so a scene that was changed and not exported fails the build instead of shipping data nobody looked at.
+
 ---
 
 ## 3. The data layer
@@ -232,6 +252,8 @@ The movement suite checks the camera-relative directions, and the characterizati
 | --- | --- |
 | `tools/setup_input_map.gd` | Writes the `[input]` section of `project.godot` |
 | `tools/cell_budget_checker.gd` | Walks the project and reports the per-cell size against the budget |
+| `tools/export_sections.gd` | Writes the section data from the section scenes, or checks it |
+| `addons/level_tools/` | The editor dock that does the same three things by hand |
 
 The input map is generated because the handwritten form is a wall of `Object(InputEventKey, ...)` lines that nobody can review. The tool preserves every other setting and comment in `project.godot` and replaces only the section it owns.
 

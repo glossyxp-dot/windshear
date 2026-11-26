@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://world/kit/ws_kit_block.gd" id="1_5etu4"]
+
+[node name="Platform" type="Node3D" unique_id=119552778]
+script = ExtResource("1_5etu4")
+shape = 2
+size = Vector3(5, 0.5, 5)

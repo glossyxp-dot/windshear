@@ -75,6 +75,13 @@ jobs:
           set -euo pipefail
           godot --headless --path . res://tests/run_all.tscn
 
+      # The section data has to match the scenes it came from.
+      - name: Check the section data
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path . --script res://tools/export_sections.gd -- --check
+
       # Content budgets are a separate gate.
       - name: Check per-cell memory budget
         shell: bash

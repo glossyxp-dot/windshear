@@ -44,9 +44,12 @@ The main scene is `ui/main_menu/main_menu.tscn`. It lives in *Project Settings â
 ui/main_menu/main_menu.tscn         the menu, the settings panel, the PSX slider
 ui/theme/windshear_theme.tres       every colour, border and font size the menu uses
 world/greybox/movement_greybox.tscn the movement test room
+world/kit/                          the pieces a section is built from
+data/sections/                      the section scenes, one folder per chapter
 assets/materials/                   the four PSX materials the greybox uses
 assets/icon.svg, assets/icon.png    the project icon. Finished. Don't touch.
 addons/windshear/                   the game code
+addons/level_tools/                 the editor dock that makes and exports sections
 data/                               sections, schedules, story, all plain JSON
 tests/                              the headless suite
 docs/                               everything else
@@ -134,6 +137,30 @@ whole loop.
 The reference panel is built from the tuning constants when the room opens, so it can't drift from what the controller actually does. It also says which verbs aren't built yet. Right now that's the filament, the ledge grab and interact.
 
 The small readout in the corner is the speed in metres per second. It shows the current horizontal speed and the peak since the last respawn. It refreshes ten times a second rather than every frame, so it costs almost nothing.
+
+## Making a section
+
+The **Level Tools** dock is on the right of the editor. It has three
+buttons and a box to type in.
+
+1. Type the section id, `2.01` for example.
+2. Press **create section scene**. The scene appears in
+   `data/sections/c2/s2_01.tscn` with a room, a section trigger, the
+   checkpoints, the split marker and the gates the schedule asks for, and it
+   opens in front of you.
+3. Lay the room out with the pieces in `world/kit/`. Drag one in, type its
+   size in the Inspector, move it. The mesh and the collision follow.
+4. Place the points. Each point is named after the id it has in the data, so
+   `P1.01.gate_01` is the gate the schedule calls `P1.01.gate_01`.
+5. Press **export section data** in the Inspector of the section root, or
+   **export sections** in the dock.
+
+**check sections** tells you whether the data still matches the scenes. The
+build does the same thing, so a forgotten export is a failed build instead of
+a surprise in the game.
+
+The pieces in `world/kit/` are yours. Change `floor.tscn` and every floor in
+the game changes with it.
 
 ## The PSX amount
 

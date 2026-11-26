@@ -1,0 +1,60 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://world/kit/ws_section.gd" id="1_nxsgg"]
+[ext_resource type="PackedScene" path="res://world/kit/room_shell.tscn" id="2_lepy7"]
+[ext_resource type="PackedScene" path="res://world/kit/platform.tscn" id="4_gtgh8"]
+[ext_resource type="PackedScene" path="res://world/kit/ramp.tscn" id="6_7044t"]
+[ext_resource type="Script" path="res://world/kit/ws_kit_point.gd" id="7_8txfn"]
+
+[node name="sP1_01" type="Node3D" unique_id=171631332]
+script = ExtResource("1_nxsgg")
+section_id = "P1.01"
+display_name = "Platform Nine"
+difficulty = 1
+par_time_frames = 2400
+
+[node name="Room" type="Node3D" parent="." unique_id=1510256102 instance=ExtResource("2_lepy7")]
+
+[node name="Platform" type="Node3D" parent="." unique_id=119552778 instance=ExtResource("4_gtgh8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.25, 4)
+shape = 2
+size = Vector3(5, 0.5, 5)
+
+[node name="Ramp" type="Node3D" parent="." unique_id=1337123467 instance=ExtResource("6_7044t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -6)
+shape = 3
+size = Vector3(6, 0.5, 8)
+
+[node name="SectionTrigger" type="Node3D" parent="." unique_id=672660658]
+script = ExtResource("7_8txfn")
+kind = 0
+point_id = "P1.01.trigger"
+section_id = "P1.01"
+start_checkpoint_id = "P1.01.start"
+end_checkpoint_id = "P1.01.end"
+split_marker_id = "P1.01.split"
+
+[node name="StartCheckpoint" type="Node3D" parent="." unique_id=1073214996]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 6)
+script = ExtResource("7_8txfn")
+point_id = "P1.01.start"
+section_id = "P1.01"
+
+[node name="EndCheckpoint" type="Node3D" parent="." unique_id=1612364942]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 6)
+script = ExtResource("7_8txfn")
+point_id = "P1.01.end"
+section_id = "P1.01"
+
+[node name="SplitMarker" type="Node3D" parent="." unique_id=1763471785]
+script = ExtResource("7_8txfn")
+kind = 8
+point_id = "P1.01.split"
+section_id = "P1.01"
+
+[node name="RegulationGate_01" type="Node3D" parent="." unique_id=2038046121]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 11.4)
+script = ExtResource("7_8txfn")
+kind = 1
+point_id = "P1.01.gate_01"
+section_id = "P1.01"

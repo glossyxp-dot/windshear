@@ -29,6 +29,12 @@ config/icon="res://assets/icon.svg"
 WsGame="*res://addons/windshear/core/ws_game.gd"
 WsTweak="*res://addons/windshear/core/ws_tweak.gd"
 
+[editor_plugins]
+
+; The level tools dock: make a section scene, export the section data and
+; check it against the scenes. The same three things run headless in CI.
+enabled=PackedStringArray("res://addons/level_tools/plugin.cfg")
+
 [display]
 
 window/size/viewport_width=480

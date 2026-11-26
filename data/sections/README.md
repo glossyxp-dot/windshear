@@ -56,6 +56,51 @@ A scene can also contain `RegulatorDrone`, `WindRegulator` and
 Geometry is authored at full depth. Node counts stay under the draw-call and
 memory budgets in `TECH_SPEC.md` §2.
 
+### The kit
+
+The geometry does not have to be hand-modelled. The pieces in `world/kit/`
+are scenes whose mesh and collision are made from the numbers in the
+Inspector:
+
+| Piece | What it is |
+| --- | --- |
+| `floor.tscn` | A flat slab |
+| `wall.tscn` | A wall |
+| `platform.tscn` | A thin slab to jump on |
+| `ramp.tscn` | A slab tilted into a slope |
+| `room_shell.tscn` | A floor, four walls and optionally a ceiling |
+| `section_point.tscn` | A point in the room |
+
+The points are `WSKitPoint` nodes. Their kind decides which properties the
+Inspector shows, so a gate never asks about the wind strength. The kinds are
+section trigger, regulation gate, checkpoint, wind volume, hazard volume,
+filament anchor, parcel, spawn and split marker.
+
+The kind is written into the scene as a number, so the order of the enum is a
+file format. A new kind goes at the end and an old one never moves.
+`tests/test_level_tools.gd` pins every number.
+
+### The root
+
+The root of the scene is a `WSSection`. It carries the section id and, when
+it wants to repeat them, the name, the difficulty and the par time the index
+already says. The exporter checks the two against each other.
+
+### The data beside it
+
+Each section has a JSON file beside its scene with the same name and a
+`.json` ending. It holds the points and the gate timings.
+
+The game does not read that file. The game loads the scene. The JSON is the
+mirror the tests and the outside tools read, and the build fails when it no
+longer matches the scene, so a forgotten export is a failed build instead of
+a surprise in the game.
+
+```bash
+godot --headless --path . --script res://tools/export_sections.gd -- --export
+godot --headless --path . --script res://tools/export_sections.gd -- --check
+```
+
 ## SectionTrigger
 
 Every section has exactly one node named `SectionTrigger`, and it declares
@@ -73,6 +118,9 @@ manager and hands over the three markers. Registration is rejected if the id
 isn't in the index, or if a marker doesn't resolve to a node in the same
 section. Those are easy typos to make, and either one leaves you with a
 section that loads but can't be finished.
+
+The exporter checks the same rules before it writes anything, and the build
+fails when it finds one of them broken.
 
 `RegulationGate` names its `gate_id`, for example `13.03.gate_01`.
 `BeatDirector` names the same `section_id` as the trigger, which is how the
