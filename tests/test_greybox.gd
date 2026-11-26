@@ -18,8 +18,9 @@
 ## rules as the finished game: Lancer stays on the XY plane, the camera stays
 ## with Lancer, and the geometry stays inside the triangle budget.
 ##
-## The gameplay plane has no forward axis. A and D are the run directions.
-## W and S tilt the camera; they do not move Lancer.
+## The gameplay plane has no forward axis. A and D are the run directions, and
+## W and S are movement keys too: jump and slide. The mouse alone turns the
+## camera.
 ##
 ## This suite needs a live scene tree, so the runner instantiates the room
 ## and hands it over.

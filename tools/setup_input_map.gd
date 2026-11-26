@@ -67,33 +67,34 @@ func _joy_axis(axis: JoyAxis, value: float) -> InputEventJoypadMotion:
 ##
 ## [codeblock]
 ## A / D    run left, run right
-## Ctrl     slide
-## Space    jump
+## Ctrl / S slide
+## Space / W jump
 ## Q        ledge grab
 ## E        interact
 ## F        filament
-## W / S    tilt the camera
-## arrows   turn and tilt the camera
+## mouse    camera
 ## LMB      primary fire
 ## RMB      alt fire
 ## [/codeblock]
 ##
 ## The mouse has the camera and the two triggers, because the mouse is
 ## already in the hand that is doing the camera. Everything else sits on the
-## keyboard. The arrows are there so the camera still has a keyboard route
-## for anybody who would rather not use the mouse at all.
+## keyboard, and the keyboard never touches the camera. That was the whole
+## point of the change: the mouse is free to look wherever it wants, and
+## nothing on the keyboard fights it for the view.
 ##
-## W and S tilt the camera rather than moving Lancer, because the game plays
-## on one plane. There is no forward and there is no back. Up and down are
-## the only directions a side-on route does not have.
+## A side-on route has no forward and no back, so W and S can't be a second
+## run axis. They sit on the movement cluster instead: W jumps and S slides,
+## alongside Space and Ctrl. WASD is then a complete set — A and D run, W
+## jumps, S slides — and every key in it is a movement verb.
 func _bindings() -> Dictionary:
 	return {
 		"move_left": [_key(KEY_A), _joy_axis(JOY_AXIS_LEFT_X, -1.0),
 			_joy_button(JOY_BUTTON_DPAD_LEFT)],
 		"move_right": [_key(KEY_D), _joy_axis(JOY_AXIS_LEFT_X, 1.0),
 			_joy_button(JOY_BUTTON_DPAD_RIGHT)],
-		"jump": [_key(KEY_SPACE), _joy_button(JOY_BUTTON_A)],
-		"slip": [_key(KEY_CTRL), _joy_button(JOY_BUTTON_B)],
+		"jump": [_key(KEY_SPACE), _key(KEY_W), _joy_button(JOY_BUTTON_A)],
+		"slip": [_key(KEY_CTRL), _key(KEY_S), _joy_button(JOY_BUTTON_B)],
 		"ledge_grab": [_key(KEY_Q), _joy_button(JOY_BUTTON_X)],
 		"interact": [_key(KEY_E), _joy_button(JOY_BUTTON_Y)],
 		"filament": [_key(KEY_F), _joy_button(JOY_BUTTON_RIGHT_SHOULDER)],
@@ -107,10 +108,6 @@ func _bindings() -> Dictionary:
 		"look_right": [_joy_axis(JOY_AXIS_RIGHT_X, 1.0)],
 		"look_up": [_joy_axis(JOY_AXIS_RIGHT_Y, -1.0)],
 		"look_down": [_joy_axis(JOY_AXIS_RIGHT_Y, 1.0)],
-		"look_key_left": [_key(KEY_LEFT)],
-		"look_key_right": [_key(KEY_RIGHT)],
-		"look_key_up": [_key(KEY_W), _key(KEY_UP)],
-		"look_key_down": [_key(KEY_S), _key(KEY_DOWN)],
 		"reset_to_checkpoint": [_key(KEY_R), _joy_button(JOY_BUTTON_BACK)],
 		"toggle_splits": [_key(KEY_TAB), _joy_button(JOY_BUTTON_START)],
 		"toggle_help": [_key(KEY_F1), _key(KEY_H), _joy_button(JOY_BUTTON_GUIDE)],

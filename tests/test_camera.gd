@@ -17,9 +17,10 @@
 ## The camera is the other half of an FPS game. Two rules are non-negotiable:
 ## the pitch never flips over the top, and the rig never leaves Lancer.
 ##
-## Mouse movement controls the camera. W and S tilt it, while the arrow keys
-## turn and tilt it. Lancer still runs only along A and D because the gameplay
-## plane has no forward axis. The speed dolly makes 14 m/s read as fast.
+## Mouse movement controls the camera, and so does the right stick. Nothing on
+## the keyboard does. Lancer runs along A and D because the gameplay plane has
+## no forward axis, and W and S are movement keys: jump and slide. The speed
+## dolly makes 14 m/s read as fast.
 extends "res://tests/ws_test.gd"
 
 ## The camera rig.

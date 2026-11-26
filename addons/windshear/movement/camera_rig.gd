@@ -19,7 +19,7 @@
 ## `GAME_DESIGN.md` §5).
 ##
 ## The rig owns three things:
-## [br]- mouse, key and stick look, with a hard pitch clamp;
+## [br]- mouse and stick look, with a hard pitch clamp;
 ## [br]- the speed dolly, which pulls back and widens the field of view as
 ##   Lancer picks up speed;
 ## [br]- the vertical framing offset, so Lancer sits below the centre of the
@@ -34,12 +34,6 @@ const Tuning := preload("res://addons/windshear/core/ws_tuning.gd")
 @export var mouse_sensitivity := 0.0022
 ## Radians of rotation per second at full stick deflection.
 @export var controller_sensitivity := 3.0
-## Radians of rotation per second while a look key is held. The arrow keys turn
-## and tilt the camera; W and S tilt it only. They don't move Lancer because the
-## gameplay plane has no forward axis. The mouse turns the camera by pixels,
-## while a key uses a fixed rate. The key rate is slower so a keyboard player
-## can line up the camera instead of whipping it past the target.
-@export var key_sensitivity := 2.0
 ## Maximum pitch in either direction, in degrees.
 @export var pitch_limit_deg := 80.0
 ## Field of view at a standstill, in degrees.
@@ -91,12 +85,12 @@ func _unhandled_input(event: InputEvent) -> void:
 
 ## The look axes.
 ##
-## The mouse controls the camera, but it isn't the only way to look. The arrow
-## keys turn and tilt the camera; W and S tilt it. W and S don't move Lancer
-## because the gameplay plane has no forward axis. The right stick follows the
-## same path at a different rate. Its vertical axis is negated: in Godot a
-## stick pushed down is a positive value, and pushing the stick down has to
-## tilt the camera down, the same way the mouse does.
+## The mouse controls the camera and nothing on the keyboard does. A side-on
+## route has no forward and no back, so there was never a sensible pair of
+## keys to turn it with anyway, and the old arrows just fought the mouse. The
+## right stick is the other route, for a pad. Its vertical axis is negated: in
+## Godot a stick pushed down is a positive value, and pushing the stick down
+## has to tilt the camera down, the same way the mouse does.
 func _process(delta: float) -> void:
 	var stick_x := Input.get_axis("look_left", "look_right")
 	var stick_y := Input.get_axis("look_up", "look_down")
@@ -104,16 +98,6 @@ func _process(delta: float) -> void:
 		apply_look(-stick_x * controller_sensitivity * delta, 0.0)
 	if absf(stick_y) > 0.001:
 		var vertical := -stick_y * controller_sensitivity * delta
-		if invert_y:
-			vertical = -vertical
-		apply_look(0.0, vertical)
-
-	var key_x := Input.get_axis("look_key_left", "look_key_right")
-	var key_y := Input.get_axis("look_key_up", "look_key_down")
-	if absf(key_x) > 0.001:
-		apply_look(-key_x * key_sensitivity * delta, 0.0)
-	if absf(key_y) > 0.001:
-		var vertical := -key_y * key_sensitivity * delta
 		if invert_y:
 			vertical = -vertical
 		apply_look(0.0, vertical)

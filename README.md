@@ -12,8 +12,9 @@ Lancer never speaks. Everything Lancer has to say is a line they run.
 
 The mouse is the camera and the mouse does the two triggers, because the
 mouse is already in the hand that is pointing at the thing you want to shoot.
-Everything else is on the keyboard. `A` and `D` run, `Ctrl` slides, `Space`
-jumps, `Q` grabs a ledge, `E` interacts, `F` throws the filament.
+Everything else is on the keyboard. `A` and `D` run, `Ctrl` or `S` slides,
+`Space` or `W` jumps, `Q` grabs a ledge, `E` interacts, `F` throws the
+filament.
 
 Everything is open source, code and content both. If you want to tell a
 different story in the same city, that's what an Edition is: a folder of JSON,
@@ -39,7 +40,7 @@ change the game you already downloaded.
 
 Dev Stage 1. The project boots, the menu works, Lancer moves.
 
-There are 489 headless checks and they all pass. The movement is frame exact
+There are 487 headless checks and they all pass. The movement is frame exact
 at 60 Hz and the HUD reads your speed in metres per second. The PSX slider
 goes from 0 to 100, so the amount of PSX is the player's call and not mine.
 The world grid exists as data: 25 chapters, 12 sections each, 300 sections in

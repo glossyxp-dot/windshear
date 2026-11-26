@@ -9,8 +9,8 @@ The defaults, and why they are what they are.
 | | |
 | --- | --- |
 | Run | `A` `D` |
-| Slide | `Ctrl` |
-| Jump | `Space` |
+| Slide | `Ctrl`, or `S` |
+| Jump | `Space`, or `W` |
 | Wall-jump | jump while sliding against a wall |
 | Ledge grab | `Q` |
 | Interact | `E` |
@@ -25,32 +25,28 @@ and the chain is done. The `wall_kiss_chain` Fracture takes it to five, which
 is where the old 18.0 m/s ceiling went. The movement research calls this
 move the wall-kiss; it's the same thing.
 
-## Why the mouse does two jobs
+## Why the mouse does the camera and nothing else
 
 The mouse is the camera, so the mouse is already in the hand that is pointing
 at the thing you want to shoot. The triggers go there too. Everything the
 player does with their left hand is on the keyboard, which means the keyboard
-is carrying movement while the mouse carries aim.
+carries movement while the mouse carries aim.
 
-The camera also has a keyboard route, because some people don't want to
-wobble a mouse while they run. The arrow keys turn and tilt it, `W` and `S`
-tilt it as well.
+The keyboard does not carry the camera, and it used to. The arrows turned and
+tilted it, and `W` and `S` tilted it as well. That gave the camera two owners
+and they spent the whole run arguing. If you are on the mouse, the mouse
+should be the entire camera. If you are on a pad, the right stick should be
+the entire camera. So the keyboard route is gone.
 
-`W` and `S` don't move Lancer, and that is worth explaining once. The game
-plays on a single plane. There is no forward and there is no back. Up and
-down are the only two directions a side-on route does not have, so they tilt
-the camera instead.
+That leaves `W` and `S` with nothing to do, and they are good keys sitting
+right next to `A` and `D`. The game plays on a single plane, so there is no
+forward and there is no back to give them. Instead they join the movement
+cluster: `W` is a second jump and `S` is a second slide. WASD is now a
+complete set — `A` and `D` run, `W` jumps, `S` slides — and every key in it
+is a movement verb.
 
-| | |
-| --- | --- |
-| Turn the camera | `←` `→` |
-| Tilt the camera | `↑` `↓`, or `W` `S` |
-
-A key turns the camera at a fixed rate, 2.0 rad/s, and the mouse turns it by
-pixels, 0.0022 rad a pixel. Those are deliberately different numbers. A key
-at 2.0 rad/s is slow enough to line the camera up on something before you
-commit to the shot. A mouse is faster and finer, which is what you want once
-you are actually aiming.
+If you would rather keep both hands on the arrows, that is what remapping is
+for. The defaults just don't ask you to.
 
 I've been asked for a keyboard fire binding more than once. I don't have one
 in the defaults, because the mouse is doing the camera and a second job on
@@ -107,10 +103,13 @@ how you end up with two names for one thing and no way to tell which one the
 game is reading.
 
 `tests/test_input_map.gd` checks the scheme itself: that every action except
-the two triggers has a key, that the triggers are on the mouse buttons they
-are supposed to be on, that `A` is `A`, and that the camera rig actually reads
-the keyboard look actions. An action that nobody reads is an action that does
-nothing, so that last one is worth a test.
+the two triggers and the stick look has a key, that the triggers are on the
+mouse buttons they are supposed to be on, that `A` is `A`, that `W` jumps and
+`S` slides, and that the camera rig reads the mouse and the stick and no key
+at all. It also checks that nothing claims the arrow keys, because a stray
+arrow binding is exactly how the old keyboard camera would come back. An
+action that nobody reads is an action that does nothing, so those last two
+are worth a test.
 
 It also checks that nothing new turns up in the map without a keyboard
 binding. I added that one after a new action landed in `project.godot` with

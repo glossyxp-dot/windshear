@@ -111,9 +111,9 @@ out on somebody else's machine.
 - [ ] If you touched the cast, the arsenal, the roster or the player's
       numbers, the JSON and `GAME_DESIGN.md` changed together. The canon suite
       reads both.
-- [ ] Every action except the two triggers still has a keyboard binding, and
-      the triggers are still on the mouse buttons. `test_input_map.gd` fails the
-      build otherwise.
+- [ ] Every action except the two triggers and the stick look still has a
+      keyboard binding, and the triggers are still on the mouse buttons.
+      `test_input_map.gd` fails the build otherwise.
 
 ## How a PR actually lands
 

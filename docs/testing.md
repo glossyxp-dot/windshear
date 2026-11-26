@@ -21,7 +21,7 @@ godot --headless --path . --script res://tools/cell_budget_checker.gd
 
 A failed check gives the suite a non-zero exit status. CI is one line, and there's nothing to parse.
 
-The current state is **489 checks, 0 failures**, in fourteen suites.
+The current state is **487 checks, 0 failures**, in fourteen suites.
 
 ---
 
@@ -33,7 +33,7 @@ That won't do here. The bugs that ruin a speedrun are frame bugs. The bugs that 
 
 The coyote window has to be exactly 8 frames, accepted on frame 8 and rejected on frame 9. The same input sequence must produce the same output on every machine. Project settings and frame cost get measured instead of assumed. Four rules from `CONTRIBUTING.md` are checked in code because a reviewer can't reliably check them from a diff.
 
-The canon tests keep the cast, arsenal, roster and player's numbers honest. Those are data, and data drifts. The input suite holds the agreed scheme in place: `A`/`D` run, `Ctrl` slides, `Space` jumps, `Q` grabs a ledge, `E` interacts, `F` throws the filament, the mouse handles the camera, and the left and right mouse buttons fire. The remaining camera route is on the arrows and `W`/`S`. The mouse triggers are the only mouse-only actions.
+The canon tests keep the cast, arsenal, roster and player's numbers honest. Those are data, and data drifts. The input suite holds the agreed scheme in place: `A`/`D` run, `Ctrl` or `S` slides, `Space` or `W` jumps, `Q` grabs a ledge, `E` interacts, `F` throws the filament, the mouse handles the camera, and the left and right mouse buttons fire. Nothing on the keyboard turns the camera, and the suite checks that no action claims the arrows. The mouse triggers are the only mouse-only actions.
 
 I spent a long time convinced that a good test suite was about coverage. It isn't, for this kind of game. It's about having one test per thing that would be embarrassing to get wrong, and about that test failing with a message somebody can act on without reading the source. Most of the assertions here are checking a number against a number, and that's deliberate.
 

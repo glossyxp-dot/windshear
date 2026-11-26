@@ -77,7 +77,7 @@ The greybox HUD reads the meter, the mechanics reference quotes it, and `tests/t
 
 The camera is parented to Lancer and stays there. It clamps pitch at ±80°, wraps yaw, and dollies back as the player gains speed.
 
-The rig reads mouse motion, the right stick and the keyboard look actions. The mouse is the camera, by pixels. The right stick is another route, by rate, and the keyboard has one too: the arrows turn and tilt the camera, while `W` and `S` tilt it. The keyboard is deliberately slower at 2.0 rad/s; the mouse turns at 0.0022 rad per pixel. That gives keyboard players time to line up a shot instead of whipping past the target. The keyboard look actions are separate from the stick actions because their rates differ.
+The rig reads mouse motion and the right stick. The mouse is the camera, by pixels, and it turns at 0.0022 rad per pixel. The right stick is the other route, by rate, at 3.0 rad/s at full deflection. Nothing on the keyboard touches the camera. A keyboard camera and a mouse camera fight over the same view, and the player only ever wanted one of them, so the keyboard route was removed rather than tuned.
 
 The mouse also owns the two triggers, since it's already in the hand doing the camera. Everything else is on the keyboard. The gamepad follows the same split: left stick and D-pad move, A jumps, B slides, X grabs a ledge, Y interacts, the right shoulder throws the filament, the right trigger is primary fire, the left trigger is alt fire, and the right stick is the camera.
 
@@ -91,21 +91,19 @@ The current scheme is:
 
 ```text
 A / D    run left, run right
-Ctrl     slide
-Space    jump
+Ctrl / S slide
+Space / W jump
 Q        ledge grab
 E        interact
 F        filament
+mouse    camera
 LMB      primary fire
 RMB      alt fire
-W / S    tilt the camera
-arrows   turn and tilt the camera
-mouse    camera
 ```
 
-The mouse handles the camera and both triggers because it's already in the hand pointing at the target. The rest stays on the keyboard. The arrows and `W`/`S` preserve a camera route for players who'd rather leave the mouse on the desk.
+The mouse handles the camera and both triggers because it's already in the hand pointing at the target. The rest stays on the keyboard. `W` and `S` are movement keys, on jump and slide: a side-on route has no forward axis, so they were never going to be a run direction.
 
-The generator also deletes retired actions. If an action is renamed, the old name can't linger in `project.godot`. `tests/test_input_map.gd` checks the scheme itself and confirms that the camera rig reads the keyboard look actions; an action nobody reads doesn't do anything.
+The generator also deletes retired actions. If an action is renamed, the old name can't linger in `project.godot`. `tests/test_input_map.gd` checks the scheme itself and confirms that the camera rig reads the mouse and the right stick and no key at all; an action nobody reads doesn't do anything.
 
 I added the delete step after renaming `mantle` to `ledge_grab` and finding that the old action was still in the file, still bound, and still being read by nothing. It's the kind of thing that lives for a year before somebody notices.
 

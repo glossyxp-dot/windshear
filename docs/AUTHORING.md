@@ -61,18 +61,16 @@ Open `world/greybox/movement_greybox.tscn` and press **F6**.
 | Action | Binding |
 | --- | --- |
 | Run left / right | `A` / `D` |
-| Slide | `Ctrl` |
-| Jump | `Space` |
+| Slide | `Ctrl`, or `S` |
+| Jump | `Space`, or `W` |
 | Ledge grab | `Q` |
 | Interact | `E` |
 | Filament | `F` |
 | Primary fire | left mouse button |
 | Alt fire | right mouse button |
-| Tilt the camera | `W` / `S` |
-| Turn and tilt the camera | arrow keys |
 | Camera | mouse |
 
-The mouse does the camera and both triggers because it's already in the hand pointing at the target. Everything else is on the keyboard. The arrows and `W`/`S` leave a camera route for a player who'd rather not use the mouse. Click into the window if the mouse is captured; Escape lets it go.
+The mouse does the camera and both triggers because it's already in the hand pointing at the target. Everything else is on the keyboard, and the keyboard leaves the camera alone. `W` and `S` are movement keys: jump and slide. Click into the window if the mouse is captured; Escape lets it go.
 
 There are a few extra bindings too:
 

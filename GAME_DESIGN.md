@@ -206,17 +206,19 @@ layers. Speed reads off the X axis, precision off Y.
 
 | Verb | Input | Feel |
 | --- | --- | --- |
-| Move | W, A, S,D| Top speed ~14 m/s; quick, snappy accel; momentum *not* preserved on turnaround |
-| Slide | `Ctrl` while running | Lowers profile, preserves speed, cancellable; friction ramp |
-| Jump / double jump | `Space` | Variable height, 8-frame coyote time, 10-frame input buffer |
+| Move | `A` `D` | Top speed ~14 m/s; quick, snappy accel; momentum *not* preserved on turnaround |
+| Slide | `Ctrl` or `S` while running | Lowers profile, preserves speed, cancellable; friction ramp |
+| Jump / double jump | `Space` or `W` | Variable height, 8-frame coyote time, 10-frame input buffer |
 | Wall contact | into a wall | Slide along, preserves speed; **wall-jump chain**, three jumps long |
 | Ledge grab | `Q` at a ledge | 0.15 s snap, generous corner correction |
 | Air control | `A` `D` in air | Strong but not total; air-strafe mini-accel (precision tech) |
 | Filament (tether) | `F` | 3 anchor types, 0.25 s lock-on, *not* a grapple hook |
 
-The mouse does the camera and the two triggers, so the keyboard carries
-everything else. `W` and `S` tilt the camera rather than move Lancer, because
-the gameplay plane has no forward axis. The full scheme is in
+The mouse does the camera and the two triggers, and it is the only thing that
+does the camera on a keyboard-and-mouse setup. The keyboard carries movement
+and everything else. The gameplay plane has no forward axis, so `W` and `S`
+can't be a second run direction; they join the movement cluster instead, on
+jump and slide, which makes WASD a complete set. The full scheme is in
 `docs/CONTROLS.md`.
 
 ### Possible Techniques (why this is learnable, not soup)
@@ -611,12 +613,12 @@ framing stays composed, because the camera is Lancer's and not the director's.
 It never cuts, never detaches and never goes first-person. It always contains
 Lancer, with headroom for the jump arc.
 
-The mouse is the camera, and it does the two triggers as well. The keyboard
-carries movement and everything else, and the camera also has a keyboard route:
-the arrows turn it and `W` and `S` tilt it, at a slower rate than the mouse,
-so a keyboard player can line up a shot instead of whipping past it. The
-defaults are in `docs/CONTROLS.md`, and `tests/test_input_map.gd` fails the
-build if the scheme ever drifts.
+The mouse is the camera, and it does the two triggers as well. The right
+stick is the camera on a pad. Nothing on the keyboard touches it, which is
+deliberate: a keyboard camera and a mouse camera fight each other, and the
+player only ever wanted one of them. `W` and `S` are movement keys instead,
+on jump and slide. The defaults are in `docs/CONTROLS.md`, and
+`tests/test_input_map.gd` fails the build if the scheme ever drifts.
 
 ---
 

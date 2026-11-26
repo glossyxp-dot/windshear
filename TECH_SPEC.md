@@ -158,20 +158,21 @@ The scheme is fixed and `tests/test_input_map.gd` enforces it:
 | | |
 | --- | --- |
 | Move | `A` `D` |
-| Slide | `Ctrl` |
-| Jump | `Space` |
+| Slide | `Ctrl`, or `S` |
+| Jump | `Space`, or `W` |
 | Ledge grab | `Q` |
 | Interact | `E` |
 | Filament | `F` |
 | Primary fire | left mouse button |
 | Alt fire | right mouse button |
-| Camera | the mouse; arrows turn it, `W` `S` tilt it |
+| Camera | the mouse; the right stick on a pad |
 
 The mouse does the camera and the two triggers, because the mouse is already
-in the hand doing the camera. Everything else is on the keyboard. `W` and `S`
-tilt rather than move because the gameplay plane has no forward axis. The
-generator also deletes actions that are no longer in its table, so a renamed
-action cannot linger in `project.godot` forever.
+in the hand doing the camera. Everything else is on the keyboard, and the
+keyboard leaves the camera alone. A side-on route has no forward axis, so
+`W` and `S` are movement keys instead: jump and slide. The generator also
+deletes actions that are no longer in its table, so a renamed action cannot
+linger in `project.godot` forever.
 
 ### Determinism
 - Fixed 60 Hz physics tick, `Engine.physics_ticks_per_second = 60`.
@@ -311,8 +312,8 @@ Implementation notes:
 ## 8. Accessibility
 
 - Remappable input (keyboard + controller), no motion-only verbs. The mouse
-  carries the camera and the two triggers; everything else is on the
-  keyboard, and the camera also has a keyboard route.
+  carries the camera and the two triggers; everything else is on the keyboard,
+  and nothing on the keyboard turns the camera.
 - Coyote time / input buffer / corner correction toggles ("Assist" presets:
   Off / Standard / Relaxed) — the assist state is recorded in the run config so
   leaderboards stay honest.
