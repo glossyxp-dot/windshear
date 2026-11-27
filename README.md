@@ -42,7 +42,7 @@ change the game you already downloaded.
 
 Dev Stage 1. The project boots, the menu works, Lancer moves.
 
-There are 653 headless checks and they all pass. The movement is frame exact
+There are 662 headless checks and they all pass. The movement is frame exact
 at 60 Hz and the HUD reads your speed in metres per second. The PSX slider
 goes from 0 to 100, so the amount of PSX is the player's call and not mine.
 The world grid exists as data: 25 chapters, 12 sections each, 300 sections in

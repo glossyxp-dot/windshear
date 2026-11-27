@@ -63,6 +63,8 @@ func run_with_scene(scene: Node) -> void:
 	_test_the_kit_scenes_stay_readable()
 	_test_the_plugin_is_there()
 	_test_the_builder_makes_a_section_that_works()
+	_test_the_builder_never_writes_over_your_work()
+	_test_the_index_can_be_updated_from_the_scene()
 
 
 ## The numbers of the kinds are a file format.
@@ -405,6 +407,75 @@ func _test_the_builder_makes_a_section_that_works() -> void:
 
 	scene.free()
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(MADE_SCENE))
+
+
+## The builder never writes over a scene that is already there.
+##
+## The designer may have hours of work in that file. A button in a dock
+## must not be able to throw it away.
+func _test_the_builder_never_writes_over_your_work() -> void:
+	heading("the builder never writes over your work")
+	var builder := Builder.new()
+	var entry := _index_entry("2.01")
+	if entry.is_empty():
+		ok(false, "the campaign index has a 2.01")
+		return
+
+	# Put something of the designer's in the file first.
+	var file := FileAccess.open(MADE_SCENE, FileAccess.WRITE)
+	if file == null:
+		ok(false, "the fixture could be written")
+		return
+	file.store_string("[gd_scene format=3]\n\n[node name=\"Mine\" type=\"Node3D\"]\n")
+	file.close()
+
+	var built := builder.build("2.01", MADE_SCENE, entry)
+	ok(not built, "the builder refuses to write over a scene that is there")
+	ok(not builder.last_problem.is_empty(), "the builder says why it stopped")
+
+	var text := FileAccess.get_file_as_string(MADE_SCENE)
+	ok(text.contains("Mine"), "the designer's scene is untouched")
+
+	DirAccess.remove_absolute(ProjectSettings.globalize_path(MADE_SCENE))
+
+
+## A rename in the Inspector can be pushed into the campaign index.
+##
+## The index is a JSON file and the designer should never have to open a
+## text editor to rename a section.
+func _test_the_index_can_be_updated_from_the_scene() -> void:
+	heading("the index can be updated from the scene")
+	var index_text := FileAccess.get_file_as_string(Exporter.INDEX_PATH)
+	if index_text.is_empty():
+		ok(false, "the campaign index can be read")
+		return
+
+	# A copy of the index, so the test never touches the real one.
+	var copy_path := "user://level_tools_index_copy.json"
+	var file := FileAccess.open(copy_path, FileAccess.WRITE)
+	if file == null:
+		ok(false, "the copy could be written")
+		return
+	file.store_string(index_text)
+	file.close()
+
+	var exporter := Exporter.new()
+	var before := FileAccess.get_file_as_string(copy_path)
+	var replaced := exporter._replace_in_index_entry(before, "P1.01",
+		"The Test Name", 7, 1234)
+	ok(replaced != before, "the entry is rewritten")
+	ok(replaced.contains("\"display_name\": \"The Test Name\""),
+		"the name in the entry is the new one")
+	ok(replaced.contains("\"difficulty\": 7"),
+		"the difficulty in the entry is the new one")
+	ok(replaced.contains("\"par_time_frames\": 1234"),
+		"the par time in the entry is the new one")
+	ok(replaced.contains("\"id\": \"P1.02\""),
+		"the other sections are left alone")
+	ok(replaced.count("\"id\": ") == before.count("\"id\": "),
+		"no section is added or lost")
+
+	DirAccess.remove_absolute(ProjectSettings.globalize_path(copy_path))
 
 
 ## Collects the designer-authored points in a scene.

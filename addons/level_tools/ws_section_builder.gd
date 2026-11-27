@@ -34,12 +34,24 @@ const KitSection := preload("res://world/kit/ws_section.gd")
 ## The gate schedule.
 const SCHEDULE_PATH := "res://data/schedule.json"
 
+## Why the last build did not happen. Empty when it worked.
+var last_problem := ""
+
 
 ## Makes a section scene and writes it to disk.
 ##
 ## The entry is the section's entry in the campaign index. Returns false
 ## when the scene could not be written.
+##
+## A scene that is already there is never written over. The designer may
+## have hours of work in that file, and a button in a dock should not be
+## able to throw it away.
 func build(section_id: String, scene_path: String, entry: Dictionary) -> bool:
+	last_problem = ""
+	if FileAccess.file_exists(scene_path):
+		last_problem = "there is already a scene at %s, so nothing was written" % scene_path
+		return false
+
 	var root := KitSection.new()
 	root.name = scene_path.get_file().get_basename()
 	root.section_id = section_id
@@ -102,11 +114,15 @@ func build(section_id: String, scene_path: String, entry: Dictionary) -> bool:
 	var packed_error := packed.pack(root)
 	root.free()
 	if packed_error != OK:
+		last_problem = "the section scene could not be built"
 		return false
 
 	var directory := ProjectSettings.globalize_path(scene_path.get_base_dir())
 	DirAccess.make_dir_recursive_absolute(directory)
-	return ResourceSaver.save(packed, scene_path) == OK
+	if ResourceSaver.save(packed, scene_path) != OK:
+		last_problem = "the section scene could not be written"
+		return false
+	return true
 
 
 ## The gates the schedule has for a section.

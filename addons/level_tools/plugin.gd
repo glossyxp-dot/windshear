@@ -75,6 +75,12 @@ func _build_the_dock() -> void:
 	export_button.pressed.connect(_on_export)
 	_dock.add_child(export_button)
 
+	var index_button := Button.new()
+	index_button.text = "update the index"
+	index_button.tooltip_text = "Write the name, the difficulty and the par time of the section into the campaign index, so a rename in the Inspector does not need a text editor."
+	index_button.pressed.connect(_on_update_index)
+	_dock.add_child(index_button)
+
 	var check := Button.new()
 	check.text = "check sections"
 	check.pressed.connect(_on_check)
@@ -125,7 +131,10 @@ func _write_a_starter_scene(section_id: String, scene_path: String,
 		entry: Dictionary) -> bool:
 	var builder := Builder.new()
 	if not builder.build(section_id, scene_path, entry):
-		_set_status("the section scene could not be written")
+		if builder.last_problem.is_empty():
+			_set_status("the section scene could not be written")
+		else:
+			_set_status(builder.last_problem)
 		return false
 	return true
 
@@ -144,6 +153,39 @@ func _on_export() -> void:
 		_set_status("the section data was exported")
 		return
 	_set_status(_problem_text(exporter.problems))
+
+
+## Writes the name, the difficulty and the par time of a section into the
+## campaign index.
+##
+## The index is a JSON file and the designer should never have to open a
+## text editor to rename a section. The scene is the source, so the scene
+## wins and the index is brought into line.
+func _on_update_index() -> void:
+	var section_id := _section_input.text.strip_edges()
+	if section_id.is_empty():
+		_set_status("type a section id first, like 2.01")
+		return
+
+	var index := _read_json(Exporter.INDEX_PATH)
+	var wanted := ""
+	for section in index.get("sections", []):
+		if str(section.get("id", "")) == section_id:
+			wanted = str(section.get("scene_path", ""))
+			break
+	if wanted.is_empty():
+		_set_status("the campaign index has no section called %s" % section_id)
+		return
+	if not ResourceLoader.exists(wanted):
+		_set_status("there is no scene for %s yet" % section_id)
+		return
+
+	var exporter := Exporter.new()
+	if not exporter.update_index(wanted, section_id):
+		_set_status(_problem_text(exporter.problems))
+		return
+	EditorInterface.get_resource_filesystem().scan()
+	_set_status("the index now says what %s says" % section_id)
 
 
 ## Checks the section data against the scenes.

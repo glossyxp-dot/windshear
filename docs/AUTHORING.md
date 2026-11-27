@@ -145,7 +145,7 @@ The small readout in the corner is the speed in metres per second. It shows the 
 
 ## Making a section
 
-The **Level Tools** dock is on the right of the editor. It has three
+The **Level Tools** dock is on the right of the editor. It has four
 buttons and a box to type in.
 
 1. Type the section id, `2.01` for example.
@@ -163,6 +163,20 @@ buttons and a box to type in.
 **check sections** tells you whether the data still matches the scenes. The
 build does the same thing, so a forgotten export is a failed build instead of
 a surprise in the game.
+
+### Two rules that protect your work
+
+**A scene that is already there is never written over.** Pressing **create
+section scene** on a section you have already made opens it instead of
+replacing it. The builder refuses to write over a file that exists, and the
+test suite checks that it does. There is no undo for a file.
+
+**Renaming a section is one button.** The name, the difficulty and the par
+time live in the section root and in `data/sections/index.json`, and the two
+have to agree. Change the name in the Inspector, type the id in the dock and
+press **update the index**, and the index hears about it. You never open the
+JSON by hand. Only the one entry in the file is rewritten; the other 299 are
+left byte for byte alone.
 
 The pieces in `world/kit/` are yours. Change `floor.tscn` and every floor in
 the game changes with it.

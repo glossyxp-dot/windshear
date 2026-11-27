@@ -150,6 +150,18 @@ speedrun split goes.
 
 The example section `data/sections/cP1/sP1_01.tscn` is laid out like this.
 
+### Two rules that protect your work
+
+**A scene that is already there is never written over.** Pressing **create
+section scene** on a section you have already made opens it instead of
+replacing it. The builder refuses to write over a file that exists, and the
+test suite checks that it does.
+
+**Renaming a section is one button.** The name, the difficulty and the par
+time live in the section root and in the campaign index, and the two have to
+agree. Change the name in the Inspector, press **update the index** in the
+dock, and the index hears about it. You never open the JSON by hand.
+
 ### What the JSON is for
 
 The game loads the scene. The JSON beside it, `sP1_01.json`, is the mirror:

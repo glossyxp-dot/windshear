@@ -261,6 +261,144 @@ func _read_metadata(scene: Node, section_id: String, section: Dictionary) -> Dic
 	return metadata
 
 
+## Writes the name, the difficulty and the par time of a section scene into
+## the campaign index.
+##
+## The root of a scene may repeat what the index says. When the designer
+## changes one of those numbers in the Inspector, the index has to hear
+## about it, and the index is a JSON file the designer should not have to
+## edit by hand. So the dock does it for them.
+##
+## Only the one entry is rewritten. The rest of the file is left byte for
+## byte alone, because the index is three hundred sections long and a
+## reshuffled file is a file nobody reviews.
+##
+## Returns false when there is no such section in the index, or when the
+## scene could not be read.
+func update_index(scene_path: String, section_id: String = "") -> bool:
+	problems = PackedStringArray()
+	if section_id.is_empty():
+		section_id = _section_id_for(scene_path)
+	var section := _index_entry(section_id)
+	if section.is_empty():
+		problems.append("the campaign index has no section called %s" % section_id)
+		return false
+
+	var packed: PackedScene = load(scene_path)
+	if packed == null:
+		problems.append("%s could not be loaded" % scene_path)
+		return false
+	var scene := packed.instantiate()
+	if scene == null:
+		problems.append("%s could not be opened" % scene_path)
+		return false
+
+	var metadata := _read_metadata(scene, section_id, section)
+	scene.free()
+
+	# The scene is allowed to leave a number out, and then the index keeps
+	# saying it. Only what the scene states is written.
+	var name := str(metadata.get("display_name", ""))
+	if name.is_empty():
+		name = str(section.get("display_name", ""))
+	var difficulty := int(metadata.get("difficulty", 0))
+	if difficulty <= 0:
+		difficulty = int(section.get("difficulty", 0))
+	var par := int(metadata.get("par_time_frames", 0))
+	if par <= 0:
+		par = int(section.get("par_time_frames", 0))
+
+	var text := _read_text(INDEX_PATH)
+	if text.is_empty():
+		problems.append("the campaign index could not be read")
+		return false
+
+	var updated := _replace_in_index_entry(text, section_id, name, difficulty, par)
+	if updated == text:
+		problems.append("the campaign index could not be rewritten")
+		return false
+
+	var file := FileAccess.open(INDEX_PATH, FileAccess.WRITE)
+	if file == null:
+		problems.append("the campaign index could not be written")
+		return false
+	file.store_string(updated)
+	file.close()
+
+	# The metadata check complains that the scene and the index disagree.
+	# That disagreement is the thing this call came to fix, so the list is
+	# cleared and the dock says it worked.
+	problems = PackedStringArray()
+	return true
+
+
+## Rewrites the three fields of one section entry in the index text.
+##
+## The entry is found by its id, and the fields are replaced inside that
+## entry alone. Everything else in the file is left as it was.
+func _replace_in_index_entry(text: String, section_id: String, name: String,
+		difficulty: int, par: int) -> String:
+	var marker := "\"id\": \"%s\"" % section_id
+	var at := text.find(marker)
+	if at < 0:
+		return text
+
+	var start := text.rfind("{", at)
+	var finish := text.find("}", at)
+	if start < 0 or finish < 0:
+		return text
+	var entry := text.substr(start, finish - start + 1)
+
+	var replaced := entry
+	replaced = _replace_field(replaced, "display_name", "\"%s\"" % name)
+	replaced = _replace_field(replaced, "difficulty", str(difficulty))
+	replaced = _replace_field(replaced, "par_time_frames", str(par))
+	if replaced == entry:
+		return text
+	return text.substr(0, start) + replaced + text.substr(finish + 1)
+
+
+## Replaces one field of a JSON object text.
+##
+## Only the value is replaced. The comma and the spacing around it are
+## left alone, so the rewritten entry looks like the rest of the file.
+func _replace_field(entry: String, field: String, value: String) -> String:
+	var marker := "\"%s\":" % field
+	var at := entry.find(marker)
+	if at < 0:
+		return entry
+	var colon := entry.find(":", at)
+	var line_end := entry.find("\n", at)
+	if line_end < 0:
+		line_end = entry.length()
+	var value_start := colon + 1
+	while value_start < line_end and entry[value_start] in [" ", "\t"]:
+		value_start += 1
+
+	var value_end := value_start
+	if value_start < line_end and entry[value_start] == "\"":
+		var closing := entry.find("\"", value_start + 1)
+		if closing < 0 or closing > line_end:
+			return entry
+		value_end = closing + 1
+	else:
+		while value_end < line_end and entry[value_end] in ["0", "1", "2", "3", "4",
+				"5", "6", "7", "8", "9", "-", ".", "e", "E"]:
+			value_end += 1
+
+	return entry.substr(0, value_start) + value + entry.substr(value_end)
+
+
+## Reads a text file into a string.
+func _read_text(path: String) -> String:
+	if not FileAccess.file_exists(path):
+		return ""
+	var file := FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		return ""
+	return file.get_as_text()
+
+
 ## Checks the points of one section and returns them as plain data.
 ##
 ## A point with no id, a repeated id, a point that says it belongs to

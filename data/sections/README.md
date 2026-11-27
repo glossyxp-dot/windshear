@@ -101,6 +101,19 @@ godot --headless --path . --script res://tools/export_sections.gd -- --export
 godot --headless --path . --script res://tools/export_sections.gd -- --check
 ```
 
+### Two rules that protect the designer
+
+**The builder never writes over a scene that is already there.** The
+**create section scene** button refuses to touch a file that exists, because
+the designer may have hours of work in it and there is no undo for a file.
+
+**The index is updated by a button, not by hand.** The name, the difficulty
+and the par time of a section live in the scene root and in `index.json`, and
+the two have to agree. **update the index** in the Level Tools dock copies
+what the scene says into the one entry of `index.json` that belongs to it,
+and leaves the rest of the file byte for byte alone. The designer never
+opens the JSON in a text editor.
+
 ## SectionTrigger
 
 Every section has exactly one node named `SectionTrigger`, and it declares
