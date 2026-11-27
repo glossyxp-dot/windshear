@@ -218,7 +218,8 @@ things added on top:
 - The **regulation gates** in the room open and close on the schedule. A
   gate is a wall while it is closed and nothing at all while it is open. Its
   width and height are in the Inspector; the point is where the gate meets
-  the floor.
+  the floor. The editor draws the barrier, so you can see what you are
+  placing.
 - The section clock in the corner, which is the thing a speedrunner looks
   at.
 

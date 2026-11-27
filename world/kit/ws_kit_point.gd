@@ -43,12 +43,16 @@ enum Kind {
 	SPLIT_MARKER,
 }
 
+## What the editor's copy of a gate wears.
+const PREVIEW_MATERIAL := preload("res://assets/materials/psx_glow.tres")
+
 ## What this point is. Changing it changes which properties the Inspector
 ## shows.
 @export var kind: Kind = Kind.CHECKPOINT:
 	set(value):
 		kind = value
 		_update_property_list()
+		_refresh_gate_preview()
 
 ## The id this point carries. The exporter reads it.
 @export var point_id := ""
@@ -69,15 +73,24 @@ enum Kind {
 
 @export_category("Regulation gate")
 ## The state the gate starts in: open or closed.
+##
+## The schedule decides once the section runs. This is what the editor
+## shows before then.
 @export var gate_state := "open"
 ## How long one cycle of the gate is, in frames. Zero means it never cycles.
 @export var cycle_period_frames := 0
 ## Where this gate sits inside its cycle, in frames.
 @export var phase_offset_frames := 0
 ## How wide the gate is, in metres. This is the barrier the gate puts up.
-@export var gate_width := 4.0
+@export var gate_width := 4.0:
+	set(value):
+		gate_width = maxf(value, 0.1)
+		_refresh_gate_preview()
 ## How tall the gate is, in metres. The barrier stands on the point.
-@export var gate_height := 3.0
+@export var gate_height := 3.0:
+	set(value):
+		gate_height = maxf(value, 0.1)
+		_refresh_gate_preview()
 
 @export_category("Wind volume")
 ## The kind of wind: thermal, crosswind or dead_zone.
@@ -101,8 +114,48 @@ enum Kind {
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		_update_property_list()
+		_refresh_gate_preview()
 		return
 	_register_with_the_section_manager()
+
+
+## Draws the gate in the editor, so the designer can see what they are
+## placing.
+##
+## The barrier the game puts up is made by the gate service when the section
+## loads. This is the editor's copy of it, and it never runs in the game.
+##
+## The mesh is an internal child, so it never appears in the Scene dock and
+## never ends up in the saved scene.
+func _refresh_gate_preview() -> void:
+	if not Engine.is_editor_hint():
+		return
+	_clear_gate_preview()
+	if kind != Kind.REGULATION_GATE:
+		return
+	if not is_inside_tree():
+		return
+
+	var mesh_instance := MeshInstance3D.new()
+	mesh_instance.name = "Preview"
+	var mesh := BoxMesh.new()
+	mesh.size = Vector3(gate_width, gate_height, 0.3)
+	mesh_instance.mesh = mesh
+	mesh_instance.position = Vector3(0.0, gate_height * 0.5, 0.0)
+	mesh_instance.material_override = PREVIEW_MATERIAL
+	add_child(mesh_instance, false, Node.INTERNAL_MODE_BACK)
+	mesh_instance.set_meta("ws_gate_preview", true)
+
+
+## Takes the editor's copy of the gate away.
+##
+## The flag matters. The preview is an internal child, and the plain list
+## does not show it.
+func _clear_gate_preview() -> void:
+	for child in get_children(true):
+		if child.get_meta("ws_gate_preview", false):
+			remove_child(child)
+			child.queue_free()
 
 
 ## Hands the section over to the section manager.

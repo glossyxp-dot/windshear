@@ -339,6 +339,10 @@ Two things to know:
   axis, so a gate across a corridor running north to south is turned a
   quarter turn.
 
+The editor draws the barrier, so you can see the gate you are placing and
+size it. The drawing is the editor's copy only; the game makes its own when
+the section loads, and neither is ever saved into the scene file.
+
 If you add a gate by hand, the schedule has to have an entry for it or the
 build fails and says so. The gates the builder makes for you are already in
 the schedule.
