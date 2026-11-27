@@ -42,12 +42,19 @@ change the game you already downloaded.
 
 Dev Stage 1. The project boots, the menu works, Lancer moves.
 
-There are 662 headless checks and they all pass. The movement is frame exact
+There are 708 headless checks and they all pass. The movement is frame exact
 at 60 Hz and the HUD reads your speed in metres per second. The PSX slider
 goes from 0 to 100, so the amount of PSX is the player's call and not mine.
 The world grid exists as data: 25 chapters, 12 sections each, 300 sections in
 total, gate schedules and all. Five of those chapters are a prequel, played as
 Ilsa Renn twenty years before the first present-day chapter.
+
+The game is playable now: **NEW RUN** in the menu loads a section, drops the
+player at its start checkpoint, shows the objective, and moves on to the next
+section the designer has written when the player reaches the end. The gates
+open and close on the schedule, and the section clock runs in the corner. The
+sections are made in the editor, by hand, and the game loads exactly what was
+laid out.
 
 The canon is data too, and the tests hold it to itself. The cast, the
 arsenal, the enemy roster and the player's numbers live in `data/`, and
@@ -56,10 +63,10 @@ document. If the roster and the design doc disagree, the build fails. I
 would rather it failed than have the two drift apart quietly, which is
 exactly what they did twice before I wrote the test.
 
-None of it is a game yet. The greybox is a measuring rig, one room with a
-floor and a wall on every side to kiss. There's no art. The story layer is
-JSON that nothing in the engine reads yet. `docs/dev_stage_1.md` §7 has the
-honest version of that list.
+None of it is a finished game yet. The greybox is a measuring rig, one room
+with a floor and a wall on every side to kiss. One section is built. There's
+no art. The story layer is JSON that nothing in the engine reads yet.
+`docs/dev_stage_1.md` §7 has the honest version of that list.
 
 ## The short version of the design
 

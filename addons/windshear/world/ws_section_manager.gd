@@ -30,6 +30,10 @@ const INDEX_PATH := "res://data/sections/index.json"
 
 ## The designer-authored point.
 const KitPoint := preload("res://world/kit/ws_kit_point.gd")
+## The gate schedule.
+const Schedule := preload("res://addons/windshear/world/ws_schedule.gd")
+## The gates of the running section.
+const GateService := preload("res://addons/windshear/world/ws_gate_service.gd")
 
 ## The section that is running.
 var current_section: Node = null
@@ -51,9 +55,92 @@ var announce_problems := true
 ## The scene path of every section, read once from the index.
 var _paths: Dictionary = {}
 
+## Every section id, in campaign order.
+var _order: PackedStringArray = PackedStringArray()
+
+## What the campaign index says about every section.
+var _entries: Dictionary = {}
+
+## The gate schedule.
+var _schedule: Dictionary = {}
+
+## The gate schedule, by gate id.
+var _schedule_index: Dictionary = {}
+
+## The gates of the running section.
+var _gates: WsGateService = null
+
 
 func _ready() -> void:
 	_read_the_index()
+	_schedule = Schedule.read()
+	_schedule_index = Schedule.index(_schedule)
+
+
+## The gates of the running section.
+##
+## The screen that plays the section asks this where the gates are.
+func gates() -> WsGateService:
+	return _gates
+
+
+## Every section id, in campaign order.
+func section_ids() -> PackedStringArray:
+	if _order.is_empty():
+		_read_the_index()
+	return _order
+
+
+## What the campaign index says about a section.
+##
+## An empty dictionary means the index has no section with that id.
+func section_entry(section_id: String) -> Dictionary:
+	if _entries.is_empty():
+		_read_the_index()
+	return _entries.get(section_id, {})
+
+
+## The section after [param section_id].
+##
+## An empty string means there is no next section: the campaign is over.
+func next_section_id(section_id: String) -> String:
+	var ids := section_ids()
+	var at := ids.find(section_id)
+	if at < 0 or at + 1 >= ids.size():
+		return ""
+	return ids[at + 1]
+
+
+## The section after [param section_id] that the designer has actually made.
+##
+## The campaign is three hundred sections long and most of them are not
+## written yet. This walks past the ones that have no scene, so the run
+## continues into the next section the designer has finished.
+##
+## An empty string means there is nothing left to play.
+func next_authored_section_id(section_id: String) -> String:
+	var ids := section_ids()
+	var at := ids.find(section_id)
+	if at < 0:
+		return ""
+	for index in range(at + 1, ids.size()):
+		var candidate := ids[index]
+		var path := str(section_entry(candidate).get("scene_path", ""))
+		if path.is_empty():
+			continue
+		if ResourceLoader.exists(path):
+			return candidate
+	return ""
+
+
+## The state of a gate on a frame of the global clock.
+##
+## "closed" is the answer when the schedule has no such gate.
+func gate_state(gate_id: String, global_frame: int) -> String:
+	if _gates != null:
+		return _gates.state_of(gate_id, global_frame)
+	var timing: Dictionary = _schedule_index.get(gate_id, {})
+	return Schedule.state_at(timing, global_frame)
 
 
 ## Where the scene of a section lives.
@@ -94,6 +181,7 @@ func load_section(section_id: String) -> bool:
 	add_child(scene)
 	current_section = scene
 	current_section_id = section_id
+	_configure_gates(scene)
 	return true
 
 
@@ -109,6 +197,37 @@ func unload_section() -> void:
 	start_checkpoint_id = ""
 	end_checkpoint_id = ""
 	split_marker_id = ""
+	_configure_gates(null)
+
+
+## Opens and closes the gates of the running section.
+##
+## The clock is the run clock, so a gate that cycles keeps its rhythm from
+## one section to the next.
+func _physics_process(_delta: float) -> void:
+	if _gates == null:
+		return
+	_gates.update(_global_frame())
+
+
+## Gives the gates of a section their bodies and puts them in their first
+## state.
+func _configure_gates(section: Node) -> void:
+	if _gates == null:
+		_gates = GateService.new()
+	_gates.configure(section, _schedule)
+	_gates.update(_global_frame())
+
+
+## The frame of the global clock.
+##
+## The run clock is the clock the schedule is written against. When there
+## is no game yet, the clock is at zero.
+func _global_frame() -> int:
+	var game := get_node_or_null("/root/WsGame")
+	if game == null:
+		return 0
+	return int(game.get("run_frames"))
 
 
 ## Takes the registration of a section trigger.
@@ -206,6 +325,8 @@ func _warn(message: String) -> void:
 ## Reads the scene path of every section out of the campaign index.
 func _read_the_index() -> void:
 	_paths.clear()
+	_order = PackedStringArray()
+	_entries.clear()
 	if not FileAccess.file_exists(INDEX_PATH):
 		return
 	var file := FileAccess.open(INDEX_PATH, FileAccess.READ)
@@ -220,3 +341,5 @@ func _read_the_index() -> void:
 		if section_id.is_empty() or path.is_empty():
 			continue
 		_paths[section_id] = path
+		_order.append(section_id)
+		_entries[section_id] = section

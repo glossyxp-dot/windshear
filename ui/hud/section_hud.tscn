@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://ui/hud/section_hud.gd" id="1_hud"]
+[ext_resource type="Theme" path="res://ui/theme/windshear_theme.tres" id="2_theme"]
+
+[node name="SectionHUD" type="Control"]
+process_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_hud")
+
+[node name="Section" type="Label" parent="."]
+offset_left = 6.0
+offset_top = 3.0
+offset_right = 320.0
+offset_bottom = 15.0
+theme_type_variation = &"WsHeading"
+text = "SECTION"
+
+[node name="Objective" type="Label" parent="."]
+offset_left = 6.0
+offset_top = 15.0
+offset_right = 320.0
+offset_bottom = 27.0
+theme_type_variation = &"WsValue"
+text = "REACH THE EXIT"
+
+[node name="Timer" type="Label" parent="."]
+offset_left = 380.0
+offset_top = 3.0
+offset_right = 474.0
+offset_bottom = 15.0
+theme_type_variation = &"WsValue"
+horizontal_alignment = 2
+text = "0:00.00"
+
+[node name="Banner" type="Label" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -18.0
+offset_right = 140.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"WsHeading"
+horizontal_alignment = 1
+text = ""

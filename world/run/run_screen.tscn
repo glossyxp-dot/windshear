@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://world/run/run_screen.gd" id="1_run"]
+[ext_resource type="Script" path="res://addons/windshear/movement/lancer_controller.gd" id="2_lancer"]
+[ext_resource type="Script" path="res://addons/windshear/movement/camera_rig.gd" id="3_camera"]
+[ext_resource type="PackedScene" path="res://ui/hud/section_hud.tscn" id="4_hud"]
+
+[sub_resource type="Environment" id="RunEnvironment"]
+background_mode = 1
+background_color = Color(0.027, 0.035, 0.047, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.42, 0.45, 0.51, 1)
+ambient_light_energy = 0.55
+fog_enabled = true
+fog_light_color = Color(0.055, 0.071, 0.094, 1)
+fog_density = 0.008
+
+[sub_resource type="CapsuleShape3D" id="PlayerShape"]
+radius = 0.4
+height = 1.8
+
+[node name="RunScreen" type="Node3D"]
+script = ExtResource("1_run")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("RunEnvironment")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-52, -35, 0)
+light_color = Color(0.92, 0.94, 1, 1)
+light_energy = 1.1
+shadow_enabled = false
+
+[node name="Player" type="CharacterBody3D" parent="."]
+script = ExtResource("2_lancer")
+
+[node name="Shape" type="CollisionShape3D" parent="Player"]
+shape = SubResource("PlayerShape")
+
+[node name="CameraRig" type="Node3D" parent="Player"]
+script = ExtResource("3_camera")
+
+[node name="Camera3D" type="Camera3D" parent="Player/CameraRig"]
+fov = 72.0
+far = 220.0
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="SectionHUD" parent="HUD" instance=ExtResource("4_hud")]

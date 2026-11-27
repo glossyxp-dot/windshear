@@ -22,14 +22,18 @@
 ## placeholders for the author to replace.
 extends Control
 
-## The movement greybox, loaded when a run starts.
+## The screen a run is played on.
+const RunScene := preload("res://world/run/run_screen.tscn")
+## The movement greybox, loaded when the movement room is opened.
 const GreyboxScene := preload("res://world/greybox/movement_greybox.tscn")
 ## The PSX helper, which owns the shader globals.
 const Psx := preload("res://addons/windshear/render/ws_psx.gd")
 
 @onready var _new_run_button: Button = $Buttons/NewRun
+@onready var _movement_room_button: Button = $Buttons/MovementRoom
 @onready var _settings_button: Button = $Buttons/Settings
 @onready var _quit_button: Button = $Buttons/Quit
+@onready var _status_label: Label = $Status
 @onready var _settings_panel: PanelContainer = $SettingsPanel
 @onready var _settings_backdrop: ColorRect = $SettingsBackdrop
 @onready var _settings_close_button: Button = $SettingsPanel/Margin/Column/Close
@@ -45,6 +49,7 @@ const Psx := preload("res://addons/windshear/render/ws_psx.gd")
 
 func _ready() -> void:
 	_new_run_button.pressed.connect(_on_new_run)
+	_movement_room_button.pressed.connect(_on_movement_room)
 	_settings_button.pressed.connect(_on_settings)
 	_quit_button.pressed.connect(_on_quit)
 	_settings_close_button.pressed.connect(_on_settings_close)
@@ -63,6 +68,9 @@ func _ready() -> void:
 	_affine_check.button_pressed = WsGame.psx_affine
 	_refresh_value_labels()
 
+	if WsGame.run_complete:
+		_status_label.text = "RUN COMPLETE"
+
 	_new_run_button.grab_focus()
 
 
@@ -71,9 +79,18 @@ func _unhandled_input(event: InputEvent) -> void:
 		_on_settings_close()
 
 
-## Starts a run in the movement greybox.
+## Starts a run in the campaign.
+##
+## The screen that plays the section asks the game which section to play,
+## so the run starts at the first one.
 func _on_new_run() -> void:
 	WsGame.start_run("P1.01")
+	get_tree().change_scene_to_packed(RunScene)
+
+
+## Opens the movement greybox, where the movement feel is tested on its own.
+func _on_movement_room() -> void:
+	WsGame.finish_run()
 	get_tree().change_scene_to_packed(GreyboxScene)
 
 

@@ -86,6 +86,27 @@ The root of the scene is a `WSSection`. It carries the section id and, when
 it wants to repeat them, the name, the difficulty and the par time the index
 already says. The exporter checks the two against each other.
 
+It also carries the **objective**: what the player has to do in the section,
+in the designer's own words. The objective is only in the scene, the HUD
+reads it from there, and nobody edits it but the designer. Leave it empty
+and the HUD says "REACH THE EXIT".
+
+### The gates
+
+A regulation gate is a point in the room with a `point_id` that the schedule
+knows, a width and a height. When the section loads, the gate grows a
+barrier on its point: the point says where the gate meets the floor, and the
+barrier grows upwards from there.
+
+The schedule says when it opens. The rules are in `data/schedule.json`
+itself: a gate that cycles moves through its windows on the run clock, and a
+gate that does not uses its one window as it is. A frame no window covers is
+closed.
+
+A gate in the scene with no entry in the schedule, or an entry in the
+schedule with no gate in the scene, is a problem the exporter reports and
+the build refuses.
+
 ### The data beside it
 
 Each section has a JSON file beside its scene with the same name and a

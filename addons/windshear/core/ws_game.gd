@@ -51,6 +51,10 @@ var run_frames := 0
 var current_section := ""
 ## Seconds elapsed in the current run.
 var run_seconds := 0.0
+## Whether the last run reached the end of the campaign.
+##
+## The menu says so when the player comes back from a finished run.
+var run_complete := false
 
 ## Mouse look sensitivity, radians per pixel.
 var mouse_sensitivity := 0.0022
@@ -99,6 +103,7 @@ func start_run(section_id: String) -> void:
 	run_frames = 0
 	run_seconds = 0.0
 	current_section = section_id
+	run_complete = false
 	set_mode(Mode.PLAYING)
 	run_started.emit(section_id)
 
@@ -107,6 +112,12 @@ func start_run(section_id: String) -> void:
 func finish_run() -> void:
 	set_mode(Mode.MENU)
 	run_finished.emit()
+
+
+## Ends the current run because the campaign was finished.
+func finish_campaign() -> void:
+	run_complete = true
+	finish_run()
 
 
 ## Returns a seeded generator for [param section_id].

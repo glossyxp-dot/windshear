@@ -121,6 +121,7 @@ func build(scene_path: String, section_id: String = "") -> Dictionary:
 			"display_name": str(section.get("display_name", "")),
 			"difficulty": int(section.get("difficulty", 0)),
 			"par_time_frames": int(section.get("par_time_frames", 0)),
+			"objective": str(metadata.get("objective", "")),
 			"scene_path": scene_path,
 			"authored": true,
 			"metadata": metadata,
@@ -230,6 +231,7 @@ func _read_metadata(scene: Node, section_id: String, section: Dictionary) -> Dic
 		"display_name": "",
 		"difficulty": 0,
 		"par_time_frames": 0,
+		"objective": "",
 	}
 	if not "section_id" in scene:
 		return metadata
@@ -257,6 +259,11 @@ func _read_metadata(scene: Node, section_id: String, section: Dictionary) -> Dic
 	if par > 0 and par != int(section.get("par_time_frames", 0)):
 		problems.append("the scene says its par time is %d frames and the index says %d" % [
 			par, int(section.get("par_time_frames", 0))])
+
+	# The objective is only in the scene. It is the designer's own words,
+	# and the index does not carry it, so there is nothing to disagree with.
+	if "objective" in scene:
+		metadata["objective"] = str(scene.get("objective"))
 
 	return metadata
 

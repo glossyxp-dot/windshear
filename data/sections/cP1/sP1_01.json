@@ -46,9 +46,11 @@
 		"metadata": {
 			"difficulty": 1,
 			"display_name": "Platform Nine",
+			"objective": "",
 			"par_time_frames": 2400,
 			"section_id": "P1.01"
 		},
+		"objective": "",
 		"par_time_frames": 2400,
 		"points": [
 			{
@@ -72,7 +74,9 @@
 			},
 			{
 				"cycle_period_frames": 0,
+				"gate_height": 3.0,
 				"gate_state": "open",
+				"gate_width": 4.0,
 				"id": "P1.01.gate_01",
 				"kind": "regulation_gate",
 				"node": "RegulationGate_01",

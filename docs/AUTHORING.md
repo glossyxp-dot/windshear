@@ -202,6 +202,29 @@ go. Put it where you want the player to begin.
 The line at the top says the section, the speed in m/s, the peak speed and
 where you are.
 
+## Playing the whole game
+
+Press **NEW RUN** in the menu and you are in the first section. Walk to the
+**end checkpoint** and the section clears, the banner says so, and the next
+section you have written starts. When there is nothing left to play, the run
+ends and the menu says **RUN COMPLETE**.
+
+That is the same section you made, loaded by the same manager, with three
+things added on top:
+
+- The **objective** on the section root, in the Inspector, is what the HUD
+  shows under the section name. Leave it empty and the HUD says **REACH THE
+  EXIT**.
+- The **regulation gates** in the room open and close on the schedule. A
+  gate is a wall while it is closed and nothing at all while it is open. Its
+  width and height are in the Inspector; the point is where the gate meets
+  the floor.
+- The section clock in the corner, which is the thing a speedrunner looks
+  at.
+
+`Esc` goes back to the menu. `R` puts the player back at the start
+checkpoint.
+
 ## The UI kit
 
 The look lives in `ui/theme/windshear_theme.tres`. The pieces live in

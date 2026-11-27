@@ -178,6 +178,28 @@ The manager is a plain `Node` and it holds the section as a child. The section i
 
 `tests/test_section_runtime.gd` checks the seam: that the manager is there, that the section loads, that the trigger registers, that the geometry grew a body the player can stand on, that a section the index does not know about is refused, that a marker pointing at nothing is refused, and that the playground puts the player where the checkpoint says.
 
+### `world/ws_schedule.gd` and `world/ws_gate_service.gd`
+
+`data/schedule.json` says when every regulation gate in the campaign is open and when it is closed. `ws_schedule.gd` reads it and answers one question: what state is this gate in on this frame of the global clock. The functions are pure and static, because a replay has to get the same answer on every machine.
+
+The rules are the ones the schedule file writes down. A gate that cycles works out where it is in its cycle, `local_frame = (global_frame + phase_offset_frames) mod cycle_period_frames`, and looks that frame up in its windows. A gate that does not cycle uses its windows as they are. A window is `start_frame` inclusive and `end_frame` exclusive, and a null `end_frame` is unbounded. A frame no window covers is closed.
+
+The global clock is the run clock in `WsGame`, so a cycling gate keeps its rhythm from one section to the next.
+
+`ws_gate_service.gd` is the part that touches the world. When a section loads, it finds every regulation gate point in it and gives each one a barrier: a mesh and a static body, as internal children of the point, so the saved scene stays a handful of numbers and the designer never has a mesh to clean up. A closed gate has its collision on and its barrier visible; an open gate has both off.
+
+The manager owns the service, because the manager owns the running section. It updates the gates every physics frame against the global clock.
+
+### `world/run/run_screen.tscn` and `ui/hud/section_hud.tscn`
+
+The run screen is the loop: a section, the player in it, the objective on the screen, and the next section when the player gets to the end.
+
+It loads the section through the section manager, puts the player at the start checkpoint, and watches the end checkpoint. Reaching it clears the section. The next section is the next one the designer has actually written, so the game keeps playing as more of the campaign is built, and the run ends when there is nothing left.
+
+The HUD is a scene of its own, not a part of the run screen, so it can be opened and changed on its own. It asks the theme for every style it uses and owns no colours of its own.
+
+`tests/test_playable_loop.gd` checks the whole thing: that the schedule reads and that a gate is open or closed on the frame it should be, that the campaign has an order, that a gate grows a body and opens and closes it, that the HUD says the objective, that the run screen plays the section and puts the player at the start checkpoint, and that reaching the end clears the section.
+
 ---
 
 ## 3. The data layer

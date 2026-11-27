@@ -282,10 +282,72 @@ finished never reaches the screen.
 
 ### What is not here yet
 
-The gates open and close on the schedule, the hazards are volumes, the
-filament throws, the story beats play, and the HUD shows the objective. The
-sections are made and loaded and the player stands in them. The rest is the
+The hazards are volumes, the filament throws, and the story beats play. The
+sections are made and loaded and the player stands in them, the gates open
+and close on the schedule, and the HUD shows the objective. The rest is the
 next phase.
+
+## Phase five: playing the game
+
+This is the part where the thing you made becomes a game.
+
+Press **NEW RUN** in the menu. The screen loads a section, drops the player
+at its start checkpoint, puts the objective in the corner, and waits. Walk to
+the end checkpoint and the section clears, the banner says so, and the next
+section you have written starts. When there is no next section, the run ends
+and the menu says **RUN COMPLETE**.
+
+| | |
+| --- | --- |
+| `W` `A` `S` `D` | walk, camera-relative |
+| `Ctrl` | slide |
+| `Space` | jump |
+| mouse | camera |
+| `R` | back to the start checkpoint |
+| `Esc` | back to the menu |
+
+**MOVEMENT ROOM** in the menu still opens the plain greybox, which is where
+the movement feel is tested on its own.
+
+### The objective
+
+The section root has an **objective** box in the Inspector. Whatever you
+write there is what the HUD shows, in capitals, under the section name.
+Leave it empty and the HUD says **REACH THE EXIT**.
+
+It is your own words. The objective is not in the campaign index and nobody
+edits it but you.
+
+### The gates
+
+A regulation gate is a point in the room with a width and a height. When the
+section loads, the gate grows a barrier: a glowing slab, four metres wide
+and three tall by default, standing on the point.
+
+The schedule says when it opens. A gate that does not cycle is open or
+closed for the whole run. A gate that cycles moves through its windows, and
+the run clock is what it moves on, so a gate keeps its rhythm from one
+section to the next.
+
+The gate is a wall while it is closed and nothing at all while it is open.
+
+Two things to know:
+
+- The point says where the gate **meets the floor**, and the barrier grows
+  upwards from there.
+- The gate turns on its point's rotation. The width runs along the local X
+  axis, so a gate across a corridor running north to south is turned a
+  quarter turn.
+
+If you add a gate by hand, the schedule has to have an entry for it or the
+build fails and says so. The gates the builder makes for you are already in
+the schedule.
+
+### The next section
+
+The campaign is three hundred sections long. The run walks into the next one
+**you have written**, so the game keeps playing as you build. When there is
+nothing left, the run ends.
 
 ## What is yours and what is mine
 

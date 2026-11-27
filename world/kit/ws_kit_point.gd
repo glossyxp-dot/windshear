@@ -23,6 +23,7 @@
 ##
 ## The kind decides which properties matter. The Inspector hides the ones
 ## that do not apply, so a gate does not show you a filament anchor type.
+@tool
 extends Node3D
 class_name WSKitPoint
 
@@ -73,6 +74,10 @@ enum Kind {
 @export var cycle_period_frames := 0
 ## Where this gate sits inside its cycle, in frames.
 @export var phase_offset_frames := 0
+## How wide the gate is, in metres. This is the barrier the gate puts up.
+@export var gate_width := 4.0
+## How tall the gate is, in metres. The barrier stands on the point.
+@export var gate_height := 3.0
 
 @export_category("Wind volume")
 ## The kind of wind: thermal, crosswind or dead_zone.
@@ -131,7 +136,8 @@ func _properties_for_other_kinds() -> PackedStringArray:
 	var hidden := PackedStringArray()
 	var groups := {
 		Kind.SECTION_TRIGGER: ["start_checkpoint_id", "end_checkpoint_id", "split_marker_id"],
-		Kind.REGULATION_GATE: ["gate_state", "cycle_period_frames", "phase_offset_frames"],
+		Kind.REGULATION_GATE: ["gate_state", "cycle_period_frames", "phase_offset_frames",
+			"gate_width", "gate_height"],
 		Kind.WIND_VOLUME: ["wind_kind", "wind_strength_mps", "wind_direction_degrees"],
 		Kind.HAZARD_VOLUME: ["hazard_kind", "hazard_damage_per_second"],
 		Kind.FILAMENT_ANCHOR: ["anchor_type"],
@@ -186,6 +192,8 @@ func to_data(root: Node = null) -> Dictionary:
 			data["gate_state"] = gate_state
 			data["cycle_period_frames"] = cycle_period_frames
 			data["phase_offset_frames"] = phase_offset_frames
+			data["gate_width"] = gate_width
+			data["gate_height"] = gate_height
 		Kind.WIND_VOLUME:
 			data["wind_kind"] = wind_kind
 			data["wind_strength_mps"] = wind_strength_mps

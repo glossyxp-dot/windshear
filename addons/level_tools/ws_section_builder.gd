@@ -34,6 +34,21 @@ const KitSection := preload("res://world/kit/ws_section.gd")
 ## The gate schedule.
 const SCHEDULE_PATH := "res://data/schedule.json"
 
+## Where the player starts in a new section, in metres.
+##
+## The room the builder makes is forty metres wide, so the start is at the
+## west end of it and the exit is at the east end.
+const START_POSITION := Vector3(-12.0, 0.0, 0.0)
+
+## Where the player ends a new section, in metres.
+const END_POSITION := Vector3(12.0, 0.0, 0.0)
+
+## Where the gates of a new section stand, in metres.
+##
+## The gate is in the middle of the room, on the way from the start to the
+## exit, so a new section has something to time from the first minute.
+const GATE_POSITION := Vector3(0.0, 0.0, 0.0)
+
 ## Why the last build did not happen. Empty when it worked.
 var last_problem := ""
 
@@ -80,6 +95,7 @@ func build(section_id: String, scene_path: String, entry: Dictionary) -> bool:
 	start.kind = KitPoint.Kind.CHECKPOINT
 	start.point_id = "%s.start" % section_id
 	start.section_id = section_id
+	start.position = START_POSITION
 	root.add_child(start)
 	start.owner = root
 
@@ -88,7 +104,7 @@ func build(section_id: String, scene_path: String, entry: Dictionary) -> bool:
 	end.kind = KitPoint.Kind.CHECKPOINT
 	end.point_id = "%s.end" % section_id
 	end.section_id = section_id
-	end.position = Vector3(0.0, 0.0, 10.0)
+	end.position = END_POSITION
 	root.add_child(end)
 	end.owner = root
 
@@ -97,6 +113,7 @@ func build(section_id: String, scene_path: String, entry: Dictionary) -> bool:
 	split.kind = KitPoint.Kind.SPLIT_MARKER
 	split.point_id = "%s.split" % section_id
 	split.section_id = section_id
+	split.position = START_POSITION
 	root.add_child(split)
 	split.owner = root
 
@@ -107,6 +124,7 @@ func build(section_id: String, scene_path: String, entry: Dictionary) -> bool:
 		gate.point_id = gate_id
 		gate.section_id = section_id
 		gate.gate_state = "open"
+		gate.position = GATE_POSITION
 		root.add_child(gate)
 		gate.owner = root
 

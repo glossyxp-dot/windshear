@@ -39,6 +39,7 @@ const KIT_SCENES := [
 ## The screens that are built by hand.
 const SCREENS := [
 	"res://ui/main_menu/main_menu.tscn",
+	"res://ui/hud/section_hud.tscn",
 ]
 
 ## The font sizes the game uses. A new one is a decision, not an accident.
@@ -111,7 +112,7 @@ func _test_the_buttons_can_show_the_focus() -> void:
 		"a divider has a style")
 
 
-## The kit pieces use the theme and not their own colours.
+## The kit pieces and the screens use the theme and not their own colours.
 func _test_the_kit_pieces_use_the_theme() -> void:
 	heading("the kit pieces use the theme")
 	var theme := _load_theme()
@@ -119,7 +120,7 @@ func _test_the_kit_pieces_use_the_theme() -> void:
 		ok(false, "the theme loads")
 		return
 
-	for path in KIT_SCENES:
+	for path in KIT_SCENES + SCREENS:
 		var packed: PackedScene = load(path)
 		ok(packed != null, "%s loads" % path)
 		if packed == null:

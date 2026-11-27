@@ -46,6 +46,11 @@ const Exporter := preload("res://addons/level_tools/ws_section_exporter.gd")
 ## index.
 @export var par_time_frames := 0
 
+## What the player has to do in this section, in the words the HUD shows.
+##
+## Leave it empty and the HUD says "REACH THE EXIT".
+@export var objective := ""
+
 ## Writes the section data.
 ##
 ## The button is in the Inspector of the section root.
