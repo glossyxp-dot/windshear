@@ -8,7 +8,7 @@ split works, what you do, and what I do.
 | You | I |
 | --- | --- |
 | Movement feel: drag a slider and feel it change | The code that makes the slider live, and the constants underneath it |
-| Maps: lay the geometry out in the editor | The kit of reusable pieces, the exporter, the data checks |
+| Maps: draw the base in TrenchBroom, place the points | The kit of reusable pieces, the converter, the exporter, the data checks |
 | UI: place and style the controls | The theme, the screens, the wiring behind them |
 | Art, by hand | The documents that describe it |
 | Deciding what a number should be | Writing that number into the code and into the spec |
@@ -103,6 +103,50 @@ workbench loads it.
 ## Phase two: the map kit
 
 This is built. A section is made in the editor, without touching a script.
+
+### Drawing the base in TrenchBroom
+
+The base of a section — the floor, the walls, the platforms, the slopes and
+the points — is drawn in **TrenchBroom**, which is the modern Hammer. It has
+the 2D grid and the 3D view side by side, and it writes a text `.map` file, so
+the map can be read by a program, checked by a test and reviewed in a diff.
+
+TrenchBroom is a drawing tool here, not a level editor for the whole game. The
+textures, the menus, the GUI and the story all stay in Godot.
+
+It is installed at `~/Applications/TrenchBroom.AppImage`, and the WindShear
+game is installed beside it:
+
+```bash
+mkdir -p ~/.config/TrenchBroom/games
+cp -r tools/trenchbroom/game/WindShear ~/.config/TrenchBroom/games/
+```
+
+After that, **File → New Map** offers **WindShear**, and the entities come
+out of a list instead of being typed.
+
+The loop is four steps:
+
+```bash
+# 1. make a starter map for the section
+godot --headless --path . --script res://tools/trenchbroom/import_map.gd -- \
+    --template P1.02 --out maps/P1_02.map
+
+# 2. draw the base in TrenchBroom and save
+
+# 3. convert it into a section
+godot --headless --path . --script res://tools/trenchbroom/import_map.gd -- \
+    --map maps/P1_02.map --section P1.02
+
+# 4. open data/sections/cP1/sP1_02.tscn in Godot, or play it in the playground
+```
+
+The converter never writes over a section that is already there. It stops and
+says so, and `--overwrite` has to be typed to make it do it.
+
+`tools/trenchbroom/README.md` has the whole thing: the names the converter
+reads, the units, what happens to a box and what happens to a slope, and the
+commands.
 
 ### The pieces
 
@@ -369,6 +413,9 @@ becomes canon.
 The kit scenes under `world/kit/` are yours. Change a default size in
 `floor.tscn` and every floor in the game changes with it. Nothing in the
 build overwrites them.
+
+The maps under `maps/` are yours. The converter reads them and never writes
+over a section that is already there.
 
 `assets/icon.svg` and `assets/icon.png` are your own art and they are finished. Nothing regenerates them.
 

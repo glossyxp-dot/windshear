@@ -1,0 +1,93 @@
+// WindShear — the entity list for TrenchBroom
+// Copyright (C) 2026 the WindShear contributors
+//
+// This program is free software; you can redistribute it and/or modify it
+// under the terms of the GNU General Public License as published by the
+// Free Software Foundation; either version 2 of the License, or (at your
+// option) any later version.
+//
+// This program is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+// Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with this program.  If not, see <https://www.gnu.org/licenses/>.
+//
+// These are the entities a WindShear map can hold. The converter in
+// `tools/trenchbroom/` reads these names, so they are the names to use.
+//
+// The points are placed by hand. The brushes say what shape they are, and
+// the name of the material on a face says the same thing: floor, wall,
+// platform or ramp, and then one of surface, deep, charcoal or glow.
+
+@SolidClass = worldspawn : "The room" []
+
+// Every point knows which way it looks.
+@baseclass = Angle [
+    angle(integer) : "Which way it looks" : 0
+]
+
+// The start of the section. The player enters here.
+@PointClass base(Angle) = func_checkpoint_start : "Where the player starts" []
+
+// The end of the section. The player finishes here.
+@PointClass base(Angle) = func_checkpoint_end : "Where the player finishes" []
+
+// The marker the speedrun split timer reads.
+@PointClass base(Angle) = func_split_marker : "Where the split timer is" []
+
+// A regulation gate. The schedule decides when it opens.
+@PointClass base(Angle) = func_gate : "A regulation gate" [
+    width(integer) : "How wide the barrier is, in map units" : 128
+    height(integer) : "How tall the barrier is, in map units" : 96
+]
+
+// A hazard. The player is hurt while they are in it.
+@PointClass base(Angle) = func_hazard : "A hazard" [
+    hazkind(choices) : "What kind of hazard" : "fall" =
+    [
+        "fall" : "Fall"
+        "blade" : "Blade"
+        "regulator" : "Regulator"
+    ]
+    damage(float) : "How much damage a second" : 10
+]
+
+// A wind volume. The wind pushes the player while they are in it.
+@PointClass base(Angle) = func_wind : "A wind volume" [
+    windkind(choices) : "What kind of wind" : "thermal" =
+    [
+        "thermal" : "Thermal"
+        "crosswind" : "Crosswind"
+        "dead_zone" : "Dead zone"
+    ]
+    strength(float) : "How hard it pushes, in metres per second" : 0
+    direction(float) : "Which way it pushes, in degrees around Y" : 0
+]
+
+// A filament anchor. The player can throw the filament at it.
+@PointClass base(Angle) = func_filament : "A filament anchor" [
+    anchortype(choices) : "What kind of anchor" : "zip" =
+    [
+        "zip" : "Zip"
+        "ring" : "Ring"
+        "hold" : "Hold"
+    ]
+]
+
+// A parcel.
+@PointClass base(Angle) = func_parcel : "A parcel" []
+
+// Where something appears.
+@PointClass base(Angle) = func_spawn : "Where something appears" []
+
+// Where the player starts. The same as func_checkpoint_start.
+@PointClass base(Angle) = info_player_start : "Where the player starts" []
+
+// The brushes. The shape of a piece of geometry says what it is, and the
+// material on its faces says it as well.
+@SolidClass = func_floor : "A floor" []
+@SolidClass = func_wall : "A wall" []
+@SolidClass = func_platform : "A platform" []
+@SolidClass = func_ramp : "A ramp" []

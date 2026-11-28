@@ -1,0 +1,163 @@
+{
+	"_meta": {
+		"description": "The compiled data of one section: the points in it and the timing of every gate.",
+		"generator": "addons/level_tools/ws_section_exporter.gd",
+		"license": "CC-BY-SA-4.0",
+		"schema": "windshear.section.v1",
+		"source": "res://data/sections/cP1/sP1_02.tscn",
+		"spdx": "CC-BY-SA-4.0",
+		"spdx_file_copyright_text": "2026 the WINDSHEAR contributors",
+		"tick_rate": 60
+	},
+	"section": {
+		"authored": true,
+		"chapter": "P1",
+		"difficulty": 1,
+		"display_name": "Glass Tower",
+		"gates": [
+			{
+				"cycle_period_frames": 0,
+				"id": "P1.02.gate_01",
+				"phase_offset_frames": 0,
+				"state": "open",
+				"transform": {
+					"position": [
+						-8.0,
+						0.0,
+						0.0
+					],
+					"rotation_y_degrees": -90.0,
+					"scale": [
+						1.0,
+						1.0,
+						1.0
+					]
+				},
+				"windows": [
+					{
+						"end_frame": null,
+						"start_frame": 0,
+						"state": "open"
+					}
+				]
+			}
+		],
+		"id": "P1.02",
+		"metadata": {
+			"difficulty": 1,
+			"display_name": "Glass Tower",
+			"objective": "",
+			"par_time_frames": 2400,
+			"section_id": "P1.02"
+		},
+		"objective": "",
+		"par_time_frames": 2400,
+		"points": [
+			{
+				"id": "P1.02.end",
+				"kind": "checkpoint",
+				"node": "EndCheckpoint",
+				"section_id": "P1.02",
+				"transform": {
+					"position": [
+						12.0,
+						0.0,
+						0.0
+					],
+					"rotation_y_degrees": -90.0,
+					"scale": [
+						1.0,
+						1.0,
+						1.0
+					]
+				}
+			},
+			{
+				"cycle_period_frames": 0,
+				"gate_height": 3.0,
+				"gate_state": "open",
+				"gate_width": 4.0,
+				"id": "P1.02.gate_01",
+				"kind": "regulation_gate",
+				"node": "P1_02_gate_01",
+				"phase_offset_frames": 0,
+				"section_id": "P1.02",
+				"transform": {
+					"position": [
+						-8.0,
+						0.0,
+						0.0
+					],
+					"rotation_y_degrees": -90.0,
+					"scale": [
+						1.0,
+						1.0,
+						1.0
+					]
+				}
+			},
+			{
+				"end_checkpoint_id": "P1.02.end",
+				"id": "P1.02.trigger",
+				"kind": "section_trigger",
+				"node": "SectionTrigger",
+				"section_id": "P1.02",
+				"split_marker_id": "P1.02.split",
+				"start_checkpoint_id": "P1.02.start",
+				"transform": {
+					"position": [
+						0.0,
+						0.0,
+						0.0
+					],
+					"rotation_y_degrees": 0.0,
+					"scale": [
+						1.0,
+						1.0,
+						1.0
+					]
+				}
+			},
+			{
+				"id": "P1.02.split",
+				"kind": "split_marker",
+				"node": "SplitMarker",
+				"section_id": "P1.02",
+				"transform": {
+					"position": [
+						-12.0,
+						0.0,
+						0.0
+					],
+					"rotation_y_degrees": -90.0,
+					"scale": [
+						1.0,
+						1.0,
+						1.0
+					]
+				}
+			},
+			{
+				"id": "P1.02.start",
+				"kind": "checkpoint",
+				"node": "StartCheckpoint",
+				"section_id": "P1.02",
+				"transform": {
+					"position": [
+						-12.0,
+						0.0,
+						0.0
+					],
+					"rotation_y_degrees": -90.0,
+					"scale": [
+						1.0,
+						1.0,
+						1.0
+					]
+				}
+			}
+		],
+		"scene_path": "res://data/sections/cP1/sP1_02.tscn"
+	},
+	"version": 1
+}

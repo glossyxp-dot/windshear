@@ -40,9 +40,11 @@ windshear/
     sections/
     story/
   editions/              # the format community Editions use
+  maps/                  # the maps drawn in TrenchBroom
   tools/                 # developer tooling
     setup_input_map.gd
     cell_budget_checker.gd
+    trenchbroom/         # the map converter and the TrenchBroom game
   tests/                 # the test suite
   docs/                  # this directory
 ```
@@ -151,6 +153,24 @@ The **positions are relative to the section root**, not to the world. The sectio
 The **points are sorted by where they sit in the scene**. The order the points come out of the scene tree is not a promise, and a data file that reshuffles itself every export is a file nobody reviews.
 
 The game loads the scene. The JSON is the mirror the tests compare against, so a scene that was changed and not exported fails the build instead of shipping data nobody looked at.
+
+### `tools/trenchbroom/` — the map converter
+
+The base of a section is drawn in **TrenchBroom**, which writes a text `.map` file. `tools/trenchbroom/` turns that file into the same kit nodes the editor dock produces, so the two routes into a section meet at one place.
+
+The converter is four scripts and a command line.
+
+`ws_map_parser.gd` reads the `.map` file into plain dictionaries: entities, properties, brushes and faces. It reads both shapes of face, the Valve one with the two texture axes in brackets and the Standard one with five plain numbers, and it reads the Quake 2 trailing numbers so the next face is read from the right place. It decides nothing about what a map means, so the tests can check what was read without a scene tree.
+
+`ws_map_geometry.gd` works out the shape of a brush. A brush is a set of planes, the inside is the part behind every one of them, and the normal of a face is the cross product of the two vectors that go from the first point to the other two, taken in that order. The winding of a face is corrected against the middle of the brush, because a map file can write its faces either way round. From the planes come the corners, the box around the brush, whether it is a plain box, and the slope of a wedge: which way it climbs, how far it climbs and how long the climb is.
+
+`ws_map_importer.gd` turns the map into the nodes of a section. It starts from the section builder, so the trigger, the checkpoints, the split marker and the scheduled gates are already there with the right ids, and the map's brushes and points are put in on top of them. The map's units are thirty-two to the metre, the floor is in Z in the map and Y in Godot, and north is the other way round, so the place of everything is turned on the way out. A box becomes a block of exactly that size, a wedge becomes a ramp whose surface lies on the slope the mapper drew, and anything else becomes the box around it with a line in the report. The ids are the point: the start, the end and the split have fixed ids because the trigger points at them, a gate takes the id the schedule gives it, and everything else is numbered in the order it appears.
+
+`ws_map_template.gd` writes the starter map. It is the same format the converter reads, because TrenchBroom writes the same format.
+
+`import_map.gd` is the command line, and `game/WindShear/` is the game TrenchBroom offers: the configuration, the entity definitions and the map a new one starts from. The entity names in the `.fgd` and the names the importer knows are the same list, and `tests/test_trenchbroom.gd` checks that they still agree.
+
+The converter never writes over a section that is already there. It stops and says so, and the flag that makes it write anyway has to be typed.
 
 ### The theme and the UI kit
 

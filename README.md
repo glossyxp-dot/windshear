@@ -34,6 +34,7 @@ change the game you already downloaded.
 - [Movement research](docs/MOVEMENT_RESEARCH.md) — the sources behind the movement numbers
 - [Dev Stage 1](docs/dev_stage_1.md) — how far the movement base got, and the bug the discovery harness found
 - [Authoring by hand](docs/AUTHORING.md) — opening the project and decorating it without touching code
+- [The map converter](tools/trenchbroom/README.md) — drawing the base of a section in TrenchBroom
 - [Architecture](docs/architecture.md) and [testing](docs/testing.md)
 - [Contributing](CONTRIBUTING.md)
 - [Start here](START_HERE.md)
@@ -42,7 +43,7 @@ change the game you already downloaded.
 
 Dev Stage 1. The project boots, the menu works, Lancer moves.
 
-There are 708 headless checks and they all pass. The movement is frame exact
+There are 865 headless checks and they all pass. The movement is frame exact
 at 60 Hz and the HUD reads your speed in metres per second. The PSX slider
 goes from 0 to 100, so the amount of PSX is the player's call and not mine.
 The world grid exists as data: 25 chapters, 12 sections each, 300 sections in
@@ -53,8 +54,12 @@ The game is playable now: **NEW RUN** in the menu loads a section, drops the
 player at its start checkpoint, shows the objective, and moves on to the next
 section the designer has written when the player reaches the end. The gates
 open and close on the schedule, and the section clock runs in the corner. The
-sections are made in the editor, by hand, and the game loads exactly what was
-laid out.
+sections are made by hand, and the game loads exactly what was laid out.
+
+The base of a section is drawn in **TrenchBroom**, the modern Hammer: a 2D
+grid and a 3D view side by side, and a text `.map` file. The converter in
+`tools/trenchbroom/` reads that file and writes the section the game runs.
+The textures, the menus and the GUI stay in Godot.
 
 The canon is data too, and the tests hold it to itself. The cast, the
 arsenal, the enemy roster and the player's numbers live in `data/`, and

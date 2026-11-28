@@ -67,8 +67,31 @@ func build(section_id: String, scene_path: String, entry: Dictionary) -> bool:
 		last_problem = "there is already a scene at %s, so nothing was written" % scene_path
 		return false
 
+	var root := make(section_id, entry)
+
+	var packed := PackedScene.new()
+	var packed_error := packed.pack(root)
+	root.free()
+	if packed_error != OK:
+		last_problem = "the section scene could not be built"
+		return false
+
+	var directory := ProjectSettings.globalize_path(scene_path.get_base_dir())
+	DirAccess.make_dir_recursive_absolute(directory)
+	if ResourceSaver.save(packed, scene_path) != OK:
+		last_problem = "the section scene could not be written"
+		return false
+	return true
+
+
+## Makes a section in memory, without writing anything.
+##
+## This is the same section the builder writes to disk. The map converter
+## starts from one of these and puts the map's geometry into it. The caller
+## owns the node and is responsible for freeing it.
+func make(section_id: String, entry: Dictionary) -> Node:
 	var root := KitSection.new()
-	root.name = scene_path.get_file().get_basename()
+	root.name = _scene_name(section_id)
 	root.section_id = section_id
 	root.display_name = str(entry.get("display_name", ""))
 	root.difficulty = int(entry.get("difficulty", 0))
@@ -128,19 +151,15 @@ func build(section_id: String, scene_path: String, entry: Dictionary) -> bool:
 		root.add_child(gate)
 		gate.owner = root
 
-	var packed := PackedScene.new()
-	var packed_error := packed.pack(root)
-	root.free()
-	if packed_error != OK:
-		last_problem = "the section scene could not be built"
-		return false
+	return root
 
-	var directory := ProjectSettings.globalize_path(scene_path.get_base_dir())
-	DirAccess.make_dir_recursive_absolute(directory)
-	if ResourceSaver.save(packed, scene_path) != OK:
-		last_problem = "the section scene could not be written"
-		return false
-	return true
+
+## The name a section scene has, for example "sP1_02".
+func _scene_name(section_id: String) -> String:
+	var parts := section_id.split(".")
+	if parts.size() != 2:
+		return section_id
+	return "s%s_%s" % [parts[0], parts[1]]
 
 
 ## The gates the schedule has for a section.

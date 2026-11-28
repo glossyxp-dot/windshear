@@ -21,7 +21,7 @@ godot --headless --path . --script res://tools/cell_budget_checker.gd
 
 A failed check gives the suite a non-zero exit status. CI is one line, and there's nothing to parse.
 
-The current state is **708 checks, 0 failures**, in nineteen suites.
+The current state is **865 checks, 0 failures**, in twenty suites.
 
 ---
 
@@ -55,6 +55,7 @@ I spent a long time convinced that a good test suite was about coverage. It isn'
 | `test_code_policy.gd` | 10 | The code policy holds |
 | `test_world_data.gd` | 41 | The world data holds together |
 | `test_canon.gd` | 115 | The canon holds |
+| `test_trenchbroom.gd` | 157 | The trenchbroom converter works |
 | `test_greybox.gd` | 36 | The greybox holds together |
 | `test_psx.gd` | 39 | The player picks how much PSX there is |
 | `test_workbench.gd` | 13 | The workbench tunes the movement |
@@ -67,7 +68,7 @@ The tuning suite compares the documented constants in `ws_tuning.gd` with `TECH_
 
 The camera suite checks the pitch clamp, yaw wrap, speed dolly and the camera's ownership by the rig. Determinism checks that identical inputs produce identical outputs and that the section seed stays stable. The speed-meter suite covers the reading, peak, reset and unit string.
 
-The world-data suite keeps the 25×12 grid, prequel, gate schedule, Fracture registry, endings, beats and dialogue together. The canon suite covers the cast, silence, arsenal, enemy roster, health and speed numbers, and the documents that have to agree with them. The greybox suite covers the scene, player, camera, floor, budget, materials, help panel and a 90-second route. The PSX suite checks the globals, shader, clamping, settings round trip and the slider in the menu.
+The world-data suite keeps the 25×12 grid, prequel, gate schedule, Fracture registry, endings, beats and dialogue together. The canon suite covers the cast, silence, arsenal, enemy roster, health and speed numbers, and the documents that have to agree with them. The TrenchBroom suite reads hand-written map fixtures in both the Valve and the Standard shape, works out the shape of the brushes, turns map units into metres, places the points with the ids the trigger and the schedule expect, lays a ramp along a slope, and checks the converter never writes over a section that is already there. The greybox suite covers the scene, player, camera, floor, budget, materials, help panel and a 90-second route. The PSX suite checks the globals, shader, clamping, settings round trip and the slider in the menu.
 
 Most of these are **plain** suites. They extend `WSTest`, implement `run()`, touch nothing but the simulation, and don't need a scene tree. They run first.
 

@@ -1,0 +1,93 @@
+// WindShear section P1.02
+// Game: WindShear
+// Format: Valve
+//
+// This is the base of the section: the floor, the walls and the points
+// the game reads. The textures are not here; they are made in Godot.
+//
+// The points are placed by hand. These are the names WindShear knows:
+//
+//   func_checkpoint_start   where the player starts
+//   func_checkpoint_end     where the player finishes
+//   func_split_marker       where the split timer is
+//   func_gate               a regulation gate
+//   func_hazard             a hazard volume
+//   func_wind               a wind volume
+//   func_filament           a filament anchor
+//   func_parcel             a parcel
+//   func_spawn              where something appears
+//
+// A brush says what shape it is by the material on it: floor, wall,
+// platform or ramp. The entity a brush is in says the same thing:
+// func_floor, func_wall, func_platform or func_ramp.
+//
+// One unit is one thirty-second of a metre.
+
+{
+"classname" "worldspawn"
+// brush 0: the floor
+{
+( 640 -384 -16 ) ( 640 -384 0 ) ( 640 384 -16 ) floor [ 0 1 0 0 ] [ 0 0 1 0 ] 0 1 1
+( -640 -384 -16 ) ( -640 384 -16 ) ( -640 -384 0 ) floor [ 0 0 1 0 ] [ 0 1 0 0 ] 0 1 1
+( -640 384 -16 ) ( 640 384 -16 ) ( -640 384 0 ) floor [ 0 0 1 0 ] [ 1 0 0 0 ] 0 1 1
+( -640 -384 -16 ) ( -640 -384 0 ) ( 640 -384 -16 ) floor [ 1 0 0 0 ] [ 0 0 1 0 ] 0 1 1
+( -640 -384 0 ) ( -640 384 0 ) ( 640 -384 0 ) floor [ 1 0 0 0 ] [ 0 1 0 0 ] 0 1 1
+( -640 -384 -16 ) ( 640 -384 -16 ) ( -640 384 -16 ) floor [ 0 1 0 0 ] [ 1 0 0 0 ] 0 1 1
+}
+// brush 1: the wall to the north
+{
+( 656 384 0 ) ( 656 384 384 ) ( 656 400 0 ) wall [ 0 1 0 0 ] [ 0 0 1 0 ] 0 1 1
+( -656 384 0 ) ( -656 400 0 ) ( -656 384 384 ) wall [ 0 0 1 0 ] [ 0 1 0 0 ] 0 1 1
+( -656 400 0 ) ( 656 400 0 ) ( -656 400 384 ) wall [ 0 0 1 0 ] [ 1 0 0 0 ] 0 1 1
+( -656 384 0 ) ( -656 384 384 ) ( 656 384 0 ) wall [ 1 0 0 0 ] [ 0 0 1 0 ] 0 1 1
+( -656 384 384 ) ( -656 400 384 ) ( 656 384 384 ) wall [ 1 0 0 0 ] [ 0 1 0 0 ] 0 1 1
+( -656 384 0 ) ( 656 384 0 ) ( -656 400 0 ) wall [ 0 1 0 0 ] [ 1 0 0 0 ] 0 1 1
+}
+// brush 2: the wall to the south
+{
+( 656 -400 0 ) ( 656 -400 384 ) ( 656 -384 0 ) wall [ 0 1 0 0 ] [ 0 0 1 0 ] 0 1 1
+( -656 -400 0 ) ( -656 -384 0 ) ( -656 -400 384 ) wall [ 0 0 1 0 ] [ 0 1 0 0 ] 0 1 1
+( -656 -384 0 ) ( 656 -384 0 ) ( -656 -384 384 ) wall [ 0 0 1 0 ] [ 1 0 0 0 ] 0 1 1
+( -656 -400 0 ) ( -656 -400 384 ) ( 656 -400 0 ) wall [ 1 0 0 0 ] [ 0 0 1 0 ] 0 1 1
+( -656 -400 384 ) ( -656 -384 384 ) ( 656 -400 384 ) wall [ 1 0 0 0 ] [ 0 1 0 0 ] 0 1 1
+( -656 -400 0 ) ( 656 -400 0 ) ( -656 -384 0 ) wall [ 0 1 0 0 ] [ 1 0 0 0 ] 0 1 1
+}
+// brush 3: the wall to the west
+{
+( -640 -384 0 ) ( -640 -384 384 ) ( -640 400 0 ) wall [ 0 1 0 0 ] [ 0 0 1 0 ] 0 1 1
+( -656 -384 0 ) ( -656 400 0 ) ( -656 -384 384 ) wall [ 0 0 1 0 ] [ 0 1 0 0 ] 0 1 1
+( -656 400 0 ) ( -640 400 0 ) ( -656 400 384 ) wall [ 0 0 1 0 ] [ 1 0 0 0 ] 0 1 1
+( -656 -384 0 ) ( -656 -384 384 ) ( -640 -384 0 ) wall [ 1 0 0 0 ] [ 0 0 1 0 ] 0 1 1
+( -656 -384 384 ) ( -656 400 384 ) ( -640 -384 384 ) wall [ 1 0 0 0 ] [ 0 1 0 0 ] 0 1 1
+( -656 -384 0 ) ( -640 -384 0 ) ( -656 400 0 ) wall [ 0 1 0 0 ] [ 1 0 0 0 ] 0 1 1
+}
+// brush 4: the wall to the east
+{
+( 656 -384 0 ) ( 656 -384 384 ) ( 656 400 0 ) wall [ 0 1 0 0 ] [ 0 0 1 0 ] 0 1 1
+( 640 -384 0 ) ( 640 400 0 ) ( 640 -384 384 ) wall [ 0 0 1 0 ] [ 0 1 0 0 ] 0 1 1
+( 640 400 0 ) ( 656 400 0 ) ( 640 400 384 ) wall [ 0 0 1 0 ] [ 1 0 0 0 ] 0 1 1
+( 640 -384 0 ) ( 640 -384 384 ) ( 656 -384 0 ) wall [ 1 0 0 0 ] [ 0 0 1 0 ] 0 1 1
+( 640 -384 384 ) ( 640 400 384 ) ( 656 -384 384 ) wall [ 1 0 0 0 ] [ 0 1 0 0 ] 0 1 1
+( 640 -384 0 ) ( 656 -384 0 ) ( 640 400 0 ) wall [ 0 1 0 0 ] [ 1 0 0 0 ] 0 1 1
+}
+}
+
+{
+"classname" "func_checkpoint_start"
+"origin" "-384 0 0"
+}
+
+{
+"classname" "func_checkpoint_end"
+"origin" "384 0 0"
+}
+
+{
+"classname" "func_split_marker"
+"origin" "-384 0 0"
+}
+
+{
+"classname" "func_gate"
+"origin" "-256 0 0"
+}

@@ -1,0 +1,96 @@
+// WindShear — a test map in the Valve format
+// Copyright (C) 2026 the WindShear contributors
+//
+// This program is free software; you can redistribute it and/or modify it
+// under the terms of the GNU General Public License as published by the
+// Free Software Foundation; either version 2 of the License, or (at your
+// option) any later version.
+//
+// This program is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+// Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with this program.  If not, see <https://www.gnu.org/licenses/>.
+//
+// This file is a fixture for the test suite. It is a room with a floor and
+// a wall, and one of every kind of point WindShear knows. It is written by
+// hand, so the tests do not depend on the map writer to be right.
+//
+// The three points of a face say where it is and which way it looks. The
+// order matters: the normal of the face is the cross product of the two
+// vectors that go from the first point to the other two, taken in that
+// order, and the normal points away from the inside of the brush.
+//
+// One unit is one thirty-second of a metre.
+{
+"classname" "worldspawn"
+// brush 0: the floor, sixteen metres by sixteen metres and half a metre thick
+{
+( 256 -256 -16 ) ( 256 -256 0 ) ( 256 256 -16 ) floor_surface [ 0 1 0 0 ] [ 0 0 1 0 ] 0 1 1
+( -256 -256 -16 ) ( -256 256 -16 ) ( -256 -256 0 ) floor_surface [ 0 1 0 0 ] [ 0 0 1 0 ] 0 1 1
+( -256 256 -16 ) ( 256 256 -16 ) ( -256 256 0 ) floor_surface [ 1 0 0 0 ] [ 0 0 1 0 ] 0 1 1
+( -256 -256 -16 ) ( -256 -256 0 ) ( 256 -256 -16 ) floor_surface [ 1 0 0 0 ] [ 0 0 1 0 ] 0 1 1
+( -256 -256 0 ) ( -256 256 0 ) ( 256 -256 0 ) floor_surface [ 1 0 0 0 ] [ 0 1 0 0 ] 0 1 1
+( -256 -256 -16 ) ( 256 -256 -16 ) ( -256 256 -16 ) floor_surface [ 1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
+}
+// brush 1: the wall to the east, half a metre thick and four metres tall
+{
+( 272 -256 0 ) ( 272 -256 128 ) ( 272 256 0 ) wall_charcoal [ 0 1 0 0 ] [ 0 0 1 0 ] 0 1 1
+( 256 -256 0 ) ( 256 256 0 ) ( 256 -256 128 ) wall_charcoal [ 0 1 0 0 ] [ 0 0 1 0 ] 0 1 1
+( 256 256 0 ) ( 272 256 0 ) ( 256 256 128 ) wall_charcoal [ 1 0 0 0 ] [ 0 0 1 0 ] 0 1 1
+( 256 -256 0 ) ( 256 -256 128 ) ( 272 -256 0 ) wall_charcoal [ 1 0 0 0 ] [ 0 0 1 0 ] 0 1 1
+( 256 -256 128 ) ( 256 256 128 ) ( 272 -256 128 ) wall_charcoal [ 1 0 0 0 ] [ 0 1 0 0 ] 0 1 1
+( 256 -256 0 ) ( 272 -256 0 ) ( 256 256 0 ) wall_charcoal [ 1 0 0 0 ] [ 0 1 0 0 ] 0 1 1
+}
+}
+{
+"classname" "func_checkpoint_start"
+"origin" "-384 0 32"
+}
+{
+"classname" "func_checkpoint_end"
+"origin" "384 0 32"
+"angle" "90"
+}
+{
+"classname" "func_split_marker"
+"origin" "0 0 32"
+}
+{
+"classname" "func_gate"
+"origin" "128 0 32"
+"width" "256"
+"height" "128"
+}
+{
+"classname" "func_hazard"
+"origin" "0 192 32"
+"hazkind" "blade"
+"damage" "12"
+}
+{
+"classname" "func_wind"
+"origin" "0 -192 32"
+"windkind" "crosswind"
+"strength" "8.5"
+"direction" "270"
+}
+{
+"classname" "func_filament"
+"origin" "-128 128 32"
+"anchortype" "ring"
+}
+{
+"classname" "func_parcel"
+"origin" "-128 -128 32"
+}
+{
+"classname" "func_spawn"
+"origin" "256 0 32"
+}
+{
+"classname" "func_unknown_thing"
+"origin" "0 0 0"
+}

@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://world/kit/ws_kit_prop.gd" id="1_wskitprop"]
+
+[node name="Model" type="Node3D"]
+script = ExtResource("1_wskitprop")

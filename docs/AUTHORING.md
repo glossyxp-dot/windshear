@@ -51,10 +51,12 @@ world/greybox/movement_greybox.tscn the movement test room
 world/kit/                          the pieces a section is built from
 world/playground/                   the room where you play your own section
 data/sections/                      the section scenes, one folder per chapter
+maps/                               the maps you draw in TrenchBroom
 assets/materials/                   the four PSX materials the greybox uses
 assets/icon.svg, assets/icon.png   the project icon. Your art. Don't touch.
 addons/windshear/                   the game code
 addons/level_tools/                 the editor dock that makes and exports sections
+tools/trenchbroom/                  the map converter and the TrenchBroom game
 data/                               sections, schedules, story, all plain JSON
 tests/                              the headless suite
 docs/                               everything else
@@ -143,10 +145,100 @@ The reference panel is built from the tuning constants when the room opens, so i
 
 The small readout in the corner is the speed in metres per second. It shows the current horizontal speed and the peak since the last respawn. It refreshes ten times a second rather than every frame, so it costs almost nothing.
 
+## Drawing the base of a map
+
+The base of a section — the floor, the walls, the platforms, the slopes and
+the points — is drawn in **TrenchBroom**. It is the modern Hammer: a 2D grid
+and a 3D view side by side, brushes you pull out of the room, point entities
+you drop in, and a text `.map` file you can read in a diff.
+
+TrenchBroom is a drawing tool here, not a level editor for the whole game. The
+**textures** are made in Godot, the **menus and GUI** are Godot scenes, and the
+**story** is plain JSON. Nothing about the map is textured in TrenchBroom.
+
+It is already installed at `~/Applications/TrenchBroom.AppImage`, and there is
+a menu entry for it. The WindShear game is installed beside it, so **File →
+New Map** offers **WindShear** and the entities come out of a list instead of
+being typed.
+
+### The four steps
+
+1. **Ask for a starter map.** Tell me the section id and I make one:
+
+   ```bash
+   godot --headless --path . --script res://tools/trenchbroom/import_map.gd -- \
+       --template P1.02 --out maps/P1_02.map
+   ```
+
+   It is a room, the points the section needs, and a comment at the top that
+   says what every name means.
+
+2. **Draw.** Open `maps/P1_02.map` in TrenchBroom. Pull out the brushes for
+   the floor, the walls and the platforms. Move the points where they belong.
+   Save.
+
+   The names the converter reads are in `tools/trenchbroom/README.md`. The
+   short version:
+
+   | What | Name |
+   | --- | --- |
+   | where the player starts | `func_checkpoint_start` |
+   | where the player finishes | `func_checkpoint_end` |
+   | where the split timer is | `func_split_marker` |
+   | a regulation gate | `func_gate` |
+   | a hazard | `func_hazard` |
+   | a wind volume | `func_wind` |
+   | a filament anchor | `func_filament` |
+   | a parcel | `func_parcel` |
+   | where something appears | `func_spawn` |
+   | a floor, a wall, a platform, a ramp | `func_floor`, `func_wall`, `func_platform`, `func_ramp` |
+
+   A brush says what it is by the material on it as well: `floor`, `wall`,
+   `platform` or `ramp`, and then `surface`, `deep`, `charcoal` or `glow` for
+   the material it wears. The material names are **tags**. There is no picture
+   on them.
+
+3. **Convert.** Tell me it is saved and I run:
+
+   ```bash
+   godot --headless --path . --script res://tools/trenchbroom/import_map.gd -- \
+       --map maps/P1_02.map --section P1.02
+   ```
+
+   It writes `data/sections/cP1/sP1_02.tscn` and the JSON beside it, and
+   prints a report of what it did.
+
+   **A section that is already there is never written over.** The converter
+   stops and says so. That is the same rule the editor dock follows, and the
+   test suite checks both.
+
+4. **Play it.** Open `world/playground/section_playground.tscn`, put `P1.02`
+   in the section id, and press **F6**. Or open the section scene itself and
+   look at it in the editor.
+
+### What a slope becomes
+
+The kit a section is built from is made of boxes, so this is the part that
+matters. A box comes out as a block of exactly the same size. A wedge — one
+slanted face and five square ones — comes out as a **ramp**, and the surface
+of the ramp lies on the slope you drew. Anything else comes out as the box
+around it, and the report says so.
+
+### The units
+
+The map is in map units and the game is in metres. Thirty-two units is a
+metre, which is Quake's world. North in the map is the other way round in
+Godot, and a yaw is ninety degrees different.
+
 ## Making a section
 
 The **Level Tools** dock is on the right of the editor. It has four
 buttons and a box to type in.
+
+There are two ways to make a section. **Draw the base in TrenchBroom** and
+let the converter turn it into a section, which is the way a whole room is
+made. Or build it out of the pieces in `world/kit/` in the editor, which is
+the way a single piece is placed and nudged. The dock is for the second one.
 
 1. Type the section id, `2.01` for example.
 2. Press **create section scene**. The scene appears in

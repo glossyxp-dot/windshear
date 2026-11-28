@@ -1,0 +1,76 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://world/kit/ws_section.gd" id="1_5msgw"]
+[ext_resource type="Script" path="res://world/kit/ws_kit_point.gd" id="2_nqy6x"]
+[ext_resource type="Script" path="res://world/kit/ws_kit_block.gd" id="3_gy8is"]
+
+[node name="sP1_02" type="Node3D" unique_id=256945741]
+script = ExtResource("1_5msgw")
+section_id = "P1.02"
+display_name = "Glass Tower"
+difficulty = 1
+par_time_frames = 2400
+
+[node name="SectionTrigger" type="Node3D" parent="." unique_id=1432022851]
+script = ExtResource("2_nqy6x")
+kind = 0
+point_id = "P1.02.trigger"
+section_id = "P1.02"
+start_checkpoint_id = "P1.02.start"
+end_checkpoint_id = "P1.02.end"
+split_marker_id = "P1.02.split"
+
+[node name="StartCheckpoint" type="Node3D" parent="." unique_id=2133371884]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -12, 0, 0)
+script = ExtResource("2_nqy6x")
+point_id = "P1.02.start"
+section_id = "P1.02"
+
+[node name="EndCheckpoint" type="Node3D" parent="." unique_id=160757523]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 12, 0, 0)
+script = ExtResource("2_nqy6x")
+point_id = "P1.02.end"
+section_id = "P1.02"
+
+[node name="SplitMarker" type="Node3D" parent="." unique_id=1072348322]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -12, 0, 0)
+script = ExtResource("2_nqy6x")
+kind = 8
+point_id = "P1.02.split"
+section_id = "P1.02"
+
+[node name="P1_02_gate_01" type="Node3D" parent="." unique_id=1951458813]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -8, 0, 0)
+script = ExtResource("2_nqy6x")
+kind = 1
+point_id = "P1.02.gate_01"
+section_id = "P1.02"
+
+[node name="Block" type="Node3D" parent="." unique_id=552323133]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+script = ExtResource("3_gy8is")
+size = Vector3(40, 24, 0.5)
+
+[node name="Block2" type="Node3D" parent="." unique_id=1492386664]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, -12.25)
+script = ExtResource("3_gy8is")
+shape = 1
+size = Vector3(41, 0.5, 12)
+
+[node name="Block3" type="Node3D" parent="." unique_id=1469620103]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 12.25)
+script = ExtResource("3_gy8is")
+shape = 1
+size = Vector3(41, 0.5, 12)
+
+[node name="Block4" type="Node3D" parent="." unique_id=1684111360]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.25, 6, -0.25)
+script = ExtResource("3_gy8is")
+shape = 1
+size = Vector3(0.5, 24.5, 12)
+
+[node name="Block5" type="Node3D" parent="." unique_id=397692305]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.25, 6, -0.25)
+script = ExtResource("3_gy8is")
+shape = 1
+size = Vector3(0.5, 24.5, 12)

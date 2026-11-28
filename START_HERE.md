@@ -42,7 +42,8 @@ Don't rebuild any of this:
 | Menu | Main menu, settings panel, PSX slider, affine toggle |
 | Greybox | One test room: floor, platforms, a ramp, a wall on every side to kiss, a help panel |
 | The loop | Menu → a section → the end checkpoint → the next section. Objective HUD, section clock, gates on the schedule |
-| Tests | 708 checks in 19 suites, headless, about ten seconds |
+| Maps | Drawn in TrenchBroom, converted into a section by the tool in `tools/trenchbroom/` |
+| Tests | 865 checks in 20 suites, headless, about ten seconds |
 | World data | 25 chapters × 12 sections, 600 gate schedules, 12 Fractures, 19 beats, 73 dialogue lines |
 | Canon data | 10 cast entries, 7 weapons, 5 items, 5 map utilities, 11 enemies |
 | Controls | The mouse is the camera and the triggers. The keyboard carries the rest |
@@ -68,13 +69,19 @@ The visual work is by hand. The code for this stage is done.
    you drag it. `docs/BUILDING.md` explains the loop and how a tuned number
    becomes canon.
 4. **Install the export templates** for 4.7.2. You can't export without them.
-5. **Build Level 2.** The greybox is a rig. `2.01` is the first section that
+5. **Draw a map in TrenchBroom.** It is installed at
+   `~/Applications/TrenchBroom.AppImage`, and the WindShear game is installed
+   beside it, so **File → New Map** offers **WindShear**. Draw the base of a
+   section, save it in `maps/`, and tell me. The converter turns it into a
+   section the game runs. `tools/trenchbroom/README.md` has the names and the
+   commands, and `docs/AUTHORING.md` has the four steps.
+6. **Build Level 2.** The greybox is a rig. `2.01` is the first section that
    has to be fun.
-6. **Implement the filament.** Last of the core movement verbs, and the first
+7. **Implement the filament.** Last of the core movement verbs, and the first
    one that touches something other than the ground.
-7. **Do the art**, by hand, in the editor. `docs/AUTHORING.md` covers the
+8. **Do the art**, by hand, in the editor. `docs/AUTHORING.md` covers the
    materials, the theme, the fonts and the resolution.
-8. **Get five external testers** on the movement. That's Milestone 0's gate
+9. **Get five external testers** on the movement. That's Milestone 0's gate
    and it's the only thing between you and Milestone 1.
 
 One design question is still open and it's worth knowing about before you
@@ -147,7 +154,8 @@ Nothing that breaks the 4 GB ceiling or the Compatibility renderer.
 | `docs/ENEMIES.md` | The Concord roster, with counters and drops |
 | `docs/CONTROLS.md` | The default bindings, and what the mouse is for |
 | `docs/BUILDING.md` | How the work is split, and the movement workbench |
-| `docs/AUTHORING.md` | Doing the visual work by hand in the editor |
+| `docs/AUTHORING.md` | Doing the visual work by hand in the editor, and drawing a map |
+| `tools/trenchbroom/README.md` | The map converter: the names, the units, the commands |
 | `docs/MOVEMENT_RESEARCH.md` | Cited movement sources, evidence confidence, design synthesis |
 | `docs/dev_stage_1.md` | What the movement base is, and the bug the discovery harness found |
 | `docs/architecture.md` | How the codebase fits together |

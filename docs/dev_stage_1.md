@@ -2,7 +2,7 @@
 
 **Level 1** of the development stages. This is where the game stops being documents and starts being something you can move around in, and where the movement gets its numbers.
 
-We have a Godot 4.7.2 project that boots to a menu and into a movement greybox. The movement controller is frame-exact, with every number tied to `TECH_SPEC.md` §3. The camera orbits Lancer and never leaves. A test suite of **708 checks** runs headless in about ten seconds, and a discovery harness plays candidate movement techniques against the controller so we can see what it finds.
+We have a Godot 4.7.2 project that boots to a menu and into a movement greybox. The movement controller is frame-exact, with every number tied to `TECH_SPEC.md` §3. The camera orbits Lancer and never leaves. A test suite of **865 checks** runs headless in about ten seconds, and a discovery harness plays candidate movement techniques against the controller so we can see what it finds.
 
 Levels, art, story in the engine, the speedrun systems and the remaining Fractures come later. Level 1 is the floor, and the floor needs to be good before anything gets built on it.
 
@@ -119,7 +119,7 @@ This is why the rule in `docs/MOVEMENT_RESEARCH.md` §16.2 exists. Sometimes the
 
 ## 5. What the tests actually cover
 
-There are 708 checks in nineteen suites. They aren't "does the node exist" tests.
+There are 865 checks in twenty suites. They aren't "does the node exist" tests.
 
 | Suite | Checks | What it is for |
 | --- | --- | --- |
@@ -135,18 +135,20 @@ There are 708 checks in nineteen suites. They aren't "does the node exist" tests
 | code policy | 10 | The code policy holds |
 | world data | 41 | The world data holds together |
 | canon | 115 | The canon holds |
+| trenchbroom | 157 | The trenchbroom converter works |
 | greybox | 36 | The greybox holds together |
 | PSX | 39 | The player picks how much PSX there is |
 | workbench | 13 | The workbench tunes the movement |
 | level tools | 86 | The level tools make sections |
-| theme | 40 | The theme holds the look |
+| theme | 45 | The theme holds the look |
 | section runtime | 28 | The sections run |
+| playable loop | 41 | The game can be played |
 
 The movement suite pins the top speed, acceleration rates, coyote time, jump buffer, air cap, slide, wall-jump and camera-relative direction. Characterization preserves the arming and chain boundaries, collision energy, repeated cycles, adversarial input and full-state replay. The camera suite checks the pitch clamp, yaw wrap, speed dolly and the camera's ownership by the rig.
 
 The determinism suite checks that the same inputs give the same outputs and that the section-seeded generator is stable. The speed-meter suite covers the current reading, peak, reset and units. Performance checks the project settings and the cost of a frame.
 
-The world-data suite keeps the 25×12 grid, prequel, gate schedule, Fracture registry, endings and beats together. The canon suite covers the cast, silence, arsenal, enemy roster, numbers and the documents that have to agree with them. The greybox suite covers the scene, player, camera, floor, budget, materials, help panel and a 90-second route. The PSX suite checks the globals, shader, clamping, settings round trip and the slider in the menu.
+The world-data suite keeps the 25×12 grid, prequel, gate schedule, Fracture registry, endings and beats together. The canon suite covers the cast, silence, arsenal, enemy roster, numbers and the documents that have to agree with them. The TrenchBroom suite reads hand-written map fixtures, works out the shape of the brushes, turns map units into metres, places the points with the ids the trigger and the schedule expect, lays a ramp along a slope and checks the converter never writes over a section that is already there. The greybox suite covers the scene, player, camera, floor, budget, materials, help panel and a 90-second route. The PSX suite checks the globals, shader, clamping, settings round trip and the slider in the menu.
 
 The camera, movement and determinism suites matter most to the game. A one-frame error in the coyote window is invisible in a screenshot and ruins every recorded route, so it's asserted to the frame.
 
