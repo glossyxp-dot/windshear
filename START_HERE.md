@@ -43,7 +43,7 @@ Don't rebuild any of this:
 | Greybox | One test room: floor, platforms, a ramp, a wall on every side to kiss, a help panel |
 | The loop | Menu → a section → the end checkpoint → the next section. Objective HUD, section clock, gates on the schedule |
 | Maps | Drawn in TrenchBroom, converted into a section by the tool in `tools/trenchbroom/` |
-| Tests | 929 checks in 20 suites, headless, about ten seconds |
+| Tests | 932 checks in 20 suites, headless, about ten seconds |
 | World data | 25 chapters × 12 sections, 600 gate schedules, 12 Fractures, 19 beats, 73 dialogue lines |
 | Canon data | 10 cast entries, 7 weapons, 5 items, 5 map utilities, 11 enemies |
 | Controls | The mouse is the camera and the triggers. The keyboard carries the rest |
@@ -155,6 +155,7 @@ Nothing that breaks the 4 GB ceiling or the Compatibility renderer.
 | `docs/ARSENAL.md` | The weapons, the items and the map utilities |
 | `docs/ENEMIES.md` | The Concord roster, with counters and drops |
 | `docs/CONTROLS.md` | The default bindings, and what the mouse is for |
+| `docs/FPS_VIEW.md` | Building the first-person view, the locked mouse and the crosshair |
 | `docs/BUILDING.md` | How the work is split, and the movement workbench |
 | `docs/AUTHORING.md` | Doing the visual work by hand in the editor, and drawing a map |
 | `tools/trenchbroom/README.md` | The map converter: the names, the units, the commands |

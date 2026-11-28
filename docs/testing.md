@@ -21,7 +21,7 @@ godot --headless --path . --script res://tools/cell_budget_checker.gd
 
 A failed check gives the suite a non-zero exit status. CI is one line, and there's nothing to parse.
 
-The current state is **929 checks, 0 failures**, in twenty suites.
+The current state is **932 checks, 0 failures**, in twenty suites.
 
 ---
 

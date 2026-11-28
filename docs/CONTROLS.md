@@ -59,6 +59,19 @@ in the defaults, because the mouse is doing the camera and a second job on
 the same hand is the whole point of the layout. If you need it, the input
 map is editable and `tools/setup_input_map.gd` is the file to edit.
 
+## The mouse is locked in the middle
+
+While a run is on, the mouse is captured. The pointer is gone, it cannot
+leave the window, and the middle of the screen is where the mouse always is.
+A small dot sits in that middle, and it is the crosshair: it is where you
+are aiming.
+
+**Esc** gives the cursor back, because the menu needs it. The menu gives it
+back again when a run starts.
+
+On a pad nothing is captured and nothing is locked, because there is no
+pointer to lock. The right stick looks, exactly as it does now.
+
 ## The rest of the keyboard
 
 | | |

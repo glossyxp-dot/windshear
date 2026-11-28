@@ -190,3 +190,8 @@ func _test_documentation() -> void:
 	var spec := FileAccess.get_file_as_string("res://TECH_SPEC.md")
 	ok(spec.contains("4 GB"), "the memory ceiling is documented")
 	ok(spec.contains("14.0 m/s"), "the run speed is documented")
+	ok(spec.contains("first person"), "the first-person view is in the spec")
+
+	var fps := FileAccess.get_file_as_string("res://docs/FPS_VIEW.md")
+	ok(fps.contains("MOUSE_MODE_CAPTURED"), "the FPS guide says the mouse is captured")
+	ok(fps.contains("crosshair"), "the FPS guide says the crosshair is a dot in the middle")

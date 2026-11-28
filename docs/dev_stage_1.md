@@ -2,7 +2,7 @@
 
 **Level 1** of the development stages. This is where the game stops being documents and starts being something you can move around in, and where the movement gets its numbers.
 
-We have a Godot 4.7.2 project that boots to a menu and into a movement greybox. The movement controller is frame-exact, with every number tied to `TECH_SPEC.md` §3. The camera orbits Lancer and never leaves. A test suite of **929 checks** runs headless in about ten seconds, and a discovery harness plays candidate movement techniques against the controller so we can see what it finds.
+We have a Godot 4.7.2 project that boots to a menu and into a movement greybox. The movement controller is frame-exact, with every number tied to `TECH_SPEC.md` §3. The camera orbits Lancer and never leaves. A test suite of **932 checks** runs headless in about ten seconds, and a discovery harness plays candidate movement techniques against the controller so we can see what it finds.
 
 Levels, art, story in the engine, the speedrun systems and the remaining Fractures come later. Level 1 is the floor, and the floor needs to be good before anything gets built on it.
 
@@ -119,7 +119,7 @@ This is why the rule in `docs/MOVEMENT_RESEARCH.md` §16.2 exists. Sometimes the
 
 ## 5. What the tests actually cover
 
-There are 929 checks in twenty suites. They aren't "does the node exist" tests.
+There are 932 checks in twenty suites. They aren't "does the node exist" tests.
 
 | Suite | Checks | What it is for |
 | --- | --- | --- |

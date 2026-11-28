@@ -20,7 +20,7 @@
 ## godot --headless --path . res://tests/run_all.tscn
 ## [/codeblock]
 ##
-## The current run is 929 checks in 20 suites, with no failures:
+## The current run is 932 checks in 20 suites, with no failures:
 ## [br]- tuning 25
 ## [br]- movement 54
 ## [br]- characterization 77

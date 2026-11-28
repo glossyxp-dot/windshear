@@ -30,6 +30,7 @@ change the game you already downloaded.
 - [The arsenal](docs/ARSENAL.md) — seven weapons, five items, five map utilities
 - [The enemy roster](docs/ENEMIES.md) — what the Concord puts between you and the sky
 - [Controls](docs/CONTROLS.md) — the defaults, and what the mouse is for
+- [The first-person view](docs/FPS_VIEW.md) — how to build the view, the locked mouse and the crosshair
 - [Building](docs/BUILDING.md) — how we split the work, and the movement workbench
 - [Movement research](docs/MOVEMENT_RESEARCH.md) — the sources behind the movement numbers
 - [Dev Stage 1](docs/dev_stage_1.md) — how far the movement base got, and the bug the discovery harness found
@@ -43,7 +44,7 @@ change the game you already downloaded.
 
 Dev Stage 1. The project boots, the menu works, Lancer moves.
 
-There are 929 headless checks and they all pass. The movement is frame exact
+There are 932 headless checks and they all pass. The movement is frame exact
 at 60 Hz and the HUD reads your speed in metres per second. The PSX slider
 goes from 0 to 100, so the amount of PSX is the player's call and not mine.
 The world grid exists as data: 25 chapters, 12 sections each, 300 sections in

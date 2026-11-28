@@ -145,6 +145,17 @@ The reference panel is built from the tuning constants when the room opens, so i
 
 The small readout in the corner is the speed in metres per second. It shows the current horizontal speed and the peak since the last respawn. It refreshes ten times a second rather than every frame, so it costs almost nothing.
 
+## The first-person view
+
+The game is played in first person: the camera is on the eye, the mouse is
+captured and locked to the middle of the screen, and a dot in the middle of
+the frame is the crosshair. The rig in the tree today orbits Lancer from
+behind, which is the third-person framing the movement was built against.
+
+`docs/FPS_VIEW.md` is the ground plan. It says where the rig, the camera,
+the HUD and the settings live, which numbers to move, and what to write
+down when the view is done.
+
 ## Drawing the base of a map
 
 The base of a section — the floor, the walls, the platforms, the slopes and

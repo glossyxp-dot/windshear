@@ -97,6 +97,10 @@ geometry is merged per cell into a small number of `MultiMeshInstance3D` /
 - The camera is a third-person orbit rig on Lancer. Movement is
   camera-relative: `W`/`S` walk along the camera's facing, `A`/`D` strafe
   across it.
+- The view the game is played in is first person. The camera sits on the
+  eye at 1.7 m, the mouse is captured and locked to the middle of the screen
+  while a run is on, and a dot in the middle of the frame is the crosshair.
+  `docs/FPS_VIEW.md` has the ground plan for building it.
 - Architecture is authored at full depth: foreground occluders, walkable
   ground, mid-ground structures, the city shell and a skybox.
 - Entities use `PhysicsBody3D` in 3D. The player's `CharacterBody3D` keeps
