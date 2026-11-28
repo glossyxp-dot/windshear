@@ -154,9 +154,13 @@ func import_map(map_path: String, section_id: String, overwrite := false) -> boo
 
 	var root := build_section(entities, section_id)
 	if not problems.is_empty():
+		root.free()
 		return false
 
 	var scene_path := write_section(root, section_id, overwrite)
+	# The section is packed into the scene file, so the node it was made
+	# from is not needed any more.
+	root.free()
 	if scene_path.is_empty():
 		return false
 
