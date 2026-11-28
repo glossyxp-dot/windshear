@@ -54,6 +54,12 @@ const WEDGE_MAP := "res://tests/fixtures/trenchbroom/wedge.map"
 const GAME_DEFINITION := "res://tools/trenchbroom/game/WindShear/WindShear.fgd"
 ## The game configuration TrenchBroom reads.
 const GAME_CONFIG := "res://tools/trenchbroom/game/WindShear/GameConfig.cfg"
+## Where the generic CC0 textures live.
+const TEXTURE_FOLDER := "res://tools/trenchbroom/game/WindShear/textures"
+## Where their licences live.
+const LICENCE_FOLDER := "res://tools/trenchbroom/game/WindShear/licenses"
+## The credits for the textures.
+const CREDITS := "res://tools/trenchbroom/game/WindShear/CREDITS.md"
 ## The section the fixtures are imported into.
 const SECTION_ID := "P1.02"
 ## Where a made section is written for the test.
@@ -83,6 +89,7 @@ func run() -> void:
 	_test_the_template_makes_a_map_that_can_be_read()
 	_test_the_template_never_writes_over_your_work()
 	_test_the_game_definition_knows_the_names()
+	_test_the_texture_folder_has_every_name_the_converter_reads()
 
 
 ## A Valve map is read the way TrenchBroom writes it.
@@ -623,6 +630,58 @@ func _test_the_game_definition_knows_the_names() -> void:
 	for classname in Importer.SHAPE_CLASSES.keys():
 		ok(definition.contains("= %s " % str(classname)),
 			"the game definition has %s" % str(classname))
+
+
+## The mapper picks a material from a list of pictures, so every name the
+## converter reads has to be a real picture and every picture has to be free
+## to use.
+func _test_the_texture_folder_has_every_name_the_converter_reads() -> void:
+	heading("the texture folder has every name the converter reads")
+	for shape in Importer.MATERIAL_SHAPES.keys():
+		for palette in Importer.MATERIAL_PALETTES.keys():
+			var name := "%s_%s.png" % [str(shape), str(palette)]
+			var path := "%s/%s" % [TEXTURE_FOLDER, name]
+			ok(FileAccess.file_exists(path), "the texture %s is there" % name)
+			var image := Image.new()
+			ok(image.load(path) == OK, "the texture %s opens" % name)
+			ok(image.get_width() > 0 and image.get_height() > 0,
+				"the texture %s has a picture in it" % name)
+
+	var files := DirAccess.get_files_at(TEXTURE_FOLDER)
+	ok(files.size() >= 500, "there are a lot of textures to pick from")
+	var broken := 0
+	for file in files:
+		if not str(file).ends_with(".png"):
+			continue
+		if not _is_a_picture("%s/%s" % [TEXTURE_FOLDER, file]):
+			broken += 1
+	same(broken, 0, "every texture in the folder is a picture")
+
+	var config := FileAccess.get_file_as_string(GAME_CONFIG)
+	ok(config.contains("\"root\": \"textures\""),
+		"the game points at the texture folder")
+
+	ok(FileAccess.file_exists(CREDITS), "the credits for the textures are there")
+	var credits := FileAccess.get_file_as_string(CREDITS)
+	ok(credits.contains("CC0"), "the credits say the textures are free to use")
+	ok(credits.contains("Kenney"), "the credits say who made the textures")
+
+	var licences := DirAccess.get_files_at(LICENCE_FOLDER)
+	ok(licences.size() >= 4, "the licences are kept with the textures")
+	for licence in licences:
+		var words := FileAccess.get_file_as_string("%s/%s" % [LICENCE_FOLDER, licence])
+		ok(words.contains("CC0") or words.contains("Creative Commons Zero"),
+			"the licence %s says the work is free" % str(licence))
+
+
+## Whether a file starts with the eight bytes that say it is a PNG.
+func _is_a_picture(path: String) -> bool:
+	var file := FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		return false
+	var head := file.get_buffer(8)
+	return head.size() == 8 and head[0] == 137 and head[1] == 80 \
+		and head[2] == 78 and head[3] == 71
 
 
 ## Reads a map file and gives back what was read.

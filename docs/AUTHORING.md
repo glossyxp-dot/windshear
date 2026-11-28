@@ -153,13 +153,19 @@ and a 3D view side by side, brushes you pull out of the room, point entities
 you drop in, and a text `.map` file you can read in a diff.
 
 TrenchBroom is a drawing tool here, not a level editor for the whole game. The
-**textures** are made in Godot, the **menus and GUI** are Godot scenes, and the
-**story** is plain JSON. Nothing about the map is textured in TrenchBroom.
+game's **textures** are made in Godot, the **menus and GUI** are Godot scenes,
+and the **story** is plain JSON. Nothing about the map is textured in TrenchBroom.
 
 It is already installed at `~/Applications/TrenchBroom.AppImage`, and there is
 a menu entry for it. The WindShear game is installed beside it, so **File →
 New Map** offers **WindShear** and the entities come out of a list instead of
 being typed.
+
+The game folder carries **789 generic CC0 placeholder pictures**, so the
+texture browser has something in it and a material can be picked with the
+mouse instead of typed. They are free to use, free to change, and they are
+placeholders: the game's own surfaces are made by hand in Godot. The full
+list is in `tools/trenchbroom/README.md`.
 
 ### The four steps
 
@@ -195,8 +201,9 @@ being typed.
 
    A brush says what it is by the material on it as well: `floor`, `wall`,
    `platform` or `ramp`, and then `surface`, `deep`, `charcoal` or `glow` for
-   the material it wears. The material names are **tags**. There is no picture
-   on them.
+   the material it wears. The material names are **tags**. Every one of the
+   sixteen names has a generic CC0 picture in the game folder, so you can see
+   what you picked, but the game reads the tag and draws its own texture.
 
 3. **Convert.** Tell me it is saved and I run:
 

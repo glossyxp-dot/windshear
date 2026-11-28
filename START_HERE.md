@@ -43,7 +43,7 @@ Don't rebuild any of this:
 | Greybox | One test room: floor, platforms, a ramp, a wall on every side to kiss, a help panel |
 | The loop | Menu → a section → the end checkpoint → the next section. Objective HUD, section clock, gates on the schedule |
 | Maps | Drawn in TrenchBroom, converted into a section by the tool in `tools/trenchbroom/` |
-| Tests | 865 checks in 20 suites, headless, about ten seconds |
+| Tests | 925 checks in 20 suites, headless, about ten seconds |
 | World data | 25 chapters × 12 sections, 600 gate schedules, 12 Fractures, 19 beats, 73 dialogue lines |
 | Canon data | 10 cast entries, 7 weapons, 5 items, 5 map utilities, 11 enemies |
 | Controls | The mouse is the camera and the triggers. The keyboard carries the rest |
@@ -73,7 +73,9 @@ The visual work is by hand. The code for this stage is done.
    `~/Applications/TrenchBroom.AppImage`, and the WindShear game is installed
    beside it, so **File → New Map** offers **WindShear**. Draw the base of a
    section, save it in `maps/`, and tell me. The converter turns it into a
-   section the game runs. `tools/trenchbroom/README.md` has the names and the
+   section the game runs. The game folder has 789 generic CC0 placeholder
+   pictures in it, so the material can be picked with the mouse.
+   `tools/trenchbroom/README.md` has the names and the
    commands, and `docs/AUTHORING.md` has the four steps.
 6. **Build Level 2.** The greybox is a rig. `2.01` is the first section that
    has to be fun.

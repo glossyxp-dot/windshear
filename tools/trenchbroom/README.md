@@ -4,9 +4,9 @@ TrenchBroom draws the **base** of a WindShear section: the floor, the walls,
 the platforms, the slopes and the points the game reads. The converter turns
 that map into a section the game can run.
 
-Everything else stays in Godot: the textures, the menus, the GUI, the story
-and the art. TrenchBroom is a drawing tool here, not a level editor for the
-whole game.
+Everything else stays in Godot: the game's textures, the menus, the GUI, the
+story and the art. TrenchBroom is a drawing tool here, not a level editor for
+the whole game.
 
 ```
    TrenchBroom                    the converter                 Godot
@@ -57,18 +57,82 @@ mkdir -p ~/.config/TrenchBroom/games
 cp -r tools/trenchbroom/game/WindShear ~/.config/TrenchBroom/games/
 ```
 
-That folder holds three files:
+That folder holds the game and its pictures:
 
 | File | What it is |
 | --- | --- |
 | `GameConfig.cfg` | The game itself: the name, the map format, the entity list |
 | `WindShear.fgd` | The entities, so they can be picked out of a list instead of typed |
 | `initial_valve.map` | The map a new WindShear map starts from |
+| `textures/` | 789 generic CC0 pictures to pick a material from |
+| `licenses/` | The licence text of every pack the pictures came from |
+| `CREDITS.md` | Who made the pictures and what they are for |
 
 After that, **File → New Map** offers **WindShear**.
 
 The game folder is checked into the repository, so the install is one copy and
 it never drifts from the converter.
+
+## The generic CC0 textures
+
+TrenchBroom picks a texture from a browser. Without any pictures in the
+folder that browser is empty, and picking a material means typing its name
+into a text box. So the folder carries a set of **generic CC0 placeholders**:
+
+| Pack | Who | What it gives |
+| --- | --- | --- |
+| Pattern Pack | Kenney | 84 seamless black and white patterns, 256×256 |
+| Pattern Pack Pixel | Kenney | 64 small pixel patterns, 16×16 |
+| RPG Urban Pack | Kenney | 486 small tiles for props and decals, 16×16 |
+| Base Materials | Screaming Brain Studios | 128 materials: cardboard, clay, cloth, concrete, marble, metal, plaster, stone, wood |
+| Texture Pack Seamless | Heathal | 11 seamless textures: dirt, fabric, fire, grit, ice, metal, scratch, splatter, stone |
+
+Every one of them is **CC0**: public domain, free to use, free to change, and
+attribution is not needed. The licence texts are in `licenses/` and the credits
+are in `CREDITS.md`.
+
+They are **placeholders**. They are here so the mapper can see what they
+picked while they draw. The game's own textures are made by hand in Godot and
+none of this is used by the game.
+
+### The sixteen tag textures
+
+The converter reads a material name off a brush face and says what shape the
+piece is and which of the four materials it wears. Those names are four
+shapes times four materials, so there are sixteen of them:
+
+```
+floor_surface   floor_deep   floor_charcoal   floor_glow
+wall_surface    wall_deep    wall_charcoal    wall_glow
+platform_surface platform_deep platform_charcoal platform_glow
+ramp_surface    ramp_deep    ramp_charcoal    ramp_glow
+```
+
+Each one is a real picture, made out of the Pattern Pack by
+`tools/trenchbroom/make_tag_textures.gd`: the pattern says the shape, the
+colour says the material. So a charcoal wall looks like a dark panelled wall
+and a glow floor looks like a bright cyan brick, and the map reads at a
+glance.
+
+The test suite checks that all sixteen are there, that they open, that every
+picture in the folder is a real PNG, and that the licence texts are with
+them.
+
+### Getting them again
+
+```bash
+tools/trenchbroom/fetch_textures.sh
+```
+
+It downloads the five packs, flattens their names into something a texture
+browser can show, writes the sixteen tag textures, keeps the licences, and
+copies the whole game folder into `~/.config/TrenchBroom/games/`. The
+downloads are kept in `tools/trenchbroom/.texture-cache/`, which is not in
+the repository.
+
+The pictures are in a folder with a `.gdignore` in it, so Godot does not
+import them and they do not slow the editor down. They are pictures for
+TrenchBroom, not for the game.
 
 ## The loop
 
@@ -158,8 +222,11 @@ The material name is looked for inside the whole name, so `floor_surface` is a
 floor and `wall_charcoal` is a wall. The second word says which of the four
 materials the piece wears: `surface`, `deep`, `charcoal` or `glow`.
 
-The material names are **tags**, not pictures. There are no textures in this
-folder and none are needed: the texture on a surface is made in Godot.
+The material names are **tags**. The game does not read a picture off them; it
+reads the shape and the material and draws its own textures. But every one of
+the sixteen names has a generic CC0 picture in the game folder, so the
+material can be picked out of a browser and seen on the brush while the map
+is drawn. See [the generic CC0 textures](#the-generic-cc0-textures).
 
 ## Units and axes
 
@@ -232,6 +299,8 @@ error stream.
 | `tools/trenchbroom/ws_map_importer.gd` | Turns the map into the nodes of a section |
 | `tools/trenchbroom/ws_map_template.gd` | Writes the starter map |
 | `tools/trenchbroom/import_map.gd` | The command line |
+| `tools/trenchbroom/make_tag_textures.gd` | Makes the sixteen tag textures |
+| `tools/trenchbroom/fetch_textures.sh` | Fetches the generic CC0 textures |
 | `tools/trenchbroom/game/WindShear/` | The game TrenchBroom offers |
 | `maps/` | Your maps |
 | `tests/test_trenchbroom.gd` | The tests for all of it |
@@ -254,8 +323,9 @@ a section that is already there.
 
 ## What is not here
 
-- **Textures.** They are made in Godot, by hand. The material names in the map
-  are tags.
+- **The game's textures.** They are made in Godot, by hand. The game folder
+  carries generic CC0 placeholders so a material can be picked while drawing;
+  the game never uses them.
 - **The menus and the GUI.** They are Godot scenes.
 - **The story.** It is in `data/story/`, as plain JSON.
 - **A skybox.** TrenchBroom can draw one and the map can carry it, but the

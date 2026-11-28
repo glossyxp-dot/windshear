@@ -24,3 +24,6 @@ __pycache__/
 # Local scratch
 *.log
 /tmp/
+
+# The downloaded texture packs (tools/trenchbroom/fetch_textures.sh)
+/tools/trenchbroom/.texture-cache/
