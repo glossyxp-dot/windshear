@@ -23,6 +23,10 @@
 ## TrenchBroom and sees nothing. So this makes one picture for each of the
 ## sixteen, out of the CC0 patterns in the same folder.
 ##
+## The plain shape names get a picture as well. The starter map says `floor`
+## and `wall` on its faces, and a face with a name nothing answers to is a
+## face with no picture on it.
+##
 ## [codeblock]
 ## godot --headless --path . --script res://tools/trenchbroom/make_tag_textures.gd
 ## [/codeblock]
@@ -61,16 +65,18 @@ func _run() -> void:
 	var made := 0
 	for shape in BASE_PATTERNS.keys():
 		for palette in PALETTES.keys():
-			if _make_one(str(shape), str(palette)):
+			if _make_one(str(shape), str(palette), "%s_%s.png" % [shape, palette]):
 				made += 1
+		if _make_one(str(shape), "surface", "%s.png" % shape):
+			made += 1
 	print("windshear: %d tag textures are in %s" % [made, TEXTURE_FOLDER])
-	quit(0 if made == BASE_PATTERNS.size() * PALETTES.size() else 1)
+	quit(0 if made == BASE_PATTERNS.size() * (PALETTES.size() + 1) else 1)
 
 
 ## Makes one tag texture and says whether it worked.
-func _make_one(shape: String, palette: String) -> bool:
+func _make_one(shape: String, palette: String, file_name: String) -> bool:
 	var source_path := "%s/%s" % [TEXTURE_FOLDER, str(BASE_PATTERNS[shape])]
-	var target_path := "%s/%s_%s.png" % [TEXTURE_FOLDER, shape, palette]
+	var target_path := "%s/%s" % [TEXTURE_FOLDER, file_name]
 
 	var image := Image.new()
 	if image.load(source_path) != OK:

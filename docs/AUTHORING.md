@@ -161,7 +161,7 @@ a menu entry for it. The WindShear game is installed beside it, so **File →
 New Map** offers **WindShear** and the entities come out of a list instead of
 being typed.
 
-The game folder carries **789 generic CC0 placeholder pictures**, so the
+The game folder carries **793 generic CC0 placeholder pictures**, so the
 texture browser has something in it and a material can be picked with the
 mouse instead of typed. They are free to use, free to change, and they are
 placeholders: the game's own surfaces are made by hand in Godot. The full

@@ -64,7 +64,7 @@ That folder holds the game and its pictures:
 | `GameConfig.cfg` | The game itself: the name, the map format, the entity list |
 | `WindShear.fgd` | The entities, so they can be picked out of a list instead of typed |
 | `initial_valve.map` | The map a new WindShear map starts from |
-| `textures/` | 789 generic CC0 pictures to pick a material from |
+| `textures/` | 793 generic CC0 pictures to pick a material from |
 | `licenses/` | The licence text of every pack the pictures came from |
 | `CREDITS.md` | Who made the pictures and what they are for |
 
@@ -114,7 +114,11 @@ colour says the material. So a charcoal wall looks like a dark panelled wall
 and a glow floor looks like a bright cyan brick, and the map reads at a
 glance.
 
-The test suite checks that all sixteen are there, that they open, that every
+The four plain names `floor`, `wall`, `platform` and `ramp` get a picture the
+same way, because the starter map says `floor` and `wall` on its faces and a
+face with a name nothing answers to is a face with no picture on it.
+
+The test suite checks that all of them are there, that they open, that every
 picture in the folder is a real PNG, and that the licence texts are with
 them.
 

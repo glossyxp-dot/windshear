@@ -646,6 +646,9 @@ func _test_the_texture_folder_has_every_name_the_converter_reads() -> void:
 			ok(image.load(path) == OK, "the texture %s opens" % name)
 			ok(image.get_width() > 0 and image.get_height() > 0,
 				"the texture %s has a picture in it" % name)
+		var plain := "%s.png" % str(shape)
+		ok(FileAccess.file_exists("%s/%s" % [TEXTURE_FOLDER, plain]),
+			"the texture %s is there" % plain)
 
 	var files := DirAccess.get_files_at(TEXTURE_FOLDER)
 	ok(files.size() >= 500, "there are a lot of textures to pick from")

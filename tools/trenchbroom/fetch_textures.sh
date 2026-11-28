@@ -174,7 +174,7 @@ Published on OpenGameArt.org
 			------------------------------
 TEXT
 
-  say "windshear: making the sixteen tag textures"
+  say "windshear: making the tag textures"
   local godot="${WINDSHEAR_GODOT:-godot}"
   if command -v "$godot" > /dev/null 2>&1; then
     (cd "$HERE/../.." && "$godot" --headless --path . \

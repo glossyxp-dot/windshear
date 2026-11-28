@@ -21,7 +21,7 @@ godot --headless --path . --script res://tools/cell_budget_checker.gd
 
 A failed check gives the suite a non-zero exit status. CI is one line, and there's nothing to parse.
 
-The current state is **925 checks, 0 failures**, in twenty suites.
+The current state is **929 checks, 0 failures**, in twenty suites.
 
 ---
 
@@ -55,7 +55,7 @@ I spent a long time convinced that a good test suite was about coverage. It isn'
 | `test_code_policy.gd` | 10 | The code policy holds |
 | `test_world_data.gd` | 41 | The world data holds together |
 | `test_canon.gd` | 115 | The canon holds |
-| `test_trenchbroom.gd` | 217 | The trenchbroom converter works |
+| `test_trenchbroom.gd` | 221 | The trenchbroom converter works |
 | `test_greybox.gd` | 36 | The greybox holds together |
 | `test_psx.gd` | 39 | The player picks how much PSX there is |
 | `test_workbench.gd` | 13 | The workbench tunes the movement |
