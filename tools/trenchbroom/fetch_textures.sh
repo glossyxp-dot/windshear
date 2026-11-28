@@ -35,7 +35,10 @@ GAME="$HERE/game/WindShear"
 TEXTURES="$GAME/textures"
 LICENCES="$GAME/licenses"
 CACHE="${WINDSHEAR_TEXTURE_CACHE:-$HERE/.texture-cache}"
-OPEN_GAME="${WINDSHEAR_TRENCHBROOM_GAMES:-$HOME/.config/TrenchBroom/games}"
+# Where TrenchBroom keeps the user's own games on Linux. It is the same
+# folder the editor writes a game into when you add one from its own
+# preferences, so the game is always in the list.
+OPEN_GAME="${WINDSHEAR_TRENCHBROOM_GAMES:-$HOME/.TrenchBroom/games}"
 
 # The packs. Every one of them is CC0.
 PACKS=(

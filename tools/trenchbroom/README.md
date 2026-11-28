@@ -53,9 +53,18 @@ TrenchBroom shows a list of games. WindShear is one of them, and it has to be
 told where to look:
 
 ```bash
-mkdir -p ~/.config/TrenchBroom/games
-cp -r tools/trenchbroom/game/WindShear ~/.config/TrenchBroom/games/
+mkdir -p ~/.TrenchBroom/games
+cp -r tools/trenchbroom/game/WindShear ~/.TrenchBroom/games/
 ```
+
+That is the folder TrenchBroom keeps its own games in on Linux: `~/.TrenchBroom`
+is the user data path, and `games` inside it is where a game configuration
+lives. The folder has to be named after the game, `WindShear`, because that is
+where TrenchBroom looks for its pictures when it starts.
+
+> On Windows the same folder is `%APPDATA%\TrenchBroom\games` and on macOS it
+> is `~/Library/Application Support/TrenchBroom/games`. The folder button
+> under the game list opens it, whichever machine it is.
 
 That folder holds the game and its pictures:
 
@@ -129,14 +138,32 @@ tools/trenchbroom/fetch_textures.sh
 ```
 
 It downloads the five packs, flattens their names into something a texture
-browser can show, writes the sixteen tag textures, keeps the licences, and
-copies the whole game folder into `~/.config/TrenchBroom/games/`. The
+browser can show, writes the tag textures, keeps the licences, and
+copies the whole game folder into `~/.TrenchBroom/games/`. The
 downloads are kept in `tools/trenchbroom/.texture-cache/`, which is not in
 the repository.
 
 The pictures are in a folder with a `.gdignore` in it, so Godot does not
 import them and they do not slow the editor down. They are pictures for
 TrenchBroom, not for the game.
+
+## Opening WindShear
+
+1. Start TrenchBroom. The welcome window opens.
+2. Press **New map...**.
+3. The **Select Game** dialog opens. **WindShear** is in the list on the
+   right. Click it, or double click it.
+4. The **Map Format** under the list says **Valve**. WindShear has one
+   format, so there is nothing to choose.
+5. Press **OK**. The editor opens with a new map: a room, the points the
+   section needs, and the floor and walls already textured.
+
+If WindShear is not in the list, it is not in `~/.TrenchBroom/games`. The
+folder button under the game list opens the folder TrenchBroom is using.
+
+To open a map that is already saved, use **Browse...** on the welcome window,
+or drop the `.map` file on the editor. If TrenchBroom cannot tell which game
+a map is for, it asks, and WindShear is in that list too.
 
 ## The loop
 

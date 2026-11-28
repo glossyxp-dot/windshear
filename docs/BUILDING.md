@@ -118,9 +118,12 @@ It is installed at `~/Applications/TrenchBroom.AppImage`, and the WindShear
 game is installed beside it:
 
 ```bash
-mkdir -p ~/.config/TrenchBroom/games
-cp -r tools/trenchbroom/game/WindShear ~/.config/TrenchBroom/games/
+mkdir -p ~/.TrenchBroom/games
+cp -r tools/trenchbroom/game/WindShear ~/.TrenchBroom/games/
 ```
+
+`~/.TrenchBroom` is TrenchBroom's user data folder on Linux, and `games`
+inside it is where it keeps the user's own games.
 
 After that, **File → New Map** offers **WindShear**, and the entities come
 out of a list instead of being typed.
